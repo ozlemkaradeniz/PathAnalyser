@@ -4,7 +4,6 @@
 # load libraries
 require(GSVA)
 
-
 #' classifies samples according to pathway activity using GSVA
 #'
 #' @param sigDf Signature dataframe
@@ -50,8 +49,13 @@ classify <- function(sigDf, dataSe, thresh=0.05) {
   sortedDn <- scoresDn[order(scoresDn$dn, decreasing=T), ,drop=F]
 
   # compute quantiles according to user-specified threshold
-  threshUp <- quantile(sortedUp$up, probs=seq(0, 1, thresh))
-  threshDn <- quantile(sortedDn$dn, probs=seq(0, 1, thresh))
+  if (thresh > 0 && thresh < 1) {
+    threshUp <- quantile(sortedUp$up, probs=seq(0, 1, thresh))
+    threshDn <- quantile(sortedDn$dn, probs=seq(0, 1, thresh))
+  } else {
+    stop("Threshold given is not a decimal between 0 and 1.")
+  }
+
 
   # HER 2 (pathway)
   classesDf <- data.frame(sample=rownames(sortedUp),
@@ -80,7 +84,7 @@ classify <- function(sigDf, dataSe, thresh=0.05) {
 
   cat("Summary of sample classification based on pathway activity:\n")
   cat("--------------------------------------------------------------\n")
-  cat(sprintf("Total number of samples:%d\n", nrow(classesDf)))
+  cat(sprintf("Total number of samples: %d\n", nrow(classesDf)))
   print(summary(classesDf$class))
   return(classesDf)
 }
