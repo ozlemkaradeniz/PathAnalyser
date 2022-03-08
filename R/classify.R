@@ -3,7 +3,6 @@
 
 # load libraries
 require(GSVA)
-require(roxygen2)
 
 # classifies samples according to pathway activity using GSVA
 classify <- function(sigDf, dataSe, thresh=0.05) {
@@ -12,7 +11,15 @@ classify <- function(sigDf, dataSe, thresh=0.05) {
   sigs$up <- sigDf[sigDf$expression == 1, 1]
   sigs$dn <- sigDf[sigDf$expression == -1, 1]
 
-  scores <- gsva(dataSe, sigs)
+  # run GSVA on expression data using 2 gene sets (up-regulated and
+  # down-regulated) of the signature
+  if (type(dataSe) == "integer") {
+    # If the data is of type integer, these are raw counts and follow Poisson
+    scores <- gsva(dataSe, sigs, kcdf="Poisson")
+  } else {
+    scores <- gsva(dataSe, sigs)
+  }
+
 
   # transpose the matrix
   scores <- t(scores)
