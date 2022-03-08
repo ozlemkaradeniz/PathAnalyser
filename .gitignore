@@ -3,3 +3,4 @@ raw_data
 .Rhistory
 .Rbuildignore
 Test.R
+*.csv
