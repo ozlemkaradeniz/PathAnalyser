@@ -4,7 +4,21 @@
 # load libraries
 require(GSVA)
 
-# classifies samples according to pathway activity using GSVA
+
+#' classifies samples according to pathway activity using GSVA
+#'
+#' @param sigDf Signature dataframe
+#' @param dataSe Expression dataset matrix
+#' @param thresh Threshold between 0-1 for pathway classification (default: 0.05)
+#'
+#' @return classesDf
+#' @export
+#'
+#' @examples
+#' Default threshold
+#' classify(HER2_sig_df, HER_data_se)
+#' Threshold = 0.25 (top 25% of up-regulated and bottom 25% of down-regulated genes)
+#' classify(HER2_sig_df, HER_data_se, thresh=0.25)
 classify <- function(sigDf, dataSe, thresh=0.05) {
   # create list of gene sets (up-regulated and then down regulated) for gsva
   sigs <- list()
@@ -13,13 +27,12 @@ classify <- function(sigDf, dataSe, thresh=0.05) {
 
   # run GSVA on expression data using 2 gene sets (up-regulated and
   # down-regulated) of the signature
-  if (type(dataSe) == "integer") {
+  if (typeof(dataSe) == "integer") {
     # If the data is of type integer, these are raw counts and follow Poisson
-    scores <- gsva(dataSe, sigs, kcdf="Poisson")
+    scores <- gsva(dataSe, sigs, kcdf="Poisson", verbose=F)
   } else {
-    scores <- gsva(dataSe, sigs)
+    scores <- gsva(dataSe, sigs, verbose=F)
   }
-
 
   # transpose the matrix
   scores <- t(scores)
@@ -31,7 +44,7 @@ classify <- function(sigDf, dataSe, thresh=0.05) {
   colnames(scoresDn) <- "dn"
 
 
-  # sort GSVA scores in descending order for the uporegulated
+  # sort GSVA scores in descending order for the up-regulated
   # and down-regulated set
   sortedUp <- scoresUp[order(scoresUp$up, decreasing=T), ,drop=F]
   sortedDn <- scoresDn[order(scoresDn$dn, decreasing=T), ,drop=F]
@@ -66,6 +79,8 @@ classify <- function(sigDf, dataSe, thresh=0.05) {
   classesDf$class <- classes
 
   cat("Summary of sample classification based on pathway activity:\n")
+  cat("--------------------------------------------------------------\n")
+  cat(sprintf("Total number of samples:%d\n", nrow(classesDf)))
   print(summary(classesDf$class))
   return(classesDf)
 }
