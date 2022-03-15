@@ -13,7 +13,7 @@ check_HR2_signature_vs_dataset <-
         absent <- 0
         present <- 0
         for (j in 1:ncol(filtered)) {
-          if (filtered[i, j] != 0) {
+          if (filtered[i, j] < 0) {
             present <- present + 1
           }
           else{
