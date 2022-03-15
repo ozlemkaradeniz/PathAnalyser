@@ -8,7 +8,7 @@ check_HR2_signature_vs_dataset <-
     
     # calculate each gene present or absent in each case
     # store which row append in delet_gene list
-    if (nrow(filtered) != 0) {
+    if (nrow(up_data) != 0||nrow(dn_data)) {
       for (i in 1:nrow(filtered)) {
         absent <- 0
         present <- 0
@@ -65,6 +65,6 @@ check_HR2_signature_vs_dataset <-
       }
     }
     else{
-      cat("No gene present in sigunature")
+      cat("Gene absent in upregulated or downregulated signatures")
     }
   }
