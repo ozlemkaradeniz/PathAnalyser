@@ -68,6 +68,3 @@ check_HR2_signature_vs_dataset <-
       cat("No gene present in sigunature")
     }
   }
-
-data_test <- matNorm[1:100, 1:20]
-check_HR2_signature_vs_dataset(data_test, geneSigUp, geneSigDn)
