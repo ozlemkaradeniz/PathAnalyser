@@ -4,17 +4,17 @@
 \alias{classify}
 \title{Classifies samples according to pathway activity using GSVA}
 \usage{
-classify(sigDf, dataSe, thresh = 0.25)
+classify(sig_df, data_se, thresh = 0.25)
 }
 \arguments{
-\item{sigDf}{Signature dataframe}
+\item{sig_df}{Signature dataframe}
 
-\item{dataSe}{Expression dataset matrix}
+\item{data_se}{Expression dataset matrix}
 
 \item{thresh}{Threshold between 0-1 for pathway classification (default: 0.25)}
 }
 \value{
-classesDf
+classes_df
 }
 \description{
 Classifies samples according to pathway activity using GSVA
