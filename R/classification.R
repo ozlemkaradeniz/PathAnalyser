@@ -59,8 +59,8 @@ classify <- function(sig_df, data_se, up_thresh, dn_thresh) {
   # check thresholds
   if (!missing(up_thresh) && !missing(dn_thresh)) {
     # ensure thresholds are numbers between
-    stopifnot(all(up_thresh >= -1 && up_thresh <= 1),
-              all(dn_thresh >= -1 && dn_thresh <= 1))
+    stopifnot("Up-regulated gene set thresholds are not between -1 and 1."=all(up_thresh >= -1 && up_thresh <= 1),
+              "Down-regulated gene set thresholds are not between -1 and 1."=all(dn_thresh >= -1 && dn_thresh <= 1))
   } else {
     # compute quantiles
     up_thresh <- quantile(sorted_up$up, probs=c(0.25, 0.75))
