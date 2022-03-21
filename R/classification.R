@@ -1,19 +1,28 @@
-#' Classifies samples according to pathway activity using Gene Set Variation Analysis (GSVA)
+#' Sample classification based on gene signature expression
+#' @description  Classifies samples according to pathway activity using Gene Set Variation
+#' Analysis (GSVA)
 #' @author Anisha Thind \email{a.thind@@cranfield.ac.uk}
-#' @param sig_df Signature data frame
-#' @param data_se Expression data set matrix
-#' @param up_thresh Numerical vector of thresholds for the up-regulated gene set
-#' @param dn_thresh Numerical vector of thresholds for the down-regulated gene set
+#' @param sig_df Gene expression signature for a specific pathway given as data frame
+#' containing a list of genes that are the most differentially expressed when
+#' a specific pathway is active. Up-regulated genes are given an
+#' expression of 1, while down-regulated genes are given an expression of -1.
+#' @param data_se Expression data set matrix given as a matrix or data frame
+#' comprising the expression levels of genes in a set of samples. Gene expression matrices can be from RNASeq
+#' or microarray transcriptomic data sets.
+#' @param up_thresh Numerical vector of thresholds for the up-regulated gene set between -1 and 1.
+#' @param dn_thresh Numerical vector of thresholds for the down-regulated gene set between -1 and 1.
 #'
-#' @return classes_df
+#' @return A data frame containing a list of samples and their classified pathway activity
+#' (Active, Inactive or Uncertain).
 #' @export
 #'
 #' @examples
-#' # Default thresholds for up-regulated and down-regulated genesets
+#' # Default thresholds for up-regulated and down-regulated gene-sets
 #' classify(HER2_sig_df, HER_data_se)
 #' # up-regulated gene set threshold: bottom = -0.4, top = 0.4
 #' # down-regulated gene set thresholds: bottom = -0.4, top = 0.4
-#' classify(HER2_sig_df, HER_data_se, up_thresh=c(-0.4, 0.4), dn_thresh=c(-0.4, 0.4))
+#' classify(HER2_sig_df, HER_data_se, up_thresh=c(-0.4, 0.4),
+#' dn_thresh=c(-0.4, 0.4))
 classify <- function(sig_df, data_se, up_thresh, dn_thresh) {
   require(GSVA)
   # check signature arg is data frame
@@ -59,8 +68,10 @@ classify <- function(sig_df, data_se, up_thresh, dn_thresh) {
   # check thresholds
   if (!missing(up_thresh) && !missing(dn_thresh)) {
     # ensure thresholds are numbers between
-    stopifnot("Up-regulated gene set thresholds are not between -1 and 1."=all(up_thresh >= -1 && up_thresh <= 1),
-              "Down-regulated gene set thresholds are not between -1 and 1."=all(dn_thresh >= -1 && dn_thresh <= 1))
+    stopifnot("Up-regulated gene set thresholds are not between -1 and 1."=
+                all(up_thresh >= -1 && up_thresh <= 1),
+              "Down-regulated gene set thresholds are not between -1 and 1."=
+                all(dn_thresh >= -1 && dn_thresh <= 1))
   } else {
     # compute quantiles
     up_thresh <- quantile(sorted_up$up, probs=c(0.25, 0.75))
@@ -100,15 +111,23 @@ classify <- function(sig_df, data_se, up_thresh, dn_thresh) {
   return(classes_df)
 }
 
-#' Plots GSVA scores distribution for up-regulated and down-regulated sets of a gene signature
-#'
-#' @param sig_df gene signature given as a data frame
-#' @param data_se gene expression data set provided as a matrix or data frame
+#' GSVA score density plot
+#' @description Plots GSVA scores distribution for up-regulated and
+#' down-regulated gene-sets of a gene expression signature
+#' @author Anisha Thind \email{a.thind@@cranfield.ac.uk}
+#' @param sig_df Gene expression signature for a specific pathway given as data frame
+#' containing a list of genes that are the most differentially expressed when
+#' a specific pathway is active. Up-regulated genes are given an
+#' expression of 1, while down-regulated genes are given an expression of -1.
+#' @param data_se Expression data set matrix given as a matrix or data frame
+#' comprising the expression levels of genes in a set of samples. Gene expression matrices can be from RNASeq
+#' or microarray transcriptomic data sets.
 #'
 #' @return
 #' @export
 #'
 #' @examples
+#' visualiseGSVA(ER_sig_df, ER_data_se)
 visualiseGSVA <- function(sig_df, data_se) {
   require(GSVA)
   require(ggplot2)
