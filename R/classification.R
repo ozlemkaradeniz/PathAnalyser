@@ -23,7 +23,7 @@
 #' # down-regulated gene set thresholds: bottom = -0.4, top = 0.4
 #' classify(HER2_sig_df, HER_data_se, up_thresh=c(-0.4, 0.4),
 #' dn_thresh=c(-0.4, 0.4))
-classify <- function(sig_df, data_se, up_thresh, dn_thresh) {
+classify <- function(sig_df, data_se, up_thresh=NULL, dn_thresh=NULL) {
   require(GSVA)
   # check signature arg is data frame
   if (!is.data.frame(sig_df)) {
@@ -66,12 +66,18 @@ classify <- function(sig_df, data_se, up_thresh, dn_thresh) {
 
 
   # check thresholds
-  if (!missing(up_thresh) && !missing(dn_thresh)) {
-    # ensure thresholds are numbers between
-    stopifnot("Up-regulated gene set thresholds are not between -1 and 1."=
-                all(up_thresh >= -1 && up_thresh <= 1),
-              "Down-regulated gene set thresholds are not between -1 and 1."=
-                all(dn_thresh >= -1 && dn_thresh <= 1))
+  if (!is.null(up_thresh) && !is.null(dn_thresh)) {
+    # ensure user-provided thresholds are numbers between -1 and 1
+    up_expr <- expression(all(up_thresh >= -1), all(up_thresh <= 1))
+    dn_expr <- expression(all(dn_thresh >= -1), all(dn_thresh <= 1))
+    stopifnot("Up-regulated gene set thresholds are not between -1 and 1." =
+                up_expr)
+    stopifnot("Down-regulated gene set thresholds are not between -1 and 1."=
+                dn_expr)
+  } else if (!is.null(up_thresh)) {
+    stop("up_thresh argument provided but not dn_thresh argument.")
+  } else if (!is.null(dn_thresh)) {
+    stop("dn_thresh argument provided but not up_thresh argument.")
   } else {
     # compute quantiles
     up_thresh <- quantile(sorted_up$up, probs=c(0.25, 0.75))
@@ -113,7 +119,7 @@ classify <- function(sig_df, data_se, up_thresh, dn_thresh) {
 
 #' GSVA score density plot
 #' @description Plots GSVA scores distribution for up-regulated and
-#' down-regulated gene-sets of a gene expression signature
+#' down-regulated gene-sets of a provided gene expression signature
 #' @author Anisha Thind \email{a.thind@@cranfield.ac.uk}
 #' @param sig_df Gene expression signature for a specific pathway given as data frame
 #' containing a list of genes that are the most differentially expressed when
