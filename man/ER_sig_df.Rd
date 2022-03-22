@@ -7,7 +7,7 @@
 \format{
 A data frame with 160 rows and 2 variables:
 \describe{
-\item{gene}{The name of highly differentially expressed gene when ER
+\item{gene}{The name of a highly differentially expressed gene when ER
 pathway is active.}
 \item{expression}{The change in expression of the gene when the pathway
 is active i.e. -1 for down-regulated genes and 1 for up-regulated genes.}

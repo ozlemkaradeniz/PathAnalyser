@@ -7,16 +7,19 @@
 \format{
 A data frame with 387 rows and 2 variables:
 \describe{
-\item{gene}{The name of highly differentially expressed gene when HER2
+\item{gene}{The name of a highly differentially expressed gene when HER2
 pathway is active.}
 \item{expression}{The change in expression of the gene when the pathway
 is active i.e. -1 for down-regulated genes and 1 for up-regulated genes.}
 }
 }
 \source{
-MSigDB \url{https://www.gsea-msigdb.org/gsea/msigdb/geneset_page.jsp?geneSetName=ERBB2_UP.V1_UP}
+MSigDB (For up-regulated portion:
+\url{https://www.gsea-msigdb.org/gsea/msigdb/geneset_page.jsp?geneSetName=ERBB2_UP.V1_UP})
 
-MSigDB \url{https://www.gsea-msigdb.org/gsea/msigdb/cards/ERBB2_UP.V1_DN.html}
+MSigDB (For down-regulated portion:
+\url{https://www.gsea-msigdb.org/gsea/msigdb/cards/ERBB2_UP.V1_DN.html}
+)
 }
 \usage{
 HER2_sig_df
