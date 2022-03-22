@@ -4,7 +4,7 @@
 \alias{classify}
 \title{Sample classification based on gene signature expression}
 \usage{
-classify(sig_df, data_se, up_thresh, dn_thresh)
+classify(sig_df, data_se, up_thresh = NULL, dn_thresh = NULL)
 }
 \arguments{
 \item{sig_df}{Gene expression signature for a specific pathway given as data frame

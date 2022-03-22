@@ -21,7 +21,7 @@ or microarray transcriptomic data sets.}
 }
 \description{
 Plots GSVA scores distribution for up-regulated and
-down-regulated gene-sets of a gene expression signature
+down-regulated gene-sets of a provided gene expression signature
 }
 \examples{
 visualiseGSVA(ER_sig_df, ER_data_se)
