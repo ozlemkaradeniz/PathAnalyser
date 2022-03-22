@@ -1,4 +1,4 @@
-check_HR2_signature_vs_dataset <-
+check_signature_vs_dataset <-
   function(data_norm, sig_up_df, sig_dn_df) {
     # filter gene signature in expression matrix
     up_data <- data_norm[rownames(data_norm) %in% sig_up_df[, 1],]
@@ -8,12 +8,12 @@ check_HR2_signature_vs_dataset <-
     
     # calculate each gene present or absent in each case
     # store which row append in delet_gene list
-    if (nrow(up_data) != 0||nrow(dn_data)) {
+    if (nrow(up_data) != 0||nrow(dn_data)!=0) {
       for (i in 1:nrow(filtered)) {
         absent <- 0
         present <- 0
         for (j in 1:ncol(filtered)) {
-          if (filtered[i, j] < 0) {
+          if (filtered[i, j] > 0) {
             present <- present + 1
           }
           else{
