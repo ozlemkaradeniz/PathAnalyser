@@ -39,7 +39,10 @@ LazyData: true
 Imports:
   edgeR,
   limma,
-  GSVA
+  GSVA,
+  reshape2,
+  ggplot2
 Suggests:
   rmarkdown,
-  knitr
+  knitr,
+  testthat
