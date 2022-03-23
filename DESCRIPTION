@@ -1,12 +1,48 @@
 Package: PathAnalyser
-Title: What the Package Does (One Line, Title Case)
+Title: ER & HER2 Pathway Activity Analysis For Breast Cancer Transcriptomic Datasets 
 Version: 0.0.0.9000
-Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+Authors@R:
+    c(
+    person("Taniya", "Pal", email="Taniya.Pal.094@cranfield.ac.uk", 
+      role="aut"),
+    person("Rishab", "Kaushik", email="rishabh.kaushik.126@cranfield.ac.uk",
+      role="aut"),
+    person("Yi-Hsuan", "Lee", email="yi-hsuan.lee@cranfield.ac.uk",
+      role="aut"),
+    person("Ozlem", "Karadeniz", email="ozlem.karadeniz.283@cranfield.ac.uk",
+      role="aut"),
+    person("Justice", "Iheanyichi", email="j.iheanyichi.616@cranfield.ac.uk",
+      role="aut"),
+    person("Anisha", "Thind", email="a.thind@cranfield.ac.uk", 
+      role = c("aut", "cre")),
+    person("Alexey", "Larionov", email="alexey.larionov@cranfield.ac.uk", 
+      role="dgs"),
+    person("Cranfield University", role="cph")
+    )
+Description: PathAnalyser provides an assessment of molecular pathway activity 
+  in transcriptomic datasets. The classification algorithm employed by 
+  PathAnalyser implements Gene GSVA to classify samples in a transcriptomic dataset 
+  by pathway activity using a gene signature. Currently, the package provides 
+  built-in data for assessment of ER & HER2 pathway activity in breast cancer 
+  transcriptomic datasets, however the PathAnalyser functionality could also be 
+  applied to gene signatures and/or transcriptomic datasets in non-oncological 
+  contexts.
+License: MIT + file LICENSE
 Encoding: UTF-8
+URL: https://github.com/a-thind/PathAnalyser
+BugReports: https://github.com/a-thind/PathAnalyser/issues
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.2.9000
+RoxygenNote: 7.1.2
+Depends: 
+    R (>= 2.10)
+LazyData: true
+Imports:
+  edgeR,
+  limma,
+  GSVA,
+  reshape2,
+  ggplot2
+Suggests:
+  rmarkdown,
+  knitr,
+  testthat

@@ -1,22 +1,23 @@
-#Function for data transformation 
-require(DESeq2)
-Transform <-function (data_es,method="log"){
-  if(missing(method)){
-    data_es_log<-log10(data_es)
-    return(data_es_log)
-  }
-  else if(method=="vst"){
-    data_es_vst<-vst(data_es)
-    return(data_es_vst)
-  }
-   else if(method=="sqrt"){
-     data_es_sqrt<-sqrt(data_es)
-     return(data_es_sqrt)
-   }
-  else{
-    data_es_log<-log10(data_es)
-    return(data_es_log)
-  }
+#' Transforms gene expression dataset according to CPM read count normalization
+#' @description Transforms gene expression dataset according to CPM read count normalization,
+#'              calls cmp method in edgeR library
+#'
+#' @author Rishabh Kaushik \email{rishabh.kaushik.126@cranfield.ac.uk}
+#' @param data_es  Gene expression data matrix
+#'
+#'
+#' @return Normalized Gene expression data matrix
+#' @export
+#'
+#' @examples transform(data_es)
+#'
+
+transform <-function (data_es){
+   require(edgeR)
+
+    data_es_log_cpm<-cpm(data_es, log=TRUE)
+    return(data_es_log_cpm)
+
 }
 
 

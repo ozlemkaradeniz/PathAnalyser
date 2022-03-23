@@ -1,19 +1,52 @@
-check_HR2_signature_vs_dataset <-
+
+#' Validity check in gene signatures and gene expression datasets
+#' @description performs validity check against gene signatures and gene expression dataset and
+#'          filters gene expression dataset accordingly
+#'
+#' @author Yi-Hsuan Lee \email{yi-hsuan.lee@cranfield.ac.uk}
+#' @param data_norm  Normalized Gene expression data matrix
+#' @param sig_up_df  Up-regulated gene-set
+#' @param sig_dn_df  Down-regulated gene-set
+#'
+#'
+#' @return Filtered Normalized Gene expression data matrix
+#' @export
+#'
+#' @examples check_signature_vs_dataset(data_norm, sig_up_df, sig_dn_d)
+
+
+check_signature_vs_dataset <-
   function(data_norm, sig_up_df, sig_dn_df) {
+
+    sig_up_df<-as.data.frame(sig_up_df)
+    sig_dn_df<-as.data.frame(sig_dn_df)
+
+
     # filter gene signature in expression matrix
     up_data <- data_norm[rownames(data_norm) %in% sig_up_df[, 1],]
     dn_data <- data_norm[rownames(data_norm) %in% sig_dn_df[, 1],]
     filtered <- as.matrix(rbind(up_data, dn_data))
     delet_gene_list <- list()
-    
+
+
     # calculate each gene present or absent in each case
     # store which row append in delet_gene list
     if (nrow(filtered) != 0) {
+
+
+    # calculate each gene present or absent in each case
+    # store which row append in delet_gene list
+    if (nrow(up_data) != 0||nrow(dn_data)!=0) {
+
       for (i in 1:nrow(filtered)) {
         absent <- 0
         present <- 0
         for (j in 1:ncol(filtered)) {
+
           if (filtered[i, j] != 0) {
+
+          if (filtered[i, j] > 0) {
+
             present <- present + 1
           }
           else{
@@ -43,7 +76,7 @@ check_HR2_signature_vs_dataset <-
         count_list$average <- 0
         for (i in 1:nrow(filtered_mat)) {
           gene_case_count <- list() # get gene count from each case
-          
+
           gene_case_count <- filtered_mat[i,]
           count_list$minimun[i] <- min(gene_case_count)
           count_list$maximun[i] <- max(gene_case_count)
@@ -59,7 +92,7 @@ check_HR2_signature_vs_dataset <-
             count_list$average[i],
             "\n"
           )
-          
+
         }
         return(filtered_mat)
       }
@@ -71,3 +104,7 @@ check_HR2_signature_vs_dataset <-
 
 data_test <- matNorm[1:100, 1:20]
 check_HR2_signature_vs_dataset(data_test, geneSigUp, geneSigDn)
+      cat("Gene absent in upregulated or downregulated signatures")
+    }
+  }
+
