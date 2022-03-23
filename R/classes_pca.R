@@ -11,7 +11,7 @@
 #' @return
 #' @export
 #'
-#' @examples classes_pca(normalized_data_filtered, predicted_labels_df, 'HER2')
+#' @examples classes_pca(normalized_data_filtered, predicted_labels_df, 'ER')
 #'
 
 classes_pca <-
@@ -22,11 +22,10 @@ classes_pca <-
     library(ggfortify)
 
     data_filtered<-t(normalized_data_filtered)
-
+    row.names(predicted_labels_df)<-predicted_labels_df$sample
     Merged<-merge(predicted_labels_df,data_filtered,by='row.names',all=T)
-    Merged<-Merged[,-2]
+    Merged<-Merged[,-1]
     pca_res <- prcomp(Merged[3:ncol(Merged)], scale. = TRUE)
-    autoplot(pca_res, data = Merged, colour = "classes",main=pathway_name)
+    autoplot(pca_res, data = Merged, colour = "class",main=pathway_name)
 
   }
-
