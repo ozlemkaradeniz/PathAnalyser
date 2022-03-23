@@ -1,6 +1,6 @@
 library(testthat)
 source_file("R/classification.R")
-data("ER_sig")
+data("ER_sig_df")
 data("ER_data_se1")
 
 test_that("signature is not a dataframe", {
@@ -21,14 +21,16 @@ test_that("expression matrix is not a dataframe or matrix", {
 })
 
 test_that("Incorrect thresholds generate appropriate errors", {
-  expect_error(classify(ER_sig_df, ER_data_se, up_thresh=c(0, 2),
+  expect_error(classify(ER_sig_df, ER_data_se, up_thresh=c(-0.4, 1.4),
                         dn_thresh=c(-0.4, 0.4)),
-               "Up-regulated gene set thresholds are not between -1 and 1.")
+               "Gene set thresholds for classification must be between -1 and 1.")
+  expect_error(classify(ER_sig_df, ER_data_se, up_thresh=c(-1.4, 0.4),
+                        dn_thresh=c(-0.4, 0.4)),
+               "Gene set thresholds for classification must be between -1 and 1.")
   expect_error(classify(ER_sig_df, ER_data_se, up_thresh=c(-0.4, 0.4),
-                        dn_thresh=c(-1.5, 0.5)),
-               "Up-regulated gene set thresholds are not between -1 and 1.")
-  expect_error(classify(ER_sig_df, ER_data_se, up_thresh=c(-0.4, 0.7)),
-               "up_thresh argument provided but not dn_thresh argument.")
-  expect_error(classify(ER_sig_df, ER_data_se, dn_thresh=c(-0.4, 0.7)),
-               "dn_thresh argument provided but not up_thresh argument.")
+                        dn_thresh=c(-0.4, 1.4)),
+               "Gene set thresholds for classification must be between -1 and 1.")
+  expect_error(classify(ER_sig_df, ER_data_se, up_thresh=c(-0.4, 0.4),
+                        dn_thresh=c(-1.4, 0.4)),
+               "Gene set thresholds for classification must be between -1 and 1.")
 })
