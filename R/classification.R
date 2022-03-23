@@ -68,12 +68,10 @@ classify <- function(sig_df, data_se, up_thresh=NULL, dn_thresh=NULL) {
   # check thresholds
   if (!is.null(up_thresh) && !is.null(dn_thresh)) {
     # ensure user-provided thresholds are numbers between -1 and 1
-    up_expr <- expression(all(up_thresh >= -1), all(up_thresh <= 1))
-    dn_expr <- expression(all(dn_thresh >= -1), all(dn_thresh <= 1))
-    stopifnot("Up-regulated gene set thresholds are not between -1 and 1." =
-                up_expr)
-    stopifnot("Down-regulated gene set thresholds are not between -1 and 1."=
-                dn_expr)
+    if (any(up_thresh <= -1) || any(up_thresh >= 1) ||
+            any(dn_thresh <= -1) || any(dn_thresh >= 1)) {
+      stop("Gene set thresholds for classification must be between -1 and 1.")
+    }
   } else if (!is.null(up_thresh)) {
     stop("up_thresh argument provided but not dn_thresh argument.")
   } else if (!is.null(dn_thresh)) {
@@ -133,8 +131,8 @@ classify <- function(sig_df, data_se, up_thresh=NULL, dn_thresh=NULL) {
 #' @export
 #'
 #' @examples
-#' visualiseGSVA(ER_sig_df, ER_data_se)
-visualiseGSVA <- function(sig_df, data_se) {
+#' visualise_GSVA(ER_sig_df, ER_data_se)
+visualise_GSVA <- function(sig_df, data_se) {
   require(GSVA)
   require(ggplot2)
   require(reshape2)
