@@ -1,4 +1,6 @@
 
+
+
 #' Validity check in gene signatures and gene expression datasets
 #' @description performs validity check against gene signatures and gene expression dataset and
 #'          filters gene expression dataset accordingly
@@ -15,38 +17,22 @@
 #' @examples check_signature_vs_dataset(data_norm, sig_up_df, sig_dn_d)
 
 
-check_signature_vs_dataset <-
+check_HR2_signature_vs_dataset <-
   function(data_norm, sig_up_df, sig_dn_df) {
-
-    sig_up_df<-as.data.frame(sig_up_df)
-    sig_dn_df<-as.data.frame(sig_dn_df)
-
-
     # filter gene signature in expression matrix
     up_data <- data_norm[rownames(data_norm) %in% sig_up_df[, 1],]
     dn_data <- data_norm[rownames(data_norm) %in% sig_dn_df[, 1],]
     filtered <- as.matrix(rbind(up_data, dn_data))
     delet_gene_list <- list()
 
-
     # calculate each gene present or absent in each case
     # store which row append in delet_gene list
     if (nrow(filtered) != 0) {
-
-
-    # calculate each gene present or absent in each case
-    # store which row append in delet_gene list
-    if (nrow(up_data) != 0||nrow(dn_data)!=0) {
-
       for (i in 1:nrow(filtered)) {
         absent <- 0
         present <- 0
         for (j in 1:ncol(filtered)) {
-
           if (filtered[i, j] != 0) {
-
-          if (filtered[i, j] > 0) {
-
             present <- present + 1
           }
           else{
@@ -101,10 +87,3 @@ check_signature_vs_dataset <-
       cat("No gene present in sigunature")
     }
   }
-
-data_test <- matNorm[1:100, 1:20]
-check_HR2_signature_vs_dataset(data_test, geneSigUp, geneSigDn)
-      cat("Gene absent in upregulated or downregulated signatures")
-    }
-  }
-
