@@ -2,8 +2,7 @@
 % Please edit documentation in R/calculate_accuracy.R
 \name{calculate_accuracy}
 \alias{calculate_accuracy}
-\title{Classifies samples according to pathway activity using GSVA
-Creates confusion matrix and calculate accuracy of classification method}
+\title{Calculation of accuracy by  confusion matrix}
 \usage{
 calculate_accuracy(true_labels_df, predicted_labels_df)
 }
@@ -16,7 +15,6 @@ calculate_accuracy(true_labels_df, predicted_labels_df)
 confusion_matrix_HER2
 }
 \description{
-Classifies samples according to pathway activity using GSVA
 Creates confusion matrix and calculate accuracy of classification method
 }
 \examples{
