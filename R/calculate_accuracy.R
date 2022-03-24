@@ -90,6 +90,15 @@ calculate_accuracy <-function(true_labels_df, predicted_labels_df){
   print("--------------------------------------------------------------")
   print(summary(confusion_matrix_HER2))
 
+  # roc_pred <- prediction(predictions = p  , labels = test$hd)
+  #
+  # hd_data$hd <- factor(hd_data$hd )
+  # roc_perf <- performance(roc_pred , "tpr" , "fpr")
+  # plot(roc_perf,
+  #      colorize = TRUE,
+  #      print.cutoffs.at= seq(0,1,0.05),
+  #      text.adj=c(-0.2,1.7))
+
   return(confusion_matrix_HER2)
 }
 

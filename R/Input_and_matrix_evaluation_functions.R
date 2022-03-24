@@ -9,8 +9,8 @@
 #'
 #' @examples readmatrix(matrix)
 
-readmatrix=function(matrix){
-  rownames(expdata)=expdata[,1]
+readmatrix=function(expdata){
+  #rownames(expdata)=expdata[,1]
   expdata=expdata[-1,-1]
   for (i in 1:ncol(expdata)){
     class(expdata[,i])="numeric"
@@ -77,6 +77,8 @@ evaluatematrix=function(expdata){
   #statistical summary of the expression matrix
   library(matrixStats)
   matrix.mean=mean(expdata)
+  min<-min(expdata)
+  max<-max(expdata)
   #install.packages("matrixStats")
   matrix.range=c(paste("Minimum value:", min), paste("Maximum value:", max))
   matrix.stats=c(paste("Range of matrix::", matrix.range), paste("Mean of matrix::", matrix.mean))

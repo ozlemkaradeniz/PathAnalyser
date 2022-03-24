@@ -11,7 +11,7 @@
 #' @return
 #' @export
 #'
-#' @examples classes_pca(normalized_data_filtered, predicted_labels_df, 'HER2')
+#' @examples classes_pca(normalized_data_filtered, predicted_labels_df, 'ER')
 #'
 
 classes_pca <-
@@ -29,4 +29,3 @@ classes_pca <-
     autoplot(pca_res, data = Merged, colour = "class",main=pathway_name)
 
   }
-
