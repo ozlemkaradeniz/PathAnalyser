@@ -77,19 +77,17 @@ classify <- function(sig_df, data_se, up_thresh=NULL, dn_thresh=NULL) {
   } else if (!is.null(dn_thresh)) {
     stop("dn_thresh argument provided but not up_thresh argument.")
   } else {
-    # compute quantiles
+    # compute quartiles
     up_thresh <- quantile(sorted_up$up, probs=c(0.25, 0.75))
     dn_thresh <- quantile(sorted_dn$dn, probs=c(0.25, 0.75))
   }
 
-
-  # HER 2 (pathway)
+  # create data frame containing samples and classes
   classes_df <- data.frame(sample=rownames(sorted_up),
                           class=vector(mode="character", nrow(sorted_up)))
   row.names(classes_df) <- classes_df$samples
-  # loop through genes if a gene has high score for up-regulated and has
-  # low score for down-regulated genes, then that sample is positive for pathway
-  # if reverse then negative, else uncertain
+  # Loop through sample rows and check consistency with up-regulated and down-
+  # regulated parts of the gene signature
   classes_list <- lapply(rownames(sorted_up), function(i) {
    if (sorted_up[i, 1] > up_thresh[2] &&
        sorted_dn[i, 1] < dn_thresh[1]) {
