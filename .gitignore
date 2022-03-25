@@ -10,3 +10,4 @@ raw_data
 Test.R
 *.csv
 >>>>>>> bd2e8c19dc5f8f65849b417be29077a4638f7be2
+inst/doc

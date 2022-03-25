@@ -1,0 +1,58 @@
+---
+title: "my-vignette"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{my-vignette}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Summary
+
+...
+
+# Installation
+
+```{r setup}
+
+# Install from github
+library(devtools)
+devtools::install_gitlab("a-thind/PathAnalyser")
+
+# Install from soutce
+install.packages(..., type="soutce")
+
+# Load lirary
+library(PathAnalyser)
+```
+
+# Read data
+
+User can read own data with ...
+
+```{r eval=F}
+# input functions ...
+```
+
+alternatively - use provided data...
+```{r}
+
+expr_data <- PathAnalyser::ER_data_se1
+head(expr_data)
+
+signature <- PathAnalyser::ER_sig_df
+
+
+```
+
+# QC & PP
+

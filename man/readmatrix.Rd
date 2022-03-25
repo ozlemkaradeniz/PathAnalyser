@@ -4,7 +4,7 @@
 \alias{readmatrix}
 \title{Reading gene expression data matrix}
 \usage{
-readmatrix(expdata, rowData, colData)
+readmatrix(matrix)
 }
 \arguments{
 \item{matrix}{Gene expression data matrix}
