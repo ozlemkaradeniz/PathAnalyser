@@ -2,40 +2,37 @@
 % Please edit documentation in R/classification.R
 \name{classify}
 \alias{classify}
-\title{Sample classification based on gene signature expression}
+\title{Generic classify function for classifying samples based on GSVA scores}
 \usage{
-classify(sig_df, data_se, up_thresh = NULL, dn_thresh = NULL)
+classify(
+  gsva_scores,
+  up_thresh.low,
+  up_thresh.high,
+  dn_thresh.low,
+  dn_thresh.high
+)
 }
 \arguments{
-\item{sig_df}{Gene expression signature for a specific pathway given as data frame
-containing a list of genes that are the most differentially expressed when
-a specific pathway is active. Up-regulated genes are given an
-expression of 1, while down-regulated genes are given an expression of -1.}
+\item{gsva_scores}{List containing a data frame (Up) of samples and their
+corresponding GSVA scores when running GSVA on the up-regulated gene-set, and
+a dataframe (Down) with GSVA scores for the same samples when running GSVA
+on the down-regulated gene-set.}
 
-\item{data_se}{Expression data set matrix given as a matrix or data frame
-comprising the expression levels of genes in a set of samples. Gene expression matrices can be from RNASeq
-or microarray transcriptomic data sets.}
+\item{up_thresh}{Numerical vector containing the low and high threshold for
+classification when checking consistency with only the up-regulated gene-set
+of the gene signature}
 
-\item{up_thresh}{Numerical vector of thresholds for the up-regulated gene set between -1 and 1.}
-
-\item{dn_thresh}{Numerical vector of thresholds for the down-regulated gene set between -1 and 1.}
+\item{dn_thresh}{Numerical vector containing the low and high threshold for
+classification when checking consistency with only the down-regulated
+gene-set of the gene signature}
 }
 \value{
-A data frame containing a list of samples and their classified pathway activity
-(Active, Inactive or Uncertain).
+data frame containing the pathway activity class labels for each
+sample i.e. "Active", "Inactive" or "Uncertain".
 }
 \description{
-Classifies samples according to pathway activity using Gene Set Variation
-Analysis (GSVA)
+Generic classify function for classifying samples based on GSVA scores
 }
 \examples{
-# Default thresholds for up-regulated and down-regulated gene-sets
-classify(HER2_sig_df, HER_data_se)
-# up-regulated gene set threshold: bottom = -0.4, top = 0.4
-# down-regulated gene set thresholds: bottom = -0.4, top = 0.4
-classify(HER2_sig_df, HER_data_se, up_thresh=c(-0.4, 0.4),
-dn_thresh=c(-0.4, 0.4))
-}
-\author{
-Anisha Thind \email{a.thind@cranfield.ac.uk}
+classes_df <- classify(gsva_scores, up_thresh, dn_thresh)
 }
