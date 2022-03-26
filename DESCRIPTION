@@ -41,7 +41,8 @@ Imports:
   limma,
   GSVA,
   reshape2,
-  ggplot2
+  ggplot2,
+  ggfortify
 Suggests:
   rmarkdown,
   knitr,
