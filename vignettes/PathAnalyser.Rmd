@@ -159,14 +159,31 @@ head(HER2_data_se1)
 
 
 # Reading input data using PathAnalyser
+There are two types of input required for pathway activity assessment using 
+PathAnalyser:
+
+1.  gene expression data matrices
+2.  gene expression signatures
+
+## Gene expression data
+The `read_expression_data` function reads gene expression data from a 
+tab-delimited text file with gene names as the first column and successive 
+columns containing gene expression data for each sample in the given data set. 
 ```{r eval=FALSE}
 data_se <- read_expression_data("~/PathAnalyser/raw_data/Toy_dataset.txt")
+
+```
+
+## Gene signature data
+Gene signature files that follow the gene set format (ending with .grp) can be 
+read by the `read_signature_data` function.
+```{r eval=FALSE}
 sig_df <- read_signature_data("~/PathAnalyser/raw_data/ESR1_UP.v1._UP.grp", "~/PathAnalyser/raw_data/ESR1_DN.v1_DN.grp")
 ```
 
 # Quality control and pre-processing of data
-For this demonstration, we will use the built-in gene expression dataset matrix
-`ER_data_se1`.
+For the remainder of this demonstration, we will use the built-in gene 
+expression data set matrix `ER_data_se1`.
 ```{r}
 data_se <- ER_data_se1 # stand-in until input functions are completed
 evaluatematrix(data_se) # need to change name to evaluate_matrix
@@ -213,6 +230,10 @@ sessionInfo()
 ```
 
 # References
+Hänzelmann, S., Castelo, R. & Guinney, J. GSVA: gene set variation analysis for 
+microarray and RNA-Seq data. BMC Bioinformatics 14, 7 (2013). 
+https://doi.org/10.1186/1471-2105-14-7
+
 Symmans, W.F., Hatzis, C., Sotiriou, C., Andre, F., Peintinger, F., Regitnig, 
 P., Daxenbichler, G., Desmedt, C., Domont, J., Marth, C. and Delaloge, S., 
 2010. Genomic index of sensitivity to endocrine therapy for breast cancer. 
