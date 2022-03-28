@@ -76,25 +76,3 @@
 #' }
 #' @source TCGA \url{}).
 "HER2_data_se1"
-
-#' ER gene expression data set 2
-#'
-#' A gene expression matrix for 20 samples (10 ER positive and 10 ER negative).
-#' @format A data frame with 23,113 rows and 20 variables:
-#' \describe{
-#'    \item{gene}{The name of the gene for which expression data is provided.}
-#'    \item{sample}{The sample or case ID.}
-#' }
-#' @source cBioPortal \url{}).
-"ER_data_se2"
-
-#' HER gene expression data set 2
-#'
-#' A gene expression matrix for 20 samples (10 HER2 positive and 10 HER2 negative).
-#' @format A data frame with 23,113 rows and 20 variables:
-#' \describe{
-#'    \item{gene}{The name of the gene for which expression data is provided.}
-#'    \item{sample}{The sample or case ID.}
-#' }
-#' @source cBioPortal \url{}).
-"HER2_data_se2"
