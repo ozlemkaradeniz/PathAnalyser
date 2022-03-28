@@ -90,13 +90,13 @@ classify_GSVA_abs <- function(sig_df, data_se, up_thresh.low,
 #'        thresh_percent=30)
 classify_GSVA_percent <- function(sig_df, data_se, thresh_percent=25){
   # check threshold is a number between 0-100%
-  if (thresh_percent <=0 || thresh_percent >= 100) {
-    stop("Percentile threshold is not a number between 0 and 100.")
-  }
   thresh <- thresh_percent / 100
   scores <- .run_GSVA(sig_df, data_se)
   # compute percentiles
-  up_thresh <- quantile(scores$Up[,1], c(thresh, 1-thresh))
+  tryCatch(up_thresh <- quantile(scores$Up[,1], c(thresh, 1-thresh)),
+           error=function(e){
+    stop("Percentile threshold given is not a number between 0 and 100.")
+  })
   dn_thresh <- quantile(scores$Down[,1], c(thresh, 1-thresh))
   classes_df <- .classify(scores, up_thresh.low=up_thresh[1], up_thresh.high=up_thresh[2],
            dn_thresh.low=dn_thresh[1], dn_thresh.high=dn_thresh[2])
@@ -273,7 +273,7 @@ visualise_GSVA <- function(sig_df, data_se) {
   classes_df$class <- classes
   cat("Summary of sample classification based on pathway activity:\n")
   cat("--------------------------------------------------------------\n")
-  cat("Number of samples in each Pathway activity class:\n")
+  cat("Number of samples in each pathway activity class:\n")
   print(table(classes_df$class))
   cat(sprintf("\nTotal number of samples: %d\n", nrow(classes_df)))
   return(classes_df)
