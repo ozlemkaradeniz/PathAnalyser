@@ -69,19 +69,22 @@ check_signature_vs_dataset <-
           count_list$minimun[i] <- min(gene_case_count)
           count_list$maximun[i] <- max(gene_case_count)
           count_list$average[i] <- mean(gene_case_count)
-          cat(
-            "\n",
-            row.names(filtered_mat)[i],
-            ":\nMinimun count:",
-            count_list$minimun[i],
-            "\nMaximun count:",
-            count_list$maximun[i],
-            "\nAverage count:",
-            count_list$average[i],
-            "\n"
-          )
 
         }
+         df_plot <-
+          data.frame( legend= rep(c("minimun", "maximun", "average"), each = gene_count),
+                      gene = rep(1:gene_count, 3))
+        df_plot$counts<-""
+        for(i in 1:gene_count){
+          df_plot[i,3]<-count_list$minimun[i]
+          df_plot[i+gene_count,3]<-count_list$maximun[i]
+          df_plot[i+gene_count*2,3]<-count_list$average[i]
+        }
+        df_plot$counts <- as.numeric(as.vector(df_plot$counts))
+        ggplot(data=df_plot, aes(x=gene, y=counts, group=legend, color=legend)) +
+          geom_line() + geom_point()+
+          scale_color_brewer(palette="Dark2")+
+          theme_minimal()
         return(filtered_mat)
       }
     }
