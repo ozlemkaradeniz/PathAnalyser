@@ -281,7 +281,7 @@ binary nature of pathway activity and gene expression broadly (samples will
 tend to have either very high or low expression of the up-regulated and 
 down-regulated gene set resulting in two modes or peaks for each gene set). 
 Figure \@ref(fig:plot) shows two peaks for each gene set when running 
-`visualise_GSVA` with CPM-normalized `ER_data_se1` gene expression matrix. For 
+`visualise_GSVA` with logCPM-normalized `ER_data_se1` gene expression matrix. For 
 both gene sets, the peak with the highest GSVA scores represents samples with 
 *high* abundance of expression of the gene set and the lower score peak 
 represents samples with *low* abundance of expression of the gene set.
