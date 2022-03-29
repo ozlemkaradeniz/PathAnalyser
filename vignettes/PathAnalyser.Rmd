@@ -70,7 +70,7 @@ data_se <- read_expression_data("~/PathAnalyser/raw_data/Toy_dataset.txt")
 sig_df <- read_signature_data("up-sig-file.grp", "down-sig-file.grp")
 
 # Getting statistical information for the gene expression data matrix
-evaluatematrix(data_se)
+transform_matrix(data_se)
 
 # QC and pre-process data
 normalized_se <- transform(data_se)
@@ -201,7 +201,7 @@ The `read_expression_data` function reads gene expression data from a
 tab-delimited text file with gene names as the first column and successive 
 columns containing gene expression data for each sample in the given data set. 
 ```{r eval=FALSE}
-data_se <- read_expression_data("/Users/taniyapal/Documents/Group Project/GSVA ANalysis subdata.csv")
+data_se <- read_expression_data("~/PathAnalyser/raw_data/Toy_dataset.txt")
 
 ```
 
@@ -209,14 +209,14 @@ data_se <- read_expression_data("/Users/taniyapal/Documents/Group Project/GSVA A
 Gene signature files that follow the gene set format (ending with .grp) can be 
 read by the `read_signature_data` function.
 ```{r eval=FALSE}
-sig_df <- read_signature_data("ER_sig_df", "HER2_sig_df")
+sig_df <- read_signature_data("~/PathAnalyser/raw_data/ESR1_UP.v1._UP.grp", "~/PathAnalyser/raw_data/ESR1_DN.v1_DN.grp")
 ```
 
 # Quality control and pre-processing of data
 For the remainder of this demonstration, we will use the built-in gene 
 expression data set matrix `ER_data_se1`.
 ```{r}
-evaluatematrix(ER_data_se1) # need to change name to evaluate_matrix
+transform_matrix(ER_data_se1)
 normalized_se <- transform(ER_data_se1)
 #data_se <- check_signature_vs_dataset(normalized_se, ER_up_sig, ER_dn_sig)
 ```
@@ -285,7 +285,7 @@ Figure \@ref(fig:plot) shows two peaks for each gene set when running
 both gene sets, the peak with the highest GSVA scores represents samples with 
 *high* abundance of expression of the gene set and the lower score peak 
 represents samples with *low* abundance of expression of the gene set.
-```{r plot, fig.cap="Density plots showing the distribution of GSVA scores for samples in CPM-normalised `ER_data_se1` data set for the up-regulated (left) and down-regulated gene set (right) of the pathway signature using `visualise_GSVA` function."}
+```{r plot, fig.cap="Density plots showing the distribution of GSVA scores for samples in logCPM-normalised `ER_data_se1` data set for the up-regulated (left) and down-regulated gene set (right) of the pathway signature using `visualise_GSVA` function."}
 visualise_GSVA(ER_sig_df, normalized_se)
 ```
 
@@ -310,7 +310,7 @@ with GSVA scores between the these thresholds for both the up-regulated and down
 -regulated gene-set would be considered by the classification algorithm as having 
 "Uncertain" pathway activity.
 
-```{r thresholds, fig.cap="GSVA scores distributions of the samples for the down-regulated (left) and up-regulated gene set (right) of the pathway gene signature, showing absolute thresholds of -0.2 and 0.2 for characterising low and high expression abundance of both gene sets respectively. The expression data set used is the CPM-normalised `ER_data_se1` gene expression data set."}
+```{r thresholds, fig.cap="GSVA scores distributions of the samples for the down-regulated (left) and up-regulated gene set (right) of the pathway gene signature, showing absolute thresholds of -0.2 and 0.2 for characterising low and high expression abundance of both gene sets respectively. The expression data set used is the logCPM-normalised `ER_data_se1` gene expression data set."}
 plot <- visualise_GSVA(ER_sig_df, normalized_se)
 # Add thresholds on plot
 library(ggplot2)
@@ -325,7 +325,7 @@ inconsistency expression thresholds for the pathway signature (high expression
 thresholds would be lower, low expression thresholds would be higher for each 
 gene set).
 
-```{r relaxed, fig.cap="GSVA scores distributions of samples with more relaxed thresholds for assessing expression consistency of the down-regulated gene set (left) and the up-regulated gene set (right) with the pathway gene expression signature. Low and high expression abundance thresholds for the down-regulated gene set (left) are set to -0.1 and 0.1 respectively, while low and high expression abundance thresholds for the up-regulated gene set (right) are also set to -0.1 and 0.1 respectively. Data is generated from running GSVA on CPM-normalised `ER_data_se1` expression dataset with ER signature (`ER_sig_df`)."}
+```{r relaxed, fig.cap="GSVA scores distributions of samples with more relaxed thresholds for assessing expression consistency of the down-regulated gene set (left) and the up-regulated gene set (right) with the pathway gene expression signature. Low and high expression abundance thresholds for the down-regulated gene set (left) are set to -0.1 and 0.1 respectively, while low and high expression abundance thresholds for the up-regulated gene set (right) are also set to -0.1 and 0.1 respectively. Data is generated from running GSVA on logCPM-normalised `ER_data_se1` expression dataset with ER signature (`ER_sig_df`)."}
 # more relaxed thresholds, fewer uncertain labels
 data_threshs <- data.frame(Geneset=c("Up", "Down"), 
                            vline=c(-0.1, 0.1))
@@ -336,7 +336,7 @@ Conversely, expanding the distance between the thresholds would increase the
 frequency of "Uncertain" pathway activity classifications, as the number of samples
 meeting the thresholds for consistency and inconsistency would be reduced.
 
-```{r stringent, fig.cap="Density plots for GSVA scores distributions for samples with relatively more stringent thresholds for assessing consistency of the up-regulated gene set (left) and down-rgulated gene set (right) with the pathway signature. The low and high expression abundance thresholds are -0.4 and 0.4 for both up-regulated and down-regulated gene sets respectively. Data is generated from running GSVA on CPM-normalised `ER_data_se1` expression dataset with ER signature (`ER_sig_df`)."}
+```{r stringent, fig.cap="Density plots for GSVA scores distributions for samples with relatively more stringent thresholds for assessing consistency of the up-regulated gene set (left) and down-rgulated gene set (right) with the pathway signature. The low and high expression abundance thresholds are -0.4 and 0.4 for both up-regulated and down-regulated gene sets respectively. Data is generated from running GSVA on logCPM-normalised `ER_data_se1` expression dataset with ER signature (`ER_sig_df`)."}
 # more stringent thresholds, greater uncertain labels
 data_threshs <- data.frame(Geneset=c("Up", "Down"), vline=c(-0.4, 0.4))
 plot + geom_vline(xintercept=data_threshs$vline, linetype=2)
