@@ -387,8 +387,23 @@ classes_df.percent <- classify_GSVA_percent(ER_sig_df, normalized_se,
 ```
 
 # Evaluating pathway activity classification
+This package provides a method `calculate_accuracy` for evaluating pathway 
+activity classification, which gets the actual labels and the labels classified
+by the classification methods as parameters; then creates confusion matrix based
+on them. The first parameter `true_labels_source` could be file-name, matrix or 
+dataframe and contains sample names and their corresponding actual 
+labels.The second parameter `classes_df` could be matrix or dataframe and 
+containsclassified labels found by the classification methods 
+`classify_GSVA_percent` or `classify_GSVA_abs`. Third parameter `pathway` 
+specifies with which pathway the labels(actual and classified) are  associated. 
+Other parameters `display_statistics` and  `display_roc_curve` are boolean flags
+used as optional features to display statistics and ROC Curve respectively.
+Default values for the flags is FALSE.
+
+
 ```{r}
-#confusion_matrix_HER2 <- calculate_accuracy(labelDF, classes_df.abs)
+confusion_matrix <- calculate_accuracy("~/PathAnalyser/raw_data/Sample_lable.txt", classes_df, "ER",
+                       display_statistics=TRUE, display_roc_curve=TRUE)
 ```
 # Visualising pathway activity
 ## Generating PCA plot
