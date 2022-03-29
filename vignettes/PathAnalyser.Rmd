@@ -170,7 +170,7 @@ The `read_expression_data` function reads gene expression data from a
 tab-delimited text file with gene names as the first column and successive 
 columns containing gene expression data for each sample in the given data set. 
 ```{r eval=FALSE}
-data_se <- read_expression_data("~/PathAnalyser/raw_data/Toy_dataset.txt")
+data_se <- read_expression_data("/Users/taniyapal/Documents/Group Project/GSVA ANalysis subdata.csv")
 
 ```
 
@@ -178,7 +178,7 @@ data_se <- read_expression_data("~/PathAnalyser/raw_data/Toy_dataset.txt")
 Gene signature files that follow the gene set format (ending with .grp) can be 
 read by the `read_signature_data` function.
 ```{r eval=FALSE}
-sig_df <- read_signature_data("~/PathAnalyser/raw_data/ESR1_UP.v1._UP.grp", "~/PathAnalyser/raw_data/ESR1_DN.v1_DN.grp")
+sig_df <- read_signature_data("ER_sig_df", "HER2_sig_df")
 ```
 
 # Quality control and pre-processing of data
