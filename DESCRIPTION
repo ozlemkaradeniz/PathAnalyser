@@ -36,6 +36,6 @@ RoxygenNote: 7.1.2.9000
 Depends: 
     R (>= 2.10)
 LazyData: true
-Imports: edgeR, limma, GSVA, reshape2, ggplot2, ggfortify, reader, readr
+Imports: edgeR, limma, GSVA, reshape2, ggplot2, ggfortify, readr
 Suggests: BiocStyle, rmarkdown, knitr, testthat
 VignetteBuilder: knitr
