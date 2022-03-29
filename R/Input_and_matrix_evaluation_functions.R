@@ -11,7 +11,7 @@
 #' heatmap, which in turn will help the user to remove duplicated 
 #' samples according to their choice.
 #'
-#' @author Tania Pal \email{taniya.pal.094@cranfield.ac.uk}
+#' @author Taniya Pal \email{taniya.pal.094@cranfield.ac.uk}
 #' @param matrix  Full path of the gene expression data file name 
 #'
 #' @return Structured matrix containing gene symbols/IDs as rownames
@@ -24,24 +24,28 @@
 
 read_input_file<- function(file_name){
   
-  #getting the delimiter for the file whether it is "\t" or "," or " "
-  #install.packages("reader")
+  #loading the required packages
   library(reader)
-  delimiter=get.delim(file_name)
-  input=read.delim(file_name, sep=delimiter)
-  input=na.omit(input)
-  #removing duplicated gene symbols from first column
   
+  #getting the delimiter for the file whether it is "\t" or "," or " "
+  delimiter=get.delim(file_name)
+  
+  #reading the file provided by the user
+  input=read.delim(file_name, sep=delimiter)
+  
+  #removing the NAs 
+  input=na.omit(input)
+  
+  #removing duplicated gene symbols from first column
   input=input[!duplicated(input[,1]),]
   
   #giving the gene symbols of the first column to rownames
+  if (typeof(input[,1])=="character")
+    rownames(input)=input[,1]
+    input=input[,-1]
   
-  rownames(input)=input[,1]
-  input=input[,-1]
   
-  
-  #removing NAs from gene expression values
-
+  #converting the data frame in numeric matrix
   input=data.matrix(input)
   return(input)
  
@@ -54,16 +58,10 @@ read_input_file<- function(file_name){
     theme(axis.text.x = element_text(angle = 90)) +
     ggtitle("Heatmap showing duplicated samples in gene expression matrix") + xlab(NULL) + ylab(NULL)
   
-  
-  
-  
 }
 
 
-#' Reads up-regulated and down-regulated gene signatures from files,
-#' formats it according to the needs of the package analysis,
-#' and combines the up and down regulated signature files
-#' into a single data frame
+#' Reads up-regulated and down-regulated gene signatures from files
 #' 
 #' @description Reads up and down regulated signature files from user 
 #' and structures it according to package requirements. It returns a 
@@ -71,7 +69,7 @@ read_input_file<- function(file_name){
 #' both up and down regulated signatures. The second column
 #' signifies whether they are up(+1) or down(-1) regulated.
 #' 
-#' @author Tania Pal \email{taniya.pal.094@cranfield.ac.uk}
+#' @author Taniya Pal \email{taniya.pal.094@cranfield.ac.uk}
 #' @param  up_sig   Up-regulated gene-set
 #' @param  down_sig  Down-regulated gene-set
 #'
@@ -114,7 +112,7 @@ read_signature_data=function(up_sig_file, down_sig_file){
 #' the gene expression values after log cpm
 #' transformation with the help  of a box plot.
 #'
-#' @author Tania Pal \email{taniya.pal.094@cranfield.ac.uk}
+#' @author Taniya Pal \email{taniya.pal.094@cranfield.ac.uk}
 #' @param Gene expression matrix after being
 #' pre processed by read_input_file function
 #'
@@ -123,7 +121,7 @@ read_signature_data=function(up_sig_file, down_sig_file){
 #' another one after transformation.
 #' @export
 #'
-#' @examples transform_matrix(input)
+#' @examples transform_matrix(gene_exp_data)
 
 transform_matrix=function(input){
   
@@ -144,8 +142,7 @@ transform_matrix=function(input){
   
   #boxplot after transformation
   plot.after.transformation=boxplot(log(cpm.values+0.5), main="Plot after normalization", axes=F)
- 
-  
- 
+
 }
+
 
