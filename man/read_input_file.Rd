@@ -10,9 +10,9 @@ read_input_file(file_name)
 \item{file_name}{Full path of the gene expression data file name}
 }
 \value{
-Structured matrix containing gene symbols/IDs as rownames
-Also returns a heatmap with identifiable duplicated samples for
-the convinience of the user.
+Structured matrix containing gene symbols/IDs as rownames and
+sample IDs as column names.
+
 and the Sample IDs as colnames.
 }
 \description{
@@ -22,10 +22,6 @@ gives the genenames to the rownames of the matrix and deletes
 the first column. Before converting the first column to rownames
 it checks for any duplicated gene present in the first column.
 Following that the matrix is converted to a numeric data matrix.
-It also returns a heatmap which helps the user
-to identify duplicate samples (columns) from the
-heatmap, which in turn will help the user to remove duplicated
-samples according to their choice.
 }
 \examples{
 read_expression_data("/Users/taniyapal/Documents/Group Project/Matrix used for GSVA Analysis by Taniya.csv"))
