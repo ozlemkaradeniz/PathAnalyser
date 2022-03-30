@@ -103,7 +103,7 @@ classify_GSVA_percent <- function(sig_df, data_se, thresh_percent=25){
   return(classes_df)
 }
 
-#' GSVA score density plot
+#' GSVA score density distribution plot
 #' @description Plots GSVA scores distribution for up-regulated and
 #' down-regulated gene-sets of a provided gene expression signature
 #' @author Anisha Thind \email{a.thind@@cranfield.ac.uk}
@@ -122,8 +122,8 @@ classify_GSVA_percent <- function(sig_df, data_se, thresh_percent=25){
 #' @export
 #'
 #' @examples
-#' visualise_GSVA(ER_sig_df, ER_data_se)
-visualise_GSVA <- function(sig_df, data_se) {
+#' gsva_scores_dist(ER_sig_df, ER_data_se)
+gsva_scores_dist <- function(sig_df, data_se) {
   require(ggplot2)
   require(reshape2)
 
