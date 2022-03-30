@@ -133,7 +133,7 @@ transform_matrix=function(input){
   
   
   #boxplot before transformation
-  plot.before.transformation=boxplot(log(input+0.5), main="Plot before normalization", axes=F)
+  plot.before.transformation=boxplot(log(input+0.5), main="Plot before transformation", axes=F)
   
   library(edgeR)
   
@@ -146,7 +146,7 @@ transform_matrix=function(input){
   input=log(cpm.values)
   
   #boxplot after transformation
-  plot.after.transformation=boxplot(log(cpm.values+0.5), main="Plot after normalization", axes=F)
+  plot.after.transformation=boxplot(log(cpm.values+0.5), main="Plot after transformation", axes=F)
 
 }
 
