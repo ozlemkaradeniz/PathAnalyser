@@ -7,7 +7,7 @@
 read_input_file(file_name)
 }
 \arguments{
-\item{matrix}{Full path of the gene expression data file name}
+\item{filename}{Full path of the gene expression data file name}
 }
 \value{
 Structured matrix containing gene symbols/IDs as rownames
@@ -31,5 +31,5 @@ samples according to their choice.
 read_expression_data("/Users/taniyapal/Documents/Group Project/Matrix used for GSVA Analysis by Taniya.csv"))
 }
 \author{
-Tania Pal \email{taniya.pal.094@cranfield.ac.uk}
+Taniya Pal \email{taniya.pal.094@cranfield.ac.uk}
 }

@@ -8,7 +8,7 @@ transformation method}
 transform_matrix(input)
 }
 \arguments{
-\item{Gene}{expression matrix after being
+\item{input}{expression matrix after being
 pre processed by read_input_file function}
 }
 \value{
@@ -30,5 +30,5 @@ transformation with the help  of a box plot.
 transform_matrix(input)
 }
 \author{
-Tania Pal \email{taniya.pal.094@cranfield.ac.uk}
+Taniya Pal \email{taniya.pal.094@cranfield.ac.uk}
 }

@@ -12,7 +12,8 @@
 #' samples according to their choice.
 #'
 #' @author Taniya Pal \email{taniya.pal.094@cranfield.ac.uk}
-#' @param matrix  Full path of the gene expression data file name 
+#' 
+#' @param filename  Full path of the gene expression data file name 
 #'
 #' @return Structured matrix containing gene symbols/IDs as rownames
 #' Also returns a heatmap with identifiable duplicated samples for 
@@ -85,24 +86,25 @@ read_signature_data=function(up_sig_file, down_sig_file){
   #loading the required package
   require("readr")
   
-  #reading the up regualted gene signature file 
-  up <- read_lines(up_sig_file, skip = 3, n_max = -1L)
+  #reading the up regulated gene signature file 
+  up_sig <- read_lines(up_sig_file, skip = 3, n_max = -1L)
   
   #reading the down regulated gene signature file
-  dn <- read_lines(down_sig_file, skip = 3, n_max = -1L)
+  dn_sig<- read_lines(down_sig_file, skip = 3, n_max = -1L)
   
   #vector combining both up and down regulated signatures
-  list=c(up,dn)
+  list=c(up_sig,dn_sig)
   
-  #combining up and downregulated signatures in
-  #a column of datraframe
-  sig_df <- data.frame("Signatures"=list, "Symbols representing expression"=c(rep(1, length(up)), rep(-1, length(dn))))
+  #combining up and down regulated signatures in
+  #a column of dataframe
+  sig_df <- data.frame("Signatures"=list, "Symbols representing expression"=c(rep(1, length(up_sig)), rep(-1, length(dn_sig))))
   
   return(sig_df)
 }
 
-#' Transformation of gene expression data with log cpm
+#' Transformation of gene expression data with log cpm 
 #' transformation method
+#' 
 #' @description Plots the raw data before transformation in the form 
 #' of a boxplot. Then, it normalizes the raw counts of gene
 #' expression with the log cpm transformation
@@ -113,7 +115,8 @@ read_signature_data=function(up_sig_file, down_sig_file){
 #' transformation with the help  of a box plot.
 #'
 #' @author Taniya Pal \email{taniya.pal.094@cranfield.ac.uk}
-#' @param Gene expression matrix after being
+#' 
+#' @param input expression matrix after being
 #' pre processed by read_input_file function
 #'
 #' @return Two boxplots, one representing
@@ -121,7 +124,7 @@ read_signature_data=function(up_sig_file, down_sig_file){
 #' another one after transformation.
 #' @export
 #'
-#' @examples transform_matrix(gene_exp_data)
+#' @examples transform_matrix(input)
 
 transform_matrix=function(input){
   
@@ -146,3 +149,53 @@ transform_matrix=function(input){
 }
 
 
+#'Checking overlap between matrix and signature gene symbols
+#'
+#' @description Plots a Venn diagram checking which gene symbols 
+#' overlap between the signature file
+#' and the expression matrix file.
+#' The user gets an estimates of how many gene symbols overlap
+#'  between the two files.
+#'
+#' @author Taniya Pal \email{taniya.pal.094@cranfield.ac.uk}
+#'
+#' @param input The expression matrix after being processed and 
+#' returned by read_input_file function
+#' @param sig_df The signature data frame after being
+#' processed and returned by read_signature_data function
+#' 
+#' @return A Venn diagram representing the overlap of 
+#' gene symbols between the two files
+#'
+#' @export
+#' @examples check_matrix_sig_overlap(input, sig_df)
+
+
+check_matrix_sig_overlap=function(input, sig_df){
+  #loading the required library
+  library(VennDiagram)
+  
+  #listing the gene symbols in expression matrix
+  rownames=as.list(rownames(expdata))
+  
+  #listing the gene symbols in signature
+  signatures=as.list(sig$Signatures)
+  
+  #finding the length of intersection between the two lists
+  intersection=length(intersect(rownames, signatures))
+  
+  #Setting the color
+  myCol=c("green", "yellow")
+  
+  draw.pairwise.venn(
+    area1 = length(rownames), area2=length(signatures),
+    category = c("Expression Matrix" , "Signature"),
+    main = 'Checking overlap between matrix and gene signature symbols.png', lwd = 2,
+    lty = 'blank',
+    fill = myCol, cat.cex = 0.7,
+    cat.fontface = c("bold", "bold"),
+    cat.default.pos = "text",
+    cat.pos = c(-27, 27),
+    cat.dist = c(-0.055, 0.055),
+    cat.fontfamily = c("sans", "sans"), cross.area=94, scaled=F)
+}

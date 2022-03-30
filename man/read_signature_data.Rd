@@ -2,10 +2,7 @@
 % Please edit documentation in R/Input_and_matrix_evaluation_functions.R
 \name{read_signature_data}
 \alias{read_signature_data}
-\title{Reads up-regulated and down-regulated gene signatures from files,
-formats it according to the needs of the package analysis,
-and combines the up and down regulated signature files
-into a single data frame}
+\title{Reads up-regulated and down-regulated gene signatures from files}
 \usage{
 read_signature_data(up_sig_file, down_sig_file)
 }
@@ -30,5 +27,5 @@ signifies whether they are up(+1) or down(-1) regulated.
 read_signature_data("ESR1_UP.v1_UP.csv","ESR1_DN.v1_DN.csv" )
 }
 \author{
-Tania Pal \email{taniya.pal.094@cranfield.ac.uk}
+Taniya Pal \email{taniya.pal.094@cranfield.ac.uk}
 }
