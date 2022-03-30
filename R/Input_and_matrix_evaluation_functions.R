@@ -13,7 +13,7 @@
 #'
 #' @author Taniya Pal \email{taniya.pal.094@cranfield.ac.uk}
 #' 
-#' @param filename  Full path of the gene expression data file name 
+#' @param file_name  Full path of the gene expression data file name 
 #'
 #' @return Structured matrix containing gene symbols/IDs as rownames
 #' Also returns a heatmap with identifiable duplicated samples for 
@@ -112,7 +112,7 @@ read_signature_data=function(up_sig_file, down_sig_file){
 #' matrix after transformation for sanity check of the
 #' transformation. The user can check the distribution of 
 #' the gene expression values after log cpm
-#' transformation with the help  of a box plot.
+#' transformation with the help of the box plot.
 #'
 #' @author Taniya Pal \email{taniya.pal.094@cranfield.ac.uk}
 #' 
@@ -190,7 +190,7 @@ check_matrix_sig_overlap=function(input, sig_df){
   draw.pairwise.venn(
     area1 = length(rownames), area2=length(signatures),
     category = c("Expression Matrix" , "Signature"),
-    main = 'Checking overlap between matrix and gene signature symbols.png', lwd = 2,
+    main = 'Checking overlap between matrix and gene signature symbols', lwd = 2,
     lty = 'blank',
     fill = myCol, cat.cex = 0.7,
     cat.fontface = c("bold", "bold"),
