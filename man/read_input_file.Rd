@@ -7,7 +7,7 @@
 read_input_file(file_name)
 }
 \arguments{
-\item{filename}{Full path of the gene expression data file name}
+\item{file_name}{Full path of the gene expression data file name}
 }
 \value{
 Structured matrix containing gene symbols/IDs as rownames

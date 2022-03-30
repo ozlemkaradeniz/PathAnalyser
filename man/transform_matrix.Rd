@@ -24,7 +24,7 @@ method and returns a boxplot of the gene expression
 matrix after transformation for sanity check of the
 transformation. The user can check the distribution of
 the gene expression values after log cpm
-transformation with the help  of a box plot.
+transformation with the help of the box plot.
 }
 \examples{
 transform_matrix(input)
