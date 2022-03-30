@@ -70,7 +70,7 @@ check_signature_vs_dataset <-function(data_norm, sig_up_df, sig_dn_df) {
 
         }
 
-          data.frame( legend= rep(c("minimun", "maximun", "average"), each = gene_count),
+         df_plot<- data.frame( legend= rep(c("minimun", "maximun", "average"), each = gene_count),
                       gene = rep(1:gene_count, 3))
         df_plot$counts<-""
         for(i in 1:gene_count){
