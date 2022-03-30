@@ -48,7 +48,7 @@ read_input_file<- function(file_name){
   
   #converting the data frame in numeric matrix
   input=data.matrix(input)
-  return(input)
+  
  
   ###Deal with duplicated samples
   library(reshape2)
@@ -58,7 +58,7 @@ read_input_file<- function(file_name){
     scale_fill_gradient2(limits=c(-1, 1)) + 
     theme(axis.text.x = element_text(angle = 90)) +
     ggtitle("Heatmap showing duplicated samples in gene expression matrix") + xlab(NULL) + ylab(NULL)
-  
+  return(input)
 }
 
 
