@@ -128,8 +128,10 @@ read_signature_data=function(up_sig_file, down_sig_file){
 
 transform_matrix=function(input){
   
-  
+  x11()
   par(mfrow=c(2,1))
+  
+  
   #boxplot before transformation
   plot.before.transformation=boxplot(log(input+0.5), main="Plot before normalization", axes=F)
   
