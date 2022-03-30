@@ -1,7 +1,7 @@
 ---
 title: "PathAnalyser"
 author:
-  - name: Rishabh Kaushik
+  - name: Rishab Kaushik
   - name: Taniya Pal
   - name: Ozlem Karadeniz
   - name: Yi-Hsuan Lee
@@ -76,9 +76,6 @@ sig_df <- read_signature_data("up-sig-file.grp", "down-sig-file.grp")
 
 transform_matrix(data_se)
 
-#Checking the overlap of gene symbols betweeen matrix and gene signatures (optional step)
-
-check_matrix_sig_overlap(data_se, sig_df)
 
 # QC and pre-process data
 normalized_se <- transform(data_se)
@@ -99,6 +96,8 @@ confusion_matrix <- calculate_accuracy(true_labels_df, classes_df)
 
 
 # Overview of PathAnalyser functionality
+
+
 The PathAnalyser package functionality can be sub-divided into 5 broad 
 categories corresponding to a typical workflow for assessing pathway activity of 
 samples:
@@ -108,6 +107,16 @@ samples:
 3.  Classification of samples by pathway activity
 4.  Evaluation of classification
 5.  Visualization
+
+The features unique to PathAnalyser package are:
+
+1) It takes into account multiple sample for the analysis. This is an addition to GSVA package features, where a single sample is
+taken into account for analysis.
+
+2) It classifies the IDs/symbols into active and inactive pathway. This classification is based on the two matrices representating up and down regulated expression of genes respectively. The matrices consists of GSVA scores derived after GSVA analysis. It also returns a prediction accuracy score and ROC curve for verification of the accuray of the prediction.
+
+3) It returns a PCA plot for visualization of the categories (Active/Inactive) the gene symbols/IDs have been classified into.
+
 
 # Built-in datasets and gene 
 ## Gene expression signatures
@@ -211,6 +220,8 @@ file and reads the file accordingly. It returns an ouput with gene symbols/IDs a
 IDs in the dataset.
 ```{r}
 data_se <- read_input_file("/Users/taniyapal/Documents/Group Project/TCGA_unannotated.txt")
+data_se<-data_se[,1:200]
+print(data_se[1:5, 1:5])
 
 
 ```
@@ -221,20 +232,12 @@ first column and their expression pattern is represented as up r
 regulated or down regulated by +1 and -1 respectively.
 ```{r}
 sig_df <- read_signature_data("/Users/taniyapal/Documents/Group Project/ESR1_UP.v1._UP.csv", "/Users/taniyapal/Documents/Group Project/ESR1_DN.v1_DN.csv")
-```
-
-### Transforming matrix
-The raw counts in the gene expression matrix are transformed by
-log cpm transformation and for the sanity check of the transformation, the function returns one boxplot representing
-the distribution of counts before transformation and another
-box plot representating distribution of counts after normalization
-
-```{r}
-transformed_data_se <- transform_matrix(data_se)
+head(sig_df)
 ```
 
 
-### Quality control and pre-processing of data
+
+## Quality control and pre-processing of data
 For the remainder of this demonstration, we will use the built-in gene 
 expression data set matrix `ER_data_se1`.
 ```{r}
@@ -255,14 +258,6 @@ GSVA scores. The estimated expression abundance for both these gene sets is used
 to check expression consistency with the gene signature and infer pathway
 activity for a given sample in the transcriptomic data set.
 
-The features unique to PathAnalyser package are:
-
-1) It takes into account multiple sample for the analysis. This is an addition to GSVA package features, where a single sample is
-taken into account for analysis.
-
-2) It classifies the IDs/symbols into active and inactive pathway. This classification is based on the two matrices representating up and down regulated expression of genes respectively. The matrices consists of GSVA scores derived after GSVA analysis. It also returns a prediction accuracy score and ROC curve for verification of the accuray of the prediction.
-
-3) It returns a PCA plot for visualization of the categories (Active/Inactive) the gene symbols/IDs have been classified into.
 
 The classification algorithm implemented in PathAnalyser uses four thresholds 
 for the classification algorithm (two for each gene set of the pathway 
@@ -433,7 +428,7 @@ Default values for the flags is FALSE.
 
 
 ```{r}
-confusion_matrix <- calculate_accuracy("~/PathAnalyser/raw_data/Sample_lable.txt", classes_df, "ER",
+confusion_matrix <- calculate_accuracy("/Users/taniyapal/Downloads/Sample_label.txt", classes_df, "ER",
                        display_statistics=TRUE, display_roc_curve=TRUE)
 ```
 # Visualising pathway activity
