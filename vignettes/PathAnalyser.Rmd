@@ -306,10 +306,10 @@ PathAnalyser provides two functions for classifying samples using an absolute
 GSVA scores thresholds `classify_GSVA_abs` or percentile thresholds which is 
 effectively rank-based `classify_GSVA_percent` using percentiles (default at 25%)
 , as well as a visualization function to view the distributions of the GSVA 
-scores for both gene sets `visualise_GSVA`, which will be discussed below.
+scores for both gene sets `gsva_scores_dist`, which will be discussed below.
 
 ## Visualising GSVA Score Distribution
-PathAnalyser provides `visualise_GSVA` method to visualize the GSVA score 
+PathAnalyser provides `gsva_scores_dist` method to visualize the GSVA score 
 distribution for the abundance of expression of the up-regulated and 
 down-regulated gene sets of the gene signature for each sample. The resulting 
 density plot usually follows a bimodal distribution of GSVA scores for each 
@@ -318,12 +318,12 @@ binary nature of pathway activity and gene expression broadly (samples will
 tend to have either very high or low expression of the up-regulated and 
 down-regulated gene set resulting in two modes or peaks for each gene set). 
 Figure \@ref(fig:plot) shows two peaks for each gene set when running 
-`visualise_GSVA` with logCPM-normalized `ER_data_se1` gene expression matrix. For 
+`gsva_scores_dist` with logCPM-normalized `ER_data_se1` gene expression matrix. For 
 both gene sets, the peak with the highest GSVA scores represents samples with 
 *high* abundance of expression of the gene set and the lower score peak 
 represents samples with *low* abundance of expression of the gene set.
-```{r plot, fig.cap="Density plots showing the distribution of GSVA scores for samples in logCPM-normalised `ER_data_se1` data set for the up-regulated (left) and down-regulated gene set (right) of the pathway signature using `visualise_GSVA` function."}
-visualise_GSVA(ER_sig_df, normalized_se)
+```{r plot, fig.cap="Density plots showing the distribution of GSVA scores for samples in logCPM-normalised `ER_data_se1` data set for the up-regulated (left) and down-regulated gene set (right) of the pathway signature using `gsva_scores_dist` function."}
+gsva_scores_dist(ER_sig_df, normalized_se)
 ```
 
 ### Determining thresolds for classification
@@ -348,7 +348,7 @@ with GSVA scores between the these thresholds for both the up-regulated and down
 "Uncertain" pathway activity.
 
 ```{r thresholds, fig.cap="GSVA scores distributions of the samples for the down-regulated (left) and up-regulated gene set (right) of the pathway gene signature, showing absolute thresholds of -0.2 and 0.2 for characterising low and high expression abundance of both gene sets respectively. The expression data set used is the logCPM-normalised `ER_data_se1` gene expression data set."}
-plot <- visualise_GSVA(ER_sig_df, normalized_se)
+plot <- gsva_scores_dist(ER_sig_df, normalized_se)
 # Add thresholds on plot
 library(ggplot2)
 data_threshs <- data.frame(Geneset=c("Up", "Down"), vline=c(-0.2, 0.2))
