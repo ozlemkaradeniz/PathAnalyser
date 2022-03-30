@@ -209,8 +209,9 @@ The `read_input_file` function reads gene expression data from
 a file with an delimiter, the function checks the delimiter of the
 file and reads the file accordingly. It returns an ouput with gene symbols/IDs as the rownames and columns representating each sample 
 IDs in the dataset.
-```{r eval=FALSE}
-data_se <- read_input_file("~/PathAnalyser/raw_data/Toy_dataset.txt")
+```{r}
+data_se <- read_input_file("/Users/taniyapal/Documents/Group Project/TCGA_unannotated.txt")
+
 
 ```
 
@@ -218,8 +219,8 @@ data_se <- read_input_file("~/PathAnalyser/raw_data/Toy_dataset.txt")
 Gene signature files can be read by the `read_signature_data` function. It returns a dataframe with signature IDs/symbols in the
 first column and their expression pattern is represented as up r
 regulated or down regulated by +1 and -1 respectively.
-```{r eval=FALSE}
-sig_df <- read_signature_data("~/PathAnalyser/raw_data/ESR1_UP.v1._UP.grp", "~/PathAnalyser/raw_data/ESR1_DN.v1_DN.grp")
+```{r}
+sig_df <- read_signature_data("/Users/taniyapal/Documents/Group Project/ESR1_UP.v1._UP.csv", "/Users/taniyapal/Documents/Group Project/ESR1_DN.v1_DN.csv")
 ```
 
 ### Transforming matrix
@@ -228,17 +229,10 @@ log cpm transformation and for the sanity check of the transformation, the funct
 the distribution of counts before transformation and another
 box plot representating distribution of counts after normalization
 
-```{r eval=FALSE}
+```{r}
 transformed_data_se <- transform_matrix(data_se)
 ```
 
-### Checking overlap between gene signature and matrix symbols/IDs
-To get an estimate how many symbols/IDs intersect between matrix
-and signature data.
-
-```{r eval=FALSE}
-check_matrix_sig_overlap(data_se, sig_df)
-```
 
 ### Quality control and pre-processing of data
 For the remainder of this demonstration, we will use the built-in gene 

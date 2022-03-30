@@ -6,18 +6,15 @@
 #' the first column. Before converting the first column to rownames
 #' it checks for any duplicated gene present in the first column.
 #' Following that the matrix is converted to a numeric data matrix.
-#' It also returns a heatmap which helps the user
-#' to identify duplicate samples (columns) from the
-#' heatmap, which in turn will help the user to remove duplicated 
-#' samples according to their choice.
+#' 
 #'
 #' @author Taniya Pal \email{taniya.pal.094@cranfield.ac.uk}
 #' 
 #' @param file_name  Full path of the gene expression data file name 
 #'
-#' @return Structured matrix containing gene symbols/IDs as rownames
-#' Also returns a heatmap with identifiable duplicated samples for 
-#' the convinience of the user.
+#' @return Structured matrix containing gene symbols/IDs as rownames and
+#' sample IDs as column names.
+#' 
 #' and the Sample IDs as colnames.
 #' @export
 #'
@@ -48,16 +45,9 @@ read_input_file<- function(file_name){
   
   #converting the data frame in numeric matrix
   input=data.matrix(input)
-  
+  print(input)
  
-  ###Deal with duplicated samples
-  library(reshape2)
-  data=melt(cor(input))
-  ggplot(data=data, aes(x=Var1, y=Var2)) +
-    geom_tile(aes(fill=value)) + 
-    scale_fill_gradient2(limits=c(-1, 1)) + 
-    theme(axis.text.x = element_text(angle = 90)) +
-    ggtitle("Heatmap showing duplicated samples in gene expression matrix") + xlab(NULL) + ylab(NULL)
+  
   return(input)
 }
 
@@ -99,6 +89,7 @@ read_signature_data=function(up_sig_file, down_sig_file){
   #a column of dataframe
   sig_df <- data.frame("Signatures"=list, "Symbols representing expression"=c(rep(1, length(up_sig)), rep(-1, length(dn_sig))))
   
+  print(sig_df)
   return(sig_df)
 }
 
@@ -128,9 +119,6 @@ read_signature_data=function(up_sig_file, down_sig_file){
 
 transform_matrix=function(input){
   
-  x11()
-  par(mfrow=c(2,1))
-  
   
   #boxplot before transformation
   plot.before.transformation=boxplot(log(input+0.5), main="Plot before transformation", axes=F)
@@ -147,57 +135,7 @@ transform_matrix=function(input){
   
   #boxplot after transformation
   plot.after.transformation=boxplot(log(cpm.values+0.5), main="Plot after transformation", axes=F)
-
+  return(c(plot.before.transformation, plot.after.transformation))
 }
 
 
-#'Checking overlap between matrix and signature gene symbols
-#'
-#' @description Plots a Venn diagram checking which gene symbols 
-#' overlap between the signature file
-#' and the expression matrix file.
-#' The user gets an estimates of how many gene symbols overlap
-#'  between the two files.
-#'
-#' @author Taniya Pal \email{taniya.pal.094@cranfield.ac.uk}
-#'
-#' @param input The expression matrix after being processed and 
-#' returned by read_input_file function
-#' @param sig_df The signature data frame after being
-#' processed and returned by read_signature_data function
-#' 
-#' @return A Venn diagram representing the overlap of 
-#' gene symbols between the two files
-#'
-#' @export
-#' @examples check_matrix_sig_overlap(input, sig_df)
-
-
-check_matrix_sig_overlap=function(input, sig_df){
-  #loading the required library
-  library(VennDiagram)
-  
-  #listing the gene symbols in expression matrix
-  rownames=as.list(rownames(input))
-  
-  #listing the gene symbols in signature
-  signatures=as.list(sig_df$Signatures)
-  
-  #finding the length of intersection between the two lists
-  intersection=length(intersect(rownames, signatures))
-  
-  #Setting the color
-  myCol=c("green", "yellow")
-  
-  draw.pairwise.venn(
-    area1 = length(rownames), area2=length(signatures),
-    category = c("Expression Matrix" , "Signature"),
-    main = 'Checking overlap between matrix and gene signature symbols', lwd = 2,
-    lty = 'blank',
-    fill = myCol, cat.cex = 0.7,
-    cat.fontface = c("bold", "bold"),
-    cat.default.pos = "text",
-    cat.pos = c(-27, 27),
-    cat.dist = c(-0.055, 0.055),
-    cat.fontfamily = c("sans", "sans"), cross.area=intersection, scaled=F)
-}
