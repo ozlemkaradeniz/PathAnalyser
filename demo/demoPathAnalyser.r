@@ -1,43 +1,40 @@
 # Clear workspace
 rm(list=ls())
 
-# Installing
-#install.packages("BiocManager")
-#BiocManager::install("GSVA")
-#install.packages("readr")
-
-# Loading
-library("readr")
-library(GSVA)
 install.packages("~/git_project/PathAnalyser_0.0.0.9000.tar.gz", repos = NULL, type="source")
 library("PathAnalyser")
 
+gene_expression_file <- "~/GroupProject/TCGA_unannotated.txt"
+expression_mtx <- read_expression_data(gene_expression_file)
 
-data_se <- read.table("~/GroupProject1/TCGA_unannotated.txt", header=TRUE, sep = "\t", row.names=1)
-data_se <- data_se[,1:200]
-up <- read_lines("~/GroupProject1/ERBB2_UP.V1_UP.grp", skip = 3, n_max = -1L)
-dn <- read_lines("~/GroupProject1/ERBB2_UP.V1_DN.grp", skip = 3, n_max = -1L)
-sig_df <- data.frame(c(dn,up), expression= c(rep(-1, length(dn)), rep(1, length(up))))
+# 200 samples from the expression set is used due to the performance issues
+expression_mtx <- expression_mtx[,1:200]
 
-readsig(up, dn)
+up_signature_file <- "~/GroupProject/ERBB2_UP.V1_UP.grp"
+down_regulated_file <- "~/GroupProject/ERBB2_UP.V1_DN.grp"
+signature_df <- read_signature_data(up_signature_file, up_signature_file)
 
-"%notin%" <- Negate("%in%")
-data_se_not_in_sig_df <- data_se[rownames(data_se) %notin% sig_df[,1],]
-data_se_in_sig_df <- data_se[rownames(data_se) %in% sig_df[,1],]
-data_se_subset <- rbind(data_se_not_in_sig_df[1:300,],data_se_in_sig_df)
+#Expression gene sub-matrix is created below in order to overcome performance issues coming with the whole gene expression data matrix
+#sub-matrix contains all genes in signature dataframe plus additional 300 genes
+"%notin%" <- Negate ("%in%")
+expression_mtx_not_in_sig_df <- expression_mtx[rownames(expression_mtx) %notin% signature_df[,1],]
+expression_mtx_in_sig_df <- expression_mtx[rownames(expression_mtx) %in% signature_df[,1],]
+expression_mtx_subset <- rbind(expression_mtx_not_in_sig_df[1:300,],expression_mtx_in_sig_df)
 
+# Getting statistical information for the gene expression data matrix
+evaluatematrix(expression_mtx_subset)
 
-data_se_subset<-readmatrix(data_se_subset)
-evaluatematrix(data_se_subset)
+# cpm normalization is performed on the ene expression data matrix
+normalized_expression_mtx <- transform(expression_mtx)
+upregulated_genes_df <- signature_df[signature_df$expression == 1, ]
+downregulated_genes_df <- signature_df[signature_df$expression == -1, ]
+data_se<- check_signature_vs_dataset(normalized_expression_mtx, upregulated_genes_df, downregulated_genes_df)
 
-normalized_se <- transform(data_se[])
-data_se<- check_signature_vs_dataset(normalized_se, as.data.frame(up),as.data.frame(dn))
+visualise_GSVA(signature_df, expression_mtx)
 
-visualise_GSVA(sig_df, data_se)
+classes_df <-classify(signature_df, expression_mtx)
 
-classes_df <-classify(sig_df, data_se)
-
-labelDF <- read.table("~/GroupProject1/Sample_lable.txt", header=TRUE,sep = "\t")
+labelDF <- read.table("~/GroupProject/Sample_lable.txt", header=TRUE,sep = "\t")
 
 confusion_matrix_HER2<-calculate_accuracy(labelDF, classes_df)
 

@@ -1,7 +1,11 @@
 #' ER gene signature
 #'
 #' A list of up-regulated and down-regulated genes constituting the gene
-#' signature of ER pathway activation.
+#' signature of ER pathway activation. The ER signature was obtained from the
+#' sensitivity to endocrine therapy (SET) genomic index defined using a list of
+#' genes co-expressed with the estrogen receptor (ESR1) from microarray data
+#' (437 profiles) originating from newly diagnosed breast cancer independent of
+#' outcome and treatment (Symmans et al., 2010).
 #' @format A data frame with 160 rows and 2 variables:
 #' \describe{
 #'    \item{gene}{The name of a highly differentially expressed gene when ER
@@ -37,9 +41,9 @@
 #'    is active i.e. -1 for down-regulated genes and 1 for up-regulated genes.}
 #' }
 #'
-#' @source MSigDB (For up-regulated portion:
+#' @source MSigDB (For up-regulated component of the:
 #' \url{https://www.gsea-msigdb.org/gsea/msigdb/geneset_page.jsp?geneSetName=ERBB2_UP.V1_UP})
-#' @source MSigDB (For down-regulated portion:
+#' @source MSigDB (For down-regulated component of the signature:
 #'  \url{https://www.gsea-msigdb.org/gsea/msigdb/cards/ERBB2_UP.V1_DN.html}
 #' )
 #' @references Creighton CJ, Hilger AM, Murthy S, Rae JM, Chinnaiyan AM,
@@ -52,7 +56,8 @@
 
 #' ER gene expression data set 1
 #'
-#' A gene expression matrix for 20 samples (10 ER positive and 10 ER negative).
+#' A gene expression matrix containing raw read counts from RNA-seq for 20
+#' samples (10 ER positive and 10 ER negative).
 #' @format A data frame with 20,124 rows and 20 variables:
 #' \describe{
 #'    \item{gene}{The name of the gene for which expression data is provided.}
@@ -61,7 +66,7 @@
 #' @source \url{}).
 "ER_data_se1"
 
-#' ER gene expression data set 1
+#' HER gene expression data set 1
 #'
 #' A gene expression matrix for 20 samples (10 ER positive and 10 ER negative).
 #' @format A data frame with 20,124 rows and 20 variables:
@@ -83,7 +88,7 @@
 #' @source cBioPortal \url{}).
 "ER_data_se2"
 
-#' ER gene expression data set 2
+#' HER gene expression data set 2
 #'
 #' A gene expression matrix for 20 samples (10 HER2 positive and 10 HER2 negative).
 #' @format A data frame with 23,113 rows and 20 variables:

@@ -14,10 +14,10 @@ is active i.e. -1 for down-regulated genes and 1 for up-regulated genes.}
 }
 }
 \source{
-MSigDB (For up-regulated portion:
+MSigDB (For up-regulated component of the:
 \url{https://www.gsea-msigdb.org/gsea/msigdb/geneset_page.jsp?geneSetName=ERBB2_UP.V1_UP})
 
-MSigDB (For down-regulated portion:
+MSigDB (For down-regulated component of the signature:
 \url{https://www.gsea-msigdb.org/gsea/msigdb/cards/ERBB2_UP.V1_DN.html}
 )
 }

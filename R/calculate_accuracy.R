@@ -67,39 +67,50 @@ calculate_accuracy <-function(true_labels_df, predicted_labels_df){
   print("Confusion Matrix ")
   print("--------------------------------------------------------------")
   print(confusion_matrix_HER2)
-
-  print("Statistics in Confusion Matrix ")
   print("--------------------------------------------------------------")
-  print(paste0("Proportion of classified samples: ", format(round(classified_samples_proportion, 2), nsmall = 2)))
-  print(paste0("Accuracy amongst classified samples: " , format(round(accuracy_amongst_classified_samples, 2), nsmall = 2)))
-  print(paste0("True Positive(TP): " , TP))
-  print(paste0("True Negative(TN): " , TN))
-  print(paste0("False Negative(FN): " , FN))
-  print(paste0("False Positive(FP): " , FP))
-  print("--------------------------------------------------------------")
-  print(paste0("True Positive Rate(TPR)(sensitivity)(Recall): ",
-               format(round(TP / (TP + FN) * 100 , 2) , nsmall =2)))
-  print(paste0("True Negative Rate(TNR)(specificity): ",
-               format(round(TN / (TN + FP) * 100 , 2) , nsmall =2)))
-  print(paste0("Precision (Positive predictive value): ",
-               format(round(TP / (TP + FP) * 100 , 2) , nsmall =2)))
-  print(paste0("False Positive Rate(FPR): ",
-               format(round(FP / (FP + TN) * 100 ,  2) , nsmall =2)))
-  print(paste0("False Negative Rate(FNR): ",
-               format(round(FN / (FN + TP) * 100 ,  2) , nsmall =2)))
-  print("--------------------------------------------------------------")
-  print(summary(confusion_matrix_HER2))
 
-  # roc_pred <- prediction(predictions = p  , labels = test$hd)
-  #
-  # hd_data$hd <- factor(hd_data$hd )
-  # roc_perf <- performance(roc_pred , "tpr" , "fpr")
-  # plot(roc_perf,
-  #      colorize = TRUE,
-  #      print.cutoffs.at= seq(0,1,0.05),
-  #      text.adj=c(-0.2,1.7))
+  while(TRUE){
+    user_choice = readline(prompt = "Do you want to see the statistics for the confusion matrix Y(Yes) / N(No) : ");
+    user_choice = as.character(toupper(user_choice))
 
-  return(confusion_matrix_HER2)
+    if(user_choice == 'N'){
+      return(confusion_matrix_HER2)
+    }
+    else if(user_choice == 'Y'){
+      print("Statistics in Confusion Matrix ")
+      print("--------------------------------------------------------------")
+      print(paste0("Proportion of classified samples: ", format(round(classified_samples_proportion, 2), nsmall = 2)))
+      print(paste0("Accuracy amongst classified samples: " , format(round(accuracy_amongst_classified_samples, 2), nsmall = 2)))
+      print(paste0("True Positive(TP): " , TP))
+      print(paste0("True Negative(TN): " , TN))
+      print(paste0("False Negative(FN): " , FN))
+      print(paste0("False Positive(FP): " , FP))
+      print("--------------------------------------------------------------")
+      print(paste0("True Positive Rate(TPR)(sensitivity)(Recall): ",
+                   format(round(TP / (TP + FN) * 100 , 2) , nsmall =2)))
+      print(paste0("True Negative Rate(TNR)(specificity): ",
+                   format(round(TN / (TN + FP) * 100 , 2) , nsmall =2)))
+      print(paste0("Precision (Positive predictive value): ",
+                   format(round(TP / (TP + FP) * 100 , 2) , nsmall =2)))
+      print(paste0("False Positive Rate(FPR): ",
+                   format(round(FP / (FP + TN) * 100 ,  2) , nsmall =2)))
+      print(paste0("False Negative Rate(FNR): ",
+                   format(round(FN / (FN + TP) * 100 ,  2) , nsmall =2)))
+      print("--------------------------------------------------------------")
+      print(summary(confusion_matrix_HER2))
+
+      # roc_pred <- prediction(predictions = p  , labels = test$hd)
+      #
+      # hd_data$hd <- factor(hd_data$hd )
+      # roc_perf <- performance(roc_pred , "tpr" , "fpr")
+      # plot(roc_perf,
+      #      colorize = TRUE,
+      #      print.cutoffs.at= seq(0,1,0.05),
+      #      text.adj=c(-0.2,1.7))
+
+      return(confusion_matrix_HER2)
+    }
+  }
 }
 
 

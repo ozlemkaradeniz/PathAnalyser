@@ -13,11 +13,14 @@ a specific pathway is active. Up-regulated genes are given an
 expression of 1, while down-regulated genes are given an expression of -1.}
 
 \item{data_se}{Expression data set matrix given as a matrix or data frame
-comprising the expression levels of genes in a set of samples. Gene expression matrices can be from RNASeq
+comprising the expression levels of genes in a set of samples. Gene
+expression matrices can be from RNASeq
 or microarray transcriptomic data sets.}
 }
 \value{
-
+density plot displaying distribution of GSVA scores obtainied for
+the samples using up-regulated and down-regulated gene-sets from the gene
+signature
 }
 \description{
 Plots GSVA scores distribution for up-regulated and

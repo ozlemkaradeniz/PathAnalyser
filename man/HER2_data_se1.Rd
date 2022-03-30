@@ -3,7 +3,7 @@
 \docType{data}
 \name{HER2_data_se1}
 \alias{HER2_data_se1}
-\title{ER gene expression data set 1}
+\title{HER gene expression data set 1}
 \format{
 A data frame with 20,124 rows and 20 variables:
 \describe{

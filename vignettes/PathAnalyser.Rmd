@@ -1,0 +1,241 @@
+---
+title: "PathAnalyser"
+author:
+  - name: Rishab Kaushik
+  - name: Taniya Pal
+  - name: Ozlem Karadeniz
+  - name: Yi-Hsuan Lee
+  - name: Anisha Thind
+  - name: Justice Iheanyichi
+abstract: >
+  PathAnalyser provides functionality for assessing ER and HER2 pathway activity
+  in breast cancer transcriptomic datasets. The package enables classification 
+  of samples in transciptomic datasets according to pathway activity by using a 
+  gene expression signature associated with a pathway, a list of genes, which 
+  vary in expression depending on the pathway activity. These transcriptional 
+  signatures have been shown to be of clinical significance, for example, ER and 
+  HER2 gene signatures have been associated with molecular sub-types, prognosis 
+  and treatment reponse in breast cancer. Although this package was original 
+  developed to assess ER and HER2 pathway activity in breast cancer 
+  transcriptomic datasets, the package functionality could be applied to 
+  transcriptomic datasets and gene signatures outside the context of breast 
+  cancer. In this vignette, we will describe how to use the PathAnalyser package 
+  with microarray and RNA-seq expression transcriptomic datasets and gene 
+  expression signatures associated with a specific pathway activity.
+output: 
+  BiocStyle::html_document:
+    toc: TRUE
+    toc_float: TRUE
+   
+vignette: >
+  %\VignetteIndexEntry{PathAnalyser}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  message = FALSE,
+  warning = FALSE
+)
+```
+# Installation and setup
+To install a local source version of the package, type the following R:
+```{r eval=FALSE}
+install.packages("path-to-source/PathAnalyser-main.zip", repo=NULL, type="source")
+```
+
+Alternatively, the package can be installed directly from GitHub using the
+devtools package in R:
+```{r eval=FALSE}
+install.packages("devtools")
+devtools::install_github("a-thind/PathAnalyser")
+```
+
+Once installation is completed, load the library to start using PathAnalyser:
+```{r setup}
+library(PathAnalyser)
+```
+
+# Overview of PathAnalyser functionality
+The PathAnalyser package functionality can be sub-divided into 5 broad 
+categories corresponding to a typical workflow for assessing pathway activity of 
+samples:
+
+1.  Input functions for expression data and gene signatures
+2.  Quality control and pre-processing of input data
+3.  Classification of samples by pathway activity
+4.  Evaluation of classification
+5.  Visualization
+
+# Built-in datasets and gene 
+## Gene expression signatures
+PathAnalyser contains two gene signatures for active ER and HER2 pathways that 
+can be used to assess ER and HER2 pathway activity in a breast cancer 
+transcriptomic data set. These signatures are accessible by typing the following 
+in R:
+```{r}
+data("ER_sig_df")
+data("HER2_sig_df")
+```
+### ER signature
+The built-in ER signature `ER_sig_df` is a data frame containing the names of 
+160 differentially expressed genes which constitute the transcriptional 
+signature of ER pathway activation. This signature was obtained from the 
+sensitivity to endocrine therapy genome index defined by Symanns et al. (2011). 
+The total number of genes that are up-regulated (denoted with an expression 
+value of 1) and down-regulated (denoted with an expression value of -1) in this 
+gene signature are 101 and 59 genes respectively.
+```{r}
+dim(ER_sig_df)
+head(ER_sig_df)
+# up-regulated genes are given an expression value of 1
+ER_up_sig <- ER_sig_df[ER_sig_df$expression == 1 ,]
+dim(ER_up_sig)
+# down-regulated genes are given an expression value of -1
+ER_dn_sig <- ER_sig_df[ER_sig_df$expression == -1 ,]
+dim(ER_dn_sig)
+# for more details
+?ER_sig_df
+```
+
+### HER2 signature
+A gene expression signature for HER2 (ERBB2) pathway activation `HER2_sig_df` is 
+also provided by PathAnalyser. This gene signature was obtained from Molecular 
+Signatures Database ([MSigDB](https://www.gsea-msigdb.org/gsea/msigdb/index.jsp)) 
+by combining the up-regulated (gene set:
+[ERBB2_UP.V1_UP](https://www.gsea-msigdb.org/gsea/msigdb/cards/ERBB2_UP.V1_UP.html) 
+) and down-regulated (gene set:
+[ERBB2_UP.V1_DN](https://www.gsea-msigdb.org/gsea/msigdb/geneset_page.jsp?geneSetName=ERBB2_UP.V1_DN) 
+) gene sets available at MSigDB, originating from transcriptomic profiling of a 
+MCF-7 breast cancer cell line, positive for the estrogen receptor (ER) but 
+genetically engineered to express the ERBB2 (HER2) receptor. 
+
+The names of 387 differentially expressed genes are in the HER2 signature data 
+frame provided by PathAnalyser, of which 190 are up-regulated 
+(denoted by an expression of 1) and 197 are down-regulated (denoted by an 
+expression of -1).
+```{r}
+dim(HER2_sig_df)
+head(HER2_sig_df)
+# up-regulated genes are given an expression value of 1
+HER2_up_sig <- HER2_sig_df[HER2_sig_df$expression == 1 ,]
+dim(HER2_up_sig)
+# Down-regulated genes are given an expression value of -1
+HER2_dn_sig <- HER2_sig_df[HER2_sig_df$expression == -1 ,]
+dim(HER2_dn_sig)
+# for more details
+?HER2_sig_df
+```
+## Gene expression datasets
+PathAnalyser also contains two built-in gene expression matrices each containing
+RNA-seq raw read counts for primary breast cancer samples obtained from 20 
+individuals (cases). Data for these matrices were obtained from The Cancer 
+Genome Atlas ([TCGA](https://www.cancer.gov/about-nci/organization/ccg/research/structural-genomics/tcga)).
+Each expression matrix contains 20,124 genes.
+```{r}
+data("ER_data_se1")
+data("HER2_data_se1")
+# column names represent case (sample) IDs from TCGA
+```
+
+### ER dataset 1
+
+```{r}
+dim(ER_data_se1)
+# Expression data for first 6 genes
+head(ER_data_se1)
+```
+
+### HER2 dataset 1
+Need to get info
+```{r}
+dim(HER2_data_se1)
+# Expression data for first 6 genes
+head(HER2_data_se1)
+```
+
+
+# Reading input data using PathAnalyser
+There are two types of input required for pathway activity assessment using 
+PathAnalyser:
+
+1.  gene expression data matrices
+2.  gene expression signatures
+
+## Gene expression data
+The `read_expression_data` function reads gene expression data from a 
+tab-delimited text file with gene names as the first column and successive 
+columns containing gene expression data for each sample in the given data set. 
+```{r eval=FALSE}
+data_se <- read_expression_data("~/PathAnalyser/raw_data/Toy_dataset.txt")
+
+```
+
+## Gene signature data
+Gene signature files that follow the gene set format (ending with .grp) can be 
+read by the `read_signature_data` function.
+```{r eval=FALSE}
+sig_df <- read_signature_data("~/PathAnalyser/raw_data/ESR1_UP.v1._UP.grp", "~/PathAnalyser/raw_data/ESR1_DN.v1_DN.grp")
+```
+
+# Quality control and pre-processing of data
+For the remainder of this demonstration, we will use the built-in gene 
+expression data set matrix `ER_data_se1`.
+```{r}
+data_se <- ER_data_se1 # stand-in until input functions are completed
+evaluatematrix(data_se) # need to change name to evaluate_matrix
+normalized_se <- transform(data_se)
+# Decide on whether the singature data frame needs to be split before or inside
+# function
+#data_se <- check_signature_vs_dataset(normalized_se, as.data.frame(up),as.data.frame(dn))
+```
+
+# Classifying samples by pathway activity using gene signatures
+## Visualising GSVA Score Distribution
+To visualise the distribution of GSVA scores for the up-regulated gene signature
+and the down-regulated gene signature, use the `visualise_GSVA` function:
+```{r}
+visualise_GSVA(ER_sig_df, data_se)
+```
+
+
+## Classification using absolute GSVA score thresholds
+```{r}
+classes_df.abs <- classify_GSVA_abs(ER_sig_df, data_se, up_thresh.low=-0.25,
+                                    up_thresh.high=0.25, dn_thresh.low=-0.25,
+                                    dn_thresh.high=0.25)
+```
+
+## Classification using percentile GSVA score thresholds
+```{r}
+classes_df.percent <- classify_GSVA_percent(ER_sig_df, data_se)
+```
+
+# Evaluating pathway activity classification
+```{r}
+#confusion_matrix_HER2 <- calculate_accuracy(labelDF, classes_df.abs)
+```
+# Visualising pathway activity
+## Generating PCA plot
+```{r}
+classes_pca(normalized_se, classes_df.abs, pathway_name = "ER")
+```
+
+# Session Info
+```{r}
+sessionInfo()
+```
+
+# References
+Hänzelmann, S., Castelo, R. & Guinney, J. GSVA: gene set variation analysis for 
+microarray and RNA-Seq data. BMC Bioinformatics 14, 7 (2013). 
+https://doi.org/10.1186/1471-2105-14-7
+
+Symmans, W.F., Hatzis, C., Sotiriou, C., Andre, F., Peintinger, F., Regitnig, 
+P., Daxenbichler, G., Desmedt, C., Domont, J., Marth, C. and Delaloge, S., 
+2010. Genomic index of sensitivity to endocrine therapy for breast cancer. 
+Journal of clinical oncology, 28(27), p.4111. 
+https://dx.doi.org/10.1200%2FJCO.2010.28.4273

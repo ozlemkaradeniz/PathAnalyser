@@ -18,6 +18,7 @@ A data frame with 20,124 rows and 20 variables:
 ER_data_se1
 }
 \description{
-A gene expression matrix for 20 samples (10 ER positive and 10 ER negative).
+A gene expression matrix containing raw read counts from RNA-seq for 20
+samples (10 ER positive and 10 ER negative).
 }
 \keyword{datasets}

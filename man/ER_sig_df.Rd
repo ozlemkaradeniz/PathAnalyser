@@ -24,7 +24,11 @@ ER_sig_df
 }
 \description{
 A list of up-regulated and down-regulated genes constituting the gene
-signature of ER pathway activation.
+signature of ER pathway activation. The ER signature was obtained from the
+sensitivity to endocrine therapy (SET) genomic index defined using a list of
+genes co-expressed with the estrogen receptor (ESR1) from microarray data
+(437 profiles) originating from newly diagnosed breast cancer independent of
+outcome and treatment (Symmans et al., 2010).
 }
 \references{
 Symmans, W.F., Hatzis, C., Sotiriou, C., Andre, F., Peintinger,
