@@ -45,7 +45,7 @@ read_input_file<- function(file_name){
   
   #converting the data frame in numeric matrix
   input=data.matrix(input)
-  print(input)
+  
  
   
   return(input)
@@ -89,7 +89,7 @@ read_signature_data=function(up_sig_file, down_sig_file){
   #a column of dataframe
   sig_df <- data.frame("Signatures"=list, "Symbols representing expression"=c(rep(1, length(up_sig)), rep(-1, length(dn_sig))))
   
-  print(sig_df)
+  
   return(sig_df)
 }
 
