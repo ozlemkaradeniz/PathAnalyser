@@ -64,13 +64,21 @@ Here are the most basic step of the standard workflow for assessing ER / HER2
 pathway activity in a transcriptomic data set using PathAnalyser. Each of these 
 steps will be discussed in more detail in sections below.
 ```{r eval=FALSE}
+
 # Load transcriptomic dataset (gene expression matrix of samples)
-data_se <- read_expression_data("~/PathAnalyser/raw_data/Toy_dataset.txt")
+
+data_se <- read_input_file("~/PathAnalyser/raw_data/Toy_dataset.txt")
 # read signature data
+
 sig_df <- read_signature_data("up-sig-file.grp", "down-sig-file.grp")
 
-# Getting statistical information for the gene expression data matrix
+# Transforming matrix with log cpm transformation and sanity check of the transformation
+
 transform_matrix(data_se)
+
+#Checking the overlap of gene symbols betweeen matrix and gene signatures (optional step)
+
+check_matrix_sig_overlap(data_se, sig_df)
 
 # QC and pre-process data
 normalized_se <- transform(data_se)
@@ -197,22 +205,42 @@ PathAnalyser:
 2.  gene expression signatures
 
 ## Gene expression data
-The `read_expression_data` function reads gene expression data from a 
-tab-delimited text file with gene names as the first column and successive 
-columns containing gene expression data for each sample in the given data set. 
+The `read_input_file` function reads gene expression data from  
+a file with an delimiter, the function checks the delimiter of the
+file and reads the file accordingly. It returns an ouput with gene symbols/IDs as the rownames and columns representating each sample 
+IDs in the dataset.
 ```{r eval=FALSE}
-data_se <- read_expression_data("~/PathAnalyser/raw_data/Toy_dataset.txt")
+data_se <- read_input_file("~/PathAnalyser/raw_data/Toy_dataset.txt")
 
 ```
 
 ## Gene signature data
-Gene signature files that follow the gene set format (ending with .grp) can be 
-read by the `read_signature_data` function.
+Gene signature files can be read by the `read_signature_data` function. It returns a dataframe with signature IDs/symbols in the
+first column and their expression pattern is represented as up r
+regulated or down regulated by +1 and -1 respectively.
 ```{r eval=FALSE}
 sig_df <- read_signature_data("~/PathAnalyser/raw_data/ESR1_UP.v1._UP.grp", "~/PathAnalyser/raw_data/ESR1_DN.v1_DN.grp")
 ```
 
-# Quality control and pre-processing of data
+### Transforming matrix
+The raw counts in the gene expression matrix are transformed by
+log cpm transformation and for the sanity check of the transformation, the function returns one boxplot representing
+the distribution of counts before transformation and another
+box plot representating distribution of counts after normalization
+
+```{r eval=FALSE}
+transformed_data_se <- transform_matrix(data_se)
+```
+
+### Checking overlap between gene signature and matrix symbols/IDs
+To get an estimate how many symbols/IDs intersect between matrix
+and signature data.
+
+```{r eval=FALSE}
+check_matrix_sig_overlap(data_se, sig_df)
+```
+
+### Quality control and pre-processing of data
 For the remainder of this demonstration, we will use the built-in gene 
 expression data set matrix `ER_data_se1`.
 ```{r}
@@ -232,6 +260,15 @@ and down-regulated gene sets of a given pathway's gene signature by calculating
 GSVA scores. The estimated expression abundance for both these gene sets is used 
 to check expression consistency with the gene signature and infer pathway
 activity for a given sample in the transcriptomic data set.
+
+The features unique to PathAnalyser package are:
+
+1) It takes into account multiple sample for the analysis. This is an addition to GSVA package features, where a single sample is
+taken into account for analysis.
+
+2) It classifies the IDs/symbols into active and inactive pathway. This classification is based on the two matrices representating up and down regulated expression of genes respectively. The matrices consists of GSVA scores derived after GSVA analysis. It also returns a prediction accuracy score and ROC curve for verification of the accuray of the prediction.
+
+3) It returns a PCA plot for visualization of the categories (Active/Inactive) the gene symbols/IDs have been classified into.
 
 The classification algorithm implemented in PathAnalyser uses four thresholds 
 for the classification algorithm (two for each gene set of the pathway 
