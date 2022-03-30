@@ -1,7 +1,7 @@
 ---
 title: "PathAnalyser"
 author:
-  - name: Rishab Kaushik
+  - name: Rishabh Kaushik
   - name: Taniya Pal
   - name: Ozlem Karadeniz
   - name: Yi-Hsuan Lee
