@@ -1,149 +1,141 @@
 #' Reading gene expression data from file
-#' @description  Reads gene expression data file, performs validation checks and converts to numeric data matrix
+#' 
+#' @description  Reads gene expression data file from user,
+#' removes Nas, if the first column consist of gene names,
+#' gives the genenames to the rownames of the matrix and deletes
+#' the first column. Before converting the first column to rownames
+#' it checks for any duplicated gene present in the first column.
+#' Following that the matrix is converted to a numeric data matrix.
+#' 
 #'
-#' @author Tania Pal \email{taniya.pal.094@cranfield.ac.uk}
-#' @param matrix  Gene expression data file
+#' @author Taniya Pal \email{taniya.pal.094@cranfield.ac.uk}
+#' 
+#' @param file_name  Full path of the gene expression data file name 
 #'
-#' @return Structured matrix for the convenience of the package
+#' @return Structured matrix containing gene symbols/IDs as rownames and
+#' sample IDs as column names.
+#' 
+#' and the Sample IDs as colnames.
 #' @export
 #'
-#' @examples read_expression_data(file_name)
+#' @examples read_expression_data("/Users/taniyapal/Documents/Group Project/Matrix used for GSVA Analysis by Taniya.csv"))
 
-read_expression_data <- function(file_name){
-  # #rownames(expdata)=expdata[,1]
-  # expdata=expdata[-1,-1]
-  # for (i in 1:ncol(expdata)){
-  #   class(expdata[,i])="numeric"
-  # }
-  #
-  # for(i in 1:ncol(expdata)){
-  #   expdata[,i][is.na(expdata[,i])]<-mean(expdata[,i],na.rm=TRUE)
-  # }
-  # expdata=as.matrix(expdata)
-  # return(expdata)
-  file_name <- "~/GroupProject/TCGA_unannotated.txt"
-  raw.df <- read.table(file_name, header=TRUE, sep = "\t")
-
-  samples.df <- read.table(file_name, nrows=1)
-  samples <- unlist(samples.df[1,])
-
-  # Deal with duplicated samples (colnames)
-  # if there is any duplicated sampled, sample name is renamed to be unique
-  if(any(duplicated(samples))){
-    print(paste("File",
-                basename(file_name),
-                "has duplicated samples. Duplicated sample names have been changed to unique names."))
-    samples <- make.unique(samples)
-  }
-
-  # Deal with duplicated genes
-  # if there is any duplicated gene, error message is raised and the program stops
-  raw.df <- read.table(file_name, skip=1)
-  genes <- raw.df[,1]
-
-  # Check for duplicates
-  if(any(duplicated(genes))){
-    stop(paste("File",
-               basename(file_name),
-               "has duplicated genes"))
-  }
-
-  # Gene expression dataframe is created with sample names and gene names
-  data.df <- raw.df[,-1]
-  rownames(data.df) <- genes
-  colnames(data.df) <- samples
-
-  # dataframe is converted to numeric data matrix
-  data.mx <- as.matrix(data.df)
-
-  #error is raised and program stops if any problem occurs during coercion into numeric data matrix
-  expr.mx <- tryCatch(matrix(as.numeric(data.mx),nrow=nrow(data.mx)),
-                      warning=function(w){return="Fail"},
-                      error=function(e){return="Fail"})
-
-  # Note use of identical() instead of equality check
-  if(identical(expr.mx,"Fail")){stop(paste("Can't convert some elements of",
-                                           basename(file_name),
-                                           "to numeric values"))}
-
-
-  # if the numbers of NAs are not equal in dataframe and numeric data matrix, error is raised and program stops
-  if( sum(is.na(data.df)) != sum(is.na(expr.mx)) ){
-    stop(paste("Number of NAs in numeric data matrix is different from the original dataframe!,
-               there might be error during conversion"))
-  }
-
-  rownames(expr.mx) <- rownames(data.mx)
-  colnames(expr.mx) <- colnames(data.mx)
-
-  return(expr.mx)
+read_input_file<- function(file_name){
+  
+  #loading the required packages
+  library(reader)
+  
+  #getting the delimiter for the file whether it is "\t" or "," or " "
+  delimiter=get.delim(file_name)
+  
+  #reading the file provided by the user
+  input=read.delim(file_name, sep=delimiter)
+  
+  #removing the NAs 
+  input=na.omit(input)
+  
+  #removing duplicated gene symbols from first column
+  input=input[!duplicated(input[,1]),]
+  
+  #giving the gene symbols of the first column to rownames
+  if (typeof(input[,1])=="character")
+    rownames(input)=input[,1]
+    input=input[,-1]
+  
+  
+  #converting the data frame in numeric matrix
+  input=data.matrix(input)
+  
+ 
+  
+  return(input)
 }
 
-#' Reading up-regulated and down-regulated gene signatures from files
-#' @description Reads up and down regulated signature files from user and structures it according to package requirements
-#'
-#' @author Tania Pal \email{taniya.pal.094@cranfield.ac.uk}
+
+#' Reads up-regulated and down-regulated gene signatures from files
+#' 
+#' @description Reads up and down regulated signature files from user 
+#' and structures it according to package requirements. It returns a 
+#' dataframe. The first column of the dataframe  lists together
+#' both up and down regulated signatures. The second column
+#' signifies whether they are up(+1) or down(-1) regulated.
+#' 
+#' @author Taniya Pal \email{taniya.pal.094@cranfield.ac.uk}
 #' @param  up_sig   Up-regulated gene-set
 #' @param  down_sig  Down-regulated gene-set
 #'
-#' @return Up and down regulated signature files in the form a list for the convenience of  the package
+#' @return A dataframe containing both up regulated and down 
+#' regulated signature files and signifying their up or down 
+#' expression with +1 and -1 respetively.
 #' @export
 #'
-#' @examples read_signature_data(up_sig_file, down_sig_file)
+#' @examples read_signature_data("ESR1_UP.v1_UP.csv","ESR1_DN.v1_DN.csv" )
 
 read_signature_data=function(up_sig_file, down_sig_file){
+  
+  #loading the required package
   require("readr")
-  up <- read_lines(up_sig_file, skip = 3, n_max = -1L)
-  dn <- read_lines(down_sig_file, skip = 3, n_max = -1L)
-  sig_df <- data.frame(c(dn,up), expression= c(rep(-1, length(dn)), rep(1, length(up))))
+  
+  #reading the up regulated gene signature file 
+  up_sig <- read_lines(up_sig_file, skip = 3, n_max = -1L)
+  
+  #reading the down regulated gene signature file
+  dn_sig<- read_lines(down_sig_file, skip = 3, n_max = -1L)
+  
+  #vector combining both up and down regulated signatures
+  list=c(up_sig,dn_sig)
+  
+  #combining up and down regulated signatures in
+  #a column of dataframe
+  sig_df <- data.frame("Signatures"=list, "Symbols representing expression"=c(rep(1, length(up_sig)), rep(-1, length(dn_sig))))
+  
+  
   return(sig_df)
 }
 
-#' Evaluation of gene expression data
-#' @description Checks matrix characteristics and normalizes matrix with log cpm normalization
+#' Transformation of gene expression data with log cpm 
+#' transformation method
+#' 
+#' @description Plots the raw data before transformation in the form 
+#' of a boxplot. Then, it normalizes the raw counts of gene
+#' expression with the log cpm transformation
+#' method and returns a boxplot of the gene expression 
+#' matrix after transformation for sanity check of the
+#' transformation. The user can check the distribution of 
+#' the gene expression values after log cpm
+#' transformation with the help of the box plot.
 #'
-#' @author Tania Pal \email{taniya.pal.094@cranfield.ac.uk}
-#' @param expdata Gene exoression data matrix or dataframe
+#' @author Taniya Pal \email{taniya.pal.094@cranfield.ac.uk}
+#' 
+#' @param input expression matrix after being
+#' pre processed by read_input_file function
 #'
-#' @return Information about the matrix such as dimensions, range, mean and plots before and after normalization boxplots of matrix
+#' @return Two boxplots, one representing
+#' distribution of gene expression values before transformation,
+#' another one after transformation.
 #' @export
 #'
-#' @examples evaluatematrix(expdata)
+#' @examples transform_matrix(input)
 
-evaluatematrix=function(expdata){
-  #checking the dimensions
-  numberofrows=nrow(expdata)
-  numberofcolumns=ncol(expdata)
-  dimensions=c(paste("number of rows:", numberofrows), (paste ("number of columns:", numberofcolumns)))
-
-  #replacing the missing values(NA) with mean of the column
-  for(i in 1:ncol(expdata)){
-    expdata[is.na(expdata[,i]), i] = mean(expdata[,i], na.rm = TRUE)
-  }
-
- #boxplot before normalization
-  par(mfrow=c(2,1))
-  plot.before.normalization=boxplot(expdata, col="blue", main="PLot before normalization")
+transform_matrix=function(input){
+  dev.off()
+  
+  #boxplot before transformation
+  plot.before.transformation=boxplot(log(input+0.5), main="Plot before transformation", axes=F)
+  
   library(edgeR)
-  normalized.expdata=cpm(expdata)
-  log(normalized.expdata)
-  for(i in 1:ncol(expdata)){
-    normalized.expdata[,i][is.na(normalized.expdata[,i])]<-mean(normalized.expdata[,i],na.rm=TRUE)
-  }
-  plot.after.normalization=boxplot(normalized.expdata, col="blue", main="Plot after normalization")
-
-  #statistical summary of the expression matrix
-  library(matrixStats)
-  matrix.mean=mean(expdata)
-  min<-min(expdata)
-  max<-max(expdata)
-  #install.packages("matrixStats")
-  matrix.range=c(paste("Minimum value:", min), paste("Maximum value:", max))
-  matrix.stats=c(paste("Range of matrix::", matrix.range), paste("Mean of matrix::", matrix.mean))
-
-
-  output= c(paste("Dimensions:" ,dimensions), paste("Statistics of matrix:",matrix.stats) )
-  print(output)
-
+  
+  #counts per million (cpm) transformation of raw gene expression
+  #values of matrix
+  cpm.values=cpm(input)
+  
+  #Taking the log of the cpm transformed values
+  #(log-cpm transformation)
+  input=log(cpm.values)
+  
+  #boxplot after transformation
+  plot.after.transformation=boxplot(log(cpm.values+0.5), main="Plot after transformation", axes=F)
+  return(c(plot.before.transformation, plot.after.transformation))
 }
+
 
