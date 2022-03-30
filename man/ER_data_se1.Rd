@@ -12,13 +12,14 @@ A data frame with 20,124 rows and 20 variables:
 }
 }
 \source{
-\url{}).
+\url{https://portal.gdc.cancer.gov}).
 }
 \usage{
 ER_data_se1
 }
 \description{
-A gene expression matrix containing raw read counts from RNA-seq for 20
+Raw counts data obtained from TCGA. The data set was filtered for Breast cancer-primary tumors.
+Count data subset: A gene expression matrix containing raw read counts from RNA-seq for 20
 samples (10 ER positive and 10 ER negative).
 }
 \keyword{datasets}

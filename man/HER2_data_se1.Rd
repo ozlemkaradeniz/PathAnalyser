@@ -3,7 +3,7 @@
 \docType{data}
 \name{HER2_data_se1}
 \alias{HER2_data_se1}
-\title{HER gene expression data set 1}
+\title{HER2 gene expression data set 1}
 \format{
 A data frame with 20,124 rows and 20 variables:
 \describe{
@@ -12,12 +12,13 @@ A data frame with 20,124 rows and 20 variables:
 }
 }
 \source{
-TCGA \url{}).
+TCGA \url{https://portal.gdc.cancer.gov}).
 }
 \usage{
 HER2_data_se1
 }
 \description{
-A gene expression matrix for 20 samples (10 ER positive and 10 ER negative).
+Raw counts data obtained from TCGA. The data set was filtered for Breast cancer-primary tumors.
+A gene expression matrix for 20 samples (10 HER2 positive and 10 HER2 negative).
 }
 \keyword{datasets}
