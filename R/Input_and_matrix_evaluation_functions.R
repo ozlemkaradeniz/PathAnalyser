@@ -199,5 +199,5 @@ check_matrix_sig_overlap=function(input, sig_df){
     cat.default.pos = "text",
     cat.pos = c(-27, 27),
     cat.dist = c(-0.055, 0.055),
-    cat.fontfamily = c("sans", "sans"), cross.area=94, scaled=F)
+    cat.fontfamily = c("sans", "sans"), cross.area=intersection, scaled=F)
 }
