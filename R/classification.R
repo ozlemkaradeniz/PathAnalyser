@@ -183,6 +183,10 @@ gsva_scores_dist <- function(sig_df, data_se) {
     stop("Signature argument is not a dataframe.")
   }
 
+  if (all(abs(sig_df$expression) != 1)){
+    stop("Expression values of signature data frame are not -1 or 1 and thus incompatible.")
+  }
+
   # check input is input matrix
   if (is.data.frame(data_se)) {
     data_se <- as.matrix(data_se)
@@ -197,11 +201,13 @@ gsva_scores_dist <- function(sig_df, data_se) {
 
   # run GSVA on expression data using 2 gene sets (up-regulated and
   # down-regulated) of the signature
-  if (typeof(data_se) == "integer") {
+  if (typeof(data_se) == "double" && all(data_se %% 1 == 0)) {
     # If the data is of type integer, these are raw counts and follow Poisson
     scores <- gsva(data_se, sigs, kcdf="Poisson", verbose=F)
-  } else {
+  } else if (typeof(data_se) == "double") {
     scores <- gsva(data_se, sigs, verbose=F)
+  } else {
+    stop("Expression dataset contains non-numerical data. Try pre-processing dataset before classification.")
   }
 
   # transpose the matrix
