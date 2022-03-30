@@ -178,10 +178,10 @@ check_matrix_sig_overlap=function(input, sig_df){
   library(VennDiagram)
   
   #listing the gene symbols in expression matrix
-  rownames=as.list(rownames(expdata))
+  rownames=as.list(rownames(input))
   
   #listing the gene symbols in signature
-  signatures=as.list(sig$Signatures)
+  signatures=as.list(sig_df$Signatures)
   
   #finding the length of intersection between the two lists
   intersection=length(intersect(rownames, signatures))
