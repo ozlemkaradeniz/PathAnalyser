@@ -214,10 +214,7 @@ PathAnalyser:
 2.  gene expression signatures
 
 ## Gene expression data
-The `read_input_file` function reads gene expression data from  
-a file with an delimiter, the function checks the delimiter of the
-file and reads the file accordingly. It returns an ouput with gene symbols/IDs as the rownames and columns representating each sample 
-IDs in the dataset.
+The `read_input_file` function reads gene expression data from a file with an delimiter, the function checks the delimiter of the file and reads the file accordingly. It returns an ouput with gene symbols/IDs as the rownames and columns representating each sample IDs in the dataset.
 ```{r}
 data_se <- read_input_file("/Users/taniyapal/Documents/Group Project/TCGA_unannotated.txt")
 data_se<-data_se[,1:200]
@@ -227,9 +224,7 @@ print(data_se[1:5, 1:5])
 ```
 
 ## Gene signature data
-Gene signature files can be read by the `read_signature_data` function. It returns a dataframe with signature IDs/symbols in the
-first column and their expression pattern is represented as up r
-regulated or down regulated by +1 and -1 respectively.
+Gene signature files can be read by the `read_signature_data`function. It returns a dataframe with signature IDs/symbols in the first column and their expression pattern is represented as up regulated or down regulated by +1 and -1 respectively.
 ```{r}
 sig_df <- read_signature_data("/Users/taniyapal/Documents/Group Project/ESR1_UP.v1._UP.csv", "/Users/taniyapal/Documents/Group Project/ESR1_DN.v1_DN.csv")
 head(sig_df)
@@ -238,8 +233,7 @@ head(sig_df)
 
 
 ## Quality control and pre-processing of data
-For the remainder of this demonstration, we will use the built-in gene 
-expression data set matrix `ER_data_se1`.
+For the remainder of this demonstration, we will use the built-in gene expression data set matrix `ER_data_se1`. The transform_matrix function performs sanity check after the transformation of gene expression matrix with log cpm transformation. It displays the distribution of gene expression before and after transformation with the help of boxplots. The transform function returns the transformed matrix after log cpm transformation.
 ```{r}
 transform_matrix(ER_data_se1)
 normalized_se <- transform(ER_data_se1)
