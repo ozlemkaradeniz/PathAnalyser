@@ -79,10 +79,11 @@ check_signature_vs_dataset <-function(data_norm, sig_up_df, sig_dn_df) {
           df_plot[i+gene_count*2,3]<-count_list$average[i]
         }
         df_plot$counts <- as.numeric(as.vector(df_plot$counts))
-        ggplot(data=df_plot, aes(x=gene, y=counts, group=legend, color=legend)) +
+        line_plot<-ggplot(data=df_plot, aes(x=gene, y=counts, group=legend, color=legend)) +
           geom_line() + geom_point()+
           scale_color_brewer(palette="Dark2")+
           theme_minimal()
+        print(line_plot)
         return(filtered_mat)
       }
     }
