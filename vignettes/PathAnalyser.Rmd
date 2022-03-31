@@ -66,23 +66,21 @@ steps will be discussed in more detail in sections below.
 ```{r eval=FALSE}
 
 # Load transcriptomic dataset (gene expression matrix of samples)
-
 data_se <- read_input_file("~/PathAnalyser/raw_data/Toy_dataset.txt")
-# read signature data
 
+# read signature data
 sig_df <- read_signature_data("up-sig-file.grp", "down-sig-file.grp")
 
-# Transforming matrix with log cpm transformation and sanity check of the transformation
+## QC and pre-process data
 
+# Transforming matrix with log cpm transformation and sanity check of the transformation
 transform_matrix(data_se)
 
+transformed_se <- transform(data_se)
 
-# QC and pre-process data
-normalized_se <- transform(data_se)
-
-up_genes_df <- sig_df[sig_df$expression == 1, ]
-down_genes_df <- sig_df[sig_df$expression == -1, ]
-data_se <- check_signature_vs_dataset(normalized_se, up_genes_df, down_genes_df)
+up_genes_df <- sig_df[sig_df$Symbols.representing.expression == 1, ]
+down_genes_df <- sig_df[sig_df$Symbols.representing.expression == -1, ]
+data_se <- check_signature_vs_dataset(transformed_se, up_genes_df, down_genes_df)
 
 
 
@@ -113,9 +111,9 @@ The features unique to PathAnalyser package are:
 1) It takes into account multiple sample for the analysis. This is an addition to GSVA package features, where a single sample is
 taken into account for analysis.
 
-2) It classifies the IDs/symbols into active and inactive pathway. This classification is based on the two matrices representating up and down regulated expression of genes respectively. The matrices consists of GSVA scores derived after GSVA analysis. It also returns a prediction accuracy score and ROC curve for verification of the accuray of the prediction.
+2) It classifies the IDs/symbols into active and inactive pathway. This classification is based on the two matrices representating up and down regulated expression of genes respectively.The matrices consists of GSVA scores derived after GSVA analysis. The user can provide two threshold (relatively high and low gene expression) among each matrices, which classifies gene IDs/symbols into active and inactive pathway. In the end of the analysis, the package returns a prediction accuracy score and ROC curve for verification of the accuray of the classification.
 
-3) It returns a PCA plot for visualization of the categories (Active/Inactive) the gene symbols/IDs have been classified into.
+3) The package also returns a PCA plot for visualization of the categories (Active/Inactive/Uncertain) the gene symbols/IDs have been classified into.
 
 
 # Built-in datasets and gene 
