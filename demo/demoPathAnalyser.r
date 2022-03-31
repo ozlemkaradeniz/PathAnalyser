@@ -4,15 +4,15 @@ rm(list=ls())
 install.packages("~/git_project/PathAnalyser_0.0.0.9000.tar.gz", repos = NULL, type="source")
 library("PathAnalyser")
 
-gene_expression_file <- "/Users/taniyapal/Documents/Group Project/TCGA_unannotated.txt"
+gene_expression_file <- "/Users/yhl/Desktop/TCGA_unannotated.txt"
 expression_mtx <- read_input_file(gene_expression_file)
 
 # 200 samples from the expression set is used due to the performance issues
 expression_mtx <- expression_mtx[,1:200]
 
 #reading the up and down regulated signature files
-up_signature_file <- "/Users/taniyapal/Documents/Group Project/ESR1_UP.v1._UP.csv"
-down_regulated_file <- "/Users/taniyapal/Documents/Group Project/ESR1_DN.v1_DN.csv"
+up_signature_file <- "/Users/yhl/Desktop/ESR1_UP.v1._UP.grp"
+down_regulated_file <- "/Users/yhl/Desktop/ESR1_DN.v1_DN.grp"
 signature_df <- read_signature_data(up_signature_file, up_signature_file)
 
 #transforming the expression matrix by log cpm transformation
@@ -35,9 +35,9 @@ expression_mtx_subset <- rbind(expression_mtx_not_in_sig_df[1:300,],expression_m
 
 # cpm normalization is performed on the ene expression data matrix
 normalized_expression_mtx <- transform(expression_mtx)
-upregulated_genes_df <- signature_df[signature_df$expression == 1, ]
-downregulated_genes_df <- signature_df[signature_df$expression == -1, ]
-data_se<- check_signature_vs_dataset(normalized_expression_mtx, upregulated_genes_df, downregulated_genes_df)
+upregulated_genes_df <- signature_df[signature_df$Symbols.representing.expression == 1, ]
+downregulated_genes_df <- signature_df[signature_df$Symbols.representing.expression == -1, ]
+data_se<- check_signature_vs_dataset(normalized_expression_mtx, upregulated_genes_df[,1], downregulated_genes_df[,1])
 
 visualise_GSVA(signature_df, expression_mtx)
 
