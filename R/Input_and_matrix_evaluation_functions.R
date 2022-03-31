@@ -87,7 +87,7 @@ read_signature_data=function(up_sig_file, down_sig_file){
   
   #combining up and down regulated signatures in
   #a column of dataframe
-  sig_df <- data.frame("Signatures"=list, "Symbols representing expression"=c(rep(1, length(up_sig)), rep(-1, length(dn_sig))))
+  sig_df <- data.frame("Signatures"=list, "Expression"=c(rep(1, length(up_sig)), rep(-1, length(dn_sig))))
   
   
   return(sig_df)
