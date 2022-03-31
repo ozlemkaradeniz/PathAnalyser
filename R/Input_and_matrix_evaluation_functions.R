@@ -118,7 +118,6 @@ read_signature_data=function(up_sig_file, down_sig_file){
 #' @examples transform_matrix(input)
 
 transform_matrix=function(input){
-  dev.off()
   
   #boxplot before transformation
   plot.before.transformation=boxplot(log(input+0.5), main="Plot before transformation", axes=F)
