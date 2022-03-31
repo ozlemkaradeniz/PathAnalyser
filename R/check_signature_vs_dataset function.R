@@ -70,7 +70,11 @@ check_signature_vs_dataset <-function(data_norm, sig_up_df, sig_dn_df) {
 
         }
 
+<<<<<<< HEAD
         df_plot<-data.frame( legend= rep(c("minimun", "maximun", "average"), each = gene_count),
+=======
+         df_plot<- data.frame( legend= rep(c("minimun", "maximun", "average"), each = gene_count),
+>>>>>>> e6e878d73e1139023f62eb08553d66905792e89d
                       gene = rep(1:gene_count, 3))
         df_plot$counts<-""
         for(i in 1:gene_count){
@@ -79,11 +83,19 @@ check_signature_vs_dataset <-function(data_norm, sig_up_df, sig_dn_df) {
           df_plot[i+gene_count*2,3]<-count_list$average[i]
         }
         df_plot$counts <- as.numeric(as.vector(df_plot$counts))
+<<<<<<< HEAD
         plot<-ggplot(data=df_plot, aes(x=gene, y=counts, group=legend, color=legend)) +
           geom_line() + geom_point()+
           scale_color_brewer(palette="Dark2")+
           theme_minimal()
         print(plot)
+=======
+        line_plot<-ggplot(data=df_plot, aes(x=gene, y=counts, group=legend, color=legend)) +
+          geom_line() + geom_point()+
+          scale_color_brewer(palette="Dark2")+
+          theme_minimal()
+        print(line_plot)
+>>>>>>> e6e878d73e1139023f62eb08553d66905792e89d
         return(filtered_mat)
       }
 

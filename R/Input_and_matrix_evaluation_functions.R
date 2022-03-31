@@ -87,7 +87,7 @@ read_signature_data=function(up_sig_file, down_sig_file){
   
   #combining up and down regulated signatures in
   #a column of dataframe
-  sig_df <- data.frame("Signatures"=list, "Symbols representing expression"=c(rep(1, length(up_sig)), rep(-1, length(dn_sig))))
+  sig_df <- data.frame("Signatures"=list, "expression"=c(rep(1, length(up_sig)), rep(-1, length(dn_sig))))
   
   
   return(sig_df)
@@ -118,7 +118,6 @@ read_signature_data=function(up_sig_file, down_sig_file){
 #' @examples transform_matrix(input)
 
 transform_matrix=function(input){
-  dev.off()
   
   #boxplot before transformation
   plot.before.transformation=boxplot(log(input+0.5), main="Plot before transformation", axes=F)
