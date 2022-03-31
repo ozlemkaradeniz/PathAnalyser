@@ -5,7 +5,7 @@ Authors@R:
     c(
     person("Taniya", "Pal", email="Taniya.Pal.094@cranfield.ac.uk", 
       role="aut"),
-    person("Rishab", "Kaushik", email="rishabh.kaushik.126@cranfield.ac.uk",
+    person("Rishabh", "Kaushik", email="rishabh.kaushik.126@cranfield.ac.uk",
       role="aut"),
     person("Yi-Hsuan", "Lee", email="yi-hsuan.lee@cranfield.ac.uk",
       role="aut"),
