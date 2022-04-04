@@ -30,8 +30,10 @@ output:
     toc_float: TRUE
 vignette: >
   %\VignetteIndexEntry{PathAnalyser}
-  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r, include = FALSE}
@@ -122,9 +124,8 @@ confusion_matrix <- calculate_accuracy(true_labels_df, classes_df, pathway = "ER
 ```
 
 # Data formats
-The PathAnalyser classification algorithm requires two types of input data:
-
 ## Input files
+The PathAnalyser classification algorithm requires two types of input data:
 
 1. *Gene expression matrix* - a text file containing a gene expression matrix, 
 where rows represent genes and columns samples of a gene expression data set. 
@@ -139,8 +140,8 @@ performing classification by PathAnalyser.**
 down-regulated gene set of the pathway signature. A plethora of pathway gene 
 signatures in the gene set file format can be found at 
 [MSigDB](https://www.gsea-msigdb.org/gsea/msigdb/index.jsp). The snapshot below
-shows the first 30 lines of the up-regulated gene set of the ERBB2 (HER2) gene 
-signature.  
+shows the first 30 lines of the gene set file for the up-regulated gene set of 
+the ERBB2 (HER2) gene signature.  
 
 **Note: `read_signature_data` from PathAnalyser only accepts gene signatures 
 that have the up-regulated and down-regulated gene sets in separate gene set 
@@ -235,7 +236,6 @@ dim(HER2_data_se1)
 # Expression data for first 6 genes
 head(HER2_data_se1)
 ```
-```
 
 # Overview of PathAnalyser functionality
 The PathAnalyser package functionality can be sub-divided into 5 broad 
@@ -303,8 +303,7 @@ sample-wise gene set enrichment method, Gene set variation analysis ([GSVA](http
 GSVA measures the variation of gene set enrichment across a sample population in 
 a manner independent of class labels, and summarizes the sample-wise expression 
 of the gene set in the form of gene set enrichment scores for each sample 
-([Hänzelmann et al. 2013][References]). In comparison to available gene set methods,
-GSVA has been . However, unlike GSVA, which does not 
+([Hänzelmann et al. 2013][References]). However, unlike GSVA, which does not 
 distinguish up-regulated gene sets from down-regulated gene sets, PathAnalyser 
 considers the expression of the up-regulated and down-regulated gene 
 sets of a given pathway's gene signature both separately and explicitly, using 
@@ -325,6 +324,8 @@ signature):
 3. **High** expression abundance for **down-regulated gene set**
 4. **Low** expression abundance for **down-regulated gene set**
 
+The diagram below summarises the classification algorithm employed by 
+PathAnalyser to classify samples by pathway activity.
 ![Overview of algorithm](algorithm_diagram.png)
 
 Samples are ordered by expression abundance of up-regulated and down-regulated 
