@@ -106,8 +106,8 @@ algorithm is described in detail.
 # is used as default
 classes_df <- classify_GSVA_percent(sig_df, transformed_se)
 # using absolute thresholds
-classes_df_abs <- classify_GSVA_abs(sig_df, transformed_se, up_thresh.low = 0.2, 
-                                    up_thresh.high = 0.2, dn_thresh.low = 0.2, 
+classes_df_abs <- classify_GSVA_abs(sig_df, transformed_se, up_thresh.low = -0.2, 
+                                    up_thresh.high = 0.2, dn_thresh.low = -0.2, 
                                     dn_thresh.high = 0.2)
 ```
 4. *Visualize pathway activity*
@@ -468,7 +468,7 @@ sets, therefore reducing the frequency of "Uncertain" classifications.
 classes_df.percent <- classify_GSVA_percent(ER_sig_df, normalized_se)
 # custom percentile = 30%
 classes_df.percent <- classify_GSVA_percent(ER_sig_df, normalized_se, 
-                                            thresh_percent=30)
+                                            percent_thresh=30)
 ```
 
 # Evaluating pathway activity classification
