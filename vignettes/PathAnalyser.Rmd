@@ -44,6 +44,28 @@ knitr::opts_chunk$set(
   warning = FALSE
 )
 ```
+
+# Introduction
+PathAnalyser provides functionality for pathway-based classification of samples
+in gene expression data sets using pathway gene signatures. The package houses a
+comprehensive suite of functions that constitute the typical workflow for 
+assessing pathway activity, and this functionality can be sub-divided into 5 
+broad categories:
+
+1.  Input functions for reading expression data and gene signatures
+2.  Quality control and pre-processing of input data
+3.  Classification of samples by pathway activity
+4.  Visualization of sample classification
+5.  Classification Evaluation (used only when true labels are available)
+
+The features unique to PathAnalyser package are:
+
+1) It takes into account multiple sample for the analysis. This is an addition to GSVA package features, where a single sample is taken into account for analysis.
+
+2) It classifies the IDs/symbols into active and inactive pathway. This classification is based on the two matrices representating up and down regulated expression of genes respectively.The matrices consists of GSVA scores derived after GSVA analysis. The user can provide two threshold (relatively high and low gene expression) among each matrices, which classifies gene IDs/symbols into active and inactive pathway. In the end of the analysis, the package returns a prediction accuracy score and ROC curve for verification of the accuray of the classification.
+
+3) The package also returns a PCA plot for visualization of the categories (Active/Inactive/Uncertain) the gene symbols/IDs have been classified into.
+
 # Installation and setup
 To install a local source version of the package, type the following in R:
 ```{r eval=FALSE}
@@ -62,99 +84,49 @@ Once installation is completed, load the library to start using PathAnalyser:
 library(PathAnalyser)
 ```
 
-# Quick Start
-Here is a brief overview of the key steps constituting the standard workflow for 
-assessing pathway activity in a transcriptomic data set using PathAnalyser. 
-Successive sections will describe these steps in greater detail.
-
-1. *Read input gene expression and signature data from text files* 
-(a genes vs samples matrix, and a list of genes provided in the geneset format 
-(.grp)) into gene expression matrix and gene signature data frame formats used 
-by PathAnalyser (See [section 3][Data formats] for further details).
-
-```{r eval=FALSE}
-# Load transcriptomic data set (gene expression matrix of samples)
-data_se <- read_input_file("~/PathAnalyser/raw_data/Toy_dataset.txt")
-
-# read signature data
-sig_df <- read_signature_data("~/PathAnalyser/raw_data/ESR1_UP.v1._UP.grp", "~/PathAnalyser/raw_data/ESR1_DN.v1_DN.grp")
-```
-2. *QC and pre-processing of expression and signature data.* The gene expression 
-matrix must be normalised before passing the matrix to the PathAnalyser 
-classifier. `transform_matrix` performs log CPM (counts per million) 
-transformation on an gene expression matrix containing raw RNAseq counts for
-each gene per sample, in addition to outputting a boxplot which provides a 
-sanity check for transformation.
-```{r eval=FALSE}
-# Transforming matrix with log cpm transformation and sanity check of the transformation
-res <- transform_matrix(data_se)
-transformed_se <- log_cpm(data_se)
-# split gene signature into up-regulated gene set and down-regulated gene set
-up_genes_df <- sig_df[sig_df$expression == 1, ]
-down_genes_df <- sig_df[sig_df$expression == -1, ]
-data_se <- check_signature_vs_dataset(transformed_se, up_genes_df, down_genes_df)
-```
-3. *Classify samples based on pathway activity.* Samples in a gene expression 
-matrix can be classified according to evidence of expression consistency with 
-the up-regulated and down-regulated gene sets of GSVA, by using absolute 
-thresholds for high and low expression for each gene set of the signature via 
-`classify_GSVA_abs` or percentile threshold for high and low expression for each 
-gene set of the signature via `classify_GSVA_percent` (default=25%). The 
-algorithm is described in detail.
-```{r eval=FALSE}
-# classify samples using a percentile threshold (here 25% - quartile threshold
-# is used as default
-classes_df <- classify_GSVA_percent(sig_df, transformed_se)
-# using absolute thresholds
-classes_df_abs <- classify_GSVA_abs(sig_df, transformed_se, up_thresh.low = -0.2, 
-                                    up_thresh.high = 0.2, dn_thresh.low = -0.2, 
-                                    dn_thresh.high = 0.2)
-```
-4. *Visualize pathway activity*
-```{r eval=FALSE}
-classes_pca(transformed_se, classes_df, pathway_name = "ER")
-```
-5. *Assess the accuracy of the pathway-based classification (if pathway activity 
-class labels are available)*
-```{r eval=FALSE}
-# read true pathway activity class labels for data set samples
-true_labels_df <- read.table("~/PathAnalyser/raw_data/Sample_labels.txt", header=TRUE,sep = "\t")
-# assess accuracy and generate confusion matrix for classification
-confusion_matrix <- calculate_accuracy(true_labels_df, classes_df, pathway = "ER", display_statistics = T)
-```
 
 # Data formats
 ## Input files
-The PathAnalyser classification algorithm requires two types of input data:
+The PathAnalyser classification functions require two types of input data:
 
-1. *Gene expression matrix* - a text file containing a gene expression matrix, 
-where rows represent genes and columns samples of a gene expression data set. 
-The gene expression matrix text file can contain expression values from RNAseq or 
-normalized microarray data. 
+1. *Gene expression matrix* - a tab-delimited text file containing a gene 
+expression matrix, where rows represent genes and columns samples of a gene 
+expression data set. The gene expression matrix text file can contain expression 
+values from RNAseq or normalized microarray data. The image below is a snapshot 
+of an example expression dataset file:
+
+![Subset of an gene expression matrix text file](expr_dataset_example.png)
+
+The first line contains the sample names and the first column contains gene 
+names. All other tab-separated fields represent expression values for each gene
+for each sample from eith RNASeq or microarray experiments. 
 
 **Note: PathAnalyser does not provide functionality for unnormalized microarray 
 data, so the user must ensure the microarray data is normalized prior to 
 performing classification by PathAnalyser.**  
 
-2. *Gene signature files* - a list of genes provided in the [gene set file format](https://software.broadinstitute.org/cancer/software/gsea/wiki/index.php/Data_formats#GRP:_Gene_set_file_format_.28.2A.grp.29) (using .grp file extension) for either the up-regulated or 
-down-regulated gene set of the pathway signature. A plethora of pathway gene 
-signatures in the gene set file format can be found at 
+2. *Gene signature* - this data is provided as two text files containing 
+a list of genes provided in the [gene set file format](https://software.broadinstitute.org/cancer/software/gsea/wiki/index.php/Data_formats#GRP:_Gene_set_file_format_.28.2A.grp.29) (using .grp file extension) - one for the up-regulated gene set 
+and another containing the down-regulated gene set of the pathway signature. 
+A plethora of pathway gene signatures in the gene set file format can be found at 
 [MSigDB](https://www.gsea-msigdb.org/gsea/msigdb/index.jsp). The snapshot below
 shows the first 30 lines of the gene set file for the up-regulated gene set of 
 the ERBB2 (HER2) gene signature.  
 
+![Gene set file format containing either the up- or down-regulated gene sets of the gene signature](up_gene_signature.png)
+
 **Note: `read_signature_data` from PathAnalyser only accepts gene signatures 
 that have the up-regulated and down-regulated gene sets in separate gene set 
-format text files (ending in .grp). The user is expected to provide one 
+format text files (with file extension .grp). The user is expected to provide one 
 up-regulated and one down-regulated gene set file for a pathway gene signature.**
-![Gene set file format containing either the up- or down-regulated gene sets of the gene signature](up_gene_signature.png)
+
 
 ## Built-in datasets and gene 
 ### Gene expression signatures
-PathAnalyser contains two gene signatures for active ER and HER2 pathways that 
-can be used to assess ER and HER2 pathway activity in a breast cancer 
-transcriptomic data set. These signatures are accessible by typing the following 
-in R:
+PathAnalyser contains two built-in gene signatures for active ER and HER2 
+pathways that can be used to assess ER and HER2 pathway activity in a breast 
+cancer transcriptomic data set. These signatures are accessible by typing the 
+following in R:
 ```{r}
 data("ER_sig_df")
 data("HER2_sig_df")
@@ -164,10 +136,12 @@ The built-in ER signature `ER_sig_df` is a data frame containing the names of
 160 differentially expressed genes which constitute the transcriptional 
 signature of ER pathway activation. This signature was obtained from the 
 sensitivity to endocrine therapy genome index defined by 
-[Symanns et al. (2011)][References]. The total number of genes that are 
-up-regulated (denoted with an expression value of 1) and down-regulated (denoted 
-with an expression value of -1) in this gene signature are 101 and 59 genes 
-respectively.
+[Symanns et al. (2011)][References], a list of genes discovered to be 
+co-expressed with estrogen receptor alpha and predictive of distance-relapse 
+free survival in patients treated with tamoxifen (a selective estrogen receptor 
+modulator). The total number of genes that are up-regulated (denoted with an 
+expression value of 1) and down-regulated (denoted with an expression value of 
+-1) in this gene signature are 101 and 59 genes respectively.
 ```{r}
 dim(ER_sig_df)
 head(ER_sig_df)
@@ -230,37 +204,12 @@ head(ER_data_se1)
 ```
 
 ### HER2 dataset 1
-Need to get info
 ```{r}
 dim(HER2_data_se1)
 # Expression data for first 6 genes
 head(HER2_data_se1)
 ```
 
-# Overview of PathAnalyser functionality
-The PathAnalyser package functionality can be sub-divided into 5 broad 
-categories corresponding to a typical workflow for assessing pathway activity of 
-samples:
-
-1.  Input functions for expression data and gene signatures
-2.  Quality control and pre-processing of input data
-3.  Classification of samples by pathway activity
-4.  Evaluation of classification
-5.  Visualization
-
-The features unique to PathAnalyser package are:
-
-1) It takes into account multiple sample for the analysis. This is an addition to GSVA package features, where a single sample is
-taken into account for analysis.
-
-2) It classifies the IDs/symbols into active and inactive pathway. This classification is based on the two matrices representating up and down regulated expression of genes respectively.The matrices consists of GSVA scores derived after GSVA analysis. The user can provide two threshold (relatively high and low gene expression) among each matrices, which classifies gene IDs/symbols into active and inactive pathway. In the end of the analysis, the package returns a prediction accuracy score and ROC curve for verification of the accuray of the classification.
-
-3) The package also returns a PCA plot for visualization of the categories (Active/Inactive/Uncertain) the gene symbols/IDs have been classified into.
-
-
-
-# Example application: Assessing ER and HER2 pathway activity in a breast cancer RNAseq dataset
-PathAnalyser
 # Reading input data using PathAnalyser
 There are two types of input required for pathway activity assessment using 
 PathAnalyser:
@@ -288,10 +237,10 @@ head(sig_df)
 
 
 ## Quality control and pre-processing of data
-For the remainder of this demonstration, we will use the built-in gene expression data set matrix `ER_data_se1`. The transform_matrix function performs sanity check after the transformation of gene expression matrix with log cpm transformation. It displays the distribution of gene expression before and after transformation with the help of boxplots. The transform function returns the transformed matrix after log cpm transformation.
+For the remainder of this demonstration, we will use the built-in gene expression data set matrix `ER_data_se1`. The `log_cpm` function performs sanity check after the transformation of gene expression matrix with log cpm transformation. It displays the distribution of gene expression before and after transformation with the help of boxplots. The transform function returns the transformed matrix after log cpm transformation.
 ```{r}
-transform_matrix(ER_data_se1)
-normalized_se <- transform(ER_data_se1)
+normalized_se <- log_cpm(ER_data_se1)
+
 #data_se <- check_signature_vs_dataset(normalized_se, ER_up_sig, ER_dn_sig)
 ```
 
@@ -494,6 +443,74 @@ confusion_matrix <- calculate_accuracy("/Users/taniyapal/Downloads/Sample_label.
 ## Generating PCA plot
 ```{r}
 #classes_pca(normalized_se, classes_df, pathway_name = "ER")
+```
+
+# Example: Assessing ER pathway activity in a breast cancer RNAseq dataset
+Here is a brief overview of the key steps constituting the standard workflow for 
+assessing pathway activity in an RNAseq transcriptomic data set using 
+PathAnalyser. Successive sections will describe these steps in greater detail.
+
+To read a gene expression matrix text file (rows corresponding to genes and 
+columns corresponding to samples) into a gene expression matrix for the 
+classification functions, pass the gene expression dataset text file path to the 
+`read_input_file` function (See [section 3][Data formats] for further details).
+
+```{r}
+# Load transcriptomic data set (gene expression matrix of samples)
+data_se <- read_input_file("~/PathAnalyser/raw_data/Toy_dataset.txt")
+```
+Currently, the package only works with gene signatures provided as two separate gene
+set files (file extension .grp) for the up-regulated gene set and down-regulated
+gene set of the signature. These gene set files are passed to the 
+`read_signature_data` to create a data frame containing a list of gene names and
+their corresponding expression values (-1 for down-regulated and 1 for 
+up-regulated genes).
+
+```{r eval=FALSE}
+# read signature data from the two individual gene set files for up-regulated
+# and down-regulated gene sets
+sig_df <- read_signature_data("~/PathAnalyser/raw_data/ESR1_UP.v1._UP.grp", "~/PathAnalyser/raw_data/ESR1_DN.v1_DN.grp")
+```
+2. *QC and pre-processing of expression and signature data.* The gene expression 
+matrix must be normalised before passing the matrix to the PathAnalyser 
+classifier. `log_cpm` performs log CPM (counts per million) transformation on an 
+gene expression matrix containing raw RNAseq counts for each gene per sample, in 
+addition to displaying a boxplot which provides a sanity check for 
+transformation.
+```{r eval=FALSE}
+# Transforming matrix with log cpm transformation and sanity check of the transformation
+transformed_se <- log_cpm(data_se)
+up_genes_df <- sig_df[sig_df$expression == 1, ] # will be removed
+down_genes_df <- sig_df[sig_df$expression == -1, ] # will be removed
+data_se <- check_signature_vs_dataset(transformed_se, up_genes_df, down_genes_df)
+```
+3. *Classify samples based on pathway activity.* Samples in a gene expression 
+matrix can be classified according to evidence of expression consistency with 
+the up-regulated and down-regulated gene sets of GSVA, by using absolute 
+thresholds for high and low expression for each gene set of the signature via 
+`classify_GSVA_abs` or percentile threshold for high and low expression for each 
+gene set of the signature via `classify_GSVA_percent` (default=25%). The 
+algorithm is described in detail.
+```{r eval=FALSE}
+# classify samples using a percentile threshold (here 25% - quartile threshold
+# is used as default
+classes_df <- classify_GSVA_percent(sig_df, transformed_se)
+# using absolute thresholds
+classes_df_abs <- classify_GSVA_abs(sig_df, transformed_se, up_thresh.low = -0.2, 
+                                    up_thresh.high = 0.2, dn_thresh.low = -0.2, 
+                                    dn_thresh.high = 0.2)
+```
+4. *Visualize pathway activity*
+```{r eval=FALSE}
+classes_pca(transformed_se, classes_df, pathway_name = "ER")
+```
+5. *Assess the accuracy of the pathway-based classification (if pathway activity 
+class labels are available)*
+```{r eval=FALSE}
+# read true pathway activity class labels for data set samples
+true_labels_df <- read.table("~/PathAnalyser/raw_data/Sample_labels.txt", header=TRUE,sep = "\t")
+# assess accuracy and generate confusion matrix for classification
+confusion_matrix <- calculate_accuracy(true_labels_df, classes_df, pathway = "ER", display_statistics = T)
 ```
 
 # Session Info
