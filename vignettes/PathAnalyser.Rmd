@@ -1,7 +1,7 @@
 ---
 title: "PathAnalyser"
 author:
-  - name: Rishab Kaushik
+  - name: Rishabh Kaushik
   - name: Taniya Pal
   - name: Ozlem Karadeniz
   - name: Yi-Hsuan Lee
@@ -89,10 +89,7 @@ sanity check for transformation.
 # Transforming matrix with log cpm transformation and sanity check of the transformation
 res <- transform_matrix(data_se)
 transformed_se <- log_cpm(data_se)
-# split gene signature into up-regulated gene set and down-regulated gene set
-up_genes_df <- sig_df[sig_df$expression == 1, ]
-down_genes_df <- sig_df[sig_df$expression == -1, ]
-data_se <- check_signature_vs_dataset(transformed_se, up_genes_df, down_genes_df)
+data_se <- check_signature_vs_dataset(transformed_se, sig_df)
 ```
 3. *Classify samples based on pathway activity.* Samples in a gene expression 
 matrix can be classified according to evidence of expression consistency with 
