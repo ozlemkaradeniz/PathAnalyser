@@ -7,10 +7,11 @@
 gsva_scores_dist(sig_df, data_se)
 }
 \arguments{
-\item{sig_df}{Gene expression signature for a specific pathway given as data frame
-containing a list of genes that are the most differentially expressed when
-a specific pathway is active. Up-regulated genes are given an
-expression of 1, while down-regulated genes are given an expression of -1.}
+\item{sig_df}{Normalized gene expression signature for a specific pathway
+given as data frame containing a list of genes that are the most
+differentially expressed when a specific pathway is active. Up-regulated
+genes are given an expression of 1, while down-regulated genes are given an
+expression of -1.}
 
 \item{data_se}{Expression data set matrix given as a matrix or data frame
 comprising the expression levels of genes in a set of samples. Gene
@@ -18,7 +19,7 @@ expression matrices can be from RNASeq
 or microarray transcriptomic data sets.}
 }
 \value{
-density plot displaying distribution of GSVA scores obtainied for
+density plot displaying distribution of GSVA scores obtained for
 the samples using up-regulated and down-regulated gene-sets from the gene
 signature
 }

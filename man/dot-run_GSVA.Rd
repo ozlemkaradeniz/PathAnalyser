@@ -13,10 +13,10 @@ frame containing a list of genes that are the most differentially expressed
 when a specific pathway is active. Up-regulated genes are given an
 expression of 1, while down-regulated genes are given an expression of -1.}
 
-\item{data_se}{Expression data set matrix given as a matrix or data frame
-comprising the expression levels of genes for each sample in a data set.
-Gene expression matrices can be from RNASeq or microarray transcriptomic data
-sets.}
+\item{data_se}{Normalized expression data set matrix given as a matrix or
+data frame comprising the expression levels of genes for each sample in a
+data set. Gene expression matrices can be from RNASeq or microarray
+transcriptomic data sets.}
 }
 \value{
 GSVA scores in the form of a list, containing two data frames: GSVA

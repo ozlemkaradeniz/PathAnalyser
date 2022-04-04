@@ -13,8 +13,9 @@ frame containing a list of genes that are the most differentially expressed
 when a specific pathway is active. Up-regulated genes are given an
 expression of 1, while down-regulated genes are given an expression of -1.}
 
-\item{data_se}{Gene expression matrix or data frame containing expression
-values for samples in a data set (RNA Seq read counts or microarray data).}
+\item{data_se}{Normalized gene expression matrix or data frame containing
+expression values for samples in a data set (RNA Seq read counts or
+microarray data).}
 
 \item{up_thresh}{Percentile threshold of samples for checking consistency of
 gene expression of a sample with first the up-regulated and then
