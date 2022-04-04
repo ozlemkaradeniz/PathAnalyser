@@ -17,12 +17,12 @@ log_cpm <-function (data_es){
   require(edgeR)
   
   #box plot before transformation
-  plot.before.transformation=boxplot(log(data_es+0.5), main="Plot before normalization", axes=F)
+  plot.before.transformation=boxplot(log(data_es+0.5), main="Plot before log cpm transformation", axes=F)
 
   data_es_log_cpm<-cpm(data_es, log=TRUE)
   
   #box plot after transformation
-  plot.after.transformation=boxplot(log(cpm.values+0.5), main="Plot after normalization", axes=F)
+  plot.after.transformation=boxplot(log(cpm.values+0.5), main="Plot after log cpm transformation", axes=F)
   
   
   return(data_es_log_cpm)
