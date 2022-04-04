@@ -50,10 +50,6 @@ algorithm with absolute GSVA scores thresholds for assessing expression
 consistency with the up-regulated  and down-regulated gene-sets of the gene
 signature.
 }
-\details{
-The absolute threshold GSVA function classifies samples by pathway
-activity using
-}
 \examples{
 # Default thresholds for up-regulated and down-regulated gene-sets
 classes_df <- classify_GSVA_abs(sig_df, data_se, up_thresh.low=-0.25,

@@ -5,7 +5,7 @@
 \title{Sample classification according to pathway activity using a percentile
 threshold for assessing expression consistency with a gene signature.}
 \usage{
-classify_GSVA_percent(sig_df, data_se, thresh_percent = 25)
+classify_GSVA_percent(sig_df, data_se, percent_thresh = 25)
 }
 \arguments{
 \item{sig_df}{Gene expression signature for a specific pathway given as data
@@ -17,16 +17,16 @@ expression of 1, while down-regulated genes are given an expression of -1.}
 expression values for samples in a data set (RNA Seq read counts or
 microarray data).}
 
-\item{up_thresh}{Percentile threshold of samples for checking consistency of
-gene expression of a sample with first the up-regulated and then
-down-regulated gene-set of the gene signature (default= 25\% (quartile)).}
+\item{percent_thresh}{Percentile threshold (0-100) of samples for checking
+consistency of gene expression of a sample with first the up-regulated and
+then down-regulated gene-set of the gene signature (default= 25\% (quartile)).}
 }
 \value{
 data frame containing predicted pathway activity classes for each
 sample in the user provided data set (Active, Inactive or Uncertain).
 }
 \description{
-Classify samples by ranking samples by abundance of expression
+Classifies samples by ranking samples by abundance of expression
 calculated via the GSVA algorithm. Samples are assessed for expression
 consistency with both the up-regulated and down-regulated gene-sets using
 percentile thresholds during the pathway activity sample classification.
