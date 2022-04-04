@@ -10,10 +10,10 @@
 #' frame containing a list of genes that are the most differentially expressed
 #' when a specific pathway is active. Up-regulated genes are given an
 #' expression of 1, while down-regulated genes are given an expression of -1.
-#' @param data_se Expression data set matrix given as a matrix or data frame
-#' comprising the expression levels of genes for each sample in a data set.
-#' Gene expression matrices can be from RNASeq or microarray transcriptomic data
-#' sets.
+#' @param data_se Normalized expression data set matrix given as a matrix or
+#' data frame comprising the expression levels of genes for each sample in a
+#' data set. Gene expression matrices can be from RNASeq or microarray
+#' transcriptomic data sets.
 #' @param up_thresh.low Number denoting the absolute GSVA score threshold for the
 #' categorizing a sample as inconsistent expression with the up-regulated
 #' gene-set from the gene signature.
@@ -72,8 +72,9 @@ classify_GSVA_abs <- function(sig_df, data_se, up_thresh.low,
 #' frame containing a list of genes that are the most differentially expressed
 #' when a specific pathway is active. Up-regulated genes are given an
 #' expression of 1, while down-regulated genes are given an expression of -1.
-#' @param data_se Gene expression matrix or data frame containing expression
-#' values for samples in a data set (RNA Seq read counts or microarray data).
+#' @param data_se Normalized gene expression matrix or data frame containing
+#' expression values for samples in a data set (RNA Seq read counts or
+#' microarray data).
 #' @param up_thresh Percentile threshold of samples for checking consistency of
 #' gene expression of a sample with first the up-regulated and then
 #' down-regulated gene-set of the gene signature (default= 25% (quartile)).
@@ -107,16 +108,17 @@ classify_GSVA_percent <- function(sig_df, data_se, thresh_percent=25){
 #' @description Plots GSVA scores distribution for up-regulated and
 #' down-regulated gene-sets of a provided gene expression signature
 #' @author Anisha Thind \email{a.thind@@cranfield.ac.uk}
-#' @param sig_df Gene expression signature for a specific pathway given as data frame
-#' containing a list of genes that are the most differentially expressed when
-#' a specific pathway is active. Up-regulated genes are given an
-#' expression of 1, while down-regulated genes are given an expression of -1.
+#' @param sig_df Normalized gene expression signature for a specific pathway
+#' given as data frame containing a list of genes that are the most
+#' differentially expressed when a specific pathway is active. Up-regulated
+#' genes are given an expression of 1, while down-regulated genes are given an
+#' expression of -1.
 #' @param data_se Expression data set matrix given as a matrix or data frame
 #' comprising the expression levels of genes in a set of samples. Gene
 #' expression matrices can be from RNASeq
 #' or microarray transcriptomic data sets.
 #'
-#' @return density plot displaying distribution of GSVA scores obtainied for
+#' @return density plot displaying distribution of GSVA scores obtained for
 #' the samples using up-regulated and down-regulated gene-sets from the gene
 #' signature
 #' @export
@@ -164,10 +166,10 @@ gsva_scores_dist <- function(sig_df, data_se) {
 #' frame containing a list of genes that are the most differentially expressed
 #' when a specific pathway is active. Up-regulated genes are given an
 #' expression of 1, while down-regulated genes are given an expression of -1.
-#' @param data_se Expression data set matrix given as a matrix or data frame
-#' comprising the expression levels of genes for each sample in a data set.
-#' Gene expression matrices can be from RNASeq or microarray transcriptomic data
-#' sets.
+#' @param data_se Normalized expression data set matrix given as a matrix or
+#' data frame comprising the expression levels of genes for each sample in a
+#' data set. Gene expression matrices can be from RNASeq or microarray
+#' transcriptomic data sets.
 #' @keywords internal
 #'
 #' @return GSVA scores in the form of a list, containing two data frames: GSVA
@@ -281,6 +283,8 @@ gsva_scores_dist <- function(sig_df, data_se) {
   cat("--------------------------------------------------------------\n")
   cat("Number of samples in each pathway activity class:\n")
   print(table(classes_df$class))
-  cat(sprintf("\nTotal number of samples: %d\n", nrow(classes_df)))
+  cat(sprintf("\nTotal number of samples: %d", nrow(classes_df)))
+  classified <- classes_df[classes_df$class %in% c("Active", "Inactive"),]
+  cat(sprintf("\nTotal number of samples classified: %d\n", nrow(classified)))
   return(classes_df)
 }
