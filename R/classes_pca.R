@@ -18,8 +18,7 @@ classes_pca <-
   function(normalized_data_filtered,
            predicted_labels_df,
            pathway_name = "ER") {
-
-    library(ggfortify)
+    require(ggfortify)
 
     data_filtered<-t(normalized_data_filtered)
     row.names(predicted_labels_df)<-predicted_labels_df$sample
