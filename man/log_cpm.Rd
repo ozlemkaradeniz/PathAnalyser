@@ -2,24 +2,25 @@
 % Please edit documentation in R/Transformation_script_new.R
 \name{log_cpm}
 \alias{log_cpm}
-\title{Normalisation of the raw count data by using  log CPM (counts per million)}
+\title{Transformation of the raw count data by using  log CPM (counts per million)}
 \usage{
 log_cpm(data_es)
 }
 \arguments{
-\item{data_es}{Gene expression data matrix from TCGA}
+\item{data_es}{Gene expression matrix with gene IDs/symbols as row names
+and Sample IDs as column names}
 }
 \value{
-Normalized Gene expression data matrix
+Transformed gene expression data matrix
 }
 \description{
-Normalisation of the raw count data by using  log CPM (counts per million) by calling
-cmp method in edgeR library
+Transformation of the raw count data by using  log CPM (counts per million) by calling
+cpm method in edgeR library
 }
 \examples{
 log_cpm(data_es)
 
 }
 \author{
-Rishabh Kaushik \email{rishabh.kaushik.126@cranfield.ac.uk}
+Rishabh Kaushik and Taniya Pal \email{rishabh.kaushik.126@cranfield.ac.uk, taniya.pal.094@cranfiled.ac.uk}
 }
