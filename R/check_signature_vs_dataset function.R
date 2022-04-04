@@ -5,24 +5,22 @@
 #'
 #' @author Yi-Hsuan Lee \email{yi-hsuan.lee@cranfield.ac.uk}
 #' @param data_norm  Normalized Gene expression data matrix
-#' @param sig_up_df  Up-regulated gene-set
-#' @param sig_dn_df  Down-regulated gene-set
+#' @param sig_df  signature gene-set
+#'
 #'
 #'
 #' @return Filtered Normalized Gene expression data matrix
 #' @export
 #'
-#' @examples check_signature_vs_dataset(data_norm, sig_up_df, sig_dn_d)
+#' @examples check_signature_vs_dataset(data_norm, sig_df)
 
 
 
-check_signature_vs_dataset <-function(data_norm, sig_up_df, sig_dn_df) {
-    sig_up_df<-as.data.frame(sig_up_df)
-    sig_dn_df<-as.data.frame(sig_dn_df)
+check_signature_vs_dataset <-function(data_norm, sig_df) {
+    sig_df<-as.data.frame(sig_df)
+    sig_df<-as.data.frame(sig_df[,1])
     # filter gene signature in expression matrix
-    up_data <- data_norm[rownames(data_norm) %in% sig_up_df[, 1],]
-    dn_data <- data_norm[rownames(data_norm) %in% sig_dn_df[, 1],]
-    filtered <- as.matrix(rbind(up_data, dn_data))
+    filtered <- data_norm[rownames(data_norm) %in% sig_df[, 1],]
     delet_gene_list <- list()
 
     # calculate each gene present or absent in each case
@@ -103,4 +101,3 @@ check_signature_vs_dataset <-function(data_norm, sig_up_df, sig_dn_df) {
       cat("No gene present in sigunature")
     }
   }
-

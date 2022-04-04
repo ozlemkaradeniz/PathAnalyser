@@ -4,14 +4,12 @@
 \alias{check_signature_vs_dataset}
 \title{Validity check in gene signatures and gene expression datasets}
 \usage{
-check_signature_vs_dataset(data_norm, sig_up_df, sig_dn_df)
+check_signature_vs_dataset(data_norm, sig_df)
 }
 \arguments{
 \item{data_norm}{Normalized Gene expression data matrix}
 
-\item{sig_up_df}{Up-regulated gene-set}
-
-\item{sig_dn_df}{Down-regulated gene-set}
+\item{sig_df}{signature gene-set}
 }
 \value{
 Filtered Normalized Gene expression data matrix
@@ -21,7 +19,7 @@ performs validity check against gene signatures and gene expression dataset and
 filters gene expression dataset accordingly
 }
 \examples{
-check_signature_vs_dataset(data_norm, sig_up_df, sig_dn_d)
+check_signature_vs_dataset(data_norm, sig_df)
 }
 \author{
 Yi-Hsuan Lee \email{yi-hsuan.lee@cranfield.ac.uk}
