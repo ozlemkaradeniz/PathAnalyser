@@ -1,7 +1,7 @@
 ---
 title: "PathAnalyser"
 author:
-  - name: Rishab Kaushik
+  - name: Rishabh Kaushik
   - name: Taniya Pal
   - name: Ozlem Karadeniz
   - name: Yi-Hsuan Lee
@@ -84,12 +84,21 @@ Once installation is completed, load the library to start using PathAnalyser:
 library(PathAnalyser)
 ```
 
-
 # Data formats
-## Input files
-The PathAnalyser classification functions require two types of input data:
+The classification algorithm of PathAnalyser requires two types of input data:
 
-1. *Gene expression matrix* - a tab-delimited text file containing a gene 
+1. **Gene expression matrix** - a gene-by-sample gene expression matrix, with 
+row names corresponding to gene names and column names corresponding to sample 
+names / IDs.
+2. **gene signature data frame** - a data frame of expression values corresponding 
+to a list of genes associated with a pathway. The first column contains gene 
+names and the second column contains expression values: -1 for down-regulated or
+1 for up-regulated genes when a specific pathway is active.
+
+## Input files
+The PathAnalyser classification functions require two types of input files:
+
+1. *Gene expression matrix file* - a tab-delimited text file containing a gene 
 expression matrix, where rows represent genes and columns samples of a gene 
 expression data set. The gene expression matrix text file can contain expression 
 values from RNAseq or normalized microarray data. The image below is a snapshot 
@@ -105,7 +114,7 @@ for each sample from eith RNASeq or microarray experiments.
 data, so the user must ensure the microarray data is normalized prior to 
 performing classification by PathAnalyser.**  
 
-2. *Gene signature* - this data is provided as two text files containing 
+2. *Gene signature files* - this data is provided as two text files containing 
 a list of genes provided in the [gene set file format](https://software.broadinstitute.org/cancer/software/gsea/wiki/index.php/Data_formats#GRP:_Gene_set_file_format_.28.2A.grp.29) (using .grp file extension) - one for the up-regulated gene set 
 and another containing the down-regulated gene set of the pathway signature. 
 A plethora of pathway gene signatures in the gene set file format can be found at 
@@ -236,12 +245,15 @@ head(sig_df)
 
 
 
-## Quality control and pre-processing of data
-For the remainder of this demonstration, we will use the built-in gene expression data set matrix `ER_data_se1`. The `log_cpm` function performs sanity check after the transformation of gene expression matrix with log cpm transformation. It displays the distribution of gene expression before and after transformation with the help of boxplots. The transform function returns the transformed matrix after log cpm transformation.
+# Quality control and pre-processing of data
+The `log_cpm` function performs sanity check after the transformation of gene 
+expression matrix with log cpm transformation. It displays the distribution of 
+gene expression before and after transformation with the help of boxplots. The 
+transform function returns the transformed matrix after log cpm transformation.
 ```{r}
 normalized_se <- log_cpm(ER_data_se1)
 
-#data_se <- check_signature_vs_dataset(normalized_se, ER_up_sig, ER_dn_sig)
+data_se <- check_signature_vs_dataset(normalized_se, ER_up_sig, ER_dn_sig)
 ```
 
 # Classifying samples by pathway activity using gene signatures
@@ -446,9 +458,9 @@ confusion_matrix <- calculate_accuracy("/Users/taniyapal/Downloads/Sample_label.
 ```
 
 # Example: Assessing ER pathway activity in a breast cancer RNAseq dataset
-Here is a brief overview of the key steps constituting the standard workflow for 
-assessing pathway activity in an RNAseq transcriptomic data set using 
-PathAnalyser. Successive sections will describe these steps in greater detail.
+To demonstrate the standard workflow of assessing pathway activity in a 
+transcriptomic dataset, we will use PathAnalyser to classify samples in an RNA
+seq dataset
 
 To read a gene expression matrix text file (rows corresponding to genes and 
 columns corresponding to samples) into a gene expression matrix for the 
