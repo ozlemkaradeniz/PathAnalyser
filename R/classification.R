@@ -3,8 +3,6 @@
 #' algorithm with absolute GSVA scores thresholds for assessing expression
 #' consistency with the up-regulated  and down-regulated gene-sets of the gene
 #' signature.
-#' @details The absolute threshold GSVA function classifies samples by pathway
-#' activity using
 #' @author Anisha Thind \email{a.thind@@cranfield.ac.uk}
 #' @param sig_df Gene expression signature for a specific pathway given as data
 #' frame containing a list of genes that are the most differentially expressed
@@ -62,7 +60,7 @@ classify_GSVA_abs <- function(sig_df, data_se, up_thresh.low,
 
 #' Sample classification according to pathway activity using a percentile
 #' threshold for assessing expression consistency with a gene signature.
-#' @description Classify samples by ranking samples by abundance of expression
+#' @description Classifies samples by ranking samples by abundance of expression
 #' calculated via the GSVA algorithm. Samples are assessed for expression
 #' consistency with both the up-regulated and down-regulated gene-sets using
 #' percentile thresholds during the pathway activity sample classification.
@@ -75,9 +73,9 @@ classify_GSVA_abs <- function(sig_df, data_se, up_thresh.low,
 #' @param data_se Normalized gene expression matrix or data frame containing
 #' expression values for samples in a data set (RNA Seq read counts or
 #' microarray data).
-#' @param up_thresh Percentile threshold of samples for checking consistency of
-#' gene expression of a sample with first the up-regulated and then
-#' down-regulated gene-set of the gene signature (default= 25% (quartile)).
+#' @param percent_thresh Percentile threshold (0-100) of samples for checking
+#' consistency of gene expression of a sample with first the up-regulated and
+#' then down-regulated gene-set of the gene signature (default= 25% (quartile)).
 #'
 #' @return data frame containing predicted pathway activity classes for each
 #' sample in the user provided data set (Active, Inactive or Uncertain).
@@ -89,9 +87,9 @@ classify_GSVA_abs <- function(sig_df, data_se, up_thresh.low,
 #' # custom percentile threshold e.g. 30th percentile
 #' classes_df <- classify_GSVA_percent(ER_sig_df, ER_data_se1,
 #'        thresh_percent=30)
-classify_GSVA_percent <- function(sig_df, data_se, thresh_percent=25){
+classify_GSVA_percent <- function(sig_df, data_se, percent_thresh=25){
   # check threshold is a number between 0-100%
-  thresh <- thresh_percent / 100
+  thresh <- percent_thresh / 100
   scores <- .run_GSVA(sig_df, data_se)
   # compute percentiles
   tryCatch(up_thresh <- quantile(scores$Up[,1], c(thresh, 1-thresh)),
