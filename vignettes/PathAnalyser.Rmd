@@ -96,7 +96,8 @@ names and the second column contains expression values: -1 for down-regulated or
 1 for up-regulated genes when a specific pathway is active.
 
 ## Input files
-The PathAnalyser classification functions require two types of input files:
+The two data types described above (gene expression matrix and gene signature 
+dataframe) can be created from two types of input files:
 
 1. *Gene expression matrix file* - a tab-delimited text file containing a gene 
 expression matrix, where rows represent genes and columns samples of a gene 
@@ -205,7 +206,9 @@ data("HER2_data_se1")
 ```
 
 ### ER dataset 1
-
+The ER data set `ER_data_se1` contains RNASeq raw read counts for 20 primary 
+breast cancer samples, 10 of which have ER pathway activity (ER+) and 10 which 
+have inactive ER pathway activity (ER-).
 ```{r}
 dim(ER_data_se1)
 # Expression data for first 6 genes
@@ -213,6 +216,9 @@ head(ER_data_se1)
 ```
 
 ### HER2 dataset 1
+Similarly, the HER2 data set `HER2_data_se1` contains RNASeq raw read counts for 
+20 primary breast cancer samples, 10 of which have HER2 (ERBB2) pathway activity 
+(HER2+) and 10 which have inactive HER2 pathway activity (HER2-).
 ```{r}
 dim(HER2_data_se1)
 # Expression data for first 6 genes
@@ -253,7 +259,7 @@ transform function returns the transformed matrix after log cpm transformation.
 ```{r}
 normalized_se <- log_cpm(ER_data_se1)
 
-data_se <- check_signature_vs_dataset(normalized_se, ER_up_sig, ER_dn_sig)
+data_se <- check_signature_vs_dataset(normalized_se, ER_sig_df)
 ```
 
 # Classifying samples by pathway activity using gene signatures
@@ -437,9 +443,9 @@ This package provides a method `calculate_accuracy` for evaluating pathway
 activity classification, which gets the actual labels and the labels classified
 by the classification methods as parameters; then creates confusion matrix based
 on them. The first parameter `true_labels_source` could be file-name, matrix or 
-dataframe and contains sample names and their corresponding actual 
-labels.The second parameter `classes_df` could be matrix or dataframe and 
-containsclassified labels found by the classification methods 
+data frame and contains sample names and their corresponding actual 
+labels.The second parameter `classes_df` could be matrix or data frame and 
+contains classified labels found by the classification methods 
 `classify_GSVA_percent` or `classify_GSVA_abs`. Third parameter `pathway` 
 specifies with which pathway the labels(actual and classified) are  associated. 
 Other parameters `display_statistics` and  `display_roc_curve` are boolean flags
@@ -454,75 +460,76 @@ confusion_matrix <- calculate_accuracy("/Users/taniyapal/Downloads/Sample_label.
 # Visualising pathway activity
 ## Generating PCA plot
 ```{r}
-#classes_pca(normalized_se, classes_df, pathway_name = "ER")
+classes_pca(normalized_se, classes_df, pathway_name = "ER")
 ```
 
 # Example: Assessing ER pathway activity in a breast cancer RNAseq dataset
 To demonstrate the standard workflow of assessing pathway activity in a 
-transcriptomic dataset, we will use PathAnalyser to classify samples in an RNA
-seq dataset
+transcriptomic data set, we will use PathAnalyser to classify samples in an RNA
+seq data set according to ER pathway activity. The data set collected from The 
+Genome Atlas Project (TCGA) contains raw read counts for over 20,000 genes for 
+20 primary breast cancer samples.
 
-To read a gene expression matrix text file (rows corresponding to genes and 
-columns corresponding to samples) into a gene expression matrix for the 
-classification functions, pass the gene expression dataset text file path to the 
-`read_input_file` function (See [section 3][Data formats] for further details).
-
+## Read RNASeq gene expression dataset and ER pathway signature data
+First the gene expression matrix data set text file which contains raw read 
+counts and gene signature text files (up-regulated and down-regulated gene set 
+files) are read into the expression matrix and gene expression data frame data 
+types respectively.
 ```{r}
 # Load transcriptomic data set (gene expression matrix of samples)
-data_se <- read_input_file("~/PathAnalyser/raw_data/Toy_dataset.txt")
-```
-Currently, the package only works with gene signatures provided as two separate gene
-set files (file extension .grp) for the up-regulated gene set and down-regulated
-gene set of the signature. These gene set files are passed to the 
-`read_signature_data` to create a data frame containing a list of gene names and
-their corresponding expression values (-1 for down-regulated and 1 for 
-up-regulated genes).
-
-```{r eval=FALSE}
+data_se <- read_input_file("~/PathAnalyser/raw_data/toy_data.tsv")
+dim(data_se)
 # read signature data from the two individual gene set files for up-regulated
 # and down-regulated gene sets
-sig_df <- read_signature_data("~/PathAnalyser/raw_data/ESR1_UP.v1._UP.grp", "~/PathAnalyser/raw_data/ESR1_DN.v1_DN.grp")
+ER_sig <- read_signature_data("~/PathAnalyser/raw_data/ESR1_UP.v1._UP.grp", "~/PathAnalyser/raw_data/ESR1_DN.v1_DN.grp")
 ```
-2. *QC and pre-processing of expression and signature data.* The gene expression 
-matrix must be normalised before passing the matrix to the PathAnalyser 
-classifier. `log_cpm` performs log CPM (counts per million) transformation on an 
-gene expression matrix containing raw RNAseq counts for each gene per sample, in 
-addition to displaying a boxplot which provides a sanity check for 
+
+## QC and pre-processing of the expression dataset and ER signature data
+As the gene expression matrix contains raw RNASeq counts the data must be 
+normalized prior to passing the matrix to any of the classification functions. 
+Normalization of read counts is necessary to account for differences in 
+sequencing depths amongst the libraries. The PathAnalyser `log_cpm` function can 
+be used to perform a log CPM transformation on the gene expression matrix. 
+Furthermore, `log_cpm` confirms a the logCPM transformation has been performed correctly since the boxplots 
+displayed by the function representing the logCPM values for each sample are 
+more aligned following the logCPM transformation compared to before the
 transformation.
-```{r eval=FALSE}
+```{r}
 # Transforming matrix with log cpm transformation and sanity check of the transformation
-transformed_se <- log_cpm(data_se)
-up_genes_df <- sig_df[sig_df$expression == 1, ] # will be removed
-down_genes_df <- sig_df[sig_df$expression == -1, ] # will be removed
-data_se <- check_signature_vs_dataset(transformed_se, up_genes_df, down_genes_df)
+normalized_se <- log_cpm(data_se)
+normalized_se <- check_signature_vs_dataset(normalized_se, ER_sig)
 ```
-3. *Classify samples based on pathway activity.* Samples in a gene expression 
-matrix can be classified according to evidence of expression consistency with 
-the up-regulated and down-regulated gene sets of GSVA, by using absolute 
-thresholds for high and low expression for each gene set of the signature via 
-`classify_GSVA_abs` or percentile threshold for high and low expression for each 
-gene set of the signature via `classify_GSVA_percent` (default=25%). The 
-algorithm is described in detail.
-```{r eval=FALSE}
+
+## Classify breast cancer samples based on ER pathway activity.
+Samples in a gene expression matrix can be classified according to evidence of 
+expression consistency with the up-regulated and down-regulated gene sets of 
+GSVA, by using absolute thresholds for high and low expression for each gene set 
+of the signature via `classify_GSVA_abs` or percentile threshold for high and 
+low expression for each gene set of the signature via `classify_GSVA_percent` 
+(default=25%). The algorithm is described in detail.
+```{r}
 # classify samples using a percentile threshold (here 25% - quartile threshold
 # is used as default
-classes_df <- classify_GSVA_percent(sig_df, transformed_se)
+classes_df <- classify_GSVA_percent(ER_sig, normalized_se)
 # using absolute thresholds
-classes_df_abs <- classify_GSVA_abs(sig_df, transformed_se, up_thresh.low = -0.2, 
+classes_df_abs <- classify_GSVA_abs(ER_sig, normalized_se, up_thresh.low = -0.2, 
                                     up_thresh.high = 0.2, dn_thresh.low = -0.2, 
                                     dn_thresh.high = 0.2)
 ```
-4. *Visualize pathway activity*
-```{r eval=FALSE}
-classes_pca(transformed_se, classes_df, pathway_name = "ER")
+
+## Visualize pathway activity
+```{r}
+classes_pca(normalized_se, classes_df, pathway_name = "ER")
 ```
-5. *Assess the accuracy of the pathway-based classification (if pathway activity 
-class labels are available)*
-```{r eval=FALSE}
+
+## Assess the accuracy of the pathway-based classification
+```{r}
 # read true pathway activity class labels for data set samples
-true_labels_df <- read.table("~/PathAnalyser/raw_data/Sample_labels.txt", header=TRUE,sep = "\t")
+true_labels_df <- read.table("~/PathAnalyser/raw_data/Sample_labels.txt", 
+                             header=TRUE, sep = "\t")
 # assess accuracy and generate confusion matrix for classification
-confusion_matrix <- calculate_accuracy(true_labels_df, classes_df, pathway = "ER", display_statistics = T)
+confusion_matrix <- calculate_accuracy(true_labels_df, classes_df, 
+                                       pathway = "ER", display_statistics = T)
 ```
 
 # Session Info
