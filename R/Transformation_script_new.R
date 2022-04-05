@@ -12,12 +12,12 @@
 #'
 #' @author Rishabh Kaushik and Taniya Pal \email{rishabh.kaushik.126@cranfield.ac.uk, taniya.pal.094@cranfiled.ac.uk}
 #' @param data_es  Gene expression matrix with gene IDs/symbols as row names
-#' and Sample IDs as column names
+#' and Sample IDs as column names (return value of read_expression matrix function)
 #'
 #' @return Transformed gene expression data matrix
 #' @export
 #'
-#' @examples log_cpm_transformation("TCGA_unannotated.txt")
+#' @examples log_cpm_transformation(formatted_matrix)
 #'
 
 log_cpm_transformation <-function (data_es){
