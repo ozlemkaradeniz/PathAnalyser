@@ -11,7 +11,7 @@ classes_pca(normalized_data_filtered, predicted_labels_df, pathway_name = "ER")
 
 \item{predicted_labels_df}{dataframe which labels for each sample predicted by classification algorithm}
 
-\item{pathway_name}{pathway name ER or HER2, default is ER}
+\item{pathway_name}{pathway name, default is "ER"}
 }
 \value{
 
