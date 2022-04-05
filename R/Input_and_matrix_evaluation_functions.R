@@ -18,7 +18,7 @@
 #' and the Sample IDs as colnames.
 #' @export
 #'
-#' @examples read_expression_data("/Users/taniyapal/Documents/Group Project/TCGA_unannotated.txt"))
+#' @examples read_expression_data("/Users/taniyapal/Documents/Group Project/TCGA_unannotated.txt")
 
 read_expression_data<- function(file_name){
   
