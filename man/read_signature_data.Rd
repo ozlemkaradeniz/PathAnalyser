@@ -24,7 +24,7 @@ both up and down regulated signatures. The second column
 signifies whether they are up(+1) or down(-1) regulated.
 }
 \examples{
-read_signature_data("ESR1_UP.v1_UP.csv","ESR1_DN.v1_DN.csv" )
+read_signature_data("ESR1_UP.v1._UP.csv","ESR1_DN.v1_DN.csv" )
 }
 \author{
 Taniya Pal \email{taniya.pal.094@cranfield.ac.uk}
