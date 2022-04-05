@@ -280,7 +280,7 @@ The `read_input_file` function reads gene expression data from
 a file with an delimiter, the function checks the delimiter of the
 file and reads the file accordingly. It returns an ouput with gene symbols/IDs as the rownames and columns representating each sample 
 IDs in the dataset.
-```{r}
+```{r eval=F}
 data_se <- read_expression_data("/Users/taniyapal/Documents/Group Project/TCGA_unannotated.txt")
 data_se<-data_se[,1:200]
 print(data_se[1:5, 1:5])
@@ -292,7 +292,7 @@ print(data_se[1:5, 1:5])
 Gene signature files can be read by the `read_signature_data` function. It returns a dataframe with signature IDs/symbols in the
 first column and their expression pattern is represented as up r
 regulated or down regulated by +1 and -1 respectively.
-```{r}
+```{r eval=F}
 sig_df <- read_signature_data("/Users/taniyapal/Documents/Group Project/ESR1_UP.v1._UP.csv", "/Users/taniyapal/Documents/Group Project/ESR1_DN.v1_DN.csv")
 head(sig_df)
 ```
@@ -301,13 +301,16 @@ head(sig_df)
 
 ## Quality control and pre-processing of data
 The log_cpm_transformation function transforms the raw data by the method of log cpm
-and returns the transformed data. It also performs sanity check of the transformation by returning boxplots for visulization of distribution of data before
+and returns the transformed data. It also performs sanity check of the 
+transformation by returning box plots for visualization of distribution of data before
 and after transformation.
 ```{r}
-
+# using toy data set as expression matrix
+data("ER_data_se1")
+data_se <- ER_data_se1 
 normalized_se <- log_cpm_transformation(data_se)
 
-normalized_se <- check_signature_vs_dataset(normalized_se, ER_sig_df)
+data_se <- check_signature_vs_dataset(normalized_se, ER_sig_df)
 ```
 
 # Classifying samples by pathway activity using gene signatures
@@ -376,7 +379,7 @@ both gene sets, the peak with the highest GSVA scores represents samples with
 *high* abundance of expression of the gene set and the lower score peak 
 represents samples with *low* abundance of expression of the gene set.
 ```{r plot, fig.cap="Density plots showing the distribution of GSVA scores for samples in logCPM-normalised `ER_data_se1` data set for the up-regulated (left) and down-regulated gene set (right) of the pathway signature using `gsva_scores_dist` function."}
-gsva_scores_dist(ER_sig_df, data_se)
+gsva_scores_dist(ER_sig_df, normalized_se)
 ```
 
 ### Determining thresolds for classification
@@ -461,7 +464,7 @@ absolute GSVA thresholds. The default percentile used by the function is 25%, so
 the high expression abundance thresholds in both gene sets would be 75%, by 
 default and low expression abundance thresholds in both gene sets would be 25%, 
 default. A custom percentile threshold can be provided using the optional 
-`thresh_percent` parameter. As for the absolute threshold function, a summary of 
+`percent_thresh` parameter. As for the absolute threshold function, a summary of 
 the classification is printed to the console highlighting the number of samples 
 in each pathway activity class ("Active", "Inactive" and "Uncertain") and the 
 number of samples in total. Increasing the percentile threshold for 
@@ -473,7 +476,7 @@ sets, therefore reducing the frequency of "Uncertain" classifications.
 classes_df.percent <- classify_GSVA_percent(ER_sig_df, data_se)
 # custom percentile = 30%
 classes_df.percent <- classify_GSVA_percent(ER_sig_df, data_se, 
-                                            thresh_percent=30)
+                                            percent_thresh=30)
 ```
 
 # Evaluating pathway activity classification
@@ -492,7 +495,7 @@ Default values for the flags is FALSE.
 
 
 ```{r}
-confusion_matrix <- calculate_accuracy("/Users/taniyapal/Downloads/Sample_label.txt", 
+confusion_matrix <- calculate_accuracy("~/PathAnalyser/raw_data/Sample_labels.txt", 
                                        classes_df, "ER", display_statistics=TRUE, 
                                        display_roc_curve=TRUE)
 ```
@@ -516,7 +519,7 @@ files) are read into the expression matrix and gene expression data frame data
 types respectively.
 ```{r}
 # Load transcriptomic data set (gene expression matrix of samples)
-data_se <- read_input_file("~/PathAnalyser/raw_data/toy_data.tsv")
+data_se <- read_expression_data("~/PathAnalyser/raw_data/toy_data.txt")
 dim(data_se)
 # read signature data from the two individual gene set files for up-regulated
 # and down-regulated gene sets
@@ -528,18 +531,26 @@ As the gene expression matrix contains raw RNASeq counts the data must be
 normalized prior to passing the matrix to any of the classification functions. 
 Normalization of read counts is necessary to account for differences in 
 sequencing depths amongst the libraries. The PathAnalyser `log_cpm` function can 
-be used to perform a log CPM transformation on the gene expression matrix. 
-Furthermore, `log_cpm` confirms a the logCPM transformation has been performed correctly since the boxplots 
-displayed by the function representing the logCPM values for each sample are 
+be used to perform a log counts per million (CPM) transformation on the gene 
+expression matrix. Furthermore, `log_cpm` graphically confirms the logCPM 
+transformation has been performed correctly since the boxplots 
+displayed by the function, representing the logCPM values for each sample, are 
 more aligned following the logCPM transformation compared to before the
-transformation.
+transformation. 
 ```{r}
 # Transforming matrix with log cpm transformation and sanity check of the transformation
-normalized_se <- log_cpm(data_se)
+normalized_se <- log_cpm_transformation(data_se)
+```
+To ensure that the gene names in the gene signatures and gene 
+expression dataset are consistent, we use the `check_signature_vs_dataset` gene 
+names to filter out genes from the gene expression matrix that are not in 
+signature and those genes which are not expressed in at least 10% of samples.
+```{r}
 normalized_se <- check_signature_vs_dataset(normalized_se, ER_sig)
 ```
 
-## Classify breast cancer samples based on ER pathway activity.
+
+## Classifying breast cancer samples based on ER pathway activity.
 Samples in a gene expression matrix can be classified according to evidence of 
 expression consistency with the up-regulated and down-regulated gene sets of 
 GSVA, by using absolute thresholds for high and low expression for each gene set 
@@ -556,12 +567,12 @@ classes_df_abs <- classify_GSVA_abs(ER_sig, normalized_se, up_thresh.low = -0.2,
                                     dn_thresh.high = 0.2)
 ```
 
-## Visualize pathway activity
+## Visualizing ER pathway activity classification of the breast cancer samples
 ```{r}
 classes_pca(normalized_se, classes_df, pathway_name = "ER")
 ```
 
-## Assess the accuracy of the pathway-based classification
+## Assessing the accuracy of the pathway-based classification
 ```{r}
 # read true pathway activity class labels for data set samples
 true_labels_df <- read.table("~/PathAnalyser/raw_data/Sample_labels.txt", 
