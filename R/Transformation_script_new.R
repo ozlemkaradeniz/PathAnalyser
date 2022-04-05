@@ -22,17 +22,17 @@
 
 log_cpm_transformation <-function (data_es){
   require(edgeR)
-
+  
   #box plot before transformation
-  plot.before.transformation=boxplot(log(data_es+0.5), main="Plot before log cpm transformation", axes=F)
+  boxplot(log(data_es+0.5), main="Plot before log cpm transformation", axes=F)
 
   data_es_log_cpm<-cpm(data_es, log=TRUE)
 
   #box plot after transformation
-  plot.after.transformation=boxplot(log(data_es_log_cpm+0.5), main="Plot after log cpm transformation", axes=F)
+  boxplot(data_es_log_cpm, main="Plot after log cpm transformation", axes=F)
 
-
-  return(data_es_log_cpm)
+  
+  return(data_es)
 
 }
 
