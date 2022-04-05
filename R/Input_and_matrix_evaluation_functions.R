@@ -112,8 +112,14 @@ read_signature_data=function(up_sig_file, down_sig_file){
 #' @param check_matrix_sig_overlap Boolean, if true returns a Venn diagram plotting
 #' overlap between matrix and gene signature file symbols/IDs.
 #' 
-#' @return A Venn diagram representing the overlap of 
-#' gene symbols/IDs between the two files
+#' @return A list with 3 objcets:
+#' 1) formatted expression matrix with gene IDs/symbols as row names and 
+#' samples IDs as column names
+#' 2) a data frame, whose first column has combined up and down regulated signature
+#' IDs/symbols, second column has representation of up regulated expression as +1
+#' and down regulated expression as -1
+#' 3) a Venn diagram representing the overlap of gene symbols/IDs between the 
+#' two files
 #'
 #' @export
 #' @examples read_input_file("TCGA_unannotated.txt","ESR1_UP.v1_UP.csv",
@@ -126,6 +132,8 @@ read_input_file=function(input_filename, up_sig_filename, dn_sig_filename, check
   
   #reading up and down regulated signature files
   sig_df=read_signature_data(up_sig_filename, dn_sig_filename)
+  
+  
   
   #if the user wants to display the Venn Diagram
   if (check_matrix_sig_overlap==T){
@@ -158,7 +166,8 @@ read_input_file=function(input_filename, up_sig_filename, dn_sig_filename, check
       cat.fontfamily = c("sans", "sans"), cross.area=94, scaled=F)
     
     
-    return(plot)
+    output=list(matrix, sig_df, plot)
+    return(output)
     
   }
   
