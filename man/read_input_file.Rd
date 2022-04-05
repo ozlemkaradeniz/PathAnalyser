@@ -23,8 +23,16 @@ read_input_file(
 overlap between matrix and gene signature file symbols/IDs.}
 }
 \value{
-A Venn diagram representing the overlap of
-gene symbols/IDs between the two files
+A list with 3 objcets:
+\enumerate{
+\item formatted expression matrix with gene IDs/symbols as row names and
+samples IDs as column names
+\item a data frame, whose first column has combined up and down regulated signature
+IDs/symbols, second column has representation of up regulated expression as +1
+and down regulated expression as -1
+\item a Venn diagram representing the overlap of gene symbols/IDs between the
+two files
+}
 }
 \description{
 Reads both expression data and up and down regulated signature

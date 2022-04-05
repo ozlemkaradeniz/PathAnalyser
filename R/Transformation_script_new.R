@@ -1,6 +1,6 @@
 
 #' Transformation of the raw count data by using  log CPM (counts per million) along
-#' with samity check for transformation
+#' with sanity check for transformation
 #' @description  Transformation of the raw count data by using  log CPM (counts per million)
 #' by calling cpm method in edgeR library. Along with performing transformation 
 #' of raw data,the function plots the distribution of raw data before transformation 
@@ -17,10 +17,10 @@
 #' @return Transformed gene expression data matrix
 #' @export
 #'
-#' @examples log_cpm(data_es)
+#' @examples log_cpm_transformation("TCGA_unannotated.txt")
 #'
 
-log_cpm <-function (data_es){
+log_cpm_transformation <-function (data_es){
   require(edgeR)
 
   #box plot before transformation
