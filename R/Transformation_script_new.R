@@ -32,7 +32,7 @@ log_cpm_transformation <-function (data_es){
   boxplot(data_es_log_cpm, main="Plot after log cpm transformation", axes=F)
 
   
-  return(data_es)
+  return(data_es_log_cpm)
 
 }
 
