@@ -2,7 +2,8 @@
 % Please edit documentation in R/Transformation_script_new.R
 \name{log_cpm}
 \alias{log_cpm}
-\title{Transformation of the raw count data by using  log CPM (counts per million)}
+\title{Transformation of the raw count data by using  log CPM (counts per million) along
+with samity check for transformation}
 \usage{
 log_cpm(data_es)
 }
@@ -14,8 +15,14 @@ and Sample IDs as column names}
 Transformed gene expression data matrix
 }
 \description{
-Transformation of the raw count data by using  log CPM (counts per million) by calling
-cpm method in edgeR library
+Transformation of the raw count data by using  log CPM (counts per million)
+by calling cpm method in edgeR library. Along with performing transformation
+of raw data,the function plots the distribution of raw data before transformation
+in the form of a boxplot. Then, it normalizes the raw counts of gene
+expression with the log cpm transformation method and returns a boxplot
+of the gene expression matrix after transformation for sanity check of the
+transformation. The user can check the distribution of the gene expression values
+after log cpm transformation with the help of the box plot.
 }
 \examples{
 log_cpm(data_es)

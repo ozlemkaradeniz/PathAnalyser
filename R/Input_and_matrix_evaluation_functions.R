@@ -18,9 +18,9 @@
 #' and the Sample IDs as colnames.
 #' @export
 #'
-#' @examples read_expression_data("/Users/taniyapal/Documents/Group Project/Matrix used for GSVA Analysis by Taniya.csv"))
+#' @examples read_expression_data("/Users/taniyapal/Documents/Group Project/TCGA_unannotated.txt"))
 
-read_input_file<- function(file_name){
+read_expression_data<- function(file_name){
   
   #loading the required packages
   library(reader)
@@ -69,7 +69,7 @@ read_input_file<- function(file_name){
 #' expression with +1 and -1 respetively.
 #' @export
 #'
-#' @examples read_signature_data("ESR1_UP.v1_UP.csv","ESR1_DN.v1_DN.csv" )
+#' @examples read_signature_data("ESR1_UP.v1._UP.csv","ESR1_DN.v1_DN.csv" )
 
 read_signature_data=function(up_sig_file, down_sig_file){
   
@@ -93,48 +93,73 @@ read_signature_data=function(up_sig_file, down_sig_file){
   return(sig_df)
 }
 
-#' Transformation of gene expression data with log cpm 
-#' transformation method
-#' 
-#' @description Plots the raw data before transformation in the form 
-#' of a boxplot. Then, it normalizes the raw counts of gene
-#' expression with the log cpm transformation
-#' method and returns a boxplot of the gene expression 
-#' matrix after transformation for sanity check of the
-#' transformation. The user can check the distribution of 
-#' the gene expression values after log cpm
-#' transformation with the help of the box plot.
+#'Reading both expression data and signature files,also checking overlap 
+#'between matrix and signature gene symbols
+#'
+#' @description Reads both expression data and up and down regulated signature
+#' data, if check_matrix_sig_overlap parameter in the function is true, returns
+#' a Venn diagram representating which gene symbols 
+#' overlap between the signature file
+#' and the expression matrix file.
+#' The user gets an estimates of how many gene symbols overlap
+#' between the two files.
 #'
 #' @author Taniya Pal \email{taniya.pal.094@cranfield.ac.uk}
+#'
+#' @param input_filename The expression matrix file name 
+#' @param up_sig_filename The up regulated signature data file name
+#' @param dn_sig_filename The down regulated signature data file name
+#' @param check_matrix_sig_overlap Boolean, if true returns a Venn diagram plotting
+#' overlap between matrix and gene signature file symbols/IDs.
 #' 
-#' @param input expression matrix after being
-#' pre processed by read_input_file function
+#' @return A Venn diagram representing the overlap of 
+#' gene symbols/IDs between the two files
 #'
-#' @return Two boxplots, one representing
-#' distribution of gene expression values before transformation,
-#' another one after transformation.
 #' @export
-#'
-#' @examples transform_matrix(input)
+#' @examples read_input_file("TCGA_unannotated.txt","ESR1_UP.v1_UP.csv",
+#' "ESR1_DN.v1_DN.csv", check_mtarix_sig_overlap=T)
 
-transform_matrix=function(input){
+read_input_file=function(input_filename, up_sig_filename, dn_sig_filename, check_matrix_sig_overlap=F){
   
-  #boxplot before transformation
-  plot.before.transformation=boxplot(log(input+0.5), main="Plot before transformation", axes=F)
+  #reading gene expression matrix
+  matrix=read_expression_data(input_filename)
   
-  library(edgeR)
+  #reading up and down regulated signature files
+  sig_df=read_signature_data(up_sig_filename, dn_sig_filename)
   
-  #counts per million (cpm) transformation of raw gene expression
-  #values of matrix
-  cpm.values=cpm(input)
+  #if the user wants to display the Venn Diagram
+  if (check_matrix_sig_overlap==T){
+    #loading the required library
+    library(VennDiagram)
+    
+    #listing the gene symbols in expression matrix
+    rownames=as.list(rownames(matrix))
+    
+    #listing the gene symbols in signature
+    signatures=as.list(sig_df$Signatures)
+    
+    #finding the length of intersection between the two lists
+    intersection=length(intersect(rownames, signatures))
+    
+    #Setting the color
+    myCol=c("green", "yellow")
+    
+    
+    plot=draw.pairwise.venn(
+      area1 = length(rownames), area2=length(signatures),
+      category = c("Expression Matrix" , "Signature"),
+      main = 'Checking overlap between matrix and gene signature symbols', lwd = 2,
+      lty = 'blank',
+      fill = myCol, cat.cex = 0.7,
+      cat.fontface = c("bold", "bold"),
+      cat.default.pos = "text",
+      cat.pos = c(-27, 27),
+      cat.dist = c(-0.055, 0.055),
+      cat.fontfamily = c("sans", "sans"), cross.area=94, scaled=F)
+    
+    
+    return(plot)
+    
+  }
   
-  #Taking the log of the cpm transformed values
-  #(log-cpm transformation)
-  input=log(cpm.values)
-  
-  #boxplot after transformation
-  plot.after.transformation=boxplot(log(cpm.values+0.5), main="Plot after transformation", axes=F)
-  return(c(plot.before.transformation, plot.after.transformation))
 }
-
-

@@ -2,29 +2,42 @@
 % Please edit documentation in R/Input_and_matrix_evaluation_functions.R
 \name{read_input_file}
 \alias{read_input_file}
-\title{Reading gene expression data from file}
+\title{Reading both expression data and signature files,also checking overlap
+between matrix and signature gene symbols}
 \usage{
-read_input_file(file_name)
+read_input_file(
+  input_filename,
+  up_sig_filename,
+  dn_sig_filename,
+  check_matrix_sig_overlap = F
+)
 }
 \arguments{
-\item{file_name}{Full path of the gene expression data file name}
+\item{input_filename}{The expression matrix file name}
+
+\item{up_sig_filename}{The up regulated signature data file name}
+
+\item{dn_sig_filename}{The down regulated signature data file name}
+
+\item{check_matrix_sig_overlap}{Boolean, if true returns a Venn diagram plotting
+overlap between matrix and gene signature file symbols/IDs.}
 }
 \value{
-Structured matrix containing gene symbols/IDs as rownames and
-sample IDs as column names.
-
-and the Sample IDs as colnames.
+A Venn diagram representing the overlap of
+gene symbols/IDs between the two files
 }
 \description{
-Reads gene expression data file from user,
-removes Nas, if the first column consist of gene names,
-gives the genenames to the rownames of the matrix and deletes
-the first column. Before converting the first column to rownames
-it checks for any duplicated gene present in the first column.
-Following that the matrix is converted to a numeric data matrix.
+Reads both expression data and up and down regulated signature
+data, if check_matrix_sig_overlap parameter in the function is true, returns
+a Venn diagram representating which gene symbols
+overlap between the signature file
+and the expression matrix file.
+The user gets an estimates of how many gene symbols overlap
+between the two files.
 }
 \examples{
-read_expression_data("/Users/taniyapal/Documents/Group Project/Matrix used for GSVA Analysis by Taniya.csv"))
+read_input_file("TCGA_unannotated.txt","ESR1_UP.v1_UP.csv",
+"ESR1_DN.v1_DN.csv", check_mtarix_sig_overlap=T)
 }
 \author{
 Taniya Pal \email{taniya.pal.094@cranfield.ac.uk}
