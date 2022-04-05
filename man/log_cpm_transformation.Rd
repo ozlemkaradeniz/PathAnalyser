@@ -3,13 +3,13 @@
 \name{log_cpm_transformation}
 \alias{log_cpm_transformation}
 \title{Transformation of the raw count data by using  log CPM (counts per million) along
-with samity check for transformation}
+with sanity check for transformation}
 \usage{
 log_cpm_transformation(data_es)
 }
 \arguments{
 \item{data_es}{Gene expression matrix with gene IDs/symbols as row names
-and Sample IDs as column names}
+and Sample IDs as column names (return value of read_expression matrix function)}
 }
 \value{
 Transformed gene expression data matrix
@@ -25,7 +25,7 @@ transformation. The user can check the distribution of the gene expression value
 after log cpm transformation with the help of the box plot.
 }
 \examples{
-log_cpm(data_es)
+log_cpm_transformation(formatted_matrix)
 
 }
 \author{
