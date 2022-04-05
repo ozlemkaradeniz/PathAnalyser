@@ -92,7 +92,7 @@ check_signature_vs_dataset <-function(data_norm, sig_df) {
           geom_line() + geom_point()+
           scale_color_brewer(palette="Dark2")+
           theme_minimal()
-        print(line_plot)
+        #print(line_plot)
 
         return(filtered_mat)
       }
