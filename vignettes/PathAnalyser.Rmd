@@ -44,7 +44,7 @@ knitr::opts_chunk$set(
 # Installation and setup
 To install a local source version of the package, type the following in R:
 ```{r eval=FALSE}
-install.packages("path-to-source/PathAnalyser-main.zip", repo=NULL, type="source")
+install.packages("~/PathAnalyser", repo=NULL, type="source")
 ```
 
 Alternatively, the package can be installed directly from GitHub using the
@@ -244,7 +244,7 @@ The log_cpm_transformation function transforms the raw data by the method of log
 and returns the transformed data. It also performs sanity check of the transformation by returning boxplots for visulization of distribution of data before
 and after transformation.
 ```{r}
-log_cpm_transformation(data_se)
+data_se=log_cpm_transformation(data_se)
 #data_se <- check_signature_vs_dataset(normalized_se, ER_up_sig, ER_dn_sig)
 ```
 
@@ -314,7 +314,7 @@ both gene sets, the peak with the highest GSVA scores represents samples with
 *high* abundance of expression of the gene set and the lower score peak 
 represents samples with *low* abundance of expression of the gene set.
 ```{r plot, fig.cap="Density plots showing the distribution of GSVA scores for samples in logCPM-normalised `ER_data_se1` data set for the up-regulated (left) and down-regulated gene set (right) of the pathway signature using `gsva_scores_dist` function."}
-gsva_scores_dist(ER_sig_df, normalized_se)
+gsva_scores_dist(ER_sig_df, data_se)
 ```
 
 ### Determining thresolds for classification
@@ -339,7 +339,7 @@ with GSVA scores between the these thresholds for both the up-regulated and down
 "Uncertain" pathway activity.
 
 ```{r thresholds, fig.cap="GSVA scores distributions of the samples for the down-regulated (left) and up-regulated gene set (right) of the pathway gene signature, showing absolute thresholds of -0.2 and 0.2 for characterising low and high expression abundance of both gene sets respectively. The expression data set used is the logCPM-normalised `ER_data_se1` gene expression data set."}
-plot <- gsva_scores_dist(ER_sig_df, normalized_se)
+plot <- gsva_scores_dist(ER_sig_df, data_se)
 # Add thresholds on plot
 library(ggplot2)
 data_threshs <- data.frame(Geneset=c("Up", "Down"), vline=c(-0.2, 0.2))
@@ -387,7 +387,7 @@ classification is printed to the console highlighting the number of samples in
 each pathway activity class ("Active", "Inactive" and "Uncertain") and the 
 number of samples in total.
 ```{r}
-classes_df <- classify_GSVA_abs(ER_sig_df, normalized_se, 
+classes_df <- classify_GSVA_abs(ER_sig_df, data_se, 
                                     up_thresh.low=-0.2, up_thresh.high=0.2, 
                                     dn_thresh.low=-0.2, dn_thresh.high=0.2)
 ```
@@ -408,9 +408,9 @@ high expression abundance and low expression abundance thresholds for both gene
 sets, therefore reducing the frequency of "Uncertain" classifications.
 ```{r}
 # default percentile = 25% (quartile)
-classes_df.percent <- classify_GSVA_percent(ER_sig_df, normalized_se)
+classes_df.percent <- classify_GSVA_percent(ER_sig_df, data_se)
 # custom percentile = 30%
-classes_df.percent <- classify_GSVA_percent(ER_sig_df, normalized_se, 
+classes_df.percent <- classify_GSVA_percent(ER_sig_df, data_se, 
                                             thresh_percent=30)
 ```
 
