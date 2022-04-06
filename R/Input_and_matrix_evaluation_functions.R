@@ -20,35 +20,22 @@
 #'
 #' @examples read_expression_data("/Users/taniyapal/Documents/Group Project/TCGA_unannotated.txt")
 
-read_expression_data<- function(file_name){
-
-  #loading the required packages
+read_expression_data <- function(file_name){
   library(reader)
+  # getting the delimiter for the file whether it is "\t" or "," or " "
+  delimiter <- get.delim(file_name)
 
-  #getting the delimiter for the file whether it is "\t" or "," or " "
-  delimiter=get.delim(file_name)
+  # reading the file provided by the user
+  data_se <- read.delim(file_name, sep=delimiter, check.names=F)
 
-  #reading the file provided by the user
-  input=read.delim(file_name, sep=delimiter)
-
-  #removing the NAs
-  input=na.omit(input)
-
-  #removing duplicated gene symbols from first column
-  input=input[!duplicated(input[,1]),]
-
-  #giving the gene symbols of the first column to rownames
-  if (typeof(input[,1])=="character")
-    rownames(input)=input[,1]
-    input=input[,-1]
-
+  # removing the NAs
+  data_se <- na.omit(data_se)
+  # removing duplicated samples from gene expression data frame
+  data_se <- data_se[,unique(colnames(data_se))]
 
   #converting the data frame in numeric matrix
-  input=data.matrix(input)
-
-
-
-  return(input)
+  data_se <- data.matrix(data_se)
+  return(data_se)
 }
 
 
