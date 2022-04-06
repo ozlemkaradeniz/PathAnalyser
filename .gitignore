@@ -7,3 +7,5 @@ Test.R
 *.csv
 data_creation.R
 inst/doc
+/doc/
+/Meta/
