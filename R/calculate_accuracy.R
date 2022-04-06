@@ -164,7 +164,7 @@ calculate_accuracy <-function(true_labels_source, predicted_labels_source, pathw
     #ROC curve is plotted
     plot(roc(as.logical(roc_curve_tmp_df$label), factor(roc_curve_tmp_df$class, ordered = TRUE), direction="<"),
          col="yellow", main="ROC Curve")
-    with(roc_curve_df, points(1 - FPR, TPR, col=1 + labels))
+    with(roc_curve_df, points(FPR, TPR, col=1 + labels))
 
   }
 
