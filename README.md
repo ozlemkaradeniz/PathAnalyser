@@ -1,6 +1,6 @@
 # PathAnalyser
 
-  PathAnalyser is an R package thatprovides functionality for assessing ER and 
+  PathAnalyser is an user-friendly R package that provides functionality for assessing ER and 
   HER2 pathway activity in breast cancer transcriptomic datasets. The package enables 
   classification of samples in transciptomic datasets according to pathway activity by 
   using a gene expression signature associated with a pathway, a list of genes, which 
@@ -57,6 +57,7 @@ PathAnalyser needs the following:
    edgeR (3.34.1)          limma (3.48.3)        
    pROC (1.18.0)           GSVA (1.40.1)
 ````
+**note:** The package is platform-independent; it runs multiple operating systems.
 
 To install the dependencies you can use the following command in R :
 ````
@@ -123,6 +124,7 @@ head(HER2_data_se1)
 ```
 
 For more information you can visit vignete file.
+https://github.com/a-thind/PathAnalyser/blob/main/vignettes/PathAnalyser.Rmd
 
 
 
