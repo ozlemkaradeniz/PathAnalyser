@@ -53,7 +53,7 @@ check_signature_vs_dataset <-function(data_norm, sig_df) {
       filtered_mat <- data.matrix(filtered)
       gene_count <- nrow(filtered_mat)
       cat("Number of feature present in expression dataset:",
-          gene_count)
+          gene_count,"\n")
       if (gene_count != 0) {
         count_list <- list(0)
         count_list$minimun <- 0
@@ -72,28 +72,17 @@ check_signature_vs_dataset <-function(data_norm, sig_df) {
 
 
 
-         df_plot<- data.frame( legend= rep(c("minimun", "maximun", "average"), each = gene_count),
-                      gene = rep(1:gene_count, 3))
+         df_plot<- data.frame( legend= rep(c("average"), each = gene_count),
+                      gene = rep(1:gene_count, 1))
         df_plot$counts<-""
         for(i in 1:gene_count){
-          df_plot[i,3]<-count_list$minimun[i]
-          df_plot[i+gene_count,3]<-count_list$maximun[i]
-          df_plot[i+gene_count*2,3]<-count_list$average[i]
+          df_plot[i,3]<-count_list$average[i]
         }
         df_plot$counts <- as.numeric(as.vector(df_plot$counts))
 
-        plot<-ggplot(data=df_plot, aes(x=gene, y=counts, group=legend, color=legend)) +
-          geom_line() + geom_point()+
-          scale_color_brewer(palette="Dark2")+
-          theme_minimal()
-        print(plot)
-
-        line_plot<-ggplot(data=df_plot, aes(x=gene, y=counts, group=legend, color=legend)) +
-          geom_line() + geom_point()+
-          scale_color_brewer(palette="Dark2")+
-          theme_minimal()
-        #print(line_plot)
-
+        p<-ggplot(data=df_plot, aes(x=gene, y=counts)) +
+          geom_bar(stat="identity")+labs(title = "Mean normalised counts per gene")
+      print(p)
         return(filtered_mat)
       }
 
@@ -102,3 +91,4 @@ check_signature_vs_dataset <-function(data_norm, sig_df) {
       cat("No gene present in sigunature")
     }
   }
+
