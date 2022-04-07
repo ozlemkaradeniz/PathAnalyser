@@ -278,9 +278,9 @@ PathAnalyser:
 2.  gene expression signatures
 
 ## Gene expression data
-The `read_input_file` function reads gene expression data from  
+The `read_expression_data` function reads gene expression data from  
 a file with an delimiter, the function checks the delimiter of the
-file and reads the file accordingly. It returns an ouput with gene symbols/IDs as the rownames and columns representating each sample 
+file and reads the file accordingly. It returns an output with gene symbols/IDs as the row names and columns representing each sample 
 IDs in the dataset.
 ```{r eval=F}
 data_se <- read_expression_data("/Users/taniyapal/Documents/Group Project/TCGA_unannotated.txt")
