@@ -1,3 +1,8 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
 Demo script for PathAnalyser R package which provides functionality for assessing ER and HER2 pathway activity
 in breast cancer transcriptomic datasets.
  
@@ -47,104 +52,42 @@ library(PathAnalyser)
 ```
 
 
-# Built-in datasets and gene 
-## Gene expression signatures
-PathAnalyser contains two gene signatures for active ER and HER2 pathways that 
-can be used to assess ER and HER2 pathway activity in a breast cancer 
-transcriptomic data set. These signatures are accessible by typing the following 
-in R:
-
-```{r}
-data("ER_sig_df")
-data("HER2_sig_df")
-```
-
-### ER signature
-The built-in ER signature `ER_sig_df` is a data frame containing the names of 
-160 differentially expressed genes which constitute the transcriptional 
-signature of ER pathway activation. 
-
-```{r}
-dim(ER_sig_df)
-head(ER_sig_df)
-# up-regulated genes are given an expression value of 1
-ER_up_sig <- ER_sig_df[ER_sig_df$expression == 1 ,]
-dim(ER_up_sig)
-# down-regulated genes are given an expression value of -1
-ER_dn_sig <- ER_sig_df[ER_sig_df$expression == -1 ,]
-dim(ER_dn_sig)
-# for more details
-?ER_sig_df
-```
-
-### HER2 signature
-A gene expression signature for HER2 (ERBB2) pathway activation `HER2_sig_df` is 
-also provided by PathAnalyser.
-
-```{r}
-dim(HER2_sig_df)
-head(HER2_sig_df)
-# up-regulated genes are given an expression value of 1
-HER2_up_sig <- HER2_sig_df[HER2_sig_df$expression == 1 ,]
-dim(HER2_up_sig)
-# Down-regulated genes are given an expression value of -1
-HER2_dn_sig <- HER2_sig_df[HER2_sig_df$expression == -1 ,]
-dim(HER2_dn_sig)
-# for more details
-?HER2_sig_df
-```
-
-## Gene expression datasets
-PathAnalyser also contains two built-in gene expression matrices each containing
-RNA-seq raw read counts for primary breast cancer samples obtained from 20 
-individuals (cases). 
-
-```{r}
-data("ER_data_se1")
-data("HER2_data_se1")
-# column names represent case (sample) IDs from TCGA
-```
-
-### ER dataset 1
-The ER data set `ER_data_se1` contains RNASeq raw read counts for 20 primary 
-breast cancer samples, 10 of which have ER pathway activity (ER+) and 10 which 
-have inactive ER pathway activity (ER-).
-
-```{r}
-dim(ER_data_se1)
-# Expression data for first 6 genes
-head(ER_data_se1)
-```
-
-### HER2 dataset 1
-Similarly, the HER2 data set `HER2_data_se1` contains RNASeq raw read counts for 
-20 primary breast cancer samples, 10 of which have HER2 (ERBB2) pathway activity 
-(HER2+) and 10 which have inactive HER2 pathway activity (HER2-).
-
-```{r}
-dim(HER2_data_se1)
-# Expression data for first 6 genes
-head(HER2_data_se1)
-```
-
 The `read_expression_data` function reads gene expression data from  
 a file with an delimiter, the function checks the delimiter of the
 file and reads the file accordingly. It returns an output with gene symbols/IDs as the row names and columns representing each sample 
 IDs in the dataset.
-```{r eval=F}
-data_se <- read_expression_data("/Users/taniyapal/Documents/Group Project/TCGA_unannotated.txt")
-data_se<-data_se[,1:200]
-print(data_se[1:5, 1:5])
+```{r}
+ER_expression_set <- read_expression_data("../raw_data/toy_data.txt")
+# ER_expression_set<-ER_expression_set[,1:200]
+# print(ER_expression_set[1:5, 1:5])
+```
 
+ER_expression_set contains RNASeq raw read counts for 20 primary 
+breast cancer samples, 10 of which have ER pathway activity (ER+) and 10 which 
+have inactive ER pathway activity (ER-).
 
+```{r}
+dim(ER_expression_set)
+# Expression data for first 6 genes
+head(ER_expression_set)
 ```
 
 Gene signature files can be read by the `read_signature_data` function. It returns a dataframe with signature IDs/symbols in the
 first column and their expression pattern is represented as up r
 regulated or down regulated by +1 and -1 respectively.
-```{r eval=F}
-sig_df <- read_signature_data("/Users/taniyapal/Documents/Group Project/ESR1_UP.v1._UP.csv", "/Users/taniyapal/Documents/Group Project/ESR1_DN.v1_DN.csv")
-head(sig_df)
+
+```{r}
+er_sign_df <- read_signature_data("../raw_data/ESR1_UP.v1._UP.grp", "../raw_data/ESR1_DN.v1_DN.grp")
+
+dim(er_sign_df)
+head(er_sign_df)
+# up-regulated genes are given an expression value of 1
+er_up_sign <- er_sign_df[er_sign_df$expression == 1 ,]
+dim(er_up_sign)
+# Down-regulated genes are given an expression value of -1
+er_dn_sign <- er_sign_df[er_sign_df$expression == -1 ,]
+dim(er_dn_sign)
+
 ```
 
 ## Quality control and pre-processing of data
@@ -156,9 +99,8 @@ before and after transformation.
 
 ```{r}
 # using toy data set as expression matrix
-data("ER_data_se1")
-data_se <- ER_data_se1 
-normalized_se <- log_cpm_transformation(data_se)
+data_se <- HER2_data_se1 
+normalized_se <- log_cpm_transformation(ER_expression_set)
 ```
 
 ### Checking and filtering genes from the gene expression matrix
@@ -170,40 +112,16 @@ data set, the gene is dropped from the expression matrix. A console message is
 printed reporting the number of features (genes) retained in the final 
 normalized expression matrix.
 ```{r}
-normalized_se <- check_signature_vs_dataset(normalized_se, ER_sig_df)
+normalized_se <- check_signature_vs_dataset(normalized_se, er_sign_df)
 ```
 
 ## Visualising GSVA Score Distribution
-PathAnalyser provides `gsva_scores_dist` method to visualize the GSVA score 
+ `gsva_scores_dist` method  visualizes the GSVA score 
 distribution for the abundance of expression of the up-regulated and 
-down-regulated gene sets of the gene signature for each sample. The resulting 
-density plot usually follows a bimodal distribution of GSVA scores for each 
-sample for the up-regulated and down-regulated gene sets, a consequence of GSVA
-employing the maximum deviation from zero method to calculate the GSVA score from
-the Kolmogorov-Smirnov like random walk statistic.
-Figure \@ref(fig:plot) shows two peaks for each gene set when running 
-`gsva_scores_dist` with logCPM-normalized `ER_data_se1` gene expression matrix. For 
-both gene sets, the peak with the highest GSVA scores represents samples with 
-*high* abundance of expression of the gene set and the lower score peak 
-represents samples with *low* abundance of expression of the gene set.
-```{r plot, fig.cap="Density plots showing the distribution of GSVA scores for samples in logCPM-normalised `ER_data_se1` data set for the up-regulated (left) and down-regulated gene set (right) of the pathway signature using `gsva_scores_dist` function."}
-gsva_scores_dist(ER_sig_df, normalized_se)
-```
+down-regulated gene sets of the gene signature for each sample. 
+```{r}
+gsva_scores_dist(er_sign_df, normalized_se)
 
-### Determining thresolds for classification
-As the two peaks represent represent low expression abundance and high 
-abundance expression, the distribution of GSVA scores that constitute the "valley"
-i.e. the area between the two peaks (fig. \@ref(fig:thresholds)), represent 
-samples that exhibit relatively weaker evidence of differential expression 
-abundance relative to other samples and the algorithm would classify these 
-samples as having "Uncertain" pathway activity. Because the peaks represent the 
-mode GSVA scores (one for high and low expression abundance), thresholds should 
-be selected between these two peak to enable the algorithm to classify samples 
-around these modes as being consistent or inconsistent with the pathway 
-signature.
-
-```{r thresholds, fig.cap="GSVA scores distributions of the samples for the down-regulated (left) and up-regulated gene set (right) of the pathway gene signature, showing absolute thresholds of -0.2 and 0.2 for characterising low and high expression abundance of both gene sets respectively. The expression data set used is the logCPM-normalised `ER_data_se1` gene expression data set."}
-plot <- gsva_scores_dist(ER_sig_df, normalized_se)
 # Add thresholds on plot
 library(ggplot2)
 data_threshs <- data.frame(Geneset=c("Up", "Down"), vline=c(-0.2, 0.2))
@@ -212,10 +130,6 @@ plot + geom_vline(xintercept=data_threshs$vline, linetype=2)
 
 Shrinking the distance between the high and low expression thresholds would 
 result in fewer "Uncertain" pathway activity classifications 
-(fig. \@ref(fig:relaxed)), because more samples would meet the consistency/ 
-inconsistency expression thresholds for the pathway signature (high expression 
-thresholds would be lower, low expression thresholds would be higher for each 
-gene set).
 
 ```{r relaxed, fig.cap="GSVA scores distributions of samples with more relaxed thresholds for assessing expression consistency of the down-regulated gene set (left) and the up-regulated gene set (right) with the pathway gene expression signature. Low and high expression abundance thresholds for the down-regulated gene set (left) are set to -0.1 and 0.1 respectively, while low and high expression abundance thresholds for the up-regulated gene set (right) are also set to -0.1 and 0.1 respectively. Data is generated from running GSVA on logCPM-normalised `ER_data_se1` expression dataset with ER signature (`ER_sig_df`)."}
 # more relaxed thresholds, fewer uncertain labels
@@ -235,222 +149,38 @@ plot + geom_vline(xintercept=data_threshs$vline, linetype=2)
 ```
 
 ## Classification using absolute GSVA score thresholds
-As the distribution of GSVA scores tends to be biomodal rather than Guassian, 
-the user may prefer to use absolute GSVA thresholds for checking consistency of 
-expression abundance of each gene set with pathway signature for each sample.
-PathAnalyser provides the `classify_GSVA_abs` function for classifying samples 
-by pathway activity using absolute GSVA score thresholds. The thresholds for
-high expression abundance and low expression abundance of the up-regulated 
-gene-set of the pathway signature are specified with `up_thresh.high` and 
-`up_thresh.low` parameters. Similarly thresholds for high expression abundance
-and low expression abundance for the down-regulated gene set of the signature 
-are provided by the `dn_thresh.high` and `dn_thresh.low` parameters respectively.
-Note that absolute thresholds are required from the user when running 
-`classify_GSVA_abs` and can be positive or negative numbers. A summary of the 
-classification is printed to the console highlighting the number of samples in 
-each pathway activity class ("Active", "Inactive" and "Uncertain") and the 
-number of samples in total.
+
 ```{r}
-classes_df <- classify_GSVA_abs(ER_sig_df, normalized_se, 
+classes_df <- classify_GSVA_abs(er_sign_df, normalized_se, 
                                     up_thresh.low=-0.2, up_thresh.high=0.2, 
                                     dn_thresh.low=-0.2, dn_thresh.high=0.2)
 ```
 
 ## Classification using percentile GSVA score thresholds
-The package also provides a GSVA-based classification method 
-`classify_GSVA_percent`, which uses percentile ranks as thresholds rather than 
-absolute GSVA thresholds. The default percentile used by the function is 25%, so
-the high expression abundance thresholds in both gene sets would be 75%, by 
-default and low expression abundance thresholds in both gene sets would be 25%, 
-default. A custom percentile threshold can be provided using the optional 
-`thresh_percent` parameter. As for the absolute threshold function, a summary of 
-the classification is printed to the console highlighting the number of samples 
-in each pathway activity class ("Active", "Inactive" and "Uncertain") and the 
-number of samples in total. Increasing the percentile threshold for 
-classification has the equivalent effect of reducing the distance between the 
-high expression abundance and low expression abundance thresholds for both gene 
-sets, therefore reducing the frequency of "Uncertain" classifications.
+
 ```{r}
 # default percentile = 25% (quartile)
-classes_df.percent <- classify_GSVA_percent(ER_sig_df, normalized_se)
+classes_df.percent <- classify_GSVA_percent(er_sign_df, normalized_se)
 # custom percentile = 30%
-classes_df.percent <- classify_GSVA_percent(ER_sig_df, normalized_se, 
+classes_df.percent <- classify_GSVA_percent(er_sign_df, normalized_se, 
                                             percent_thresh=30)
 ```
 
 # Evaluating pathway activity classification
-This package provides a method `calculate_accuracy` for evaluating pathway 
-activity classification, which gets the actual labels and the labels classified
-by the classification methods as parameters; then creates confusion matrix based
-on them. The first parameter `true_labels_source` could be file-name, matrix or 
-data frame and contains sample names and their corresponding actual 
-labels.The second parameter `classes_df` could be matrix or data frame and 
-contains classified labels found by the classification methods 
-`classify_GSVA_percent` or `classify_GSVA_abs`. Third parameter `pathway` 
-specifies with which pathway the labels(actual and classified) are  associated. 
-Other parameters `display_statistics` and  `display_roc_curve` are boolean flags
-used as optional features to display statistics and ROC Curve respectively.
-Default values for the flags is FALSE.
 
 
 ```{r}
-confusion_matrix <- calculate_accuracy("~/PathAnalyser/raw_data/Sample_labels.txt", 
-                                       classes_df, "ER", display_statistics=TRUE, 
+confusion_matrix <- calculate_accuracy("../raw_data/Sample_labels.txt", 
+                                       classes_df.percent, "ER", display_statistics=TRUE, 
                                        display_roc_curve=TRUE)
 ```
 
 # Visualising pathway activity
-An interactive PCA plot providing a visual summary of the pathway-based 
-classification can be produced by using the `classes_pca` function with the 
-normalized data set and predicted classes data frame. Each point represent a 
-sample in the expression data set and are coloured according to the predicted 
-activity class ("Active", "Inactive", "Uncertain"). Hovering over the sample 
-points displays the sample name, along with predicted pathway activity class and
-also the relative coordinates of the sample in the first two principal 
-components.
 
 ## Generating PCA plot
 ```{r}
-classes_pca(normalized_se, classes_df, pathway_name = "ER")
+classes_pca(normalized_se, classes_df.percent, pathway_name = "ER")
 ```
-
-# Example: Assessing ER pathway activity in a breast cancer RNAseq dataset
-
-## Read RNASeq gene expression dataset and ER pathway signature data
-
-```{r}
-# Load transcriptomic data set (gene expression matrix of samples)
-data_se <- read_expression_data("~/PathAnalyser/raw_data/toy_data.txt")
-dim(data_se)
-head(data_se)
-# read signature data from the two individual gene set files for up-regulated
-# and down-regulated gene sets
-ER_sig <- read_signature_data("~/PathAnalyser/raw_data/ESR1_UP.v1._UP.grp", "~/PathAnalyser/raw_data/ESR1_DN.v1_DN.grp")
-dim(ER_sig)
-```
-
-## QC and pre-processing of the expression dataset and ER signature data
-
-```{r}
-# Transforming matrix with log cpm transformation and sanity check of the transformation
-normalized_se <- log_cpm_transformation(data_se)
-```
-
-To ensure that the gene names in the gene signatures and gene 
-expression data set are consistent, we use the `check_signature_vs_dataset` gene 
-names to filter out genes from the gene expression matrix that are not in 
-signature and those genes which are not expressed in at least 10% of samples. 
-
-```{r}
-normalized_se <- check_signature_vs_dataset(normalized_se, ER_sig)
-dim(normalized_se)
-```
-
-
-## Classifying breast cancer samples based on ER pathway activity.
-Once the expression matrix is normalised to logCPM and genes with insufficient 
-counts or those that do not feature in the ER signature are removed, the 
-expression data set is ready for classification alongside the ER signature. To
-acquire an idea of the distribution of GSVA scores, the gene expression matrix
-can be passed as an argument along with the ER signature to the 
-`gsva_scores_dist`. A bimodal density plot is produced for the up-regulated and
-down-regulated gene set of the ER signature, as described before reflective of 
-the underlying maximum deviation from zero method used to generate the GSVA 
-score statistic for representing expression abundance of the corresponding gene 
-set of the ER signature. The peak centered around the GSVA score of -0.8 for the 
-down-regulated gene set and the peak around 0.8 for the down-regulated gene set 
-represent the mode of samples with the low expression abundance of the 
-down-regulated genes of the ER signature and high abundance of the up-regulated 
-genes of the ER signature respectively. Similarly, for the up-regulated genes of 
-the ER pathway signature, the peak situated at around a GSVA score of -0.7 and 
-and around the GSVA score of 0.9 represent samples of low expression abundance 
-and high expression abundance of the up-regulated genes of the ER pathway 
-signature respectively.
-
-```{r}
-gsva_scores_dist(ER_sig, normalized_se)
-
-```
-
-Samples in a gene expression matrix can be classified according to evidence of 
-expression consistency with the up-regulated and down-regulated gene sets of the
-ER signature using GSVA by using absolute thresholds for high and low expression 
-for each gene set of the ER signature via `classify_GSVA_abs` or percentile 
-threshold for high and low expression for each gene set of the ER signature via 
-`classify_GSVA_percent`. Here, we use the default percentile thresholds of 25%
-to classify samples as having high or low expression abundance with the 
-up-regulated and down-regulated gene sets of the ER gene signature. The R 
-console output of running the `classify_GSVA_percent` on our data set and 
-ER signature, shows that of the 20 samples in our data set, 4 samples were 
-classified as active and 5 samples were classified as inactive for the ER 
-pathway. Eleven samples were classified as uncertain. A data frame is produced 
-with names of the 20 samples as the first column and their corresponding 
-predicted ER pathway activity classes as the second column.
-
-```{r}
-classes_df <- classify_GSVA_percent(ER_sig, normalized_se)
-head(classes_df)
-```
-Depending on the user's classification requirements the thresholds can be 
-adjusted. For example, if the user would like to reduce the number of 
-"Uncertain" classification samples, the user could provide 50% percentile 
-threshold as an argument e.g.:
-```{r}
-classes_df_50p <- classify_GSVA_percent(ER_sig, normalized_se, 
-                                        percent_thresh=50)
-```
-From the output of running the classification function with 50% percentile, it 
-is evident that no samples were classified as "Uncertain", with 10 samples 
-classified as "Active" and 10 samples classified as "Inactive" by the 
-classification algorithm.
-
-Alternatively, the breast cancer samples in the data set could be classified 
-by ER pathway activity, using absolute GSVA score thresholds for the 
-up-regulated and down-regulated gene sets of the ER signature respectively.
-
-```{r}
-classes_df_abs <- classify_GSVA_abs(ER_sig, normalized_se, up_thresh.low = -0.2, 
-                                    up_thresh.high = 0.2, dn_thresh.low = -0.2, 
-                                    dn_thresh.high = 0.2)
-```
-
-## Visualizing ER pathway activity classification of the breast cancer samples
-To acquire a visual summary of the ER pathway-based classification of our 20 
-breast cancer samples, we can run the `classes_pca` function to produce an 
-interactive PCA plot of the samples coloured by the predicted ER pathway 
-activity status (active, inactive, uncertain).
-```{r}
-classes_pca(normalized_se, classes_df, pathway_name = "ER")
-```
-
-
-## Assessing the accuracy of the pathway-based classification
-
-```{r}
-# read true pathway activity class labels for data set samples
-true_labels_df <- read.table("~/PathAnalyser/raw_data/Sample_labels.txt", 
-                             header=TRUE, sep = "\t")
-# assess accuracy and generate confusion matrix for classification
-confusion_matrix <- calculate_accuracy(true_labels_df, classes_df, 
-                                       pathway = "ER")
-# detail breakdown of classification evaluation (accuracy, % classified etc)
-confusion_matrix <- calculate_accuracy(true_labels_df, classes_df, 
-                                       pathway = "ER", display_statistics = T)
-```
-In addition to a detail summary of the classification assessment, we can also 
-view a ROC curve for our classification, which visualizes the sensitivity and 
-specificity of the data set classification by fitting a logistic regression 
-model to the binary ER pathway activity classifications (active, inactive):
-
-```{r}
-# detail breakdown of classification evaluation (accuracy, % classified etc)
-confusion_matrix <- calculate_accuracy(true_labels_df, classes_df, 
-                                       pathway = "ER", display_statistics = T,
-                                       display_roc_curve = T)
-```
-In concordance with the statistical classification evaluation metrics, the ROC 
-curve also shows that the samples were classified well according to ER pathway 
-activity by the curve reaching the top left corner of the plot.
 
 # Session Info
 The output of `sessionInfo` upon which this file was generated:
