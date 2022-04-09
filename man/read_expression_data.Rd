@@ -22,7 +22,7 @@ it checks for any duplicated gene present in the first column.
 Following that the matrix is converted to a numeric data matrix.
 }
 \examples{
-read_expression_data("/Users/taniyapal/Documents/Group Project/TCGA_unannotated.txt")
+\dontrun{read_expression_data("/Users/taniyapal/Documents/Group Project/TCGA_unannotated.txt")}
 }
 \author{
 Taniya Pal \email{taniya.pal.094@cranfield.ac.uk}
