@@ -6,7 +6,7 @@
 #' @param normalized_data_filtered  Normalized Gene expression data matrix
 #' @param predicted_labels_df  dataframe which labels for each sample predicted by classification algorithm
 #' @param pathway_name  pathway name, default is "ER"
-#' @import plotly
+#' @importFrom plotly plot_ly layout %>%
 #'
 #' @return
 #' @export
