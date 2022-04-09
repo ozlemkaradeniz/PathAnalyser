@@ -36,7 +36,7 @@ percentile thresholds during the pathway activity sample classification.
 classes_df <- classify_GSVA_percent(ER_sig_df, ER_data_se1)
 # custom percentile threshold e.g. 30th percentile
 classes_df <- classify_GSVA_percent(ER_sig_df, ER_data_se1,
-       thresh_percent=30)
+       percent_thresh=30)
 }
 \author{
 Anisha Thind \email{a.thind@cranfield.ac.uk}
