@@ -10,14 +10,11 @@
 #'
 #'
 #' @return Filtered Normalized Gene expression data matrix
+#' @import ggplot2
 #' @export
 #'
 #' @examples check_signature_vs_dataset(data_norm, sig_df)
-
-
-
 check_signature_vs_dataset <-function(data_norm, sig_df) {
-    require(ggplot2)
     sig_df<-as.data.frame(sig_df)
     sig_df<-as.data.frame(sig_df[,1])
     # filter gene signature in expression matrix
