@@ -19,7 +19,7 @@ performs validity check against gene signatures and gene expression dataset and
 filters gene expression dataset accordingly
 }
 \examples{
-check_signature_vs_dataset(data_norm, sig_df)
+\dontrun{check_signature_vs_dataset(data_norm, sig_df)}
 }
 \author{
 Yi-Hsuan Lee \email{yi-hsuan.lee@cranfield.ac.uk}
