@@ -21,7 +21,6 @@ plots pca for normalized gene expression dataset with the predicted labels
 }
 \examples{
 classes_pca(normalized_data_filtered, predicted_labels_df, 'ER')
-
 }
 \author{
 Yi-Hsuan Lee \email{yi-hsuan.lee@cranfield.ac.uk}

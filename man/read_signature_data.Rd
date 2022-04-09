@@ -12,9 +12,9 @@ read_signature_data(up_sig_file, down_sig_file)
 \item{down_sig}{Down-regulated gene-set}
 }
 \value{
-A dataframe containing both up regulated and down
+A data frame containing both up regulated and down
 regulated signature files and signifying their up or down
-expression with +1 and -1 respetively.
+expression with +1 and -1 respectively.
 }
 \description{
 Reads up and down regulated signature files from user
