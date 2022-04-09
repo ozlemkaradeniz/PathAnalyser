@@ -29,7 +29,7 @@ check_signature_vs_dataset <-function(data_norm, sig_df) {
         absent <- 0
         present <- 0
         for (j in 1:ncol(filtered)) {
-          if (filtered[i, j] != 0) {
+          if (filtered[i, j] >= 0) {
             present <- present + 1
           }
           else{
