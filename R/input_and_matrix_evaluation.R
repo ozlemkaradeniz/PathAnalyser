@@ -1,9 +1,9 @@
 #' Reading gene expression data from file
 #'
 #' @description  Reads gene expression data file from user,
-#' removes Nas, if the first column consist of gene names,
-#' gives the genenames to the rownames of the matrix and deletes
-#' the first column. Before converting the first column to rownames
+#' removes NAs, if the first column consist of gene names,
+#' gives the gene names to the row names of the matrix and deletes
+#' the first column. Before converting the first column to row names
 #' it checks for any duplicated gene present in the first column.
 #' Following that the matrix is converted to a numeric data matrix.
 #'
@@ -12,16 +12,15 @@
 #'
 #' @param file_name  Full path of the gene expression data file name
 #'
-#' @return Structured matrix containing gene symbols/IDs as rownames and
-#' sample IDs as column names.
+#' @return Structured matrix containing gene symbols/IDs as row names and
+#' sample IDs as column names and the Sample IDs as column names.
+#' @importFrom reader get.delim
 #'
-#' and the Sample IDs as colnames.
 #' @export
 #'
 #' @examples read_expression_data("/Users/taniyapal/Documents/Group Project/TCGA_unannotated.txt")
 
 read_expression_data <- function(file_name){
-  library(reader)
   # getting the delimiter for the file whether it is "\t" or "," or " "
   delimiter <- get.delim(file_name)
 
