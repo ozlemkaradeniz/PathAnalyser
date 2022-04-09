@@ -1,7 +1,6 @@
 .Rproj.user
 .DS_Store
 .Rbuildignore
-raw_data
 .Rhistory
 Test.R
 *.csv
