@@ -10,10 +10,12 @@
 #' @param display_roc_curve optional flag to plot ROC Curve for confusion matrix
 #' @return confusion_matrix
 #' @import pROC
+#' @importFrom utils read.table
 #' @export
 #'
 #' @examples
-#' calculate_accuracy(true_labels_df,predicted_labels_df, "ER", display_statistics= TRUE, display_roc_curve=TRUE)
+#' \dontrun{calculate_accuracy(true_labels_df,predicted_labels_df, "ER",
+#' display_statistics= TRUE, display_roc_curve=TRUE)}
 
 calculate_accuracy <-function(true_labels_source, predicted_labels_source, pathway,
                               display_statistics=FALSE, display_roc_curve=FALSE){

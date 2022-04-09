@@ -34,6 +34,6 @@ sample i.e. "Active", "Inactive" or "Uncertain".
 Generic classify function for classifying samples based on GSVA scores
 }
 \examples{
-classes_df <- classify(gsva_scores, up_thresh, dn_thresh)
+\dontrun{classes_df <- .classify(gsva_scores, up_thresh, dn_thresh)}
 }
 \keyword{internal}

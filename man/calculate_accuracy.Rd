@@ -32,7 +32,8 @@ Confusion matrix is created to display the accuracy to the user. Additional stat
 optional features. It should be called after classification method to evaluate accuracy of classification
 }
 \examples{
-calculate_accuracy(true_labels_df,predicted_labels_df, "ER", display_statistics= TRUE, display_roc_curve=TRUE)
+\dontrun{calculate_accuracy(true_labels_df,predicted_labels_df, "ER",
+display_statistics= TRUE, display_roc_curve=TRUE)}
 }
 \author{
 Ozlem Karadeniz \email{ozlem.karadeniz.283@cranfield.ac.uk}

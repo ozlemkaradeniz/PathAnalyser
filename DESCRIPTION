@@ -34,6 +34,8 @@ Imports:
     glue,
     lifecycle,
     limma,
+    plotly,
+    pROC,
     reader,
     reshape2,
     rlang,

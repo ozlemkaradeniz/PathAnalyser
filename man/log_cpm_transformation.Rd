@@ -25,8 +25,7 @@ transformation. The user can check the distribution of the gene expression value
 after log cpm transformation with the help of the box plot.
 }
 \examples{
-log_cpm_transformation(formatted_matrix)
-
+\dontrun{log_cpm_transformation(formatted_matrix)}
 }
 \author{
 Rishabh Kaushik and Taniya Pal \email{rishabh.kaushik.126@cranfield.ac.uk, taniya.pal.094@cranfiled.ac.uk}

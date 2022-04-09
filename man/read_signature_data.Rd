@@ -7,14 +7,14 @@
 read_signature_data(up_sig_file, down_sig_file)
 }
 \arguments{
-\item{up_sig}{Up-regulated gene-set}
+\item{up_sig_file}{Up-regulated gene-set format file}
 
-\item{down_sig}{Down-regulated gene-set}
+\item{down_sig_file}{Down-regulated gene-set format file}
 }
 \value{
-A dataframe containing both up regulated and down
+A data frame containing both up regulated and down
 regulated signature files and signifying their up or down
-expression with +1 and -1 respetively.
+expression with +1 and -1 respectively.
 }
 \description{
 Reads up and down regulated signature files from user
@@ -24,7 +24,7 @@ both up and down regulated signatures. The second column
 signifies whether they are up(+1) or down(-1) regulated.
 }
 \examples{
-read_signature_data("ESR1_UP.v1._UP.csv","ESR1_DN.v1_DN.csv" )
+\dontrun{read_signature_data("ESR1_UP.v1._UP.csv","ESR1_DN.v1_DN.csv" )}
 }
 \author{
 Taniya Pal \email{taniya.pal.094@cranfield.ac.uk}

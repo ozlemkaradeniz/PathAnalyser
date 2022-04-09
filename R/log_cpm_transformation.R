@@ -16,11 +16,11 @@
 #'
 #' @return Transformed gene expression data matrix
 #' @importFrom edgeR cpm
+#' @importFrom graphics boxplot
 #' @export
 #'
-#' @examples log_cpm_transformation(formatted_matrix)
-#'
-
+#' @examples
+#' \dontrun{log_cpm_transformation(formatted_matrix)}
 log_cpm_transformation <-function (data_es){
   #box plot before transformation
   boxplot(log(data_es+0.5), main="Plot before log cpm transformation", axes=F)

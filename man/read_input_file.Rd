@@ -44,8 +44,8 @@ The user gets an estimates of how many gene symbols overlap
 between the two files.
 }
 \examples{
-read_input_file("TCGA_unannotated.txt","ESR1_UP.v1_UP.csv",
-"ESR1_DN.v1_DN.csv", check_mtarix_sig_overlap=T)
+\dontrun{read_input_file("TCGA_unannotated.txt","ESR1_UP.v1_UP.csv",
+"ESR1_DN.v1_DN.csv", check_mtarix_sig_overlap=T)}
 }
 \author{
 Taniya Pal \email{taniya.pal.094@cranfield.ac.uk}
