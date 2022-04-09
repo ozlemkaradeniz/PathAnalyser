@@ -119,21 +119,20 @@ classify_GSVA_percent <- function(sig_df, data_se, percent_thresh=25){
 #' @return density plot displaying distribution of GSVA scores obtained for
 #' the samples using up-regulated and down-regulated gene-sets from the gene
 #' signature
+#' @importFrom reshape2 melt
+#' @import ggplot2
 #' @export
 #'
 #' @examples
 #' gsva_scores_dist(ER_sig_df, ER_data_se)
 gsva_scores_dist <- function(sig_df, data_se) {
-  require(ggplot2)
-  require(reshape2)
-
   # run GSVA using data provided
   gsva_scores <- .run_GSVA(sig_df, data_se)
 
   sortedScores <- cbind(gsva_scores$Up, gsva_scores$Down)
 
   # reshape data for plotting
-  meltScores <- melt(sortedScores,
+  meltScores <- reshape2::melt(sortedScores,
                      id.vars=NULL,
                      measures.vars=c("Up", "Down"),
                      variable.name = "Geneset",
@@ -173,11 +172,11 @@ gsva_scores_dist <- function(sig_df, data_se) {
 #' @return GSVA scores in the form of a list, containing two data frames: GSVA
 #' scores for up-regulated gene-set for each sample, and GSVA scores for the
 #' down-regulated gene-set GSVA for each sample
+#' @importFrom GSVA gsva
 #'
 #' @examples
 #' run_GSVA(ER_sig_df, ER_data_se1)
 .run_GSVA <- function(sig_df, data_se){
-  require(GSVA)
   # check signature arg is data frame
   if (!is.data.frame(sig_df)) {
     stop("Signature argument is not a dataframe.")

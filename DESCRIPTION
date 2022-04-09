@@ -1,41 +1,52 @@
 Package: PathAnalyser
-Title: ER & HER2 Pathway Activity Analysis For Breast Cancer Transcriptomic Datasets 
+Title: ER & HER2 Pathway Activity Analysis For Breast Cancer
+    Transcriptomic Datasets
 Version: 0.0.0.9000
-Authors@R:
-    c(
-    person("Taniya", "Pal", email="Taniya.Pal.094@cranfield.ac.uk", 
-      role="aut"),
-    person("Rishabh", "Kaushik", email="rishabh.kaushik.126@cranfield.ac.uk",
-      role="aut"),
-    person("Yi-Hsuan", "Lee", email="yi-hsuan.lee@cranfield.ac.uk",
-      role="aut"),
-    person("Ozlem", "Karadeniz", email="ozlem.karadeniz.283@cranfield.ac.uk",
-      role="aut"),
-    person("Justice", "Iheanyichi", email="j.iheanyichi.616@cranfield.ac.uk",
-      role="aut"),
-    person("Anisha", "Thind", email="a.thind@cranfield.ac.uk", 
-      role = c("aut", "cre")),
-    person("Alexey", "Larionov", email="alexey.larionov@cranfield.ac.uk", 
-      role="dgs"),
-    person("Cranfield University", role="cph")
-    )
-Description: PathAnalyser provides an assessment of molecular pathway activity 
-  in transcriptomic datasets. The classification algorithm employed by 
-  PathAnalyser implements Gene GSVA to classify samples in a transcriptomic dataset 
-  by pathway activity using a gene signature. Currently, the package provides 
-  built-in data for assessment of ER & HER2 pathway activity in breast cancer 
-  transcriptomic datasets, however the PathAnalyser functionality could also be 
-  applied to gene signatures and/or transcriptomic datasets in non-oncological 
-  contexts.
+Authors@R: c(
+    person("Taniya", "Pal", , "Taniya.Pal.094@cranfield.ac.uk", role = "aut"),
+    person("Rishabh", "Kaushik", , "rishabh.kaushik.126@cranfield.ac.uk", role = "aut"),
+    person("Yi-Hsuan", "Lee", , "yi-hsuan.lee@cranfield.ac.uk", role = "aut"),
+    person("Ozlem", "Karadeniz", , "ozlem.karadeniz.283@cranfield.ac.uk", role = "aut"),
+    person("Justice", "Iheanyichi", , "j.iheanyichi.616@cranfield.ac.uk", role = "aut"),
+    person("Anisha", "Thind", , "a.thind@cranfield.ac.uk", role = c("aut", "cre")),
+    person("Alexey", "Larionov", , "alexey.larionov@cranfield.ac.uk", role = "dgs"),
+    person("Cranfield University", role = "cph")
+  )
+Description: PathAnalyser provides an assessment of molecular pathway
+    activity in transcriptomic datasets. The classification algorithm
+    employed by PathAnalyser implements Gene GSVA to classify samples in a
+    transcriptomic dataset by pathway activity using a gene signature.
+    Currently, the package provides built-in data for assessment of ER &
+    HER2 pathway activity in breast cancer transcriptomic datasets,
+    however the PathAnalyser functionality could also be applied to gene
+    signatures and/or transcriptomic datasets in non-oncological contexts.
 License: MIT + file LICENSE
-Encoding: UTF-8
 URL: https://github.com/a-thind/PathAnalyser
 BugReports: https://github.com/a-thind/PathAnalyser/issues
+Depends: 
+    GSVA,
+    R (>= 2.10)
+Imports: 
+    cli,
+    edgeR,
+    ggfortify,
+    ggplot2,
+    glue,
+    lifecycle,
+    limma,
+    reader,
+    reshape2,
+    rlang,
+    VennDiagram,
+    withr
+Suggests: 
+    BiocStyle,
+    knitr,
+    rmarkdown,
+    testthat
+VignetteBuilder: 
+    knitr
+Encoding: UTF-8
+LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2.9000
-Depends: 
-    R (>= 2.10)
-LazyData: true
-Imports: edgeR, limma, reader, GSVA, reshape2, ggplot2, ggfortify, VennDiagram
-Suggests: BiocStyle, rmarkdown, knitr, testthat
-VignetteBuilder: knitr
