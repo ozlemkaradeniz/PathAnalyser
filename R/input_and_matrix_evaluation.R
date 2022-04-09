@@ -15,6 +15,8 @@
 #' @return Structured matrix containing gene symbols/IDs as row names and
 #' sample IDs as column names and the Sample IDs as column names.
 #' @importFrom reader get.delim
+#' @importFrom utils read.delim
+#' @importFrom stats na.omit
 #'
 #' @export
 #'
@@ -50,9 +52,10 @@ read_expression_data <- function(file_name){
 #' @param  up_sig   Up-regulated gene-set
 #' @param  down_sig  Down-regulated gene-set
 #'
-#' @return A dataframe containing both up regulated and down
+#' @return A data frame containing both up regulated and down
 #' regulated signature files and signifying their up or down
-#' expression with +1 and -1 respetively.
+#' expression with +1 and -1 respectively.
+#' @importFrom utils read.delim
 #' @export
 #'
 #' @examples read_signature_data("ESR1_UP.v1._UP.csv","ESR1_DN.v1_DN.csv" )
@@ -102,6 +105,7 @@ read_signature_data <- function(up_sig_file, down_sig_file){
 #' and down regulated expression as -1
 #' 3) a Venn diagram representing the overlap of gene symbols/IDs between the
 #' two files
+#' @import VennDiagram
 #'
 #' @export
 #' @examples read_input_file("TCGA_unannotated.txt","ESR1_UP.v1_UP.csv",
@@ -119,8 +123,6 @@ read_input_file=function(input_filename, up_sig_filename, dn_sig_filename, check
 
   #if the user wants to display the Venn Diagram
   if (check_matrix_sig_overlap==T){
-    #loading the required library
-    library(VennDiagram)
 
     #listing the gene symbols in expression matrix
     rownames=as.list(rownames(matrix))

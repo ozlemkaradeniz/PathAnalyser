@@ -16,6 +16,7 @@
 #'
 #' @return Transformed gene expression data matrix
 #' @importFrom edgeR cpm
+#' @importFrom graphics boxplot
 #' @export
 #'
 #' @examples log_cpm_transformation(formatted_matrix)

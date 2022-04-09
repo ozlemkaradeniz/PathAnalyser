@@ -79,6 +79,7 @@ classify_GSVA_abs <- function(sig_df, data_se, up_thresh.low,
 #'
 #' @return data frame containing predicted pathway activity classes for each
 #' sample in the user provided data set (Active, Inactive or Uncertain).
+#' @importFrom stats quantile
 #' @export
 #'
 #' @examples
