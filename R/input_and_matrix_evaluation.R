@@ -20,7 +20,8 @@
 #'
 #' @export
 #'
-#' @examples read_expression_data("/Users/taniyapal/Documents/Group Project/TCGA_unannotated.txt")
+#' @examples
+#' \dontrun{read_expression_data("/Users/taniyapal/Documents/Group Project/TCGA_unannotated.txt")}
 
 read_expression_data <- function(file_name){
   # getting the delimiter for the file whether it is "\t" or "," or " "
@@ -49,8 +50,8 @@ read_expression_data <- function(file_name){
 #' signifies whether they are up(+1) or down(-1) regulated.
 #'
 #' @author Taniya Pal \email{taniya.pal.094@cranfield.ac.uk}
-#' @param  up_sig   Up-regulated gene-set
-#' @param  down_sig  Down-regulated gene-set
+#' @param  up_sig_file   Up-regulated gene-set format file
+#' @param  down_sig_file  Down-regulated gene-set format file
 #'
 #' @return A data frame containing both up regulated and down
 #' regulated signature files and signifying their up or down
@@ -58,8 +59,8 @@ read_expression_data <- function(file_name){
 #' @importFrom utils read.delim
 #' @export
 #'
-#' @examples read_signature_data("ESR1_UP.v1._UP.csv","ESR1_DN.v1_DN.csv" )
-
+#' @examples
+#' \dontrun{read_signature_data("ESR1_UP.v1._UP.csv","ESR1_DN.v1_DN.csv" )}
 read_signature_data <- function(up_sig_file, down_sig_file){
   # reading the up regulated gene signature file
   up_sig <- read.delim(up_sig_file, comment="#", sep="\n")
@@ -108,8 +109,8 @@ read_signature_data <- function(up_sig_file, down_sig_file){
 #' @import VennDiagram
 #'
 #' @export
-#' @examples read_input_file("TCGA_unannotated.txt","ESR1_UP.v1_UP.csv",
-#' "ESR1_DN.v1_DN.csv", check_mtarix_sig_overlap=T)
+#' @examples \dontrun{read_input_file("TCGA_unannotated.txt","ESR1_UP.v1_UP.csv",
+#' "ESR1_DN.v1_DN.csv", check_mtarix_sig_overlap=T)}
 
 read_input_file=function(input_filename, up_sig_filename, dn_sig_filename, check_matrix_sig_overlap=F){
 
