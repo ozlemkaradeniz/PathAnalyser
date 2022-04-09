@@ -31,7 +31,7 @@
 #'
 #' @examples
 #' # Default thresholds for up-regulated and down-regulated gene-sets
-#' classes_df <- classify_GSVA_abs(sig_df, data_se, up_thresh.low=-0.25,
+#' classes_df <- classify_GSVA_abs(ER_sig_df, ER_data_se1, up_thresh.low=-0.25,
 #'      up_thresh.high=0.25, dn_thresh.low=-0.25, dn_thresh.high=0.35)
 classify_GSVA_abs <- function(sig_df, data_se, up_thresh.low,
                               up_thresh.high,
@@ -87,7 +87,7 @@ classify_GSVA_abs <- function(sig_df, data_se, up_thresh.low,
 #' classes_df <- classify_GSVA_percent(ER_sig_df, ER_data_se1)
 #' # custom percentile threshold e.g. 30th percentile
 #' classes_df <- classify_GSVA_percent(ER_sig_df, ER_data_se1,
-#'        thresh_percent=30)
+#'        percent_thresh=30)
 classify_GSVA_percent <- function(sig_df, data_se, percent_thresh=25){
   # check threshold is a number between 0-100%
   thresh <- percent_thresh / 100
@@ -125,7 +125,7 @@ classify_GSVA_percent <- function(sig_df, data_se, percent_thresh=25){
 #' @export
 #'
 #' @examples
-#' gsva_scores_dist(ER_sig_df, ER_data_se)
+#' gsva_scores_dist(ER_sig_df, ER_data_se1)
 gsva_scores_dist <- function(sig_df, data_se) {
   # run GSVA using data provided
   gsva_scores <- .run_GSVA(sig_df, data_se)
@@ -176,7 +176,7 @@ gsva_scores_dist <- function(sig_df, data_se) {
 #' @importFrom GSVA gsva
 #'
 #' @examples
-#' run_GSVA(ER_sig_df, ER_data_se1)
+#' \dontrun{.run_GSVA(ER_sig_df, ER_data_se1)}
 .run_GSVA <- function(sig_df, data_se){
   # check signature arg is data frame
   if (!is.data.frame(sig_df)) {
@@ -243,7 +243,7 @@ gsva_scores_dist <- function(sig_df, data_se) {
 #' sample i.e. "Active", "Inactive" or "Uncertain".
 #'
 #' @examples
-#' classes_df <- classify(gsva_scores, up_thresh, dn_thresh)
+#' \dontrun{classes_df <- .classify(gsva_scores, up_thresh, dn_thresh)}
 .classify <- function(gsva_scores, up_thresh.low, up_thresh.high, dn_thresh.low,
                      dn_thresh.high) {
   if (missing(up_thresh.high) || missing(dn_thresh.high) ||
