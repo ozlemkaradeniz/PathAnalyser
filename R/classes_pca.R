@@ -1,4 +1,3 @@
-
 #' pca plot for normalized gene expression dataset
 #' @description plots pca for normalized gene expression dataset with the predicted labels
 #' @author Yi-Hsuan Lee \email{yi-hsuan.lee@cranfield.ac.uk}
@@ -11,7 +10,8 @@
 #' @return
 #' @export
 #'
-#' @examples classes_pca(normalized_data_filtered, predicted_labels_df, 'ER')
+#' @examples
+#' \dontrun{classes_pca(normalized_data_filtered, predicted_labels_df, 'ER')}
 classes_pca <- function(normalized_data_filtered, predicted_labels_df,
            pathway_name = "ER") {
     data_filtered<-t(normalized_data_filtered)
