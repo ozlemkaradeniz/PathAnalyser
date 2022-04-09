@@ -13,7 +13,8 @@
 #' @import ggplot2
 #' @export
 #'
-#' @examples \dontrun{check_signature_vs_dataset(data_norm, sig_df)}
+#' @examples
+#' \dontrun{check_signature_vs_dataset(data_norm, sig_df)}
 check_signature_vs_dataset <-function(data_norm, sig_df) {
     sig_df<-as.data.frame(sig_df)
     sig_df<-as.data.frame(sig_df[,1])
