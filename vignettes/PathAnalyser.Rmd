@@ -33,7 +33,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
+```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
@@ -122,13 +122,13 @@ git clone git@github.com:a-thind/PathAnalyser.git
 
 Then type the following in R to install a local source version of the package:
 
-```{r eval=FALSE}
+```{r eval=FALSE, message=FALSE, warning=FALSE, cache=FALSE}
 library(utils)
 install.packages("~/PathAnalyser", repo=NULL, type="source")
 ```
 
 Once installation is completed, load the library to start using PathAnalyser:
-```{r setup}
+```{r message=FALSE, warning=FALSE, cache=FALSE}
 library(PathAnalyser)
 ```
 
@@ -513,6 +513,20 @@ classes_df.percent <- classify_GSVA_percent(ER_sig_df, normalized_se,
                                             percent_thresh=30)
 ```
 
+# Visualising pathway activity
+An interactive PCA plot providing a visual summary of the pathway-based 
+classification can be produced by using the `classes_pca` function with the 
+normalized data set and predicted classes data frame. Each point represent a 
+sample in the expression data set and are colored according to the predicted 
+activity class ("Active", "Inactive", "Uncertain"). Hovering over the sample 
+points displays the sample name, along with predicted pathway activity class and
+also the relative coordinates of the sample in the first two principal 
+components.
+
+## Generating PCA plot
+```{r}
+classes_pca(normalized_se, classes_df, pathway_name = "ER")
+```
 # Evaluating pathway activity classification
 This package provides a method `calculate_accuracy` for evaluating pathway 
 activity classification, which gets the actual labels and the labels classified
@@ -529,24 +543,10 @@ Default values for the flags is FALSE.
 
 
 ```{r fig.wide=TRUE}
-confusion_matrix <- calculate_accuracy("~/PathAnalyser/raw_data/Sample_labels.txt", 
-                                       classes_df, "ER", display_statistics=TRUE, 
+true_labels_df <- read.table("../raw_data/Sample_labels.txt", sep="\t", header=T)
+confusion_matrix <- calculate_accuracy(true_labels_df, classes_df, 
+                                       pathway = "ER", display_statistics=TRUE, 
                                        display_roc_curve=TRUE)
-```
-
-# Visualising pathway activity
-An interactive PCA plot providing a visual summary of the pathway-based 
-classification can be produced by using the `classes_pca` function with the 
-normalized data set and predicted classes data frame. Each point represent a 
-sample in the expression data set and are colored according to the predicted 
-activity class ("Active", "Inactive", "Uncertain"). Hovering over the sample 
-points displays the sample name, along with predicted pathway activity class and
-also the relative coordinates of the sample in the first two principal 
-components.
-
-## Generating PCA plot
-```{r}
-classes_pca(normalized_se, classes_df, pathway_name = "ER")
 ```
 
 # Example: Assessing ER pathway activity in a breast cancer RNAseq dataset
@@ -741,7 +741,7 @@ activity by the curve reaching the top left corner of the plot.
 
 # Session Info
 The output of `sessionInfo` upon which this file was generated:
-```{r}
+```{r cache=FALSE}
 sessionInfo()
 ```
 
