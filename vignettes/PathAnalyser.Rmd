@@ -112,7 +112,7 @@ The easiest way to install PathAnalyser is to install directly from GitHub
 using the devtools package in R:
 ```{r eval=F}
 install.packages("devtools")
-devtools::install_github("a-thind/PathAnalyser")
+devtools::install_github("ozlemkaradeniz/PathAnalyser")
 ```
 
 Alternatively, you can clone the GitHub repository in a Linux / MacOS terminal:
@@ -288,7 +288,7 @@ The `read_expression_data` function reads gene expression data from
 a file with an delimiter, the function checks the delimiter of the
 file and reads the file accordingly. It returns an output with gene symbols/IDs as the row names and columns representing each sample 
 IDs in the dataset.
-```{r eval=F}
+```{r eval=FALSE}
 data_se <- read_expression_data("/Users/taniyapal/Documents/Group Project/TCGA_unannotated.txt")
 data_se<-data_se[,1:200]
 print(data_se[1:5, 1:5])
@@ -474,12 +474,18 @@ As the distribution of GSVA scores tends to be biomodal rather than Guassian,
 the user may prefer to use absolute GSVA thresholds for checking consistency of 
 expression abundance of each gene set with pathway signature for each sample.
 PathAnalyser provides the `classify_GSVA_abs` function for classifying samples 
-by pathway activity using absolute GSVA score thresholds. The thresholds for
-high expression abundance and low expression abundance of the up-regulated 
-gene-set of the pathway signature are specified with `up_thresh.high` and 
-`up_thresh.low` parameters. Similarly thresholds for high expression abundance
-and low expression abundance for the down-regulated gene set of the signature 
-are provided by the `dn_thresh.high` and `dn_thresh.low` parameters respectively.
+by pathway activity using absolute GSVA score thresholds which can be tuned by
+the user:
+
+- `up_thresh.high`: for high expression abundance for the 
+up-regulated gene-set
+- `up_thresh.low`: for low expression abundance for the 
+up-regulated gene-set of the gene signature
+- `dn_thresh.high`: for high expression abundance for the 
+down-regulated gene-set of the gene signature 
+- `dn_thresh.low`: for low expression abundance for the 
+down-regulated gene-set of the gene signature
+
 Note that absolute thresholds are required from the user when running 
 `classify_GSVA_abs` and can be positive or negative numbers. A summary of the 
 classification is printed to the console highlighting the number of samples in 
@@ -573,12 +579,12 @@ Additionally, the ER signature compiled from the Sensitivity to Endocrine Therap
 which 59 are down-regulated and 101 are up-regulated.
 ```{r}
 # Load transcriptomic data set (gene expression matrix of samples)
-data_se <- read_expression_data("~/PathAnalyser/raw_data/toy_data.txt")
+data_se <- read_expression_data("../raw_data/toy_data.txt")
 dim(data_se)
 head(data_se)
 # read signature data from the two individual gene set files for up-regulated
 # and down-regulated gene sets
-ER_sig <- read_signature_data("~/PathAnalyser/raw_data/ESR1_UP.v1._UP.grp", "~/PathAnalyser/raw_data/ESR1_DN.v1_DN.grp")
+ER_sig <- read_signature_data("../raw_data/ESR1_UP.v1._UP.grp", "../raw_data/ESR1_DN.v1_DN.grp")
 dim(ER_sig)
 ```
 
@@ -715,7 +721,7 @@ samples, the 4 samples classified as ER positive were actually ER positive and
 similarly, the 5 samples classified as ER negative were indeed ER negative.
 ```{r fig.wide=TRUE}
 # read true pathway activity class labels for data set samples
-true_labels_df <- read.table("~/PathAnalyser/raw_data/Sample_labels.txt", 
+true_labels_df <- read.table("../raw_data/Sample_labels.txt", 
                              header=TRUE, sep = "\t")
 # assess accuracy and generate confusion matrix for classification
 confusion_matrix <- calculate_accuracy(true_labels_df, classes_df, 
@@ -725,9 +731,10 @@ confusion_matrix <- calculate_accuracy(true_labels_df, classes_df,
                                        pathway = "ER", display_statistics = T)
 ```
 In addition to a detail summary of the classification assessment, we can also 
-view a ROC curve for our classification, which visualizes the sensitivity and 
-specificity of the data set classification by fitting a logistic regression 
-model to the binary ER pathway activity classifications (active, inactive):
+view a receiver operating curve (ROC) curve for our classification, which 
+visualizes the sensitivity and specificity of the data set classification by 
+fitting a logistic regression model to the binary ER pathway activity 
+classifications (active, inactive):
 
 ```{r fig.wide=TRUE}
 # detail breakdown of classification evaluation (accuracy, % classified etc)
@@ -737,7 +744,10 @@ confusion_matrix <- calculate_accuracy(true_labels_df, classes_df,
 ```
 In concordance with the statistical classification evaluation metrics, the ROC 
 curve also shows that the samples were classified well according to ER pathway 
-activity by the curve reaching the top left corner of the plot.
+activity by the curve reaching the top left corner of the plot (indicating a 
+high true positive rate and a low false positive rate). The nine points 
+represent the nine samples classified as "active" / "inactive" for the ER 
+pathway.
 
 # Session Info
 The output of `sessionInfo` upon which this file was generated:
