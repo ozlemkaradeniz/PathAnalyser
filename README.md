@@ -10,8 +10,8 @@
 - [Overview of PathAnalyser functionality](#overview-of-pathanalyser-functionality)
 - [Installation](#installation)
     - [Dependencies](#dependencies)
-    - [Install VarGen with devtools](#install-pathanalyser-with-devtools)
-    - [Install VarGen from source](#install-pathanalyser-from-source)
+    - [Install PathAnalyser with devtools](#install-pathanalyser-with-devtools)
+    - [Install PathAnalyser from source](#install-pathanalyser-from-source)
 - [If you wish to know more](#if-you-wish-to-know-more)
   
 # PathAnalyser workflow
