@@ -474,12 +474,18 @@ As the distribution of GSVA scores tends to be biomodal rather than Guassian,
 the user may prefer to use absolute GSVA thresholds for checking consistency of 
 expression abundance of each gene set with pathway signature for each sample.
 PathAnalyser provides the `classify_GSVA_abs` function for classifying samples 
-by pathway activity using absolute GSVA score thresholds. The thresholds for
-high expression abundance and low expression abundance of the up-regulated 
-gene-set of the pathway signature are specified with `up_thresh.high` and 
-`up_thresh.low` parameters. Similarly thresholds for high expression abundance
-and low expression abundance for the down-regulated gene set of the signature 
-are provided by the `dn_thresh.high` and `dn_thresh.low` parameters respectively.
+by pathway activity using absolute GSVA score thresholds which can be tuned by
+the user:
+
+- `up_thresh.high`: for high expression abundance for the 
+up-regulated gene-set
+- `up_thresh.low`: for low expression abundance for the 
+up-regulated gene-set of the gene signature
+- `dn_thresh.high`: for high expression abundance for the 
+down-regulated gene-set of the gene signature 
+- `dn_thresh.low`: for low expression abundance for the 
+down-regulated gene-set of the gene signature
+
 Note that absolute thresholds are required from the user when running 
 `classify_GSVA_abs` and can be positive or negative numbers. A summary of the 
 classification is printed to the console highlighting the number of samples in 
@@ -725,9 +731,10 @@ confusion_matrix <- calculate_accuracy(true_labels_df, classes_df,
                                        pathway = "ER", display_statistics = T)
 ```
 In addition to a detail summary of the classification assessment, we can also 
-view a ROC curve for our classification, which visualizes the sensitivity and 
-specificity of the data set classification by fitting a logistic regression 
-model to the binary ER pathway activity classifications (active, inactive):
+view a receiver operating curve (ROC) curve for our classification, which 
+visualizes the sensitivity and specificity of the data set classification by 
+fitting a logistic regression model to the binary ER pathway activity 
+classifications (active, inactive):
 
 ```{r fig.wide=TRUE}
 # detail breakdown of classification evaluation (accuracy, % classified etc)
@@ -737,7 +744,10 @@ confusion_matrix <- calculate_accuracy(true_labels_df, classes_df,
 ```
 In concordance with the statistical classification evaluation metrics, the ROC 
 curve also shows that the samples were classified well according to ER pathway 
-activity by the curve reaching the top left corner of the plot.
+activity by the curve reaching the top left corner of the plot (indicating a 
+high true positive rate and a low false positive rate). The nine points 
+represent the nine samples classified as "active" / "inactive" for the ER 
+pathway.
 
 # Session Info
 The output of `sessionInfo` upon which this file was generated:
