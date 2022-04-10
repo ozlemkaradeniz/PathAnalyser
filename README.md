@@ -1,27 +1,24 @@
-# PathAnalyser
+# Summary
 
   PathAnalyser is an user-friendly R package that provides functionality for assessing ER and 
-  HER2 pathway activity in breast cancer transcriptomic datasets. The package enables 
-  classification of samples in transciptomic datasets according to pathway activity by 
-  using a gene expression signature associated with a pathway, a list of genes, which 
-  vary in expression depending on the pathway activity. These transcriptional 
-  signatures have been shown to have clinical predictive value, for example, ER 
-  and HER2 gene signatures have been associated with molecular sub-types, 
-  prognosis and treatment reponse in breast cancer. Although this package was 
-  original developed to assess ER and HER2 pathway activity in breast cancer 
-  transcriptomic datasets, the package functionality could be applied to 
-  transcriptomic datasets and gene signatures outside the context of breast 
-  cancer. In this vignette, we will describe how to use the PathAnalyser package 
-  with microarray and RNA-seq expression transcriptomic datasets and gene 
-  expression signatures associated with a specific pathway activity.
+  HER2 pathway activity in breast cancer transcriptomic datasets. 
+
+# Table of Contents
+
+- [Summary](#summary)
+- [PathAnalyser workflow](#pathanalyser-workflow)
+- [Overview of PathAnalyser functionality](#overview-of-pathanalyser-functionality)
+- [Installation](#installation)
+    - [Dependencies](#dependencies)
+    - [Install VarGen with devtools](#install-pathanalyser-with-devtools)
+    - [Install VarGen from source](#install-pathanalyser-from-source)
+- [If you wish to know more](#if-you-wish-to-know-more)
   
-## PathAnalyser workflow
+# PathAnalyser workflow
 
 ![PathAnalyser workflow](./vignettes/pathway_workflow.png?raw=true)
 
-
-## Overview of PathAnalyser functionality
-
+# Overview of PathAnalyser functionality
 
 The PathAnalyser package functionality can be sub-divided into 5 broad 
 categories corresponding to a typical workflow for assessing pathway activity of 
@@ -42,14 +39,15 @@ taken into account for analysis.
 
 3) It returns a PCA plot for visualization of the categories (Active/Inactive) the gene symbols/IDs have been classified into.
 
-## Installation
+# Installation
 
-### Dependencies
+## Dependencies
 
 PathAnalyser needs the following:
 - **R** (tested on version 3.6)
 - **An internet connection**
 - **The following R libraries:** (The number is the version tested during development)
+
 ```` 
    VennDiagram (1.7.1)     futile.logger (1.4.3) 
    reader (1.0.6)          NCmisc (1.1.6)        
@@ -57,74 +55,48 @@ PathAnalyser needs the following:
    edgeR (3.34.1)          limma (3.48.3)        
    pROC (1.18.0)           GSVA (1.40.1)
 ````
-**note:** The package is platform-independent; it runs multiple operating systems.
+**note:** The package is platform-independent; it runs on multiple operating systems.
 
 To install the dependencies you can use the following command in R :
+
 ````
 # If not already installed
 install.packages("BiocManager")
 
 BiocManager::install(c("GSVA", "pROC", "edgeR", "reshape2", "ggplot2","limma", "reader", "VennDiagram", "NCmisc", "futile.logger"),                           dependencies = TRUE)
-
 ````
 
-### Install PathAnalyser with devtools
+## Install PathAnalyser with devtools
 
 The easiest way to get PathAnalyser is to install it directly from R using “devtools”:
+
 ````
 install.packages("devtools")
 library(devtools)
-install_github(repo = "https://github.com/a-thind/PathAnalyser", dependencies = TRUE)
+install_github(repo = "https://github.com/ozlemkaradeniz/PathAnalyser", dependencies = TRUE)
 library(PathAnalyser)
 ````
 
-### Install PathAnalyser from source
+## Install PathAnalyser from source
 
 Alternatively you can clone the GitHub repository:
+
 ````
-git clone git@github.com:a-thind/PathAnalyser.git
+git clone git@github.com:ozlemkaradeniz/PathAnalyser.git
 ````
+
 Then type the following in R
+
 ````
 library(utils)
 install.packages("./PathAnalyser/", repos = NULL, type = "source")
 ````
 
-## Preparing the input
+# If you wish to know more
 
-### Gene expression datasets
-PathAnalyser also contains two built-in gene expression matrices each containing
-RNA-seq raw read counts for primary breast cancer samples obtained from 20 
-individuals (cases). Data for these matrices were obtained from The Cancer 
-Genome Atlas ([TCGA](https://www.cancer.gov/about-nci/organization/ccg/research/structural-genomics/tcga)).
-Each expression matrix contains 20,124 genes.
-```{r}
-data("ER_data_se1")
-data("HER2_data_se1")
+Look in the vignette here:
+http://ozlemkaradeniz.github.io/PathAnalyser/
 
-### ER dataset 1
-The ER data set `ER_data_se1` contains RNASeq raw read counts for 20 primary 
-breast cancer samples, 10 of which have ER pathway activity (ER+) and 10 which 
-have inactive ER pathway activity (ER-).
-```{r}
-dim(ER_data_se1)
-# Expression data for first 6 genes
-head(ER_data_se1)
-```
-
-### HER2 dataset 1
-Similarly, the HER2 data set `HER2_data_se1` contains RNASeq raw read counts for 
-20 primary breast cancer samples, 10 of which have HER2 (ERBB2) pathway activity 
-(HER2+) and 10 which have inactive HER2 pathway activity (HER2-).
-
-```{r}
-dim(HER2_data_se1)
-# Expression data for first 6 genes
-head(HER2_data_se1)
-```
-
-For more information you can visit vignete file.
-https://github.com/a-thind/PathAnalyser/blob/main/vignettes/PathAnalyser.Rmd
 
 
 
