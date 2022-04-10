@@ -88,15 +88,20 @@ classes_pca(normalized_se, classes_df.perc50, pathway_name = "ER")
 #    are available)
 #-------------------------------------------------------------------------------
 # To generate a confusion matrix for actual classes vs predicted classes:
-confusion_mat <- calculate_accuracy(true_df, classes_df.perc, pathway="ER")
-# for more detailed classification evaluation metric info,
-# use the optional parameter: display_stats=TRUE
-confusion_mat <- calculate_accuracy(true_df, classes_df.perc, pathway="ER",
-                                    display_statistics=T)
+confusion_mat <- calculate_accuracy("raw_data/Sample_labels.txt", classes_df.perc, pathway="ER")
+
+# for more detailed classification evaluation metric info and roc curve diagram
+# use the optional parameter: display_stats=TRUE and display_roc_curve=TRUE
+confusion_mat <- calculate_accuracy("raw_data/Sample_labels.txt", classes_df.perc, pathway="ER",
+                                    display_statistics=T, display_roc_curve=T)
 
 # classification evaluation metrics for 50th percentile threshold classification
-confusion_mat <- calculate_accuracy(true_df, classes_df.per50, pathway="ER",
-                                    display_statistics=T)
+confusion_mat <- calculate_accuracy("raw_data/Sample_labels.txt", classes_df.perc50, pathway="ER")
+
+# for more detailed classification evaluation metric info and roc curve diagram
+# use the optional parameter: display_stats=TRUE and display_roc_curve=TRUE
+confusion_mat <- calculate_accuracy("raw_data/Sample_labels.txt", classes_df.perc50, pathway="ER",
+                                    display_statistics=T, display_roc_curve=T)
 
 #-------------------------------------------------------------------------------
 # Built-in data
