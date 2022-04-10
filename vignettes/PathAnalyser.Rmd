@@ -112,7 +112,7 @@ The easiest way to install PathAnalyser is to install directly from GitHub
 using the devtools package in R:
 ```{r eval=F}
 install.packages("devtools")
-devtools::install_github("a-thind/PathAnalyser")
+devtools::install_github("ozlemkaradeniz/PathAnalyser")
 ```
 
 Alternatively, you can clone the GitHub repository in a Linux / MacOS terminal:
@@ -288,7 +288,7 @@ The `read_expression_data` function reads gene expression data from
 a file with an delimiter, the function checks the delimiter of the
 file and reads the file accordingly. It returns an output with gene symbols/IDs as the row names and columns representing each sample 
 IDs in the dataset.
-```{r eval=F}
+```{r eval=FALSE}
 data_se <- read_expression_data("/Users/taniyapal/Documents/Group Project/TCGA_unannotated.txt")
 data_se<-data_se[,1:200]
 print(data_se[1:5, 1:5])
@@ -573,12 +573,12 @@ Additionally, the ER signature compiled from the Sensitivity to Endocrine Therap
 which 59 are down-regulated and 101 are up-regulated.
 ```{r}
 # Load transcriptomic data set (gene expression matrix of samples)
-data_se <- read_expression_data("~/PathAnalyser/raw_data/toy_data.txt")
+data_se <- read_expression_data("../raw_data/toy_data.txt")
 dim(data_se)
 head(data_se)
 # read signature data from the two individual gene set files for up-regulated
 # and down-regulated gene sets
-ER_sig <- read_signature_data("~/PathAnalyser/raw_data/ESR1_UP.v1._UP.grp", "~/PathAnalyser/raw_data/ESR1_DN.v1_DN.grp")
+ER_sig <- read_signature_data("../raw_data/ESR1_UP.v1._UP.grp", "../raw_data/ESR1_DN.v1_DN.grp")
 dim(ER_sig)
 ```
 
@@ -715,7 +715,7 @@ samples, the 4 samples classified as ER positive were actually ER positive and
 similarly, the 5 samples classified as ER negative were indeed ER negative.
 ```{r fig.wide=TRUE}
 # read true pathway activity class labels for data set samples
-true_labels_df <- read.table("~/PathAnalyser/raw_data/Sample_labels.txt", 
+true_labels_df <- read.table("../raw_data/Sample_labels.txt", 
                              header=TRUE, sep = "\t")
 # assess accuracy and generate confusion matrix for classification
 confusion_matrix <- calculate_accuracy(true_labels_df, classes_df, 
