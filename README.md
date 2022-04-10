@@ -44,7 +44,7 @@ taken into account for analysis.
 ## Dependencies
 
 PathAnalyser needs the following:
-- **R** (tested on version 3.6)
+- **R** (tested on version 4.1.1)
 - **An internet connection**
 - **The following R libraries:** (The number is the version tested during development)
 
