@@ -1,28 +1,13 @@
 ---
 title: "PathAnalyser"
 author:
-  - name: Rishab Kaushik
+  - name: Rishabh Kaushik
   - name: Taniya Pal
   - name: Ozlem Karadeniz
   - name: Yi-Hsuan Lee
   - name: Anisha Thind
   - name: Justice Iheanyichi
 package: PathAnalyser
-abstract: >
-  PathAnalyser provides functionality for assessing ER and HER2 pathway activity
-  in breast cancer transcriptomic datasets. The package enables classification 
-  of samples in transciptomic datasets according to pathway activity by using a 
-  gene expression signature associated with a pathway, a list of genes, which 
-  vary in expression depending on the pathway activity. These transcriptional 
-  signatures have been shown to have clinical predictive value, for example, ER 
-  and HER2 gene signatures have been associated with molecular sub-types, 
-  prognosis and treatment reponse in breast cancer. Although this package was 
-  original developed to assess ER and HER2 pathway activity in breast cancer 
-  transcriptomic datasets, the package functionality could be applied to 
-  transcriptomic datasets and gene signatures outside the context of breast 
-  cancer. In this vignette, we will describe how to use the PathAnalyser package 
-  with microarray and RNA-seq expression transcriptomic datasets and gene 
-  expression signatures associated with a specific pathway activity.
 output: 
   BiocStyle::html_document:
     toc: TRUE
@@ -45,16 +30,17 @@ knitr::opts_chunk$set(
 # Introduction
 PathAnalyser is an intuitive and user-friendly package that allows users to 
 assess pathway activity of transcriptomic data sets using a pathway gene 
-signature. PathAnalyser uses GSVA to estimate expression abundance of the 
-up-regulated and down-regulated gene sets of the gene signature for each sample 
-in a transcriptomic data set, and then ranks samples based on expression 
-abundance of the up-regulated and down-regulated gene sets of the gene signature 
-separately. The classification algorithm uses user-configurable thresholds to 
-tailor the pathway-based classification to their own classification needs. 
-Unlike other available pathway assessment packages which do not distinguish 
-between up-regulated and down-regulated gene sets, the PathAnalyser 
-classification algorithm considers both parts of a gene signature: the 
-up-regulated and down-regulated genes separately in assessing consistency of 
+signature, a list of genes whose expression varies significantly when the 
+corresponding is active. PathAnalyser uses GSVA to estimate expression 
+abundance of the up-regulated and down-regulated gene sets of the gene 
+signature for each sample in a transcriptomic data set, and then ranks samples 
+based on expression abundance of the up-regulated and down-regulated gene sets 
+of the gene signature separately. The classification algorithm uses 
+user-configurable thresholds to tailor the pathway-based classification to their 
+own classification needs. Unlike other available pathway assessment packages 
+which do not distinguish between up-regulated and down-regulated gene sets, the 
+PathAnalyser classification algorithm considers both parts of a gene signature: 
+the up-regulated and down-regulated genes separately in assessing consistency of 
 expression with the gene signature.
 
 Other features unique to PathAnalyser package include:
@@ -71,6 +57,20 @@ curve visualization
 
 3) Classification visualization - PCA plots can be generated for visualization 
 of the predicted pathway classes (active/inactive) for each sample.
+
+PathAnalyser provides functionality and built-in data (including expression data
+set as well as gene signatures) for assessing ER and HER2 pathway activity in 
+breast cancer transcriptomic data sets. These transcriptional signatures have 
+been shown to have clinical predictive value, in particular, ER and HER2 gene 
+signatures have been associated with molecular sub-types, prognosis and 
+treatment response in breast cancer. Although this package was original 
+developed to assess ER and HER2 pathway activity in breast cancer transcriptomic 
+data sets, the package functionality could be applied to transcriptomic data 
+sets and gene signatures outside the context of breast cancer. 
+
+In this vignette, we will describe how to use the PathAnalyser package 
+with microarray and RNA-seq expression transcriptomic data sets and gene 
+expression signatures associated with a specific pathway activity.
 
 # General Workflow
 A flow chart of the general workflow of the analysis conducted using 
@@ -219,14 +219,14 @@ A gene expression signature for HER2 (ERBB2) pathway activation `HER2_sig_df` is
 also provided by PathAnalyser. This gene signature was obtained from Molecular 
 Signatures Database ([MSigDB](https://www.gsea-msigdb.org/gsea/msigdb/index.jsp)) 
 by combining the up-regulated (gene set:
-[ERBB2_UP.V1_UP](https://www.gsea-msigdb.org/gsea/msigdb/cards/ERBB2_UP.V1_UP.html)
+[SMID_BREAST_CANCER_ERBB2_UP](https://www.gsea-msigdb.org/gsea/msigdb/cards/SMID_BREAST_CANCER_ERBB2_UP.html)
 ) and down-regulated (gene set:
-[ERBB2_UP.V1_DN](https://www.gsea-msigdb.org/gsea/msigdb/geneset_page.jsp?geneSetName=ERBB2_UP.V1_DN)
+[SMID_BREAST_CANCER_ERBB2_DN](https://www.gsea-msigdb.org/gsea/msigdb/cards/SMID_BREAST_CANCER_ERBB2_DN.html)
 ) gene sets available at MSigDB, originating from transcriptomic profiling of a 
-MCF-7 breast cancer cell line, positive for the estrogen receptor (ER) but 
-genetically engineered to express the ERBB2 (HER2) receptor. 
+344 primary breast tumor samples in a study by [Smid et al. 2010][References] in 
+a study examining the subtypes of breast cancer and organ-specifc relapse. 
 
-The names of 387 differentially expressed genes are in the HER2 signature data 
+The names of 156 differentially expressed genes are in the HER2 signature data 
 frame provided by PathAnalyser, of which 190 are up-regulated 
 (denoted by an expression of 1) and 197 are down-regulated (denoted by an 
 expression of -1).
@@ -244,7 +244,7 @@ dim(HER2_dn_sig)
 ```
 ## Gene expression datasets
 PathAnalyser also contains two built-in gene expression matrices each containing
-RNA-seq raw read counts for primary breast cancer samples obtained from 20 
+RNA-seq raw read counts for primary breast cancer samples obtained from 60 
 individuals (cases). Data for these matrices were obtained from The Cancer 
 Genome Atlas ([TCGA](https://www.cancer.gov/about-nci/organization/ccg/research/structural-genomics/tcga)).
 Each expression matrix contains 20,124 genes.
@@ -255,8 +255,8 @@ data("HER2_data_se1")
 ```
 
 ### ER dataset 1
-The ER data set `ER_data_se1` contains RNASeq raw read counts for 20 primary 
-breast cancer samples, 10 of which have ER pathway activity (ER+) and 10 which 
+The ER data set `ER_data_se1` contains RNASeq raw read counts for 60 primary 
+breast cancer samples, 30 of which have ER pathway activity (ER+) and 30 which 
 have inactive ER pathway activity (ER-).
 ```{r}
 dim(ER_data_se1)
@@ -266,8 +266,8 @@ head(ER_data_se1)
 
 ### HER2 dataset 1
 Similarly, the HER2 data set `HER2_data_se1` contains RNASeq raw read counts for 
-20 primary breast cancer samples, 10 of which have HER2 (ERBB2) pathway activity 
-(HER2+) and 10 which have inactive HER2 pathway activity (HER2-).
+60 primary breast cancer samples, 30 of which have HER2 (ERBB2) pathway activity 
+(HER2+) and 30 which have inactive HER2 pathway activity (HER2-).
 
 ```{r}
 dim(HER2_data_se1)
@@ -404,9 +404,12 @@ PathAnalyser provides `gsva_scores_dist` method to visualize the GSVA score
 distribution for the abundance of expression of the up-regulated and 
 down-regulated gene sets of the gene signature for each sample. The resulting 
 density plot usually follows a bimodal distribution of GSVA scores for each 
-sample for the up-regulated and down-regulated gene sets, a consequence of GSVA
-employing the maximum deviation from zero method to calculate the GSVA score from
-the Kolmogorov-Smirnov like random walk statistic.
+sample for the up-regulated and down-regulated gene sets, a consequence of the 
+intrinsic binaric nature of gene expression in datasets, where samples are often
+either have a relatively high expression abundance of a gene set, or relatively
+low expression abundance of a gene set resulting in two "sub-populations" of 
+samples.
+
 Figure \@ref(fig:plot) shows two peaks for each gene set when running 
 `gsva_scores_dist` with logCPM-normalized `ER_data_se1` gene expression matrix. For 
 both gene sets, the peak with the highest GSVA scores represents samples with 
@@ -623,19 +626,18 @@ counts or those that do not feature in the ER signature are removed, the
 expression data set is ready for classification alongside the ER signature. To
 acquire an idea of the distribution of GSVA scores, the gene expression matrix
 can be passed as an argument along with the ER signature to the 
-`gsva_scores_dist`. A bimodal density plot is produced for the up-regulated and
-down-regulated gene set of the ER signature, as described before reflective of 
-the underlying maximum deviation from zero method used to generate the GSVA 
-score statistic for representing expression abundance of the corresponding gene 
-set of the ER signature. The peak centered around the GSVA score of -0.8 for the 
-down-regulated gene set and the peak around 0.8 for the down-regulated gene set 
-represent the mode of samples with the low expression abundance of the 
-down-regulated genes of the ER signature and high abundance of the up-regulated 
-genes of the ER signature respectively. Similarly, for the up-regulated genes of 
-the ER pathway signature, the peak situated at around a GSVA score of -0.7 and 
-and around the GSVA score of 0.9 represent samples of low expression abundance 
-and high expression abundance of the up-regulated genes of the ER pathway 
-signature respectively.
+`gsva_scores_dist`. A bimodal density plot is often produced for the 
+up-regulated and down-regulated gene set of the ER signature, reflective of 
+the often binaric nature of gene expression in samples of a dataset discussed 
+above. The peak centered around the GSVA score of -0.8 for the down-regulated 
+gene set and the peak around 0.8 for the down-regulated gene set represent the 
+mode of samples with the low expression abundance of the down-regulated genes of 
+the ER signature and high abundance of the up-regulated genes of the ER 
+signature respectively. Similarly, for the up-regulated genes of the ER pathway 
+signature, the peak situated at around a GSVA score of -0.7 and and around the 
+GSVA score of 0.9 represent samples of low expression abundance and high 
+expression abundance of the up-regulated genes of the ER pathway signature 
+respectively.
 
 ```{r fig.wide=TRUE}
 gsva_scores_dist(ER_sig, normalized_se)
@@ -686,7 +688,7 @@ classes_df_abs <- classify_GSVA_abs(ER_sig, normalized_se, up_thresh.low = -0.2,
 ## Visualizing ER pathway activity classification of the breast cancer samples
 To acquire a visual summary of the ER pathway-based classification of our 20 
 breast cancer samples, we can run the `classes_pca` function to produce an 
-interactive PCA plot of the samples coloured by the predicted ER pathway 
+interactive PCA plot of the samples colored by the predicted ER pathway 
 activity status (active, inactive, uncertain).
 ```{r}
 classes_pca(normalized_se, classes_df, pathway_name = "ER")
@@ -759,6 +761,10 @@ sessionInfo()
 Hänzelmann, S., Castelo, R. & Guinney, J. GSVA: gene set variation analysis for 
 microarray and RNA-Seq data. BMC Bioinformatics 14, 7 (2013). 
 https://doi.org/10.1186/1471-2105-14-7
+
+Smid, M., Wang, Y., Zhang, Y., Sieuwerts, A.M., Yu, J., Klijn, J.G., 
+Foekens, J.A. and Martens, J.W., 2008. Subtypes of breast cancer show 
+preferential site of relapse. Cancer research, 68(9), pp.3108-3114.
 
 Symmans, W.F., Hatzis, C., Sotiriou, C., Andre, F., Peintinger, F., Regitnig, 
 P., Daxenbichler, G., Desmedt, C., Domont, J., Marth, C. and Delaloge, S., 
