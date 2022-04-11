@@ -549,7 +549,7 @@ Default values for the flags is FALSE.
 
 
 ```{r fig.wide=TRUE}
-true_labels_df <- read.table("../raw_data/Sample_labels.txt", sep="\t", header=T)
+true_labels_df <- read.table("Sample_labels.txt", sep="\t", header=T)
 confusion_matrix <- calculate_accuracy(true_labels_df, classes_df, 
                                        pathway = "ER", display_statistics=TRUE, 
                                        display_roc_curve=TRUE)
@@ -721,7 +721,7 @@ samples, the 4 samples classified as ER positive were actually ER positive and
 similarly, the 5 samples classified as ER negative were indeed ER negative.
 ```{r fig.wide=TRUE}
 # read true pathway activity class labels for data set samples
-true_labels_df <- read.table("../raw_data/Sample_labels.txt", 
+true_labels_df <- read.table("Sample_labels.txt", 
                              header=TRUE, sep = "\t")
 # assess accuracy and generate confusion matrix for classification
 confusion_matrix <- calculate_accuracy(true_labels_df, classes_df, 
