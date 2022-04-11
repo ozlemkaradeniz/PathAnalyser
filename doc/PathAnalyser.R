@@ -145,12 +145,12 @@ confusion_matrix <- calculate_accuracy(true_labels_df, classes_df,
 
 ## -----------------------------------------------------------------------------
 # Load transcriptomic data set (gene expression matrix of samples)
-data_se <- read_expression_data("../raw_data/toy_data.txt")
+data_se <- read_expression_data("toy_data.txt")
 dim(data_se)
 head(data_se)
 # read signature data from the two individual gene set files for up-regulated
 # and down-regulated gene sets
-ER_sig <- read_signature_data("../raw_data/ESR1_UP.v1._UP.grp", "../raw_data/ESR1_DN.v1_DN.grp")
+ER_sig <- read_signature_data("ESR1_UP.v1._UP.grp", "ESR1_DN.v1_DN.grp")
 dim(ER_sig)
 
 ## ----fig.wide=T---------------------------------------------------------------
