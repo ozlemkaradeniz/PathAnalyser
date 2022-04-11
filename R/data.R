@@ -26,14 +26,12 @@
 
 #' HER2 gene signature
 #'
-#' A list of up-regulated and down-regulated genes constituting the gene
-#' signature of ERBB2 pathway activation. The list of differentially expressed
-#' genes were acquired from MCF-7 cells (breast cancer cell line)
-#' which were ESR1 (estrogen receptor) positive and engineered to express
-#' ligand-activatable ERBB2.
+#' A list of up-regulated and down-regulated genes of the ERBB2 (HER2) sub type
+#' (which is characterized by high expression of ERBB2) of 344 primary breast
+#' tumors from lymph node-negative patients (Smid et al. 2008).
 #'
 #'
-#' @format A data frame with 387 rows and 2 variables:
+#' @format A data frame with 156 rows and 2 variables:
 #' \describe{
 #'    \item{gene}{The name of a highly differentially expressed gene when HER2
 #'    pathway is active.}
@@ -42,24 +40,24 @@
 #' }
 #'
 #' @source MSigDB (For up-regulated component of the:
-#' \url{https://www.gsea-msigdb.org/gsea/msigdb/geneset_page.jsp?geneSetName=ERBB2_UP.V1_UP})
+#' \url{https://www.gsea-msigdb.org/gsea/msigdb/cards/SMID_BREAST_CANCER_ERBB2_UP.html})
 #' @source MSigDB (For down-regulated component of the signature:
-#'  \url{https://www.gsea-msigdb.org/gsea/msigdb/cards/ERBB2_UP.V1_DN.html}
+#'  \url{https://www.gsea-msigdb.org/gsea/msigdb/cards/SMID_BREAST_CANCER_ERBB2_DN.html}
 #' )
-#' @references Creighton CJ, Hilger AM, Murthy S, Rae JM, Chinnaiyan AM,
-#' El-Ashry D. Activation of mitogen-activated protein kinase in estrogen
-#' receptor alpha-positive breast cancer cells in vitro induces an in vivo
-#' molecular phenotype of estrogen receptor alpha-negative human breast tumors.
-#' Cancer Res. 2006 Apr 1;66(7):3903-11. doi: 10.1158/0008-5472.CAN-05-4363.
-#' PMID: 16585219.
+#' @references
+#' Smid, M., Wang, Y., Zhang, Y., Sieuwerts, A.M., Yu, J., Klijn, J.G., Foekens,
+#' J.A. and Martens, J.W., 2008. Subtypes of breast cancer show preferential
+#' site of relapse. Cancer research, 68(9), pp.3108-3114.
 "HER2_sig_df"
 
 #' ER gene expression data set 1
 #'
-#' Raw counts data obtained from TCGA. The data set was filtered for Breast cancer-primary tumors.
-#' Count data subset: A gene expression matrix containing raw read counts from RNA-seq for 20
-#' samples (10 ER positive and 10 ER negative).
-#' @format A data frame with 20,124 rows and 20 variables:
+#' A gene expression matrix containing raw read counts from RNA-seq for 60
+#' samples (30 ER positive and 30 ER negative). The Raw RNA-seq counts data
+#' were obtained from TCGA. The data set is a subset of a larger data set of
+#' filtered for breast cancer-primary tumors from 1,101 samples collected from
+#' TCGA.
+#' @format A data frame with 20,124 rows and 60 variables:
 #' \describe{
 #'    \item{gene}{The name of the gene for which expression data is provided.}
 #'    \item{sample}{The sample or case ID.}
@@ -69,9 +67,12 @@
 
 #' HER2 gene expression data set 1
 #'
-#' Raw counts data obtained from TCGA. The data set was filtered for Breast cancer-primary tumors.
-#' A gene expression matrix for 20 samples (10 HER2 positive and 10 HER2 negative).
-#' @format A data frame with 20,124 rows and 20 variables:
+#' A gene expression matrix containing raw read counts from RNA-seq for 60
+#' samples (30 HER2 positive and 30 HER2 negative). The Raw RNA-seq counts data
+#' were obtained from TCGA. The data set is a subset of a larger data set of
+#' filtered for breast cancer-primary tumors from 1,101 samples collected from
+#' TCGA.
+#' @format A data frame with 20,124 rows and 60 variables:
 #' \describe{
 #'    \item{gene}{The name of the gene for which expression data is provided.}
 #'    \item{sample}{The sample or case ID.}

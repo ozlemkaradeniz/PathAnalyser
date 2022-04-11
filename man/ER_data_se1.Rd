@@ -5,7 +5,7 @@
 \alias{ER_data_se1}
 \title{ER gene expression data set 1}
 \format{
-A data frame with 20,124 rows and 20 variables:
+A data frame with 20,124 rows and 60 variables:
 \describe{
 \item{gene}{The name of the gene for which expression data is provided.}
 \item{sample}{The sample or case ID.}
@@ -18,8 +18,10 @@ A data frame with 20,124 rows and 20 variables:
 ER_data_se1
 }
 \description{
-Raw counts data obtained from TCGA. The data set was filtered for Breast cancer-primary tumors.
-Count data subset: A gene expression matrix containing raw read counts from RNA-seq for 20
-samples (10 ER positive and 10 ER negative).
+A gene expression matrix containing raw read counts from RNA-seq for 60
+samples (30 ER positive and 30 ER negative). The Raw RNA-seq counts data
+were obtained from TCGA. The data set is a subset of a larger data set of
+filtered for breast cancer-primary tumors from 1,101 samples collected from
+TCGA.
 }
 \keyword{datasets}
