@@ -1,11 +1,10 @@
 
-#' Transformation of the raw count data by using  log CPM (counts per million) along
-#' with sanity check for transformation
-#' @description  Transformation of the raw count data by using  log CPM (counts per million)
-#' by calling cpm method in edgeR library. Along with performing transformation
-#' of raw data,the function plots the distribution of raw data before transformation
-#' in the form of a boxplot. Then, it normalizes the raw counts of gene
-#' expression with the log cpm transformation method and returns a boxplot
+#' Log CPM transformation of RNA-seq raw count data by using log CPM
+#' @description  Performs a logCPM transformation of RNA-seq raw count data
+#' using the cpm method from edgeR library. Along with performing transformation
+#' of raw data,the function plots the distribution of raw data before the
+#' transformation in the form of a box plot. Then, it normalizes the raw counts
+#' of gene expression with the log cpm transformation method and returns a boxplot
 #' of the gene expression matrix after transformation for sanity check of the
 #' transformation. The user can check the distribution of the gene expression values
 #' after log cpm transformation with the help of the box plot.
@@ -23,13 +22,14 @@
 #' \dontrun{log_cpm_transformation(formatted_matrix)}
 log_cpm_transformation <-function (data_es){
   #box plot before transformation
-  boxplot(log(data_es+0.5), main="Plot before log cpm transformation", axes=F)
+  boxplot(log(data_es+0.5), main="Plot before log cpm transformation", xlab=" ",
+          ylab="Log Raw Counts", xaxt="n")
 
   data_es_log_cpm<-cpm(data_es, log=TRUE)
 
   #box plot after transformation
-  boxplot(data_es_log_cpm, main="Plot after log cpm transformation", axes=F)
-
+  boxplot(data_es_log_cpm, main="Plot after log cpm transformation", xlab=" ",
+          ylab="Log Counts Per Million (CPM)", xaxt="n")
 
   return(data_es_log_cpm)
 
