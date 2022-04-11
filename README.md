@@ -1,3 +1,5 @@
+# PathAnalyser
+
 # Summary
 
   PathAnalyser is an user-friendly R package that provides functionality for assessing ER and 
