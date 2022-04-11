@@ -7,7 +7,6 @@
 #' @importFrom plotly plot_ly layout %>%
 #' @importFrom stats prcomp
 #'
-#' @return
 #' @export
 #'
 #' @examples

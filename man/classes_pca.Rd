@@ -13,9 +13,6 @@ classes_pca(normalized_data_filtered, predicted_labels_df, pathway_name = "ER")
 
 \item{pathway_name}{pathway name, default is "ER"}
 }
-\value{
-
-}
 \description{
 plots pca for normalized gene expression dataset with the predicted labels
 }

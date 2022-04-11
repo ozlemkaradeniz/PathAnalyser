@@ -2,27 +2,25 @@
 % Please edit documentation in R/log_cpm_transformation.R
 \name{log_cpm_transformation}
 \alias{log_cpm_transformation}
-\title{Transformation of the raw count data by using  log CPM (counts per million) along
-with sanity check for transformation}
+\title{Log CPM transformation of RNA-seq raw count data by using log CPM}
 \usage{
 log_cpm_transformation(data_es)
 }
 \arguments{
-\item{data_es}{Gene expression matrix with gene IDs/symbols as row names
-and Sample IDs as column names (return value of read_expression matrix function)}
+\item{data_es}{An unnormalised gene expression matrix containing raw RNA-seq
+counts with gene IDs/symbols as row names and sample IDs as column names}
 }
 \value{
-Transformed gene expression data matrix
+logCPM transformed gene expression data matrix
 }
 \description{
-Transformation of the raw count data by using  log CPM (counts per million)
-by calling cpm method in edgeR library. Along with performing transformation
-of raw data,the function plots the distribution of raw data before transformation
-in the form of a boxplot. Then, it normalizes the raw counts of gene
-expression with the log cpm transformation method and returns a boxplot
-of the gene expression matrix after transformation for sanity check of the
-transformation. The user can check the distribution of the gene expression values
-after log cpm transformation with the help of the box plot.
+Performs a logCPM transformation of RNA-seq raw count data
+using the counts per million (CPM) method from edgeR library. In addition to
+the log CPM transformation, the function plots two boxplots as sanity check
+for logCPM transformation of a gene expression matrix. The first boxplot
+displays the distribution of the log2 raw counts for each sample, while the
+second boxplot shows the distribution of the logCPM normalised gene
+expression matrix.
 }
 \examples{
 \dontrun{log_cpm_transformation(formatted_matrix)}
