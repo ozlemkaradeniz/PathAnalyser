@@ -1,0 +1,1102 @@
+CaseID	ER	HER2
+TCGA-C8-A1HE	Positive	Equivocal
+TCGA-AQ-A54N	Negative	Equivocal
+TCGA-A8-A090	Positive	Positive
+TCGA-D8-A1JF	Negative	Negative
+TCGA-E9-A3QA	[Not Evaluated]	[Not Evaluated]
+TCGA-AC-A3W6	Positive	Negative
+TCGA-LD-A74U	Positive	Negative
+TCGA-S3-AA15	Negative	Negative
+TCGA-AR-A24K	Positive	Equivocal
+TCGA-AC-A2FO	Positive	Negative
+TCGA-A1-A0SB	Positive	Negative
+TCGA-A8-A08X	Negative	Positive
+TCGA-E2-A1B6	Negative	Equivocal
+TCGA-LD-A66U	Positive	Negative
+TCGA-AR-A5QM	Positive	Equivocal
+TCGA-BH-A0B5	Positive	Negative
+TCGA-D8-A27T	Positive	Negative
+TCGA-BH-A18J	Positive	Negative
+TCGA-EW-A1IY	Positive	Negative
+TCGA-BH-A0DE	Positive	Negative
+TCGA-AR-A0TY	Positive	Negative
+TCGA-LL-A5YN	Positive	Equivocal
+TCGA-AN-A0FV	Negative	Positive
+TCGA-AR-A1AW	Positive	Equivocal
+TCGA-AR-A24M	Positive	Negative
+TCGA-B6-A0X5	Positive	[Not Evaluated]
+TCGA-AO-A0JL	Negative	Negative
+TCGA-A7-A6VY	Negative	Negative
+TCGA-BH-A18U	Positive	Positive
+TCGA-E2-A1IU	Positive	Negative
+TCGA-A2-A3KC	Positive	Equivocal
+TCGA-AO-A124	Negative	Negative
+TCGA-BH-A0DH	Positive	Negative
+TCGA-A7-A0D9	Positive	Negative
+TCGA-E2-A156	Positive	Negative
+TCGA-B6-A1KN	Negative	[Not Evaluated]
+TCGA-D8-A1JG	Negative	Equivocal
+TCGA-A2-A0T6	Positive	Negative
+TCGA-C8-A12Q	Negative	Positive
+TCGA-A7-A426	Positive	Negative
+TCGA-BH-A0BG	Negative	Negative
+TCGA-A8-A09I	Positive	Positive
+TCGA-BH-A0RX	Negative	Negative
+TCGA-A7-A13E	Positive	Equivocal
+TCGA-AN-A0FJ	Positive	Positive
+TCGA-E2-A14U	Positive	Equivocal
+TCGA-EW-A1OZ	Positive	Equivocal
+TCGA-D8-A1XL	Positive	Equivocal
+TCGA-GM-A5PV	Positive	[Not Evaluated]
+TCGA-E9-A1ND	Negative	Positive
+TCGA-A2-A3Y0	Positive	Negative
+TCGA-E9-A243	[Not Evaluated]	[Not Evaluated]
+TCGA-D8-A1XT	Negative	Positive
+TCGA-LL-A740	Negative	Equivocal
+TCGA-D8-A1X6	Positive	Negative
+TCGA-EW-A1J5	Positive	Negative
+TCGA-A2-A0YC	Positive	[Not Evaluated]
+TCGA-C8-A132	Positive	[Not Evaluated]
+TCGA-E2-A1L9	Positive	Negative
+TCGA-A8-A06U	Positive	Positive
+TCGA-AO-A0J9	Positive	[Not Evaluated]
+TCGA-E2-A1L7	Negative	Negative
+TCGA-C8-A27A	Positive	Negative
+TCGA-BH-A1FJ	Negative	[Not Evaluated]
+TCGA-E2-A15C	Positive	Equivocal
+TCGA-AQ-A1H3	Positive	Negative
+TCGA-BH-A0EE	Negative	Positive
+TCGA-BH-A6R9	Negative	Negative
+TCGA-BH-A0AY	Positive	Negative
+TCGA-BH-A0BT	Positive	Negative
+TCGA-D8-A146	Positive	Negative
+TCGA-D8-A27H	Negative	Negative
+TCGA-E2-A14W	Positive	[Not Evaluated]
+TCGA-E9-A249	[Not Evaluated]	[Not Evaluated]
+TCGA-EW-A6SC	Positive	Negative
+TCGA-AC-A2BM	Positive	[Not Evaluated]
+TCGA-A1-A0SP	Negative	Negative
+TCGA-EW-A6SA	Positive	Negative
+TCGA-C8-A131	Negative	Negative
+TCGA-BH-A0BM	Positive	Negative
+TCGA-BH-A0GZ	Positive	Equivocal
+TCGA-D8-A27K	Positive	Negative
+TCGA-AR-A2LQ	Positive	Negative
+TCGA-BH-A0DL	Positive	Negative
+TCGA-AR-A1AQ	Negative	Equivocal
+TCGA-AR-A24V	Positive	Negative
+TCGA-BH-A0AU	Positive	Positive
+TCGA-AN-A0G0	Negative	Negative
+TCGA-PE-A5DD	Positive	Positive
+TCGA-A2-A0EV	Positive	Negative
+TCGA-D8-A1JA	Negative	Positive
+TCGA-A2-A04R	Positive	Equivocal
+TCGA-PE-A5DE	Positive	Negative
+TCGA-AC-A3YI	Positive	Positive
+TCGA-E2-A10A	Positive	Positive
+TCGA-S3-AA12	Positive	Negative
+TCGA-AR-A1AX	Positive	Positive
+TCGA-C8-A12Z	Negative	Positive
+TCGA-AN-A04A	Positive	Negative
+TCGA-A8-A09K	Positive	Negative
+TCGA-AO-A1KP	Positive	Negative
+TCGA-B6-A408	Positive	Equivocal
+TCGA-A2-A0CU	Positive	Equivocal
+TCGA-AR-A1AY	Negative	Negative
+TCGA-D8-A1XU	Positive	Negative
+TCGA-A8-A09A	Positive	Negative
+TCGA-A2-A0D3	Positive	Negative
+TCGA-BH-A0DS	Positive	Negative
+TCGA-AN-A04C	Negative	Positive
+TCGA-A7-A13E	Positive	Equivocal
+TCGA-BH-A0HY	Positive	Positive
+TCGA-AR-A5QP	Positive	Equivocal
+TCGA-D8-A1XW	Negative	Negative
+TCGA-D8-A1Y2	Positive	Indeterminate
+TCGA-AR-A24Q	Positive	Negative
+TCGA-BH-A0BO	Positive	Negative
+TCGA-GM-A3NW	Negative	Equivocal
+TCGA-B6-A0RL	Positive	[Not Evaluated]
+TCGA-E2-A105	Positive	Equivocal
+TCGA-A8-A06O	Positive	Negative
+TCGA-AC-A62X	Positive	[Not Evaluated]
+TCGA-AR-A1AO	Positive	Negative
+TCGA-E2-A1IO	Positive	Equivocal
+TCGA-BH-A0H6	Positive	Negative
+TCGA-A7-A0CE	Negative	Equivocal
+TCGA-E2-A154	Positive	Negative
+TCGA-AN-A0XT	Positive	Negative
+TCGA-E9-A1NH	Positive	Negative
+TCGA-AO-A0JF	Positive	Negative
+TCGA-BH-A0B4	Positive	Equivocal
+TCGA-BH-A0WA	Negative	Negative
+TCGA-BH-A0EI	Positive	Negative
+TCGA-BH-A0BR	Positive	Negative
+TCGA-AC-A3OD	Positive	Negative
+TCGA-D8-A27W	Positive	Equivocal
+TCGA-A2-A0T4	Positive	Equivocal
+TCGA-A2-A0YL	Positive	Negative
+TCGA-EW-A1P3	Positive	Negative
+TCGA-C8-A12M	Positive	Negative
+TCGA-C8-A1HO	Positive	Negative
+TCGA-BH-A1EV	Positive	Positive
+TCGA-S3-AA17	Positive	Equivocal
+TCGA-A2-A0YE	Negative	Negative
+TCGA-AN-A0AJ	Positive	Positive
+TCGA-A2-A0ET	Positive	Equivocal
+TCGA-BH-A0E1	Positive	Equivocal
+TCGA-A8-A08P	Positive	Positive
+TCGA-A2-A0T1	Negative	Positive
+TCGA-A8-A09T	Positive	Negative
+TCGA-EW-A1P5	Positive	Negative
+TCGA-BH-A0BP	Positive	Negative
+TCGA-E2-A1LG	Negative	Equivocal
+TCGA-GM-A2DI	Negative	[Not Evaluated]
+TCGA-C8-A274	Positive	Negative
+TCGA-A7-A6VV	Negative	Negative
+TCGA-A7-A3J1	Positive	Negative
+TCGA-D8-A1JN	Positive	Indeterminate
+TCGA-GI-A2C8	Positive	Negative
+TCGA-C8-A8HQ	Positive	Negative
+TCGA-EW-A3U0	Negative	Negative
+TCGA-A7-A0DC	Positive	Negative
+TCGA-AN-A0AL	Negative	Negative
+TCGA-E9-A6HE	Positive	Negative
+TCGA-AC-A2B8	Positive	Negative
+TCGA-A7-A26E	Positive	Negative
+TCGA-AO-A0J8	Positive	Negative
+TCGA-LD-A9QF	Negative	Positive
+TCGA-A8-A09E	Positive	Positive
+TCGA-E9-A22B	Positive	Negative
+TCGA-B6-A40B	Positive	Negative
+TCGA-A8-A08R	Negative	Negative
+TCGA-C8-A130	Positive	Equivocal
+TCGA-BH-A0DP	Positive	Negative
+TCGA-BH-A0H0	Positive	Negative
+TCGA-AQ-A7U7	Positive	Negative
+TCGA-C8-A26Y	Negative	Negative
+TCGA-BH-A18K	Positive	Negative
+TCGA-AO-A0J4	Negative	Negative
+TCGA-A2-A0D1	Negative	Positive
+TCGA-BH-A0DD	Positive	Positive
+TCGA-D8-A1XD	Positive	Negative
+TCGA-E2-A1IH	Positive	Equivocal
+TCGA-E2-A1B5	Positive	Negative
+TCGA-A8-A08I	Positive	Negative
+TCGA-AO-A03P	Positive	Negative
+TCGA-A7-A26H	Positive	Equivocal
+TCGA-E9-A5FK	Positive	Negative
+TCGA-AO-A0J2	Negative	Equivocal
+TCGA-A8-A08A	Positive	Negative
+TCGA-A7-A26J	Positive	Negative
+TCGA-A2-A0CX	Positive	Positive
+TCGA-C8-A133	Positive	[Not Evaluated]
+TCGA-C8-A27B	Negative	Negative
+TCGA-A8-A07P	Positive	Positive
+TCGA-A2-A4S2	Positive	Negative
+TCGA-AO-A03O	Positive	Negative
+TCGA-E2-A14V	Positive	Positive
+TCGA-BH-A0HX	Positive	Negative
+TCGA-EW-A423	Positive	Negative
+TCGA-BH-A42V	Positive	Negative
+TCGA-A7-A5ZX	Positive	Negative
+TCGA-AN-A0AK	Positive	Positive
+TCGA-A2-A4RY	Positive	Negative
+TCGA-E9-A1NE	Positive	Negative
+TCGA-EW-A1P6	Positive	Negative
+TCGA-D8-A73U	Positive	Negative
+TCGA-E9-A248	[Not Evaluated]	[Not Evaluated]
+TCGA-A8-A0AD	Positive	Negative
+TCGA-EW-A1OW	Negative	Negative
+TCGA-C8-A1HF	Negative	Positive
+TCGA-D8-A140	Positive	Positive
+TCGA-W8-A86G	Positive	Negative
+TCGA-AR-A254	Positive	Positive
+TCGA-A1-A0SI	Positive	Negative
+TCGA-BH-A0DO	Positive	Negative
+TCGA-E2-A152	Positive	Positive
+TCGA-B6-A0I8	[Not Evaluated]	[Not Evaluated]
+TCGA-OL-A66N	Positive	[Not Evaluated]
+TCGA-A2-A25D	Positive	Negative
+TCGA-C8-A12P	Negative	Positive
+TCGA-AN-A0FL	Negative	Positive
+TCGA-A8-A083	Positive	Negative
+TCGA-E9-A22G	Negative	Positive
+TCGA-E2-A1LA	Positive	Equivocal
+TCGA-A8-A07B	Positive	Positive
+TCGA-AO-A126	Positive	Negative
+TCGA-D8-A1JD	Positive	Negative
+TCGA-AR-A1AN	Positive	Negative
+TCGA-A2-A4S3	Positive	Negative
+TCGA-AR-A2LN	Positive	Negative
+TCGA-A2-A4S0	Positive	Negative
+TCGA-E9-A226	[Not Evaluated]	[Not Evaluated]
+TCGA-D8-A73W	Positive	Negative
+TCGA-LL-A73Y	Negative	Negative
+TCGA-A2-A0T7	Positive	Negative
+TCGA-B6-A0IC	Positive	[Not Evaluated]
+TCGA-AN-A0FY	Positive	Negative
+TCGA-BH-A0HN	Positive	Equivocal
+TCGA-B6-A0RI	Positive	[Not Evaluated]
+TCGA-C8-A12W	Positive	Negative
+TCGA-AR-A24X	Positive	Equivocal
+TCGA-A7-A0CG	Positive	Negative
+TCGA-EW-A6S9	Positive	Positive
+TCGA-BH-A1ES	Positive	Negative
+TCGA-AN-A0XR	Positive	Negative
+TCGA-D8-A145	Positive	Equivocal
+TCGA-GM-A2DN	Positive	Negative
+TCGA-A2-A0CP	Positive	[Not Evaluated]
+TCGA-Z7-A8R6	Positive	Negative
+TCGA-BH-A0DQ	Positive	Negative
+TCGA-EW-A1P8	Negative	Negative
+TCGA-E2-A150	Negative	Negative
+TCGA-E2-A15M	Positive	Negative
+TCGA-LQ-A4E4	Positive	[Not Evaluated]
+TCGA-B6-A0RE	Negative	[Not Evaluated]
+TCGA-E9-A1R3	[Not Evaluated]	[Not Evaluated]
+TCGA-E9-A24A	[Not Evaluated]	[Not Evaluated]
+TCGA-E2-A14O	Positive	Equivocal
+TCGA-E9-A1RD	[Not Evaluated]	[Not Evaluated]
+TCGA-LL-A6FQ	Positive	Negative
+TCGA-PL-A8LX	[Not Evaluated]	[Not Evaluated]
+TCGA-A2-A3XZ	Negative	Positive
+TCGA-BH-A0HF	Positive	Negative
+TCGA-E2-A158	Negative	Negative
+TCGA-B6-A0RO	Positive	[Not Evaluated]
+TCGA-E2-A155	Positive	Negative
+TCGA-AR-A5QQ	Negative	Negative
+TCGA-GM-A3XN	Positive	Negative
+TCGA-AO-A0JB	Positive	Negative
+TCGA-OL-A5RY	Positive	[Not Evaluated]
+TCGA-C8-A1HM	Positive	Negative
+TCGA-A2-A3XT	Negative	Negative
+TCGA-AR-A2LK	Positive	Equivocal
+TCGA-A7-A13H	Positive	Equivocal
+TCGA-D8-A27G	Positive	Equivocal
+TCGA-E2-A572	Positive	Equivocal
+TCGA-E2-A3DX	Positive	[Not Evaluated]
+TCGA-D8-A1XB	Positive	Negative
+TCGA-C8-A1HN	Positive	Equivocal
+TCGA-BH-A0BQ	Positive	Positive
+TCGA-E9-A22H	Positive	Positive
+TCGA-A2-A0YH	Positive	Negative
+TCGA-A8-A096	Positive	Negative
+TCGA-A7-A4SA	Positive	Negative
+TCGA-BH-A5J0	Positive	Negative
+TCGA-AN-A0FD	Positive	Positive
+TCGA-D8-A1Y1	Positive	Negative
+TCGA-AR-A0TX	Positive	Positive
+TCGA-GI-A2C9	Negative	Negative
+TCGA-E2-A2P6	Positive	[Not Evaluated]
+TCGA-EW-A1P4	Negative	Negative
+TCGA-E2-A14Z	Positive	Negative
+TCGA-A7-A13D	Negative	Equivocal
+TCGA-B6-A0WY	Positive	[Not Evaluated]
+TCGA-B6-A401	Positive	Negative
+TCGA-AR-A24U	Negative	Positive
+TCGA-A7-A6VX	Positive	Negative
+TCGA-A2-A25A	Positive	Equivocal
+TCGA-AN-A0XU	Negative	Negative
+TCGA-OL-A66O	Positive	[Not Evaluated]
+TCGA-B6-A0I6	Negative	[Not Evaluated]
+TCGA-AN-A0FZ	Positive	Positive
+TCGA-BH-A0W3	Positive	Equivocal
+TCGA-B6-A0RT	Negative	[Not Evaluated]
+TCGA-OL-A5DA	Positive	[Not Evaluated]
+TCGA-3C-AALI	Positive	Positive
+TCGA-LL-A7T0	Positive	Positive
+TCGA-GM-A2DK	Positive	Negative
+TCGA-A7-A6VW	Negative	Negative
+TCGA-C8-A12U	Positive	Negative
+TCGA-E9-A1R6	[Not Evaluated]	[Not Evaluated]
+TCGA-A2-A1G1	Negative	Equivocal
+TCGA-BH-A1F8	Positive	Positive
+TCGA-A2-A0CT	Positive	Equivocal
+TCGA-BH-A0E9	Positive	Negative
+TCGA-BH-A0H9	Positive	Equivocal
+TCGA-EW-A2FV	Positive	Negative
+TCGA-A8-A082	Positive	Negative
+TCGA-E9-A1RH	[Not Evaluated]	[Not Evaluated]
+TCGA-A7-A0DA	Negative	Negative
+TCGA-E9-A5UP	[Not Evaluated]	[Not Evaluated]
+TCGA-EW-A1P0	Positive	Negative
+TCGA-BH-A0BL	Negative	Negative
+TCGA-E2-A15H	Positive	Equivocal
+TCGA-A8-A09W	Positive	Negative
+TCGA-C8-A138	Positive	Equivocal
+TCGA-A2-A0EN	Positive	Equivocal
+TCGA-E2-A15K	Positive	Equivocal
+TCGA-E9-A22D	Positive	Positive
+TCGA-D8-A1XY	Positive	Positive
+TCGA-A1-A0SM	Positive	Positive
+TCGA-A2-A0CW	Positive	Equivocal
+TCGA-B6-A0I9	Indeterminate	[Not Evaluated]
+TCGA-BH-A0HW	Positive	Equivocal
+TCGA-BH-A0BW	Negative	[Not Available]
+TCGA-BH-A0BZ	Positive	Negative
+TCGA-Z7-A8R5	Positive	Negative
+TCGA-A8-A07E	Positive	Negative
+TCGA-AN-A0AR	Negative	Negative
+TCGA-LL-A5YP	Positive	Negative
+TCGA-B6-A0IK	Negative	[Not Evaluated]
+TCGA-C8-A134	Negative	Equivocal
+TCGA-LL-A7SZ	Positive	Negative
+TCGA-BH-A1EY	Positive	Negative
+TCGA-AR-A250	Positive	Equivocal
+TCGA-D8-A1XZ	Positive	Negative
+TCGA-AR-A24O	Positive	Negative
+TCGA-E2-A1AZ	Negative	Indeterminate
+TCGA-EW-A1OY	Positive	Negative
+TCGA-A1-A0SO	Negative	Equivocal
+TCGA-AR-A1AL	Positive	Negative
+TCGA-OL-A5D6	Negative	[Not Evaluated]
+TCGA-AR-A1AJ	Positive	Negative
+TCGA-A8-A07J	Positive	Negative
+TCGA-AO-A125	Positive	Negative
+TCGA-S3-AA14	Positive	Positive
+TCGA-D8-A1X8	Positive	Negative
+TCGA-A7-A0DB	Positive	Negative
+TCGA-A8-A0A6	Positive	Negative
+TCGA-EW-A1J2	Positive	Negative
+TCGA-A2-A0T3	Positive	Equivocal
+TCGA-A2-A1FW	Positive	Negative
+TCGA-BH-A1F2	Positive	Positive
+TCGA-BH-A0E7	Positive	Negative
+TCGA-B6-A0IP	Positive	[Not Evaluated]
+TCGA-A8-A084	Positive	Negative
+TCGA-A8-A06R	Positive	Positive
+TCGA-A8-A09N	Positive	Positive
+TCGA-GM-A2DD	Negative	Equivocal
+TCGA-PE-A5DC	Positive	Positive
+TCGA-AR-A24L	Positive	Equivocal
+TCGA-AO-A12C	Positive	Positive
+TCGA-AO-A0JC	Positive	Negative
+TCGA-AR-A24R	Positive	Negative
+TCGA-OL-A5D7	Negative	[Not Evaluated]
+TCGA-AN-A03Y	Positive	Negative
+TCGA-BH-A0W5	Positive	Equivocal
+TCGA-E9-A1N3	[Not Evaluated]	[Not Evaluated]
+TCGA-A7-A0DC	Positive	Negative
+TCGA-E2-A1BD	Positive	Equivocal
+TCGA-A8-A095	Positive	Negative
+TCGA-5L-AAT1	Positive	Equivocal
+TCGA-EW-A1IX	Positive	Negative
+TCGA-E2-A1LB	Negative	Positive
+TCGA-A2-A4RW	Positive	Negative
+TCGA-AN-A0FS	Positive	Positive
+TCGA-E2-A1IE	Positive	Equivocal
+TCGA-OL-A5D8	Positive	[Not Evaluated]
+TCGA-B6-A0IN	Positive	[Not Evaluated]
+TCGA-A2-A0SU	Positive	Negative
+TCGA-EW-A2FW	Positive	Negative
+TCGA-E9-A1N9	Negative	Positive
+TCGA-BH-A1FD	Positive	Negative
+TCGA-BH-A0W4	Positive	Negative
+TCGA-AC-A3EH	Positive	Negative
+TCGA-AO-A0J6	Negative	Negative
+TCGA-A8-A09M	Positive	Negative
+TCGA-E9-A1NC	Negative	Positive
+TCGA-AO-A0J5	Positive	Equivocal
+TCGA-OL-A66P	Negative	[Not Evaluated]
+TCGA-BH-A203	[Not Evaluated]	[Not Evaluated]
+TCGA-A2-A0EQ	Negative	Positive
+TCGA-E2-A573	Negative	Equivocal
+TCGA-AC-A2FE	Positive	[Not Evaluated]
+TCGA-AN-A049	Positive	Negative
+TCGA-E2-A153	Positive	Negative
+TCGA-AO-A0JE	Negative	Positive
+TCGA-E9-A5FL	Negative	Negative
+TCGA-A2-A0SW	Positive	[Not Evaluated]
+TCGA-A2-A0T5	Positive	Negative
+TCGA-BH-A1F0	Negative	Negative
+TCGA-A8-A09R	Positive	Negative
+TCGA-AO-A03V	Positive	Negative
+TCGA-A2-A04Y	Positive	Negative
+TCGA-C8-A273	Positive	Negative
+TCGA-E2-A10C	Positive	Negative
+TCGA-A7-A4SB	Positive	Negative
+TCGA-BH-A0AW	Positive	Positive
+TCGA-AR-A0U0	Negative	[Not Evaluated]
+TCGA-BH-A0E2	Positive	Negative
+TCGA-D8-A73X	Positive	Negative
+TCGA-AR-A1AI	Negative	Equivocal
+TCGA-5T-A9QA	Positive	Equivocal
+TCGA-BH-A0B6	Positive	Positive
+TCGA-A2-A0ST	Negative	[Not Evaluated]
+TCGA-A8-A075	Positive	Positive
+TCGA-AC-A3YJ	Positive	[Not Available]
+TCGA-E9-A247	[Not Evaluated]	[Not Evaluated]
+TCGA-E9-A1R0	[Not Evaluated]	[Not Evaluated]
+TCGA-LL-A8F5	Positive	Negative
+TCGA-AO-A12H	Positive	Negative
+TCGA-A7-A26F	Negative	Equivocal
+TCGA-A2-A0T0	Negative	Negative
+TCGA-AO-A0J3	Positive	Equivocal
+TCGA-AR-A2LL	Positive	Equivocal
+TCGA-A8-A09G	Positive	Positive
+TCGA-EW-A1PF	Positive	Negative
+TCGA-C8-A12V	Negative	Negative
+TCGA-C8-A12T	Positive	Positive
+TCGA-AC-A5XS	Positive	Negative
+TCGA-BH-A1FC	Negative	Negative
+TCGA-BH-A1FN	Positive	[Not Evaluated]
+TCGA-BH-A0BJ	Positive	Negative
+TCGA-D8-A27M	Negative	Negative
+TCGA-E2-A10F	Positive	Equivocal
+TCGA-D8-A142	Negative	Equivocal
+TCGA-B6-A0IQ	Negative	[Not Evaluated]
+TCGA-E9-A3Q9	Positive	Indeterminate
+TCGA-AQ-A54O	Positive	Negative
+TCGA-BH-A6R8	Positive	[Not Evaluated]
+TCGA-A7-A0DB	Positive	Negative
+TCGA-AR-A2LE	Positive	[Not Evaluated]
+TCGA-A2-A0YI	Positive	Negative
+TCGA-E9-A1N8	Negative	Negative
+TCGA-EW-A1PD	Positive	Equivocal
+TCGA-A7-A13E	Positive	Equivocal
+TCGA-A7-A0DB	Positive	Negative
+TCGA-AN-A0XW	Positive	Positive
+TCGA-A2-A0CM	Negative	Negative
+TCGA-AR-A1AK	Positive	Negative
+TCGA-AQ-A04L	Positive	Positive
+TCGA-A8-A06Z	Positive	Negative
+TCGA-BH-A1EX	Positive	Positive
+TCGA-BH-A0B7	Positive	Positive
+TCGA-A1-A0SG	Positive	Negative
+TCGA-A2-A0D0	Negative	Negative
+TCGA-AR-A0TZ	Positive	Equivocal
+TCGA-AR-A0U4	Negative	Negative
+TCGA-BH-A0BD	Positive	Negative
+TCGA-EW-A1PG	Positive	Equivocal
+TCGA-E2-A1IN	Positive	Negative
+TCGA-A8-A08S	Positive	Positive
+TCGA-BH-A202	Positive	Positive
+TCGA-E2-A1LH	Negative	Negative
+TCGA-AR-A24W	Positive	Negative
+TCGA-AC-A3TN	Positive	Positive
+TCGA-BH-A1FH	Positive	[Not Evaluated]
+TCGA-E2-A15A	Positive	Negative
+TCGA-AN-A0XV	Positive	Positive
+TCGA-AC-A3QQ	Positive	Positive
+TCGA-B6-A0IM	Positive	[Not Evaluated]
+TCGA-OL-A5RW	Negative	[Not Evaluated]
+TCGA-D8-A1X5	Positive	Positive
+TCGA-BH-A0C0	Positive	Equivocal
+TCGA-E2-A1B1	Positive	Equivocal
+TCGA-A8-A07Z	Positive	Negative
+TCGA-A8-A07R	Negative	Positive
+TCGA-BH-A0EB	Positive	Equivocal
+TCGA-A2-A0EM	Positive	[Not Evaluated]
+TCGA-E9-A244	[Not Evaluated]	[Not Evaluated]
+TCGA-C8-A12O	Positive	Negative
+TCGA-S3-AA10	Negative	Negative
+TCGA-A7-A26E	Positive	Negative
+TCGA-BH-A0W7	Positive	Negative
+TCGA-LL-A440	Positive	Equivocal
+TCGA-D8-A1X9	Positive	Indeterminate
+TCGA-LL-A5YO	Negative	Negative
+TCGA-E2-A108	Positive	Negative
+TCGA-C8-A8HP	Negative	Positive
+TCGA-E2-A14X	Negative	Negative
+TCGA-BH-A0BV	Positive	Negative
+TCGA-C8-A1HG	Positive	Negative
+TCGA-A7-A13D	Negative	Equivocal
+TCGA-A7-A0CD	Positive	Equivocal
+TCGA-LL-A6FR	Negative	Equivocal
+TCGA-A8-A06T	Positive	Positive
+TCGA-BH-A0C7	Positive	[Not Available]
+TCGA-AR-A24H	Positive	Negative
+TCGA-A2-A3XX	Negative	Negative
+TCGA-B6-A0RV	Positive	[Not Evaluated]
+TCGA-A7-A0CH	[Not Evaluated]	[Not Evaluated]
+TCGA-BH-A0DG	Positive	Negative
+TCGA-C8-A26W	Positive	Equivocal
+TCGA-BH-A2L8	Positive	Negative
+TCGA-BH-A1EN	Negative	Positive
+TCGA-BH-A0DT	Positive	Negative
+TCGA-D8-A1XF	Positive	Negative
+TCGA-AN-A041	Positive	Positive
+TCGA-B6-A0RP	Positive	[Not Evaluated]
+TCGA-AC-A23G	Positive	Positive
+TCGA-AN-A0XN	Negative	Negative
+TCGA-D8-A3Z5	Positive	Negative
+TCGA-D8-A27F	Negative	Negative
+TCGA-A2-A0CS	Positive	Equivocal
+TCGA-A2-A3XV	Positive	Equivocal
+TCGA-E2-A1IG	Positive	Negative
+TCGA-AR-A256	Negative	Negative
+TCGA-AO-A1KS	Positive	Equivocal
+TCGA-E9-A1N5	Positive	Positive
+TCGA-AN-A0AM	Positive	Negative
+TCGA-A2-A0CQ	Positive	Equivocal
+TCGA-A7-A4SF	Positive	Positive
+TCGA-AN-A046	Positive	Negative
+TCGA-AR-A0TP	Positive	Negative
+TCGA-AC-A5XU	Positive	Negative
+TCGA-A2-A0YD	Positive	[Not Evaluated]
+TCGA-A2-A0CL	Positive	Negative
+TCGA-A2-A04V	Positive	Equivocal
+TCGA-E9-A1NG	Positive	Negative
+TCGA-B6-A0WZ	Positive	[Not Evaluated]
+TCGA-AO-A0J7	Positive	Negative
+TCGA-A2-A0CZ	Positive	Negative
+TCGA-A8-A0AB	Positive	Positive
+TCGA-E2-A1L6	Positive	Negative
+TCGA-A2-A25F	Negative	Negative
+TCGA-AC-A5EH	Positive	Negative
+TCGA-AO-A03M	Positive	Negative
+TCGA-D8-A1XA	Positive	Equivocal
+TCGA-C8-A278	Negative	Positive
+TCGA-A2-A0SY	Positive	[Not Evaluated]
+TCGA-A2-A0SV	Positive	Equivocal
+TCGA-A2-A1G0	Positive	Equivocal
+TCGA-E2-A1II	Negative	Negative
+TCGA-GM-A5PX	Positive	Negative
+TCGA-GM-A2DA	Positive	Equivocal
+TCGA-XX-A899	Positive	Negative
+TCGA-B6-A400	Negative	Negative
+TCGA-A8-A07W	Positive	Negative
+TCGA-GM-A3NY	Positive	Negative
+TCGA-AN-A0FW	Positive	Negative
+TCGA-AC-A8OQ	Negative	Indeterminate
+TCGA-B6-A0RQ	Positive	[Not Evaluated]
+TCGA-AC-A7VB	Positive	[Not Evaluated]
+TCGA-AR-A1AM	Positive	Equivocal
+TCGA-E9-A1RG	[Not Evaluated]	[Not Evaluated]
+TCGA-E9-A1RC	[Not Evaluated]	[Not Evaluated]
+TCGA-A8-A08C	Positive	Positive
+TCGA-LL-A5YM	Positive	Equivocal
+TCGA-AR-A2LR	Negative	Negative
+TCGA-BH-A0H7	Positive	Negative
+TCGA-AC-A2BK	Negative	Negative
+TCGA-E9-A1R4	[Not Evaluated]	[Not Evaluated]
+TCGA-EW-A1OX	Positive	Negative
+TCGA-A2-A4S1	Positive	Negative
+TCGA-AR-A24N	Positive	Equivocal
+TCGA-AO-A0JA	Positive	Negative
+TCGA-A2-A1G6	Negative	Negative
+TCGA-D8-A1JC	Positive	Negative
+TCGA-A7-A13D	Negative	Equivocal
+TCGA-D8-A1J8	Positive	Negative
+TCGA-GM-A2DL	Positive	Negative
+TCGA-C8-A26V	Positive	Negative
+TCGA-3C-AALJ	Positive	Indeterminate
+TCGA-AC-A6IW	Negative	Negative
+TCGA-AC-A2FK	Positive	[Not Evaluated]
+TCGA-B6-A0X7	Positive	[Not Evaluated]
+TCGA-A2-A1G4	Positive	Negative
+TCGA-A8-A09B	Positive	Negative
+TCGA-E2-A14P	Negative	Positive
+TCGA-AR-A5QN	Positive	Positive
+TCGA-BH-A0DI	Positive	Negative
+TCGA-A2-A0YF	Positive	Negative
+TCGA-EW-A1IW	Positive	Positive
+TCGA-BH-A0BF	Positive	Negative
+TCGA-BH-A18P	Positive	Positive
+TCGA-AR-A0U2	Positive	Negative
+TCGA-B6-A1KI	Positive	Equivocal
+TCGA-AQ-A1H2	Positive	Indeterminate
+TCGA-A8-A06Q	Positive	Negative
+TCGA-B6-A0IJ	Positive	[Not Evaluated]
+TCGA-LL-A6FP	Positive	Equivocal
+TCGA-AO-A0JI	Positive	Negative
+TCGA-A7-A26I	Negative	Equivocal
+TCGA-GM-A3XG	Positive	Negative
+TCGA-OL-A66J	Positive	[Not Evaluated]
+TCGA-AC-A62V	Positive	[Not Evaluated]
+TCGA-AO-A1KO	Positive	Negative
+TCGA-B6-A0WT	Positive	[Not Evaluated]
+TCGA-B6-A409	Negative	Equivocal
+TCGA-4H-AAAK	Positive	Equivocal
+TCGA-E2-A15S	Positive	Equivocal
+TCGA-AR-A2LO	Positive	Equivocal
+TCGA-BH-A18T	Negative	Positive
+TCGA-JL-A3YW	Positive	Positive
+TCGA-GM-A4E0	Positive	[Not Evaluated]
+TCGA-A2-A3XS	Negative	[Not Evaluated]
+TCGA-AR-A2LM	Positive	[Not Evaluated]
+TCGA-C8-A275	[Not Evaluated]	[Not Evaluated]
+TCGA-AR-A24T	Positive	Equivocal
+TCGA-AC-A62Y	Positive	Negative
+TCGA-E2-A15R	Positive	Equivocal
+TCGA-E2-A15O	Positive	Equivocal
+TCGA-AC-A23C	Positive	Positive
+TCGA-E9-A22A	Positive	Negative
+TCGA-A7-A0CJ	Positive	Negative
+TCGA-BH-A0HO	Positive	Negative
+TCGA-A8-A08G	Positive	Positive
+TCGA-E2-A15F	Positive	Negative
+TCGA-B6-A2IU	Positive	[Not Evaluated]
+TCGA-A2-A04N	Positive	[Not Evaluated]
+TCGA-3C-AALK	Positive	Positive
+TCGA-B6-A0IA	Positive	[Not Evaluated]
+TCGA-D8-A27I	Positive	Negative
+TCGA-A8-A0A9	Positive	Negative
+TCGA-BH-A1F6	Negative	Negative
+TCGA-LL-A9Q3	Positive	Positive
+TCGA-E9-A2JT	[Not Evaluated]	[Not Evaluated]
+TCGA-UL-AAZ6	Positive	Positive
+TCGA-BH-A1EU	Positive	Negative
+TCGA-A2-A4RX	Positive	Negative
+TCGA-S3-AA11	Positive	Equivocal
+TCGA-A7-A5ZV	Negative	Equivocal
+TCGA-D8-A1XV	Positive	Equivocal
+TCGA-A2-A0CO	Positive	Negative
+TCGA-AR-A0U3	Positive	Negative
+TCGA-AC-A2FM	[Not Evaluated]	[Not Evaluated]
+TCGA-AO-A03N	Positive	Negative
+TCGA-UU-A93S	Negative	Positive
+TCGA-D8-A1Y3	Positive	Indeterminate
+TCGA-A8-A081	Positive	Negative
+TCGA-A1-A0SE	Positive	Negative
+TCGA-EW-A1P7	Negative	Equivocal
+TCGA-AO-A128	Negative	Negative
+TCGA-AR-A252	Positive	Negative
+TCGA-A7-A26J	Positive	Negative
+TCGA-A8-A0A2	Positive	Negative
+TCGA-AC-A6IV	Positive	Equivocal
+TCGA-D8-A4Z1	Positive	Negative
+TCGA-EW-A6SD	Negative	[Not Evaluated]
+TCGA-E9-A2JS	[Not Evaluated]	[Not Evaluated]
+TCGA-A8-A08F	Positive	Negative
+TCGA-A2-A25C	Positive	Negative
+TCGA-A8-A0A1	Positive	Negative
+TCGA-E2-A576	Positive	Equivocal
+TCGA-AR-A1AH	Positive	Negative
+TCGA-C8-A137	Negative	Positive
+TCGA-OL-A66I	Negative	[Not Evaluated]
+TCGA-BH-A42U	Negative	Negative
+TCGA-A2-A0ES	Positive	Negative
+TCGA-E2-A15G	Positive	Negative
+TCGA-E9-A1R7	[Not Evaluated]	[Not Evaluated]
+TCGA-AN-A0XS	Negative	Negative
+TCGA-OL-A5RX	Positive	[Not Evaluated]
+TCGA-E2-A1LI	Negative	Equivocal
+TCGA-B6-A0X1	Negative	[Not Evaluated]
+TCGA-D8-A27P	Positive	Negative
+TCGA-AR-A1AP	Positive	Equivocal
+TCGA-AC-A3QP	Positive	Equivocal
+TCGA-D8-A1JI	Positive	Negative
+TCGA-A8-A079	Positive	Negative
+TCGA-A8-A09V	Positive	Negative
+TCGA-EW-A2FR	Negative	Equivocal
+TCGA-AC-A2QJ	Negative	Negative
+TCGA-D8-A1JU	Positive	Negative
+TCGA-E2-A15D	Positive	Equivocal
+TCGA-BH-A18L	Positive	Negative
+TCGA-AC-A3HN	Positive	Negative
+TCGA-A2-A0SX	Negative	Negative
+TCGA-AO-A12G	Positive	Positive
+TCGA-AC-A2FB	Positive	Positive
+TCGA-AC-A3TM	Positive	Equivocal
+TCGA-E9-A1N6	Positive	Positive
+TCGA-OL-A6VO	Negative	Negative
+TCGA-OL-A5RV	Positive	[Not Evaluated]
+TCGA-OL-A66H	Positive	[Not Evaluated]
+TCGA-A8-A07U	Negative	Negative
+TCGA-D8-A1JM	Positive	Negative
+TCGA-AN-A0AT	Negative	Negative
+TCGA-EW-A3E8	Positive	Negative
+TCGA-A8-A085	Positive	Negative
+TCGA-AO-A1KQ	Positive	Negative
+TCGA-BH-A0E0	Negative	Negative
+TCGA-D8-A1JS	Positive	Negative
+TCGA-E2-A2P5	Positive	[Not Evaluated]
+TCGA-D8-A1J9	Positive	Positive
+TCGA-E2-A56Z	Positive	Equivocal
+TCGA-OL-A5RZ	Positive	[Not Evaluated]
+TCGA-BH-A1EO	Positive	Negative
+TCGA-BH-A0HQ	Positive	Negative
+TCGA-B6-A0IO	Positive	[Not Evaluated]
+TCGA-D8-A1XO	Positive	Negative
+TCGA-BH-A28Q	Positive	Negative
+TCGA-AN-A0FT	Positive	Positive
+TCGA-AO-A0JJ	Positive	Negative
+TCGA-AO-A129	Negative	Negative
+TCGA-E9-A54Y	Positive	Negative
+TCGA-V7-A7HQ	Positive	[Not Evaluated]
+TCGA-BH-A1FL	Positive	[Not Evaluated]
+TCGA-AC-A23E	Positive	[Not Evaluated]
+TCGA-AN-A0XL	Positive	Negative
+TCGA-BH-A0HA	Positive	[Not Available]
+TCGA-AR-A0TR	Positive	Equivocal
+TCGA-A2-A04Q	Negative	Equivocal
+TCGA-BH-A0DV	Positive	Negative
+TCGA-AN-A0XP	Positive	Positive
+TCGA-E9-A5UO	[Not Evaluated]	[Not Evaluated]
+TCGA-PL-A8LV	[Not Evaluated]	[Not Evaluated]
+TCGA-D8-A1JE	Positive	Negative
+TCGA-BH-A0HI	Positive	Negative
+TCGA-B6-A0WW	Positive	[Not Evaluated]
+TCGA-AQ-A0Y5	Positive	Positive
+TCGA-AC-A6NO	Positive	Negative
+TCGA-BH-A0B9	Negative	Negative
+TCGA-B6-A0X4	Positive	[Not Evaluated]
+TCGA-C8-A12Y	[Not Evaluated]	[Not Evaluated]
+TCGA-A8-A0A7	Negative	Positive
+TCGA-BH-A0B2		
+TCGA-A8-A07L	Positive	Negative
+TCGA-EW-A424	Positive	Positive
+TCGA-A8-A09X	Negative	Negative
+TCGA-A1-A0SF	Positive	Negative
+TCGA-BH-A18G	Negative	Negative
+TCGA-A1-A0SJ	Positive	Equivocal
+TCGA-AN-A0FX	Negative	Positive
+TCGA-A1-A0SK	Negative	Negative
+TCGA-B6-A0WX	Negative	[Not Evaluated]
+TCGA-AO-A03U	Negative	Negative
+TCGA-B6-A0IB	Positive	[Not Evaluated]
+TCGA-LL-A441	Negative	Negative
+TCGA-D8-A1XS	Positive	Positive
+TCGA-A7-A4SD	Negative	Equivocal
+TCGA-E9-A245	[Not Evaluated]	[Not Evaluated]
+TCGA-AC-A7VC	Negative	Negative
+TCGA-A8-A06N	Positive	Negative
+TCGA-C8-A12X	Positive	Negative
+TCGA-E9-A227	Positive	Negative
+TCGA-AR-A1AT	Positive	Positive
+TCGA-B6-A0I5	Positive	[Not Evaluated]
+TCGA-BH-A0AV	Negative	[Not Available]
+TCGA-WT-AB41	Positive	[Not Evaluated]
+TCGA-D8-A1XJ	Positive	Positive
+TCGA-AC-A3W7	Positive	Negative
+TCGA-A7-A3J0	Positive	Negative
+TCGA-A2-A04U	Negative	Negative
+TCGA-AN-A04D	Negative	Negative
+TCGA-B6-A3ZX	Negative	Negative
+TCGA-A8-A097	Positive	Positive
+TCGA-BH-A0C1	Positive	Negative
+TCGA-E2-A9RU	Positive	Equivocal
+TCGA-A2-A04W	Negative	Positive
+TCGA-5L-AAT0	Positive	Negative
+TCGA-E2-A14Q	Positive	Negative
+TCGA-AR-A0TS	Negative	Negative
+TCGA-E9-A229	[Not Evaluated]	[Not Evaluated]
+TCGA-EW-A1OV	Negative	Negative
+TCGA-BH-A18Q	Negative	Positive
+TCGA-D8-A141	Positive	Negative
+TCGA-AQ-A04J	Negative	Negative
+TCGA-E9-A1RA	[Not Evaluated]	[Not Evaluated]
+TCGA-GM-A2DO	Positive	Negative
+TCGA-OL-A66L	Positive	[Not Evaluated]
+TCGA-A7-A4SE	Negative	Negative
+TCGA-B6-A0RM	Positive	[Not Evaluated]
+TCGA-A2-A0ER	Positive	Equivocal
+TCGA-E9-A22E	Positive	Positive
+TCGA-BH-A0B3	Negative	Negative
+TCGA-B6-A0I2	[Not Evaluated]	[Not Evaluated]
+TCGA-A2-A3XU	Negative	[Not Evaluated]
+TCGA-BH-A0BA	Positive	Negative
+TCGA-D8-A27R	Positive	Equivocal
+TCGA-C8-A135	Negative	Positive
+TCGA-E2-A109	Positive	Equivocal
+TCGA-C8-A12N	Positive	Negative
+TCGA-A2-A3XW	Positive	Negative
+TCGA-B6-A1KC	Positive	Negative
+TCGA-E9-A3HO	[Not Evaluated]	[Not Evaluated]
+TCGA-JL-A3YX	Positive	Positive
+TCGA-A2-A3KD	Positive	Negative
+TCGA-A2-A25E	Positive	Equivocal
+TCGA-AR-A24P	Positive	Equivocal
+TCGA-EW-A1PB	Negative	Negative
+TCGA-D8-A1JH	Positive	Negative
+TCGA-BH-A0GY	Positive	Negative
+TCGA-E2-A14T	Positive	Negative
+TCGA-D8-A1XK	Negative	Negative
+TCGA-A8-A08T	Positive	Positive
+TCGA-A7-A56D	Positive	Negative
+TCGA-BH-A0HL	Positive	Equivocal
+TCGA-AR-A24Z	Positive	Negative
+TCGA-LL-A73Z	Positive	Equivocal
+TCGA-A2-A259	Positive	Negative
+TCGA-A2-A0YK	Positive	Negative
+TCGA-BH-A209	Positive	[Not Evaluated]
+TCGA-AR-A251	Positive	Equivocal
+TCGA-A8-A06Y	Positive	Negative
+TCGA-AO-A12F	Negative	Negative
+TCGA-E2-A1LS	Negative	Negative
+TCGA-GM-A2DM	Positive	Negative
+TCGA-A7-A3IY	Positive	Negative
+TCGA-BH-A0B0	Positive	Negative
+TCGA-A8-A092	Positive	Negative
+TCGA-B6-A0RN	Negative	[Not Evaluated]
+TCGA-AC-A2FF	Positive	[Not Evaluated]
+TCGA-A8-A086	Positive	Negative
+TCGA-EW-A1PH	Negative	Negative
+TCGA-A8-A08H	Positive	Positive
+TCGA-D8-A1XQ	Negative	Negative
+TCGA-B6-A0I1	Negative	[Not Evaluated]
+TCGA-OL-A97C	Negative	[Not Evaluated]
+TCGA-EW-A1J3	Positive	Positive
+TCGA-A8-A09D	Positive	Negative
+TCGA-BH-A1FM	Positive	[Not Evaluated]
+TCGA-B6-A0RG	Negative	[Not Evaluated]
+TCGA-A8-A07I	Positive	Positive
+TCGA-AO-A03L	Positive	Positive
+TCGA-AC-A2FG	Positive	[Not Evaluated]
+TCGA-A2-A0YJ	Positive	Negative
+TCGA-LL-A5YL	Positive	Positive
+TCGA-E9-A1QZ	[Not Evaluated]	[Not Evaluated]
+TCGA-BH-A8FY	Positive	Negative
+TCGA-PL-A8LY	[Not Evaluated]	[Not Evaluated]
+TCGA-D8-A1XG	Positive	Negative
+TCGA-LL-A442	Positive	Equivocal
+TCGA-E2-A574	Negative	Equivocal
+TCGA-A2-A04P	Negative	[Not Evaluated]
+TCGA-A2-A0CR	Positive	Negative
+TCGA-D8-A3Z6	Positive	Negative
+TCGA-C8-A1HK	Negative	Positive
+TCGA-BH-A0E6	Negative	Equivocal
+TCGA-A2-A25B	Positive	Equivocal
+TCGA-E2-A159	Negative	[Not Evaluated]
+TCGA-AC-A2QH	Negative	Negative
+TCGA-D8-A1JJ	Positive	Negative
+TCGA-AR-A1AS	Positive	Negative
+TCGA-AC-A3BB	Positive	Negative
+TCGA-E9-A3X8	Positive	Positive
+TCGA-A8-A093	Positive	Negative
+TCGA-A2-A0EY	Positive	Positive
+TCGA-A2-A1FV	Positive	Negative
+TCGA-E9-A1R5	[Not Evaluated]	[Not Evaluated]
+TCGA-BH-A18S	Positive	Negative
+TCGA-A8-A07C	Negative	Negative
+TCGA-D8-A1XC	Positive	Negative
+TCGA-B6-A0X0	Positive	[Not Evaluated]
+TCGA-BH-A18F	Positive	Negative
+TCGA-AN-A0FF	Positive	Negative
+TCGA-AR-A0TW	Positive	Equivocal
+TCGA-D8-A1JT	Positive	Equivocal
+TCGA-AC-A23H	Positive	Positive
+TCGA-A7-A13G	Positive	Negative
+TCGA-D8-A1JL	Negative	Negative
+TCGA-BH-A5IZ	Positive	Negative
+TCGA-AO-A0JD	Positive	Negative
+TCGA-AR-A0TT	Positive	Negative
+TCGA-D8-A1JB	Positive	Equivocal
+TCGA-EW-A1PA	Positive	Negative
+TCGA-AR-A0TU	Negative	Negative
+TCGA-BH-A0AZ	Positive	Negative
+TCGA-BH-A18M	Positive	Positive
+TCGA-A7-A26E	Positive	Negative
+TCGA-AO-A12D	Negative	Positive
+TCGA-BH-A28O	Positive	Negative
+TCGA-AC-A6IX	Positive	[Not Evaluated]
+TCGA-EW-A2FS	Positive	Negative
+TCGA-D8-A1Y0	Positive	Negative
+TCGA-A8-A08O	Positive	Negative
+TCGA-E2-A15T	Positive	Equivocal
+TCGA-A8-A07S	Positive	Negative
+TCGA-D8-A13Z	Negative	Negative
+TCGA-E2-A1LL	Negative	Negative
+TCGA-OL-A66K	Positive	Equivocal
+TCGA-AO-A03T	Positive	Negative
+TCGA-E2-A14N	Negative	Negative
+TCGA-A2-A1FX	Positive	[Not Evaluated]
+TCGA-E9-A1RE	[Not Evaluated]	[Not Evaluated]
+TCGA-BH-A0H5	Positive	[Not Available]
+TCGA-A2-A0EU	Positive	Negative
+TCGA-E2-A1B4	Positive	Negative
+TCGA-GM-A2DC	Positive	[Not Evaluated]
+TCGA-GM-A2DB	Negative	Negative
+TCGA-BH-A0BC	Positive	Negative
+TCGA-B6-A402	Negative	Negative
+TCGA-E2-A570	Positive	Equivocal
+TCGA-E9-A1NA	Positive	Positive
+TCGA-XX-A89A	Positive	Negative
+TCGA-AC-A8OR	Positive	Negative
+TCGA-B6-A0IE	Negative	[Not Evaluated]
+TCGA-C8-A1HL	Positive	Equivocal
+TCGA-E9-A228	[Not Evaluated]	[Not Evaluated]
+TCGA-A8-A0A4	Positive	Negative
+TCGA-AO-A1KT	Positive	Equivocal
+TCGA-GM-A2DF	Negative	Negative
+TCGA-EW-A6SB	Negative	Negative
+TCGA-A2-A0D4	Positive	Negative
+TCGA-A2-A04T	Negative	Equivocal
+TCGA-A1-A0SD	Positive	Negative
+TCGA-E9-A295	Positive	Positive
+TCGA-A8-A08B	Positive	Positive
+TCGA-A2-A0T2	Negative	Negative
+TCGA-BH-A208	[Not Evaluated]	[Not Evaluated]
+TCGA-A2-A0CY	Positive	Negative
+TCGA-C8-A3M8	Positive	Positive
+TCGA-B6-A0RH	Positive	[Not Evaluated]
+TCGA-BH-A1F5	Positive	Negative
+TCGA-E9-A1RI	[Not Evaluated]	[Not Evaluated]
+TCGA-E2-A15E	Positive	[Not Evaluated]
+TCGA-E2-A1LK	Negative	Equivocal
+TCGA-E2-A10E	Positive	Equivocal
+TCGA-AO-A03R	Positive	Negative
+TCGA-A7-A5ZW	Positive	Negative
+TCGA-EW-A1P1	Negative	Equivocal
+TCGA-E2-A1IK	Positive	Negative
+TCGA-E2-A1LE	Negative	Positive
+TCGA-A2-A0EO	Positive	Negative
+TCGA-BH-A0HB	Positive	Equivocal
+TCGA-E9-A1RF	[Not Evaluated]	[Not Evaluated]
+TCGA-AO-A12B	Positive	Negative
+TCGA-E9-A1NF	Positive	Negative
+TCGA-E9-A1R2	Positive	Equivocal
+TCGA-OL-A6VQ	Positive	[Not Evaluated]
+TCGA-BH-A0B8	Positive	Equivocal
+TCGA-E2-A15I	Positive	Equivocal
+TCGA-A2-A0CK	Positive	Negative
+TCGA-B6-A40C	Positive	Negative
+TCGA-E9-A1N4	Positive	Positive
+TCGA-E2-A1IF	Positive	Negative
+TCGA-BH-A1FU	Negative	[Not Evaluated]
+TCGA-AC-A8OP	Positive	Indeterminate
+TCGA-AN-A0FK	Positive	Positive
+TCGA-BH-A0EA	Positive	Negative
+TCGA-AO-A12A	Positive	Negative
+TCGA-BH-A18V	Negative	Negative
+TCGA-E9-A54X	Positive	Negative
+TCGA-BH-A1FE	Positive	[Not Evaluated]
+TCGA-D8-A27L	Positive	Negative
+TCGA-AR-A1AU	Positive	Equivocal
+TCGA-AR-A24S	Positive	Negative
+TCGA-A1-A0SN	Positive	Positive
+TCGA-D8-A147	Negative	Negative
+TCGA-E2-A107	Positive	Equivocal
+TCGA-A1-A0SH	Negative	Equivocal
+TCGA-AO-A12E	Positive	Negative
+TCGA-BH-A1FR	Positive	[Not Evaluated]
+TCGA-BH-A0HU	Positive	Negative
+TCGA-AO-A0JG	Positive	Negative
+TCGA-E2-A10B	Positive	Equivocal
+TCGA-A2-A04X	Positive	Positive
+TCGA-B6-A1KF	Negative	Equivocal
+TCGA-AC-A2QI	Positive	Negative
+TCGA-GM-A2DH	Negative	Negative
+TCGA-C8-A26X	Negative	Negative
+TCGA-D8-A143	Negative	Negative
+TCGA-A7-A2KD	Positive	Positive
+TCGA-C8-A1HI	Positive	Negative
+TCGA-E9-A1RB	[Not Evaluated]	[Not Evaluated]
+TCGA-D8-A1JP	Positive	Negative
+TCGA-A8-A09Q	Positive	Negative
+TCGA-BH-AB28	Positive	Negative
+TCGA-BH-A0DX	Positive	Negative
+TCGA-A2-A0CV	Positive	Negative
+TCGA-AR-A2LH	Negative	Equivocal
+TCGA-BH-A204	[Not Evaluated]	[Not Evaluated]
+TCGA-C8-A26Z	Positive	Negative
+TCGA-D8-A1X7	Positive	Negative
+TCGA-A8-A07F	Positive	Negative
+TCGA-OL-A6VR	Positive	Negative
+TCGA-BH-A0DZ	Positive	Positive
+TCGA-E2-A1IL	Positive	Negative
+TCGA-HN-A2OB	Positive	Negative
+TCGA-C8-A12K	[Not Evaluated]	[Not Evaluated]
+TCGA-B6-A0RU	Negative	[Not Evaluated]
+TCGA-A2-A0EP	Positive	Negative
+TCGA-3C-AAAU	Positive	Negative
+TCGA-AO-A1KR	Negative	Negative
+TCGA-A7-A3RF	Positive	Negative
+TCGA-BH-A0C3	Positive	Negative
+TCGA-AN-A0XO	Positive	Negative
+TCGA-C8-A1HJ	Negative	Negative
+TCGA-BH-A0H3	Positive	[Not Available]
+TCGA-BH-A18R	Indeterminate	Positive
+TCGA-E2-A15L	Positive	Equivocal
+TCGA-A8-A07O	Negative	Negative
+TCGA-GM-A3XL	Negative	[Not Evaluated]
+TCGA-E2-A15P	Positive	Negative
+TCGA-E2-A15J	Positive	Equivocal
+TCGA-BH-A1FG	Positive	Negative
+TCGA-A2-A0EX	Positive	Negative
+TCGA-AO-A0JM	Positive	Positive
+TCGA-E2-A14R	Negative	Negative
+TCGA-OL-A5S0	Positive	[Not Evaluated]
+TCGA-A8-A08Z	Positive	Negative
+TCGA-A2-A0D2	Negative	Negative
+TCGA-A2-A0EW	Positive	Negative
+TCGA-BH-A8FZ	Positive	Equivocal
+TCGA-E2-A1BC	Positive	Negative
+TCGA-A8-A094	Positive	Negative
+TCGA-A8-A099	Positive	Positive
+TCGA-BH-A0HP	Positive	Negative
+TCGA-A8-A06X	Positive	Positive
+TCGA-BH-A0DK	Positive	Negative
+TCGA-B6-A0WV	Positive	[Not Evaluated]
+TCGA-A8-A08J	Positive	Negative
+TCGA-AR-A0TQ	Positive	Equivocal
+TCGA-BH-A0B1	Positive	Negative
+TCGA-A7-A26J	Positive	Negative
+TCGA-BH-A1ET	Positive	Negative
+TCGA-B6-A0IH	Positive	[Not Evaluated]
+TCGA-S3-A6ZH	Positive	Equivocal
+TCGA-EW-A1IZ	Positive	Negative
+TCGA-BH-A18H	Positive	Positive
+TCGA-EW-A1PE	Positive	Negative
+TCGA-AN-A0FN	Positive	Positive
+TCGA-A2-A0YG	Positive	Positive
+TCGA-OK-A5Q2	Positive	Negative
+TCGA-AR-A1AV	Positive	Negative
+TCGA-D8-A27V	Positive	Negative
+TCGA-GM-A2D9	Positive	[Not Evaluated]
+TCGA-D8-A1XM	Positive	Negative
+TCGA-WT-AB44	Positive	Negative
+TCGA-BH-A201	Positive	Negative
+TCGA-E2-A1L8	Positive	Equivocal
+TCGA-B6-A0RS	Negative	[Not Evaluated]
+TCGA-B6-A0IG	Positive	[Not Evaluated]
+TCGA-S3-A6ZG	Positive	Negative
+TCGA-BH-A8G0	Positive	Negative
+TCGA-AC-A8OS	Positive	Positive
+TCGA-A1-A0SQ	Positive	Negative
+TCGA-A7-A425	Positive	Indeterminate
+TCGA-C8-A12L	Negative	Equivocal
+TCGA-B6-A0WS	Positive	[Not Evaluated]
+TCGA-D8-A27N	Positive	Positive
+TCGA-BH-A1EW	Negative	Negative
+TCGA-E2-A1IJ	Positive	Equivocal
+TCGA-BH-A18I	Positive	Positive
+TCGA-A8-A076	Positive	Positive
+TCGA-A7-A13F	Positive	Equivocal
+TCGA-A2-A0YM	Negative	[Not Evaluated]
+TCGA-A8-A091	Positive	Negative
+TCGA-D8-A1XR	Positive	Negative
+TCGA-A7-A26G	Negative	Negative
+TCGA-AN-A03X	Positive	Positive
+TCGA-D8-A13Y	Positive	Negative
+TCGA-A2-A3XY	Negative	Negative
+TCGA-A8-A06P	Positive	Negative
+TCGA-AR-A1AR	Negative	Negative
+TCGA-AR-A255	Positive	Positive
+TCGA-OL-A5RU	Positive	[Not Evaluated]
+TCGA-E2-A1B0	Negative	Positive
+TCGA-A7-A3IZ	Positive	Equivocal
+TCGA-C8-A3M7	Negative	Negative
+TCGA-BH-A42T	Positive	Positive
+TCGA-PL-A8LZ	[Not Evaluated]	[Not Evaluated]
+TCGA-AQ-A04H	Positive	Indeterminate
+TCGA-EW-A1J1	Positive	Negative
+TCGA-LL-A50Y	Positive	Equivocal
+TCGA-A2-A1FZ	Positive	Negative
+TCGA-AC-A3W5	Positive	[Not Evaluated]
+TCGA-AR-A0TV	Positive	Equivocal
+TCGA-A2-A0YT	Positive	[Not Evaluated]
+TCGA-AN-A0AS	Positive	Negative
+TCGA-A8-A07G	Positive	Negative
+TCGA-A7-A4SC	Positive	Equivocal
+TCGA-E9-A1NI	Positive	Negative
+TCGA-HN-A2NL	Negative	Negative
+TCGA-BH-A1FB	Positive	Negative
+TCGA-E2-A14Y	Positive	Equivocal
+TCGA-MS-A51U	Positive	Negative
+TCGA-S3-A6ZF	Positive	Equivocal
+TCGA-D8-A1JK	Negative	Negative
+TCGA-A8-A08L	Positive	Negative
+TCGA-BH-A18N	Positive	Negative
+TCGA-S3-AA0Z	Positive	Equivocal
+TCGA-EW-A1PC	Positive	Negative
+TCGA-AC-A4ZE	Positive	Positive
+TCGA-LD-A7W6	Positive	Negative
+TCGA-D8-A27E	Positive	Negative
+TCGA-C8-A8HR	[Not Evaluated]	[Not Evaluated]
+TCGA-A8-A09Z	Positive	Negative
+TCGA-BH-A0HK	Positive	Negative
+TCGA-AR-A2LJ	Positive	Positive
+TCGA-E2-A106	Positive	Equivocal
