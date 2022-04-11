@@ -50,6 +50,23 @@
 #' site of relapse. Cancer research, 68(9), pp.3108-3114.
 "HER2_sig_df"
 
+#' Gene signature for ER and HER2 extracted from PAM50
+#'
+#' A list of two data frames containing the gene names and their corresponding
+#' expression values constituting ER and HER gene signatures obtained from
+#' PAM50.
+#' @format List of two of two data frames: one for ER signature, the other for
+#' HER2 signature:
+#' \describe{
+#'    \item{ER}{data frame containing gene names and their relative expression
+#'    value (-1 for down-regulated genes and 1 for up-regulated genes) in the
+#'    ER signature}
+#'    \item{HER2}{data frame containing gene names their relative expression
+#'    value (-1 for down-regulated genes and 1 for up-regulated genes) in the
+#'    HER2 signature}
+#' }
+"pam50"
+
 #' ER gene expression data set 1
 #'
 #' A gene expression matrix containing raw read counts from RNA-seq for 60
