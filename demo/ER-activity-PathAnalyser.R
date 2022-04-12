@@ -20,7 +20,7 @@
 
 # Installing package using devtools
 #install.packages("devtools") # un-comment this line to install the devtools package
-#devtools::install_github("a-thind/PathAnalyser") # un-comment this line to install the package
+#devtools::install_github("ozlemkaradeniz/PathAnalyser") # un-comment this line to install the package
 
 # Load the library into R
 library(PathAnalyser)
@@ -46,7 +46,7 @@ tail(sig_df) # down-regulated genes of the gene signature are at the bottom of
 # the gene signature data frame
 
 # there are 160 genes in this ER signature obtained from the SET index
-dim(ER_sig_df)
+dim(sig_df)
 
 #-------------------------------------------------------------------------------
 # 2. QC and data pre-processing
@@ -56,7 +56,7 @@ normalized_se <- log_cpm_transformation(data_se)
 # check the gene signature and gene signature have consistent genes
 # filters out genes from expression data set that are not present in the gene
 # signature and those that are not expressed in at least 10% of samples.
-normalized_se <- check_signature_vs_dataset(normalized_se, ER_sig_df)
+normalized_se <- check_signature_vs_dataset(normalized_se, sig_df)
 
 #-------------------------------------------------------------------------------
 # 3. Classification of samples based on pathway activity
@@ -103,19 +103,3 @@ confusion_mat <- calculate_accuracy("raw_data/Sample_labels.txt", classes_df.per
 confusion_mat <- calculate_accuracy("raw_data/Sample_labels.txt", classes_df.perc50, pathway="ER",
                                     display_statistics=T, display_roc_curve=T)
 
-#-------------------------------------------------------------------------------
-# Built-in data
-#-------------------------------------------------------------------------------
-# Gene signatures:
-# For ER (obtained from SET index, see vignette for further details):
-data("ER_sig_df")
-# For HER2 (obtained from MSigDB, see vignette for further details):
-data("HER2_sig_df")
-
-# Gene expression data sets
-# For ER (there are 10 samples that are ER+ (Active for ER pathway) and another
-# 10 samples that are ER- (Inactive for ER pathway):
-data("HER2_sig_df")
-# For HER2 (there are 10 samples that are HER2 (Active for ER pathway) and another
-# 10 samples that are HER2 (Inactive for ER pathway):
-data("HER2_data_se1")
