@@ -22,16 +22,22 @@
 #'
 #' @examples
 #' \dontrun{read_expression_data("/Users/taniyapal/Documents/Group Project/TCGA_unannotated.txt")}
-
 read_expression_data <- function(file_name){
+  if (!file.exists(file_name)) {
+    stop("File not found.")
+  }
   # getting the delimiter for the file whether it is "\t" or "," or " "
   delimiter <- get.delim(file_name)
-
   # reading the file provided by the user
   data_se <- read.delim(file_name, sep=delimiter, check.names=F)
-
   # removing the NAs
   data_se <- na.omit(data_se)
+
+  # if first column name is not a sample name read that column as row names
+  if (colnames(data_se)[1] == "") {
+    row.names(data_se) <- data_se[, 1]
+    data_se <- data_se[,-1]
+  }
   # removing duplicated samples from gene expression data frame
   data_se <- data_se[,unique(colnames(data_se))]
 
