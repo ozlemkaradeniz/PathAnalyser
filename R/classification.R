@@ -127,6 +127,8 @@ classify_GSVA_percent <- function(sig_df, data_se, percent_thresh=25){
 #' @examples
 #' gsva_scores_dist(ER_sig_df, ER_data_se1)
 gsva_scores_dist <- function(sig_df, data_se) {
+  # bind Scores variable locally to function
+  Score <- NULL
   # run GSVA using data provided
   gsva_scores <- .run_GSVA(sig_df, data_se)
 

@@ -45,7 +45,9 @@ Suggests:
     BiocStyle,
     knitr,
     rmarkdown,
-    testthat
+    testthat,
+    magick, 
+    qpdf
 VignetteBuilder: 
     knitr
 Encoding: UTF-8

@@ -69,10 +69,10 @@ read_expression_data <- function(file_name){
 #' \dontrun{read_signature_data("ESR1_UP.v1._UP.csv","ESR1_DN.v1_DN.csv" )}
 read_signature_data <- function(up_sig_file, down_sig_file){
   # reading the up regulated gene signature file
-  up_sig <- read.delim(up_sig_file, comment="#", sep="\n")
+  up_sig <- read.delim(up_sig_file, comment.char="#", sep="\n")
 
   # reading the down regulated gene signature file
-  dn_sig <- read.delim(down_sig_file, comment="#", sep="\n")
+  dn_sig <- read.delim(down_sig_file, comment.char="#", sep="\n")
 
   # vector combining both up and down regulated signatures
   genes <- c(up_sig[,1], dn_sig[,1])
@@ -80,13 +80,13 @@ read_signature_data <- function(up_sig_file, down_sig_file){
   expression <- c(rep(1, nrow(up_sig)), rep(-1, nrow(dn_sig)))
 
   # combining up and down regulated signatures in single data frame
-  sig_df <- data.frame("genes"=genes, "expression"=expression)
+  sig_df <- data.frame("gene"=genes, "expression"=expression)
 
   return(sig_df)
 }
 
-#'Reading both expression data and signature files,also checking overlap
-#'between matrix and signature gene symbols
+#' Reading both expression data and signature files,also checking overlap
+#' between matrix and signature gene symbols
 #'
 #' @description Reads both expression data and up and down regulated signature
 #' data, if check_matrix_sig_overlap parameter in the function is true, returns

@@ -16,6 +16,8 @@
 #' @examples
 #' \dontrun{check_signature_vs_dataset(data_norm, sig_df)}
 check_signature_vs_dataset <-function(data_norm, sig_df) {
+    # bind gene and counts variables locally to the function
+    gene <- counts <- NULL
     sig_df<-as.data.frame(sig_df)
     sig_df<-as.data.frame(sig_df[,1])
     # filter gene signature in expression matrix
