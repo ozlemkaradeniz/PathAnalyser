@@ -29,34 +29,18 @@ knitr::opts_chunk$set(
 
 # Introduction
 PathAnalyser is an intuitive and user-friendly package that allows users to 
-assess pathway activity of transcriptomic data sets using a pathway gene 
-signature, a list of genes whose expression varies significantly when the 
-corresponding is active. PathAnalyser uses GSVA to estimate expression 
-abundance of the up-regulated and down-regulated gene sets of the gene 
-signature for each sample in a transcriptomic data set, and then ranks samples 
-based on expression abundance of the up-regulated and down-regulated gene sets 
-of the gene signature separately. The classification algorithm uses 
-user-configurable thresholds to tailor the pathway-based classification to their 
-own classification needs. Unlike other available pathway assessment packages 
-which do not distinguish between up-regulated and down-regulated gene sets, the 
-PathAnalyser classification algorithm considers both parts of a gene signature: 
-the up-regulated and down-regulated genes separately in assessing consistency of 
-expression with the gene signature.
-
-Other features unique to PathAnalyser package include:
-
-1. Multiple samples are considered for the classification analysis, building 
-upon the sample-wise analysis provided by the GSVA package
-
-2. Unlike other classification algorithms, PathAnalyser does not directly force
-classification of samples into active or inactive pathway classes
-
-3. Detailed evaluation of the pathway-based sample classification including
-descriptive statistics such as accuracy, percentage classified, recall and ROC
-curve visualization
-
-3) Classification visualization - PCA plots can be generated for visualization 
-of the predicted pathway classes (active/inactive) for each sample.
+assess pathway activity of transcriptomic data sets using the gene 
+signature of a pathway. A gene signature comprises of a list of up-regulated 
+genes and down-regulated genes when a specific pathway is active. Unique to 
+PathAnalyser is the ability to classify samples according to the consensus of 
+evidence of expression of *both parts of the gene signature* 
+(up-regulated and down-regulated gene sets) for each sample, in contrast to 
+other gene set enrichment analysis packages that fail to distinguish between 
+these two gene sets, thus considering the signature as a single gene set. A 
+key strength of the package is there is no direct forcing of samples into 
+pathway "active" or "inactive" classes, rather samples that lack consensus 
+between the two parts of the signature are classified as having "uncertain" 
+pathway activity.
 
 PathAnalyser provides functionality and built-in data (including expression data
 set as well as gene signatures) for assessing ER and HER2 pathway activity in 
@@ -65,67 +49,76 @@ been shown to have clinical predictive value, in particular, ER and HER2 gene
 signatures have been associated with molecular sub-types, prognosis and 
 treatment response in breast cancer. Although this package was original 
 developed to assess ER and HER2 pathway activity in breast cancer transcriptomic 
-data sets, the package functionality could be applied to transcriptomic data 
-sets and gene signatures outside the context of breast cancer. 
+data sets, the package functionality is flexible and could be applied to 
+transcriptomic data sets and gene signatures outside the context of breast 
+cancer. 
 
 In this vignette, we will describe how to use the PathAnalyser package 
 with microarray and RNA-seq expression transcriptomic data sets and gene 
 expression signatures associated with a specific pathway activity.
 
 # General Workflow
-A flow chart of the general workflow of the analysis conducted using 
-PathAnalyser is illustrated below:
+The typical workflow of pathway activity assessment using PathAnalyser is 
+illustrated in Figure \@ref(fig:workflow). Gene expression data and signature 
+files are read into matrix and data frame formats respectively to allow 
+classification of samples using PathAnalyser.
 
-```{r, echo=F, fig.cap="PathAnalyser workflow"}
-knitr::include_graphics("pathway_workflow.png")
+```{r workflow, echo=F, fig.wide=TRUE, fig.cap="PathAnalyser workflow"}
+knitr::include_graphics("workflow_flowchart.png")
 ```
 
 Note: The **classification evaluation step is optional** and can only be 
 performed if actual pathway activity class labels (e.g. active, inactive or 
 uncertain) for the corresponding pathway are present.
 
-## Overview of PathAnalyser functionality
-The PathAnalyser package functionality can be sub-divided into 5 broad 
-categories corresponding to a typical workflow for assessing pathway activity of 
-samples:
-
-1.  Input functions for expression data and gene signatures
-2.  Quality control and pre-processing of input data
-3.  Classification of samples by pathway activity
-4.  Evaluation of classification
-5.  Visualization
-
 # Installation and setup
 ## Installing dependencies
-To install all required dependencies of PathAnalyser, type the following in R:
+All dependencies should be installed together with the PathAnalyser package,
+however, they can be installed separately. To install all required CRAN 
+dependencies of PathAnalyser, type the following in R:
 ```{r eval=F}
-# If not already installed
-install.packages("BiocManager")
-
-BiocManager::install(c("GSVA", "pROC", "edgeR", "reshape2", "ggplot2","limma", 
-                       "VennDiagram", "NCmisc", "futile.logger"), 
-                     dependencies = TRUE)
+install.packages(c("ggfortify", "ggplot2", "glue", "lifecycle", "cli", "plotly",
+                   "reader", "pROC", "reshape2", "rlang", "VennDiagram", "withr"
+                   ))
 
 ```
-## Installing package using devtools
-The easiest way to install PathAnalyser is to install directly from GitHub 
-using the devtools package in R:
+All Bioconductor dependencies can be installed by typing the following in R:
+```{r eval=F}
+BiocManager::install(c("edgeR", "limma"))
+```
+
+
+## Installing package 
+It is **strongly recommended** that users install the latest source release for 
+PathAnalyser by downloading the source file on GitHub from this [link](https://github.com/ozlemkaradeniz/PathAnalyser/releases/tag/v0.0.0.9000) 
+and then installing this local source version of the package in R:
+```{r eval=F}
+install.packages("PathAnalyser_0.0.0.9000.tar.gz", repos=NULL, type="so")
+```
+
+### Using devtools for direct installation from GitHub
+PathAnalyser can also be installed directly from GitHub using the devtools 
+package in R, provided the PathAnalyser GitHub repository is public:
 ```{r eval=F}
 install.packages("devtools")
 devtools::install_github("ozlemkaradeniz/PathAnalyser")
 ```
+**Note: If the PathAnalyser repository is not public, the `install_github` 
+function will not download and install the package.**
 
-Alternatively, you can clone the GitHub repository in a Linux / MacOS terminal:
+### Cloning the repository (for developers)
+Alternatively, for users who would like to extend the PathAnalyser package, they 
+can clone the GitHub repository in a Linux / MacOS terminal:
 ```{bash eval=F}
 git clone git@github.com:a-thind/PathAnalyser.git
 ```
-
-Then type the following in R to install a local source version of the package:
-
-```{r eval=FALSE, message=FALSE, warning=FALSE, cache=FALSE}
-library(utils)
-install.packages("~/PathAnalyser", repo=NULL, type="source")
+and build the package from the source files using devtools:
+```{r eval=F}
+devtools::build("~/PathAnalyser")
 ```
+**Note: Building the package from source files requires r-base-dev 
+(Linux/MacOS) or Rtools (Windows) installation on top of the base R installation
+.**
 
 Once installation is completed, load the library to start using PathAnalyser:
 ```{r message=FALSE, warning=FALSE, cache=FALSE}
@@ -153,7 +146,7 @@ expression data set. The gene expression matrix text file can contain expression
 values from RNASeq or normalized microarray data. The image below is a snapshot 
 of an example expression data set file:
 
-```{r fig.cap="An example gene expression matrix text file"}
+```{r echo=FALSE, fig.cap="An example gene expression matrix text file"}
 knitr::include_graphics("expr_dataset_example.png")
 ```
 
@@ -173,7 +166,7 @@ A plethora of pathway gene signatures in the gene set file format can be found a
 shows the first 30 lines of the gene set file for the up-regulated gene set of 
 the ERBB2 (HER2) gene signature.  
 
-```{r fig.cap="An example gene set file format containing either the up- or down-regulated gene sets of the gene signature"}
+```{r echo=FALSE, fig.cap="An example gene set file format containing either the up- or down-regulated gene sets of the gene signature"}
 knitr::include_graphics("up_gene_signature.png")
 ```
 
@@ -261,7 +254,7 @@ have inactive ER pathway activity (ER-).
 ```{r}
 dim(ER_data_se1)
 # Expression data for first 6 genes
-head(ER_data_se1)
+head(ER_data_se1[,1:5])
 ```
 
 ### HER2 dataset 1
@@ -271,8 +264,8 @@ Similarly, the HER2 data set `HER2_data_se1` contains RNASeq raw read counts for
 
 ```{r}
 dim(HER2_data_se1)
-# Expression data for first 6 genes
-head(HER2_data_se1)
+# Expression data for first 6 genes of the first 5 samples
+head(HER2_data_se1[,1:5])
 ```
 
 
@@ -289,7 +282,7 @@ a file with an delimiter, the function checks the delimiter of the
 file and reads the file accordingly. It returns an output with gene symbols/IDs as the row names and columns representing each sample 
 IDs in the dataset.
 ```{r eval=FALSE}
-data_se <- read_expression_data("/Users/taniyapal/Documents/Group Project/TCGA_unannotated.txt")
+data_se <- read_expression_data("~/data/TCGA_unannotated.txt")
 data_se<-data_se[,1:200]
 print(data_se[1:5, 1:5])
 
@@ -301,7 +294,7 @@ Gene signature files can be read by the `read_signature_data` function. It retur
 first column and their expression pattern is represented as up r
 regulated or down regulated by +1 and -1 respectively.
 ```{r eval=FALSE}
-sig_df <- read_signature_data("/Users/taniyapal/Documents/Group Project/ESR1_UP.v1._UP.csv", "/Users/taniyapal/Documents/Group Project/ESR1_DN.v1_DN.csv")
+sig_df <- read_signature_data("~/data/ESR1_UP.v1._UP.csv", "~data/ESR1_DN.v1_DN.csv")
 head(sig_df)
 ```
 
@@ -337,7 +330,7 @@ normalized_se <- check_signature_vs_dataset(normalized_se, ER_sig_df)
 ## Overview of pathway activity classification
 PathAnalyser provides assessment of pathway activity for each sample in a gene 
 expression data set, by extending an existing unsupervised and non-parametric 
-sample-wise gene set enrichment method, Gene set variation analysis ([GSVA](https://www.bioconductor.org/packages/release/bioc/html/GSVA.html)). 
+sample-wise gene set enrichment method called Gene set variation analysis ([GSVA](https://www.bioconductor.org/packages/release/bioc/html/GSVA.html)). 
 GSVA measures the variation of gene set enrichment across a sample population in 
 a manner independent of class labels, and summarizes the sample-wise expression 
 of the gene set in the form of gene set enrichment scores for each sample 
@@ -362,13 +355,18 @@ signature):
 3. **High** expression abundance for **down-regulated gene set**
 4. **Low** expression abundance for **down-regulated gene set**
 
-The diagram below summarises the classification algorithm employed by 
-PathAnalyser to classify samples by pathway activity.
-We include an external image with the R function:
+Figure \@ref(fig:algorithm) below summarises the classification algorithm 
+employed by PathAnalyser to classify samples by pathway activity.
 
-```{r, echo=FALSE, fig.wide=TRUE, fig.cap="Overiew of algorithm diagram"}
+```{r algorithm, echo=FALSE, fig.wide=TRUE, fig.cap="Overiew of algorithm diagram"}
 knitr::include_graphics("algorithm_diagram.png")
 ```
+
+Samples are ordered ordered by the expression abundance of the up-regulated 
+gene-set and then ordered by the expression abundance of the down-regulated 
+gene-set, as summarised by the GSVA scores. Those samples which have a GSVA 
+score exceeding the "high
+
 
 Samples are ordered by expression abundance of up-regulated and down-regulated 
 genes of the gene signature separately using the GSVA scores. Those samples 
@@ -386,7 +384,8 @@ most abundance expression of the down-regulated gene set of the gene signature
 (exceeding threshold 3), demonstrate evidence of consistency of pathway 
 inactivation from both gene sets and therefore are classified as "*Inactive*".
 All other samples are classified as "*Uncertain*" since there is insufficient 
-evidence for pathway activation or inactivation.
+evidence (lack of consensus from both parts of the signature) for pathway 
+activation or inactivation.
 
 In PathAnalyser, the GSVA scores thresholds for classifying a sample as "Active" 
 (consistent with the gene signature) and "Inactive" (inconsistent with the gene 
@@ -398,107 +397,6 @@ GSVA scores thresholds `classify_GSVA_abs` or percentile thresholds which is
 effectively rank-based `classify_GSVA_percent` using percentiles (default at 25%)
 , as well as a visualization function to view the distributions of the GSVA 
 scores for both gene sets `gsva_scores_dist`, which will be discussed below.
-
-## Visualising GSVA Score Distribution
-PathAnalyser provides `gsva_scores_dist` method to visualize the GSVA score 
-distribution for the abundance of expression of the up-regulated and 
-down-regulated gene sets of the gene signature for each sample. The resulting 
-density plot usually follows a bimodal distribution of GSVA scores for each 
-sample for the up-regulated and down-regulated gene sets, a consequence of the 
-intrinsic binaric nature of gene expression in datasets, where samples are often
-either have a relatively high expression abundance of a gene set, or relatively
-low expression abundance of a gene set resulting in two "sub-populations" of 
-samples.
-
-Figure \@ref(fig:plot) shows two peaks for each gene set when running 
-`gsva_scores_dist` with logCPM-normalized `ER_data_se1` gene expression matrix. For 
-both gene sets, the peak with the highest GSVA scores represents samples with 
-*high* abundance of expression of the gene set and the lower score peak 
-represents samples with *low* abundance of expression of the gene set.
-```{r plot, fig.cap="Density plots showing the distribution of GSVA scores for samples in logCPM-normalised `ER_data_se1` data set for the up-regulated (left) and down-regulated gene set (right) of the pathway signature using `gsva_scores_dist` function.", fig.wide=TRUE}
-gsva_scores_dist(ER_sig_df, normalized_se)
-```
-
-### Determining thresolds for classification
-As the two peaks represent represent low expression abundance and high 
-abundance expression, the distribution of GSVA scores that constitute the "valley"
-i.e. the area between the two peaks (fig. \@ref(fig:thresholds)), represent 
-samples that exhibit relatively weaker evidence of differential expression 
-abundance relative to other samples and the algorithm would classify these 
-samples as having "Uncertain" pathway activity. Because the peaks represent the 
-mode GSVA scores (one for high and low expression abundance), thresholds should 
-be selected between these two peak to enable the algorithm to classify samples 
-around these modes as being consistent or inconsistent with the pathway 
-signature.
-
-As mentioned above, there are four thresholds that can be tuned by the user:
-the high and low expression abundance for the up-regulated and down-regulated
-gene sets. For example, a user could set the high expression abundance thresholds 
-for the up-regulated gene set to -0.2 for the low expression threshold for both gene 
-sets, and 0.2 for the high expression thresholds for both gene sets. Samples 
-with GSVA scores between the these thresholds for both the up-regulated and down
--regulated gene-set would be considered by the classification algorithm as having 
-"Uncertain" pathway activity.
-
-```{r thresholds, fig.cap="GSVA scores distributions of the samples for the down-regulated (left) and up-regulated gene set (right) of the pathway gene signature, showing absolute thresholds of -0.2 and 0.2 for characterising low and high expression abundance of both gene sets respectively. The expression data set used is the logCPM-normalised `ER_data_se1` gene expression data set.", fig.wide=TRUE}
-plot <- gsva_scores_dist(ER_sig_df, normalized_se)
-# Add thresholds on plot
-library(ggplot2)
-data_threshs <- data.frame(Geneset=c("Up", "Down"), vline=c(-0.2, 0.2))
-plot + geom_vline(xintercept=data_threshs$vline, linetype=2)
-```
-
-Shrinking the distance between the high and low expression thresholds would 
-result in fewer "Uncertain" pathway activity classifications 
-(fig. \@ref(fig:relaxed)), because more samples would meet the consistency/ 
-inconsistency expression thresholds for the pathway signature (high expression 
-thresholds would be lower, low expression thresholds would be higher for each 
-gene set).
-
-```{r relaxed, fig.cap="GSVA scores distributions of samples with more relaxed thresholds for assessing expression consistency of the down-regulated gene set (left) and the up-regulated gene set (right) with the pathway gene expression signature. Low and high expression abundance thresholds for the down-regulated gene set (left) are set to -0.1 and 0.1 respectively, while low and high expression abundance thresholds for the up-regulated gene set (right) are also set to -0.1 and 0.1 respectively. Data is generated from running GSVA on logCPM-normalised `ER_data_se1` expression dataset with ER signature (`ER_sig_df`).", fig.wide=TRUE}
-# more relaxed thresholds, fewer uncertain labels
-data_threshs <- data.frame(Geneset=c("Up", "Down"), 
-                           vline=c(-0.1, 0.1))
-plot + geom_vline(xintercept=data_threshs$vline, linetype=2)
-```
-
-Conversely, expanding the distance between the thresholds would increase the 
-frequency of "Uncertain" pathway activity classifications, as the number of samples
-meeting the thresholds for consistency and inconsistency would be reduced.
-
-```{r stringent, fig.cap="Density plots for GSVA scores distributions for samples with relatively more stringent thresholds for assessing consistency of the up-regulated gene set (left) and down-rgulated gene set (right) with the pathway signature. The low and high expression abundance thresholds are -0.4 and 0.4 for both up-regulated and down-regulated gene sets respectively. Data is generated from running GSVA on logCPM-normalised `ER_data_se1` expression dataset with ER signature (`ER_sig_df`).", fig.wide=TRUE}
-# more stringent thresholds, greater uncertain labels
-data_threshs <- data.frame(Geneset=c("Up", "Down"), vline=c(-0.4, 0.4))
-plot + geom_vline(xintercept=data_threshs$vline, linetype=2)
-```
-
-## Classification using absolute GSVA score thresholds
-As the distribution of GSVA scores tends to be biomodal rather than Guassian, 
-the user may prefer to use absolute GSVA thresholds for checking consistency of 
-expression abundance of each gene set with pathway signature for each sample.
-PathAnalyser provides the `classify_GSVA_abs` function for classifying samples 
-by pathway activity using absolute GSVA score thresholds which can be tuned by
-the user:
-
-- `up_thresh.high`: for high expression abundance for the 
-up-regulated gene-set
-- `up_thresh.low`: for low expression abundance for the 
-up-regulated gene-set of the gene signature
-- `dn_thresh.high`: for high expression abundance for the 
-down-regulated gene-set of the gene signature 
-- `dn_thresh.low`: for low expression abundance for the 
-down-regulated gene-set of the gene signature
-
-Note that absolute thresholds are required from the user when running 
-`classify_GSVA_abs` and can be positive or negative numbers. A summary of the 
-classification is printed to the console highlighting the number of samples in 
-each pathway activity class ("Active", "Inactive" and "Uncertain") and the 
-number of samples in total.
-```{r}
-classes_df <- classify_GSVA_abs(ER_sig_df, normalized_se, 
-                                    up_thresh.low=-0.2, up_thresh.high=0.2, 
-                                    dn_thresh.low=-0.2, dn_thresh.high=0.2)
-```
 
 ## Classification using percentile GSVA score thresholds
 The package also provides a GSVA-based classification method 
@@ -516,9 +414,9 @@ high expression abundance and low expression abundance thresholds for both gene
 sets, therefore reducing the frequency of "Uncertain" classifications.
 ```{r}
 # default percentile = 25% (quartile)
-classes_df.percent <- classify_GSVA_percent(ER_sig_df, normalized_se)
+classes_df <- classify_GSVA_percent(ER_sig_df, normalized_se)
 # custom percentile = 30%
-classes_df.percent <- classify_GSVA_percent(ER_sig_df, normalized_se, 
+classes_df <- classify_GSVA_percent(ER_sig_df, normalized_se, 
                                             percent_thresh=30)
 ```
 
@@ -771,3 +669,105 @@ P., Daxenbichler, G., Desmedt, C., Domont, J., Marth, C. and Delaloge, S.,
 2010. Genomic index of sensitivity to endocrine therapy for breast cancer. 
 Journal of clinical oncology, 28(27), p.4111. 
 https://dx.doi.org/10.1200%2FJCO.2010.28.4273
+
+# Appendix
+## Visualising GSVA Score Distribution
+PathAnalyser provides `gsva_scores_dist` method to visualize the GSVA score 
+distribution for the abundance of expression of the up-regulated and 
+down-regulated gene sets of the gene signature for each sample. The resulting 
+density plot usually follows a bimodal distribution of GSVA scores for each 
+sample for the up-regulated and down-regulated gene sets, a consequence of the 
+intrinsic binaric nature of gene expression in datasets, where samples are often
+either have a relatively high expression abundance of a gene set, or relatively
+low expression abundance of a gene set resulting in two "sub-populations" of 
+samples.
+
+Figure \@ref(fig:plot) shows two peaks for each gene set when running 
+`gsva_scores_dist` with logCPM-normalized `ER_data_se1` gene expression matrix. For 
+both gene sets, the peak with the highest GSVA scores represents samples with 
+*high* abundance of expression of the gene set and the lower score peak 
+represents samples with *low* abundance of expression of the gene set.
+```{r plot, fig.cap="Density plots showing the distribution of GSVA scores for samples in logCPM-normalised `ER_data_se1` data set for the up-regulated (left) and down-regulated gene set (right) of the pathway signature using `gsva_scores_dist` function.", fig.wide=TRUE}
+gsva_scores_dist(ER_sig_df, normalized_se)
+```
+
+### Determining thresolds for classification
+As the two peaks represent represent low expression abundance and high 
+abundance expression, the distribution of GSVA scores that constitute the "valley"
+i.e. the area between the two peaks (fig. \@ref(fig:thresholds)), represent 
+samples that exhibit relatively weaker evidence of differential expression 
+abundance relative to other samples and the algorithm would classify these 
+samples as having "Uncertain" pathway activity. Because the peaks represent the 
+mode GSVA scores (one for high and low expression abundance), thresholds should 
+be selected between these two peak to enable the algorithm to classify samples 
+around these modes as being consistent or inconsistent with the pathway 
+signature.
+
+As mentioned above, there are four thresholds that can be tuned by the user:
+the high and low expression abundance for the up-regulated and down-regulated
+gene sets. For example, a user could set the high expression abundance thresholds 
+for the up-regulated gene set to -0.2 for the low expression threshold for both gene 
+sets, and 0.2 for the high expression thresholds for both gene sets. Samples 
+with GSVA scores between the these thresholds for both the up-regulated and down
+-regulated gene-set would be considered by the classification algorithm as having 
+"Uncertain" pathway activity.
+
+```{r thresholds, fig.cap="GSVA scores distributions of the samples for the down-regulated (left) and up-regulated gene set (right) of the pathway gene signature, showing absolute thresholds of -0.2 and 0.2 for characterising low and high expression abundance of both gene sets respectively. The expression data set used is the logCPM-normalised `ER_data_se1` gene expression data set.", fig.wide=TRUE}
+plot <- gsva_scores_dist(ER_sig_df, normalized_se)
+# Add thresholds on plot
+library(ggplot2)
+data_threshs <- data.frame(Geneset=c("Up", "Down"), vline=c(-0.2, 0.2))
+plot + geom_vline(xintercept=data_threshs$vline, linetype=2)
+```
+
+Shrinking the distance between the high and low expression thresholds would 
+result in fewer "Uncertain" pathway activity classifications 
+(fig. \@ref(fig:relaxed)), because more samples would meet the consistency/ 
+inconsistency expression thresholds for the pathway signature (high expression 
+thresholds would be lower, low expression thresholds would be higher for each 
+gene set).
+
+```{r relaxed, fig.cap="GSVA scores distributions of samples with more relaxed thresholds for assessing expression consistency of the down-regulated gene set (left) and the up-regulated gene set (right) with the pathway gene expression signature. Low and high expression abundance thresholds for the down-regulated gene set (left) are set to -0.1 and 0.1 respectively, while low and high expression abundance thresholds for the up-regulated gene set (right) are also set to -0.1 and 0.1 respectively. Data is generated from running GSVA on logCPM-normalised `ER_data_se1` expression dataset with ER signature (`ER_sig_df`).", fig.wide=TRUE}
+# more relaxed thresholds, fewer uncertain labels
+data_threshs <- data.frame(Geneset=c("Up", "Down"), 
+                           vline=c(-0.1, 0.1))
+plot + geom_vline(xintercept=data_threshs$vline, linetype=2)
+```
+
+Conversely, expanding the distance between the thresholds would increase the 
+frequency of "Uncertain" pathway activity classifications, as the number of samples
+meeting the thresholds for consistency and inconsistency would be reduced.
+
+```{r stringent, fig.cap="Density plots for GSVA scores distributions for samples with relatively more stringent thresholds for assessing consistency of the up-regulated gene set (left) and down-rgulated gene set (right) with the pathway signature. The low and high expression abundance thresholds are -0.4 and 0.4 for both up-regulated and down-regulated gene sets respectively. Data is generated from running GSVA on logCPM-normalised `ER_data_se1` expression dataset with ER signature (`ER_sig_df`).", fig.wide=TRUE}
+# more stringent thresholds, greater uncertain labels
+data_threshs <- data.frame(Geneset=c("Up", "Down"), vline=c(-0.4, 0.4))
+plot + geom_vline(xintercept=data_threshs$vline, linetype=2)
+```
+
+## Classification using absolute GSVA score thresholds
+As the distribution of GSVA scores tends to be biomodal rather than Guassian, 
+the user may prefer to use absolute GSVA thresholds for checking consistency of 
+expression abundance of each gene set with pathway signature for each sample.
+PathAnalyser provides the `classify_GSVA_abs` function for classifying samples 
+by pathway activity using absolute GSVA score thresholds which can be tuned by
+the user:
+
+- `up_thresh.high`: for high expression abundance for the 
+up-regulated gene-set
+- `up_thresh.low`: for low expression abundance for the 
+up-regulated gene-set of the gene signature
+- `dn_thresh.high`: for high expression abundance for the 
+down-regulated gene-set of the gene signature 
+- `dn_thresh.low`: for low expression abundance for the 
+down-regulated gene-set of the gene signature
+
+Note that absolute thresholds are required from the user when running 
+`classify_GSVA_abs` and can be positive or negative numbers. A summary of the 
+classification is printed to the console highlighting the number of samples in 
+each pathway activity class ("Active", "Inactive" and "Uncertain") and the 
+number of samples in total.
+```{r}
+classes_df <- classify_GSVA_abs(ER_sig_df, normalized_se, 
+                                    up_thresh.low=-0.2, up_thresh.high=0.2, 
+                                    dn_thresh.low=-0.2, dn_thresh.high=0.2)
+```
