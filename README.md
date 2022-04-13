@@ -7,7 +7,7 @@
   which varies in expression depending on the pathway activity. The up-regulated and down-regulated gene 
   sets which are 2 parts of gene expression signature, are considered separately by PathAnalyser,
   unlike other available pathway assessment packages which do not distinguish between up-regulated and
-  down-regulated gene sets
+  down-regulated gene sets.
  
 
 # Table of Contents
