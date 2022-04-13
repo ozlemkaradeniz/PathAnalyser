@@ -3,8 +3,8 @@
 #' using the counts per million (CPM) method from edgeR library. In addition to
 #' the log CPM transformation, the function plots two boxplots as sanity check
 #' for logCPM transformation of a gene expression matrix. The first boxplot
-#' displays the distribution of the log2 raw counts for each sample, while the
-#' second boxplot shows the distribution of the logCPM normalised gene
+#' displays the distribution of the raw counts for each sample in thousands,
+#' while the second boxplot shows the distribution of the logCPM normalised gene
 #' expression matrix.
 #'
 #' @author Rishabh Kaushik and Taniya Pal \email{rishabh.kaushik.126@cranfield.ac.uk, taniya.pal.094@cranfiled.ac.uk}
@@ -18,10 +18,10 @@
 #'
 #' @examples
 #' \dontrun{log_cpm_transformation(formatted_matrix)}
-log_cpm_transformation <-function (data_es){
+log_cpm_transformation <- function (data_es){
   #box plot before transformation
-  boxplot(log2(data_es+0.5), main="Plot before log cpm transformation", xlab=" ",
-          ylab="Log Raw Counts", xaxt="n")
+  boxplot(data_es / 1000, main="Plot before log cpm transformation", xlab=" ",
+          ylab="Raw Counts (thousands)", xaxt="n")
 
   data_es_log_cpm<-cpm(data_es, log=TRUE)
 

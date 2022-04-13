@@ -18,8 +18,8 @@ Performs a logCPM transformation of RNA-seq raw count data
 using the counts per million (CPM) method from edgeR library. In addition to
 the log CPM transformation, the function plots two boxplots as sanity check
 for logCPM transformation of a gene expression matrix. The first boxplot
-displays the distribution of the log2 raw counts for each sample, while the
-second boxplot shows the distribution of the logCPM normalised gene
+displays the distribution of the raw counts for each sample in thousands,
+while the second boxplot shows the distribution of the logCPM normalised gene
 expression matrix.
 }
 \examples{
