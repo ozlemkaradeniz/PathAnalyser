@@ -36,11 +36,13 @@ calculate_accuracy <-function(true_labels_source, predicted_labels_source, pathw
   else if (is.matrix(true_labels_source)){
     true_labels_df <- as.data.frame(true_labels_source)
   }
-  else if (!is.data.frame(true_labels_source)){
+  else if (is.data.frame(true_labels_source)){
+    true_labels_df <- true_labels_source
+  }
+  # otherwise error message is thrown
+  else{
     stop("Error in calculate_accuracy: true_labels_source argument should be of type dataframe/matrix/file name!")
   }
-  # otherwise the true labels source is a data frame
-  true_labels_df <- true_labels_source
 
   # predicted_labels_source is checked if it is data frame or matrix
   # error is thrown if predicted_labels_source parameter is not compatible
