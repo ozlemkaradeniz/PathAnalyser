@@ -76,8 +76,9 @@
 #' TCGA.
 #' @format A data frame with 20,124 rows and 60 variables:
 #' \describe{
-#'    \item{gene}{The name of the gene for which expression data is provided.}
-#'    \item{sample}{The sample or case ID.}
+#'    \item{TCGA.5L.AAT0}{The sample or case ID.}
+#'    \item{TCGA.A1.A0SD}{The sample or case ID.}
+#'     .
 #' }
 #' @source \url{https://portal.gdc.cancer.gov}).
 "ER_data_se1"
@@ -91,10 +92,11 @@
 #' TCGA.
 #' @format A data frame with 20,124 rows and 60 variables:
 #' \describe{
-#'    \item{gene}{The name of the gene for which expression data is provided.}
-#'    \item{sample}{The sample or case ID.}
+##'   \item{TCGA.A1.A0SK}{The sample or case ID.}
+#'    \item{TCGA.A2.A04X}{The sample or case ID.}
 #' }
 #' @source TCGA \url{https://portal.gdc.cancer.gov}).
 "HER2_data_se1"
+
 
 

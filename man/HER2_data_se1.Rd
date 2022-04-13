@@ -7,8 +7,9 @@
 \format{
 A data frame with 20,124 rows and 60 variables:
 \describe{
-\item{gene}{The name of the gene for which expression data is provided.}
-\item{sample}{The sample or case ID.}
+\item{TCGA.A1.A0SK}{The sample or case ID.}
+\item{TCGA.A2.A04X}{The sample or case ID.}
+...
 }
 }
 \source{

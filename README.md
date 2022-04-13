@@ -3,7 +3,12 @@
 # Summary
 
   PathAnalyser is an user-friendly R package that provides functionality for assessing ER and 
-  HER2 pathway activity in breast cancer transcriptomic datasets. 
+  HER2 pathway activity in breast cancer transcriptomic datasets by using a gene expression signature 
+  which varies in expression depending on the pathway activity. The up-regulated and down-regulated gene 
+  sets which are 2 parts of gene expression signature, are considered separately by PathAnalyser,
+  unlike other available pathway assessment packages which do not distinguish between up-regulated and
+  down-regulated gene sets
+ 
 
 # Table of Contents
 
@@ -40,6 +45,8 @@ taken into account for analysis.
 2) It classifies the IDs/symbols into active and inactive pathway. This classification is based on the two matrices representating up and down regulated expression of genes respectively. The matrices consists of GSVA scores derived after GSVA analysis. It also returns a prediction accuracy score and ROC curve for verification of the accuray of the prediction.
 
 3) It returns a PCA plot for visualization of the categories (Active/Inactive) the gene symbols/IDs have been classified into.
+
+![Overview of PathAnalyser functionality](./vignettes/algorithm_diagram.png?raw=true) 
 
 # Installation
 
