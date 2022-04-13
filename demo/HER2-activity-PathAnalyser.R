@@ -29,15 +29,15 @@ library(PathAnalyser)
 # 1. Reading input gene expression and signature files
 #-------------------------------------------------------------------------------
 # read expression matrix data
-data_se <- read_expression_data("raw_data/Toy_dataset_HER2.txt")
+data_se <- read_expression_data("inst/extdata/Toy_dataset_HER2.txt")
 # Column names represent sample names while row names represent gene names
 head(data_se)
 # there are 373 genes for 729 samples
 dim(data_se)
 
 # read the up-regulated and down-regulated gene signature files
-sig_df <- read_signature_data("raw_data/SMID_BREAST_CANCER_ERBB2_UP.grp",
-                              "raw_data/SMID_BREAST_CANCER_ERBB2_DN.grp")
+sig_df <- read_signature_data("inst/extdata/SMID_BREAST_CANCER_ERBB2_UP.grp",
+                              "inst/extdata/SMID_BREAST_CANCER_ERBB2_DN.grp")
 # first column represents gene names and the second column represents their
 # expression value (1 for up-regulated expression when HER2 pathway is active and
 # -1 for down-regulated expression when HER2 pathway is active)
@@ -88,18 +88,18 @@ classes_pca(normalized_se, classes_df.perc50, pathway_name = "HER2")
 #    are available)
 #-------------------------------------------------------------------------------
 # To generate a confusion matrix for actual classes vs predicted classes:
-confusion_mat <- calculate_accuracy("raw_data/Sample_labels.txt", classes_df.perc, pathway="HER2")
+confusion_mat <- calculate_accuracy("inst/extdata/Sample_labels.txt", classes_df.perc, pathway="HER2")
 
 # for more detailed classification evaluation metric info and roc curve diagram
 # use the optional parameter: display_stats=TRUE and display_roc_curve=TRUE
-confusion_mat <- calculate_accuracy("raw_data/Sample_labels.txt", classes_df.perc, pathway="HER2",
+confusion_mat <- calculate_accuracy("inst/extdata/Sample_labels.txt", classes_df.perc, pathway="HER2",
                                     display_statistics=T, display_roc_curve=T)
 
 # classification evaluation metrics for 50th percentile threshold classification
-confusion_mat <- calculate_accuracy("raw_data/Sample_labels.txt", classes_df.perc50, pathway="HER2")
+confusion_mat <- calculate_accuracy("inst/extdata/Sample_labels.txt", classes_df.perc50, pathway="HER2")
 
 # for more detailed classification evaluation metric info and roc curve diagram
 # use the optional parameter: display_stats=TRUE and display_roc_curve=TRUE
-confusion_mat <- calculate_accuracy("raw_data/Sample_labels.txt", classes_df.perc50, pathway="HER2",
+confusion_mat <- calculate_accuracy("inst/extdata/Sample_labels.txt", classes_df.perc50, pathway="HER2",
                                     display_statistics=T, display_roc_curve=T)
 
