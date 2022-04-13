@@ -80,7 +80,7 @@ read_signature_data <- function(up_sig_file, down_sig_file){
   expression <- c(rep(1, nrow(up_sig)), rep(-1, nrow(dn_sig)))
 
   # combining up and down regulated signatures in single data frame
-  sig_df <- data.frame("genes"=genes, "expression"=expression)
+  sig_df <- data.frame("gene"=genes, "expression"=expression)
 
   return(sig_df)
 }
