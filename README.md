@@ -7,7 +7,7 @@
   which varies in expression depending on the pathway activity. The up-regulated and down-regulated gene 
   sets which are 2 parts of gene expression signature, are considered separately by PathAnalyser,
   unlike other available pathway assessment packages which do not distinguish between up-regulated and
-  down-regulated gene sets
+  down-regulated gene sets.
  
 
 # Table of Contents
@@ -75,30 +75,19 @@ install.packages("BiocManager")
 BiocManager::install(c("GSVA", "pROC", "edgeR", "reshape2", "ggplot2","limma", "reader", "VennDiagram", "NCmisc", "futile.logger"),                           dependencies = TRUE)
 ````
 
-## Install PathAnalyser with devtools
-
-The easiest way to get PathAnalyser is to install it directly from R using “devtools”:
-
-````
-install.packages("devtools")
-library(devtools)
-install_github(repo = "https://github.com/ozlemkaradeniz/PathAnalyser", dependencies = TRUE)
-library(PathAnalyser)
-````
-
 ## Install PathAnalyser from source
 
-Alternatively you can clone the GitHub repository:
+You can download the source tarball from the following link
 
 ````
-git clone git@github.com:ozlemkaradeniz/PathAnalyser.git
+https://github.com/ozlemkaradeniz/PathAnalyser/releases/download/v0.0.0.9000/PathAnalyser_0.0.0.9000.tar.gz
 ````
 
 Then type the following in R
 
 ````
 library(utils)
-install.packages("./PathAnalyser/", repos = NULL, type = "source")
+install.packages("PathAnalyser", repos = NULL, type = "source")
 ````
 
 # If you wish to know more
