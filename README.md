@@ -2,51 +2,30 @@
 
 # Summary
 
-  PathAnalyser is an user-friendly R package that provides functionality for assessing ER and 
-  HER2 pathway activity in breast cancer transcriptomic datasets by using a gene expression signature 
-  which varies in expression depending on the pathway activity. The up-regulated and down-regulated gene 
-  sets which are 2 parts of gene expression signature, are considered separately by PathAnalyser,
-  unlike other available pathway assessment packages which do not distinguish between up-regulated and
-  down-regulated gene sets.
+  PathAnalyser is a flexible and user-friendly R package that provides functionality for assessing ER and 
+  HER2 pathway activity in breast cancer transcriptomic datasets by using a gene expression signature. Unlike 
+  other available pathway assessment packages, which do not distinguish between up-regulated and down-regulated gene sets, 
+  PathAnalyser classifies samples as "active" or "inactive" for a pathway, only if there is a consensus in the
+  evidence of expression consistency or inconsistency with both the up-regulated and down-regulated gene sets of the gene signature.
  
 
 # Table of Contents
 
 - [Summary](#summary)
 - [PathAnalyser workflow](#pathanalyser-workflow)
-- [Overview of PathAnalyser functionality](#overview-of-pathanalyser-functionality)
 - [Installation](#installation)
     - [Dependencies](#dependencies)
-    - [Install PathAnalyser with devtools](#install-pathanalyser-with-devtools)
     - [Install PathAnalyser from source](#install-pathanalyser-from-source)
+- [Typical usage](#typical-usage)
 - [If you wish to know more](#if-you-wish-to-know-more)
   
 # PathAnalyser workflow
+The typical workflow for using the package is outlined below:
 
-![PathAnalyser workflow](./vignettes/pathway_workflow.png?raw=true)
+<img src="vignettes/workflow_flowchart.png" width="600">
 
-# Overview of PathAnalyser functionality
-
-The PathAnalyser package functionality can be sub-divided into 5 broad 
-categories corresponding to a typical workflow for assessing pathway activity of 
-samples:
-
-1.  Input functions for expression data and gene signatures
-2.  Quality control and pre-processing of input data
-3.  Classification of samples by pathway activity
-4.  Evaluation of classification
-5.  Visualization
-
-The features unique to PathAnalyser package are:
-
-1) It takes into account multiple sample for the analysis. This is an addition to GSVA package features, where a single sample is
-taken into account for analysis.
-
-2) It classifies the IDs/symbols into active and inactive pathway. This classification is based on the two matrices representating up and down regulated expression of genes respectively. The matrices consists of GSVA scores derived after GSVA analysis. It also returns a prediction accuracy score and ROC curve for verification of the accuray of the prediction.
-
-3) It returns a PCA plot for visualization of the categories (Active/Inactive) the gene symbols/IDs have been classified into.
-
-![Overview of PathAnalyser functionality](./vignettes/algorithm_diagram.png?raw=true) 
+**Note**: Assessment of classification is optional and can only occur if true pathway class labels ("Active", "Inactive", "Uncertain")
+are available for the transcriptomic dataset.
 
 # Installation
 
@@ -54,7 +33,7 @@ taken into account for analysis.
 
 PathAnalyser needs the following:
 - **R** (tested on version 4.1.1)
-- **An internet connection**
+- **An internet connection for downloading the package bundle**
 - **The following R libraries:** (The number is the version tested during development)
 
 ```` 
@@ -64,31 +43,34 @@ PathAnalyser needs the following:
    edgeR (3.34.1)          limma (3.48.3)        
    pROC (1.18.0)           GSVA (1.40.1)
 ````
-**note:** The package is platform-independent; it runs on multiple operating systems.
+**Note:** The package is platform-independent; it runs on multiple operating systems.
 
-To install the dependencies you can use the following command in R :
+All dependencies should be installed together with the PathAnalyser package,
+however, they can be installed separately. To install all required CRAN 
+dependencies of PathAnalyser, type the following in R:
+```{r eval=F}
+install.packages(c("ggfortify", "ggplot2", "glue", "lifecycle", "cli", "plotly",
+                   "reader", "pROC", "reshape2", "rlang", "VennDiagram", "withr"
+                   ))
 
-````
-# If not already installed
-install.packages("BiocManager")
-
-BiocManager::install(c("GSVA", "pROC", "edgeR", "reshape2", "ggplot2","limma", "reader", "VennDiagram", "NCmisc", "futile.logger"),                           dependencies = TRUE)
-````
+```
+All Bioconductor dependencies can be installed by typing the following in R:
+```{r eval=F}
+BiocManager::install(c("edgeR", "limma"))
+```
 
 ## Install PathAnalyser from source
 
-You can download the source tarball from the following link
+You can download the latest source version from the latest release section by clicking on this [link].(https://github.com/ozlemkaradeniz/PathAnalyser/releases)
 
-````
-https://github.com/ozlemkaradeniz/PathAnalyser/releases/download/v0.0.0.9000/PathAnalyser_0.0.0.9000.tar.gz
-````
-
-Then type the following in R
+Then to install this local source package type the following in R:
 
 ````
 library(utils)
 install.packages("PathAnalyser", repos = NULL, type = "source")
 ````
+# Typical usage
+For typical usage please read the demo script and use the provided supplementary data.
 
 # If you wish to know more
 
