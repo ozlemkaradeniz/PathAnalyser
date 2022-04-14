@@ -33,7 +33,6 @@ are available for the transcriptomic dataset.
 
 PathAnalyser needs the following:
 - **R** (tested on version 4.1.1)
-- **An internet connection for downloading the package bundle**
 - **The following R libraries:** (The number is the version tested during development)
 
 ```` 
