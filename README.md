@@ -61,7 +61,7 @@ BiocManager::install(c("edgeR", "limma"))
 
 ## Install PathAnalyser from source
 
-You can download the latest source version from the latest release section by clicking on this [link].(https://github.com/ozlemkaradeniz/PathAnalyser/releases)
+You can download the latest source version from the latest release section by clicking on this [link](https://github.com/ozlemkaradeniz/PathAnalyser/releases).
 
 Then to install this local source package type the following in R:
 
@@ -70,7 +70,7 @@ library(utils)
 install.packages("PathAnalyser", repos = NULL, type = "source")
 ````
 # Typical usage
-For typical usage please read the demo script and use the provided supplementary data.
+For typical usage, please read the demo script and use the provided supplementary data.
 
 # If you wish to know more
 
