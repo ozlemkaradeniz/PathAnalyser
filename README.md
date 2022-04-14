@@ -6,7 +6,7 @@
   HER2 pathway activity in breast cancer transcriptomic datasets by using a gene expression signature. Unlike 
   other available pathway assessment packages, which do not distinguish between up-regulated and down-regulated gene sets, 
   PathAnalyser classifies samples as "active" or "inactive" for a pathway, only if there is a consensus in the
-  evidence of expression consistency or inconsistency with both the up-regulated and down-regulated gene sets of the gene signature.
+  evidence of expression consistency with both the up-regulated and down-regulated gene sets of the gene signature.
  
 
 # Table of Contents
