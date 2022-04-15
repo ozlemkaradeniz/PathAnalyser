@@ -5,16 +5,21 @@
 \alias{pam50}
 \title{Gene signature for ER and HER2 extracted from PAM50}
 \format{
-List of two of two data frames: one for ER signature, the other for
-HER2 signature:
+A list holding two data frames: one for ER signature, the other for
+HER2 signature extracted from the PAM50 gene signature:
 \describe{
-\item{ER}{data frame containing gene names and their relative expression
-value (-1 for down-regulated genes and 1 for up-regulated genes) in the
-ER signature}
+\item{ER}{data frame containing HUGO gene symbols and their relative
+expression value (-1 for down-regulated genes and 1 for up-regulated
+genes) in the ER signature}
 \item{HER2}{data frame containing gene names their relative expression
 value (-1 for down-regulated genes and 1 for up-regulated genes) in the
 HER2 signature}
 }
+}
+\source{
+PAM50 publication: \url{https://pubmed.ncbi.nlm.nih.gov/19204204/}).
+
+genefu: \url{https://bioconductor.org/packages/release/bioc/html/genefu.html}
 }
 \usage{
 pam50
@@ -22,6 +27,21 @@ pam50
 \description{
 A list of two data frames containing the gene names and their corresponding
 expression values constituting ER and HER gene signatures obtained from
-PAM50.
+PAM50 gene signature (Parker et al. 2009). The ER signature was obtained by
+combining the list of genes for the Luminal A and B intrinsic subtypes
+(centroids) predicted by PAM50 classifier in "pam50" list featured in the
+genefu R BiocManager package. Genes that were the most informative as
+demonstrated by a highly deviant centroid index for either Luminal A or B
+(estrogen receptor positive breast cancer subtypes) were selected as part
+of the ER signature for PAM50. Similarly, genes that were highly deviant in
+their centroid index in the HER2 intrinsic subtype (centroid) from PAM50 were
+selected as the HER2 signature for PAM50 using pam50 from genefu.
+}
+\references{
+Parker, J.S., Mullins, M., Cheang, M.C., Leung, S., Voduc, D., Vickery, T.,
+Davies, S., Fauron, C., He, X., Hu, Z. and Quackenbush, J.F., 2009.
+Supervised risk predictor of breast cancer based on intrinsic subtypes.
+Journal of clinical oncology, 27(8), p.1160. doi:
+\url{https://doi.org/10.1200/JCO.2008.18.1370}
 }
 \keyword{datasets}
