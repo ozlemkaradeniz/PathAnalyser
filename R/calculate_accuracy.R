@@ -113,33 +113,35 @@ calculate_accuracy <-function(true_labels_source, predicted_labels_source, pathw
   classified_samples_proportion <- (TP + FN + FP + TN) / sum(confusion_matrix) * 100
   accuracy_amongst_classified_samples <- (TP + TN) / (TP + FN + FP + TN) * 100
 
-  print(paste("Confusion Matrix for ", pathway, " pathway"))
-  print("--------------------------------------------------------------")
+  cat(paste("Confusion Matrix for ", pathway, " pathway\n"))
+  cat("--------------------------------------------------------------\n")
   print(confusion_matrix)
-  print("--------------------------------------------------------------")
+  cat("--------------------------------------------------------------\n")
 
   if(display_statistics == 'TRUE'){
 
-    print("Statistics in Confusion Matrix ")
-    print("--------------------------------------------------------------")
-    print(paste0("Proportion of classified samples: ", format(round(classified_samples_proportion, 2), nsmall = 2)))
-    print(paste0("Accuracy amongst classified samples: " , format(round(accuracy_amongst_classified_samples, 2), nsmall = 2)))
-    print(paste0("True Positive(TP): " , TP))
-    print(paste0("True Negative(TN): " , TN))
-    print(paste0("False Negative(FN): " , FN))
-    print(paste0("False Positive(FP): " , FP))
-    print("--------------------------------------------------------------")
-    print(paste0("True Positive Rate(TPR)(sensitivity)(Recall): ",
-                 format(round(TP / (TP + FN) * 100 , 2) , nsmall =2)))
-    print(paste0("True Negative Rate(TNR)(specificity): ",
-                 format(round(TN / (TN + FP) * 100 , 2) , nsmall =2)))
-    print(paste0("Precision (Positive predictive value): ",
-                 format(round(TP / (TP + FP) * 100 , 2) , nsmall =2)))
-    print(paste0("False Positive Rate(FPR): ",
-                 format(round(FP / (FP + TN) * 100 ,  2) , nsmall =2)))
-    print(paste0("False Negative Rate(FNR): ",
-                 format(round(FN / (FN + TP) * 100 ,  2) , nsmall =2)))
-    print("--------------------------------------------------------------")
+    cat("Statistics in Confusion Matrix\n")
+    cat("--------------------------------------------------------------\n")
+    cat(paste0("Proportion of classified samples: ",
+               format(round(classified_samples_proportion, 2), nsmall = 2), "\n"))
+    cat(paste0("Accuracy amongst classified samples: " ,
+               format(round(accuracy_amongst_classified_samples, 2), nsmall = 2), "\n"))
+    cat(paste0("True Positive(TP): " , TP, "\n"))
+    cat(paste0("True Negative(TN): " , TN, "\n"))
+    cat(paste0("False Negative(FN): " , FN, "\n"))
+    cat(paste0("False Positive(FP): " , FP, "\n"))
+    cat("--------------------------------------------------------------\n")
+    cat(paste0("True Positive Rate(TPR)(sensitivity)(Recall): ",
+                 format(round(TP / (TP + FN) * 100 , 2) , nsmall =2), "\n"))
+    cat(paste0("True Negative Rate(TNR)(specificity): ",
+                 format(round(TN / (TN + FP) * 100 , 2) , nsmall =2), "\n"))
+    cat(paste0("Precision (Positive predictive value): ",
+                 format(round(TP / (TP + FP) * 100 , 2) , nsmall =2), "\n"))
+    cat(paste0("False Positive Rate(FPR): ",
+                 format(round(FP / (FP + TN) * 100 ,  2) , nsmall =2), "\n"))
+    cat(paste0("False Negative Rate(FNR): ",
+                 format(round(FN / (FN + TP) * 100 ,  2) , nsmall =2), "\n"))
+    cat("--------------------------------------------------------------\n")
     print(summary(confusion_matrix))
   }
 
