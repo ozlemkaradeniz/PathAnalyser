@@ -8,7 +8,7 @@
 # Expression data information
 #---------------------------------
 # The gene expression data set featured in this demo is a subset of RNA-Seq data
-# for 20,124 genes for 20 primary breast cancer (biopsy) samples obtained from
+# for 20,124 genes for 60 primary breast cancer (biopsy) samples obtained from
 # TCGA online. This subset was taken from an initial data set of 1,100 primary
 # breast tumor samples from TCGA.
 #
@@ -32,7 +32,7 @@ library(PathAnalyser)
 data_se <- read_expression_data("inst/extdata/Toy_dataset_HER2.txt")
 # Column names represent sample names while row names represent gene names
 head(data_se)
-# there are 373 genes for 729 samples
+# there are 373 genes for 60 samples
 dim(data_se)
 
 # read the up-regulated and down-regulated gene signature files
@@ -41,9 +41,11 @@ sig_df <- read_signature_data("inst/extdata/SMID_BREAST_CANCER_ERBB2_UP.grp",
 # first column represents gene names and the second column represents their
 # expression value (1 for up-regulated expression when HER2 pathway is active and
 # -1 for down-regulated expression when HER2 pathway is active)
-head(sig_df) # up-regulated genes are at the top of signature data frame
-tail(sig_df) # down-regulated genes of the gene signature are at the bottom of
-# the gene signature data frame
+# up-regulated genes are at the top of signature data frame
+head(sig_df)
+# down-regulated genes of the gene signature are at the bottom of the gene
+# signature data frame
+tail(sig_df)
 
 # there are 156 genes in this HER2 signature obtained from the SET index
 dim(sig_df)

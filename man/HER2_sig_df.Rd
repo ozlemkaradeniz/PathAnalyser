@@ -5,10 +5,10 @@
 \alias{HER2_sig_df}
 \title{HER2 gene signature}
 \format{
-A data frame with 156 rows and 2 variables:
+A data frame with 156 rows (gene names) and 2 variables:
 \describe{
-\item{gene}{The name of a highly differentially expressed gene when HER2
-pathway is active.}
+\item{gene}{The HUGO gene symbols of a highly differentially expressed gene
+when HER2 pathway is active.}
 \item{expression}{The change in expression of the gene when the pathway
 is active i.e. -1 for down-regulated genes and 1 for up-regulated genes.}
 }
@@ -32,6 +32,7 @@ tumors from lymph node-negative patients (Smid et al. 2008).
 \references{
 Smid, M., Wang, Y., Zhang, Y., Sieuwerts, A.M., Yu, J., Klijn, J.G., Foekens,
 J.A. and Martens, J.W., 2008. Subtypes of breast cancer show preferential
-site of relapse. Cancer research, 68(9), pp.3108-3114.
+site of relapse. Cancer research, 68(9), pp.3108-3114. doi:
+\url{https://doi.org/10.1158/0008-5472.CAN-07-5644}
 }
 \keyword{datasets}

@@ -5,10 +5,10 @@
 \alias{ER_sig_df}
 \title{ER gene signature}
 \format{
-A data frame with 160 rows and 2 variables:
+A data frame with 160 rows (gene names) and 2 variables:
 \describe{
-\item{gene}{The name of a highly differentially expressed gene when ER
-pathway is active.}
+\item{gene}{The HUGO gene symbols of a highly differentially expressed gene
+when ER pathway is active.}
 \item{expression}{The change in expression of the gene when the pathway
 is active i.e. -1 for down-regulated genes and 1 for up-regulated genes.}
 }
@@ -16,8 +16,6 @@ is active i.e. -1 for down-regulated genes and 1 for up-regulated genes.}
 \source{
 SET index defined by Symmans et al. 2010 (see
 \url{https://pubmed.ncbi.nlm.nih.gov/20697068/}).
-(PMID: 20697068
-PMCID: PMC2953969 DOI: 10.1200/JCO.2010.28.4273)
 }
 \usage{
 ER_sig_df
@@ -26,14 +24,15 @@ ER_sig_df
 A list of up-regulated and down-regulated genes constituting the gene
 signature of ER pathway activation. The ER signature was obtained from the
 sensitivity to endocrine therapy (SET) genomic index defined using a list of
-genes co-expressed with the estrogen receptor (ESR1) from microarray data
-(437 profiles) originating from newly diagnosed breast cancer independent of
-outcome and treatment (Symmans et al., 2010).
+genes co-expressed with the estrogen receptor (ESR1 or ER) from microarray
+data (437 profiles) originating from newly diagnosed breast cancer
+independent of outcome and treatment (Symmans et al., 2010).
 }
 \references{
 Symmans, W.F., Hatzis, C., Sotiriou, C., Andre, F., Peintinger,
 F., Regitnig, P., Daxenbichler, G., Desmedt, C., Domont, J., Marth, C. and
 Delaloge, S., 2010. Genomic index of sensitivity to endocrine therapy for
-breast cancer. Journal of clinical oncology, 28(27), p.4111.
+breast cancer. Journal of clinical oncology, 28(27), p.4111. doi:
+\url{https://doi.org/10.1200/jco.2010.28.4273}
 }
 \keyword{datasets}
