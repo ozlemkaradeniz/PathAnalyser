@@ -33,9 +33,9 @@ percentile thresholds during the pathway activity sample classification.
 }
 \examples{
 # default using quartile threshold (25th percentile)
-classes_df <- classify_GSVA_percent(ER_sig_df, ER_data_se1)
+classes_df <- classify_GSVA_percent(ER_sig_df, ER_TCGA_RNAseq)
 # custom percentile threshold e.g. 30th percentile
-classes_df <- classify_GSVA_percent(ER_sig_df, ER_data_se1,
+classes_df <- classify_GSVA_percent(ER_sig_df, ER_TCGA_RNAseq,
        percent_thresh=30)
 }
 \author{

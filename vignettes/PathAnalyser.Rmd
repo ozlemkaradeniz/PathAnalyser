@@ -170,7 +170,7 @@ the ERBB2 (HER2) gene signature.
 knitr::include_graphics("up_gene_signature.png")
 ```
 
-**Note: `read_signature_data` from PathAnalyser only accepts gene signatures 
+**Note: `read_signature` from PathAnalyser only accepts gene signatures 
 that have the up-regulated and down-regulated gene sets in separate gene set 
 format text files (with file extension .grp). The user is expected to provide one 
 up-regulated and one down-regulated gene set file for a pathway gene signature.**
@@ -242,30 +242,30 @@ individuals (cases). Data for these matrices were obtained from The Cancer
 Genome Atlas ([TCGA](https://www.cancer.gov/about-nci/organization/ccg/research/structural-genomics/tcga)).
 Each expression matrix contains 20,124 genes.
 ```{r}
-data("ER_data_se1")
-data("HER2_data_se1")
+data("ER_TCGA_RNAseq")
+data("HER2_TCGA_RNAseq")
 # column names represent case (sample) IDs from TCGA
 ```
 
 ### ER dataset 1
-The ER data set `ER_data_se1` contains RNASeq raw read counts for 60 primary 
+The ER data set `ER_TCGA_RNAseq` contains RNASeq raw read counts for 60 primary 
 breast cancer samples, 30 of which have ER pathway activity (ER+) and 30 which 
 have inactive ER pathway activity (ER-).
 ```{r}
-dim(ER_data_se1)
+dim(ER_TCGA_RNAseq)
 # Expression data for first 6 genes
-head(ER_data_se1[,1:5])
+head(ER_TCGA_RNAseq[,1:5])
 ```
 
 ### HER2 dataset 1
-Similarly, the HER2 data set `HER2_data_se1` contains RNASeq raw read counts for 
+Similarly, the HER2 data set `HER2_TCGA_RNAseq` contains RNASeq raw read counts for 
 60 primary breast cancer samples, 30 of which have HER2 (ERBB2) pathway activity 
 (HER2+) and 30 which have inactive HER2 pathway activity (HER2-).
 
 ```{r}
-dim(HER2_data_se1)
+dim(HER2_TCGA_RNAseq)
 # Expression data for first 6 genes of the first 5 samples
-head(HER2_data_se1[,1:5])
+head(HER2_TCGA_RNAseq[,1:5])
 ```
 
 
@@ -290,11 +290,11 @@ print(data_se[1:5, 1:5])
 ```
 
 ## Gene signature data
-Gene signature files can be read by the `read_signature_data` function. It returns a dataframe with signature IDs/symbols in the
+Gene signature files can be read by the `read_signature` function. It returns a dataframe with signature IDs/symbols in the
 first column and their expression pattern is represented as up r
 regulated or down regulated by +1 and -1 respectively.
 ```{r eval=FALSE}
-sig_df <- read_signature_data("~/data/ESR1_UP.v1._UP.csv", "~data/ESR1_DN.v1_DN.csv")
+sig_df <- read_signature("~/data/ESR1_UP.v1._UP.csv", "~data/ESR1_DN.v1_DN.csv")
 head(sig_df)
 ```
 
@@ -302,15 +302,15 @@ head(sig_df)
 
 ## Quality control and pre-processing of data
 ### Log Counts Per Million (CPM) transformation of RNASeq expression matrices
-The log_cpm_transformation function transforms the raw data by the method of log 
+The log_cpm_transform function transforms the raw data by the method of log 
 CPM and returns the transformed data. It also performs sanity check of the 
 transformation by returning box plots for visualization of distribution of data 
 before and after transformation.
 ```{r fig.wide=TRUE}
 # using toy data set as expression matrix
-data("ER_data_se1")
-data_se <- ER_data_se1 
-normalized_se <- log_cpm_transformation(data_se)
+data("ER_TCGA_RNAseq")
+data_se <- ER_TCGA_RNAseq 
+normalized_se <- log_cpm_transform(data_se)
 ```
 
 ### Checking and filtering genes from the gene expression matrix
@@ -432,7 +432,7 @@ components.
 
 ## Generating PCA plot
 ```{r}
-classes_pca(normalized_se, classes_df, pathway_name = "ER")
+classes_pca(normalized_se, classes_df, pathway = "ER")
 ```
 # Evaluating pathway activity classification
 This package provides a method `calculate_accuracy` for evaluating pathway 
@@ -444,16 +444,17 @@ labels.The second parameter `classes_df` could be matrix or data frame and
 contains classified labels found by the classification methods 
 `classify_GSVA_percent` or `classify_GSVA_abs`. Third parameter `pathway` 
 specifies with which pathway the labels(actual and classified) are  associated. 
-Other parameters `display_statistics` and  `display_roc_curve` are boolean flags
+Other parameters `show_stats` and  `roc_curve` are boolean flags
 used as optional features to display statistics and ROC Curve respectively.
 Default values for the flags is FALSE.
 
 
 ```{r fig.wide=TRUE}
-true_labels_df <- read.table("Sample_labels.txt", sep="\t", header=T)
+true_labels_df <- read.table("../inst/extdata/Sample_labels.txt", sep="\t", 
+                             header=T)
 confusion_matrix <- calculate_accuracy(true_labels_df, classes_df, 
-                                       pathway = "ER", display_statistics=TRUE, 
-                                       display_roc_curve=TRUE)
+                                       pathway = "ER", show_stats=TRUE, 
+                                       roc_curve=TRUE)
 ```
 
 # Example: Assessing ER pathway activity in a breast cancer RNAseq dataset
@@ -485,7 +486,7 @@ dim(data_se)
 head(data_se)
 # read signature data from the two individual gene set files for up-regulated
 # and down-regulated gene sets
-ER_sig <- read_signature_data("ESR1_UP.v1._UP.grp", "ESR1_DN.v1_DN.grp")
+ER_sig <- read_signature("ESR1_UP.v1._UP.grp", "ESR1_DN.v1_DN.grp")
 dim(ER_sig)
 ```
 
@@ -493,7 +494,7 @@ dim(ER_sig)
 As the gene expression matrix file contained raw RNASeq counts, the data must be 
 normalized prior to passing the matrix to any of the classification functions. 
 Normalization of read counts is necessary to account for differences in 
-sequencing depths among the libraries. The PathAnalyser `log_cpm_transformation` 
+sequencing depths among the libraries. The PathAnalyser `log_cpm_transform` 
 function can be used to perform a log counts per million (CPM) transformation on 
 the gene expression matrix. Furthermore, `log_cpm` graphically confirms the 
 logCPM transformation has been performed correctly since the box plots 
@@ -502,7 +503,7 @@ more aligned following the logCPM transformation compared to before the
 transformation. 
 ```{r fig.wide=T}
 # Transforming matrix with log cpm transformation and sanity check of the transformation
-normalized_se <- log_cpm_transformation(data_se)
+normalized_se <- log_cpm_transform(data_se)
 ```
 To ensure that the gene names in the gene signatures and gene 
 expression data set are consistent, we use the `check_signature_vs_dataset` gene 
@@ -589,7 +590,7 @@ breast cancer samples, we can run the `classes_pca` function to produce an
 interactive PCA plot of the samples colored by the predicted ER pathway 
 activity status (active, inactive, uncertain).
 ```{r}
-classes_pca(normalized_se, classes_df, pathway_name = "ER")
+classes_pca(normalized_se, classes_df, pathway = "ER")
 ```
 The PCA plot shows the samples predicted as active and inactive form 
 relatively tight clusters in the first principal component (PC), as would be expected 
@@ -616,19 +617,19 @@ function outputs a confusion matrix reporting in tabular form, the number of
 true positives (TP), true negative(TN), false positives (FP), false negatives 
 (FN) and also a breakdown of the number of uncertain classifications and their 
 actual pathway activity status. Further classification evaluation using the 
-`display_statistics` reveals an accuracy of 100% of among the 9 classified 
+`show_stats` reveals an accuracy of 100% of among the 9 classified 
 samples, the 4 samples classified as ER positive were actually ER positive and 
 similarly, the 5 samples classified as ER negative were indeed ER negative.
 ```{r fig.wide=TRUE}
 # read true pathway activity class labels for data set samples
-true_labels_df <- read.table("Sample_labels.txt", 
+true_labels_df <- read.table("../inst/extdata/Sample_labels.txt", 
                              header=TRUE, sep = "\t")
 # assess accuracy and generate confusion matrix for classification
 confusion_matrix <- calculate_accuracy(true_labels_df, classes_df, 
                                        pathway = "ER")
 # detail breakdown of classification evaluation (accuracy, % classified etc)
 confusion_matrix <- calculate_accuracy(true_labels_df, classes_df, 
-                                       pathway = "ER", display_statistics = T)
+                                       pathway = "ER", show_stats = T)
 ```
 In addition to a detail summary of the classification assessment, we can also 
 view a receiver operating curve (ROC) curve for our classification, which 
@@ -639,8 +640,8 @@ classifications (active, inactive):
 ```{r fig.wide=TRUE}
 # detail breakdown of classification evaluation (accuracy, % classified etc)
 confusion_matrix <- calculate_accuracy(true_labels_df, classes_df, 
-                                       pathway = "ER", display_statistics = T,
-                                       display_roc_curve = T)
+                                       pathway = "ER", show_stats = T,
+                                       roc_curve = T)
 ```
 In concordance with the statistical classification evaluation metrics, the ROC 
 curve also shows that the samples were classified well according to ER pathway 
@@ -683,11 +684,11 @@ low expression abundance of a gene set resulting in two "sub-populations" of
 samples.
 
 Figure \@ref(fig:plot) shows two peaks for each gene set when running 
-`gsva_scores_dist` with logCPM-normalized `ER_data_se1` gene expression matrix. For 
+`gsva_scores_dist` with logCPM-normalized `ER_TCGA_RNAseq` gene expression matrix. For 
 both gene sets, the peak with the highest GSVA scores represents samples with 
 *high* abundance of expression of the gene set and the lower score peak 
 represents samples with *low* abundance of expression of the gene set.
-```{r plot, fig.cap="Density plots showing the distribution of GSVA scores for samples in logCPM-normalised `ER_data_se1` data set for the up-regulated (left) and down-regulated gene set (right) of the pathway signature using `gsva_scores_dist` function.", fig.wide=TRUE}
+```{r plot, fig.cap="Density plots showing the distribution of GSVA scores for samples in logCPM-normalised `ER_TCGA_RNAseq` data set for the up-regulated (left) and down-regulated gene set (right) of the pathway signature using `gsva_scores_dist` function.", fig.wide=TRUE}
 gsva_scores_dist(ER_sig_df, normalized_se)
 ```
 
@@ -712,7 +713,7 @@ with GSVA scores between the these thresholds for both the up-regulated and down
 -regulated gene-set would be considered by the classification algorithm as having 
 "Uncertain" pathway activity.
 
-```{r thresholds, fig.cap="GSVA scores distributions of the samples for the down-regulated (left) and up-regulated gene set (right) of the pathway gene signature, showing absolute thresholds of -0.2 and 0.2 for characterising low and high expression abundance of both gene sets respectively. The expression data set used is the logCPM-normalised `ER_data_se1` gene expression data set.", fig.wide=TRUE}
+```{r thresholds, fig.cap="GSVA scores distributions of the samples for the down-regulated (left) and up-regulated gene set (right) of the pathway gene signature, showing absolute thresholds of -0.2 and 0.2 for characterising low and high expression abundance of both gene sets respectively. The expression data set used is the logCPM-normalised `ER_TCGA_RNAseq` gene expression data set.", fig.wide=TRUE}
 plot <- gsva_scores_dist(ER_sig_df, normalized_se)
 # Add thresholds on plot
 library(ggplot2)
@@ -727,7 +728,7 @@ inconsistency expression thresholds for the pathway signature (high expression
 thresholds would be lower, low expression thresholds would be higher for each 
 gene set).
 
-```{r relaxed, fig.cap="GSVA scores distributions of samples with more relaxed thresholds for assessing expression consistency of the down-regulated gene set (left) and the up-regulated gene set (right) with the pathway gene expression signature. Low and high expression abundance thresholds for the down-regulated gene set (left) are set to -0.1 and 0.1 respectively, while low and high expression abundance thresholds for the up-regulated gene set (right) are also set to -0.1 and 0.1 respectively. Data is generated from running GSVA on logCPM-normalised `ER_data_se1` expression dataset with ER signature (`ER_sig_df`).", fig.wide=TRUE}
+```{r relaxed, fig.cap="GSVA scores distributions of samples with more relaxed thresholds for assessing expression consistency of the down-regulated gene set (left) and the up-regulated gene set (right) with the pathway gene expression signature. Low and high expression abundance thresholds for the down-regulated gene set (left) are set to -0.1 and 0.1 respectively, while low and high expression abundance thresholds for the up-regulated gene set (right) are also set to -0.1 and 0.1 respectively. Data is generated from running GSVA on logCPM-normalised `ER_TCGA_RNAseq` expression dataset with ER signature (`ER_sig_df`).", fig.wide=TRUE}
 # more relaxed thresholds, fewer uncertain labels
 data_threshs <- data.frame(Geneset=c("Up", "Down"), 
                            vline=c(-0.1, 0.1))
@@ -738,7 +739,7 @@ Conversely, expanding the distance between the thresholds would increase the
 frequency of "Uncertain" pathway activity classifications, as the number of samples
 meeting the thresholds for consistency and inconsistency would be reduced.
 
-```{r stringent, fig.cap="Density plots for GSVA scores distributions for samples with relatively more stringent thresholds for assessing consistency of the up-regulated gene set (left) and down-rgulated gene set (right) with the pathway signature. The low and high expression abundance thresholds are -0.4 and 0.4 for both up-regulated and down-regulated gene sets respectively. Data is generated from running GSVA on logCPM-normalised `ER_data_se1` expression dataset with ER signature (`ER_sig_df`).", fig.wide=TRUE}
+```{r stringent, fig.cap="Density plots for GSVA scores distributions for samples with relatively more stringent thresholds for assessing consistency of the up-regulated gene set (left) and down-rgulated gene set (right) with the pathway signature. The low and high expression abundance thresholds are -0.4 and 0.4 for both up-regulated and down-regulated gene sets respectively. Data is generated from running GSVA on logCPM-normalised `ER_TCGA_RNAseq` expression dataset with ER signature (`ER_sig_df`).", fig.wide=TRUE}
 # more stringent thresholds, greater uncertain labels
 data_threshs <- data.frame(Geneset=c("Up", "Down"), vline=c(-0.4, 0.4))
 plot + geom_vline(xintercept=data_threshs$vline, linetype=2)

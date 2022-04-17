@@ -39,7 +39,6 @@ Imports:
     reader,
     reshape2,
     rlang,
-    VennDiagram,
     withr
 Suggests: 
     BiocStyle,

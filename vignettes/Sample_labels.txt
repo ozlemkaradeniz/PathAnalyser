@@ -1,4 +1,4 @@
-CaseID	ER	HER2
+sample	ER	HER2
 TCGA-C8-A1HE	Positive	Equivocal
 TCGA-AQ-A54N	Negative	Equivocal
 TCGA-A8-A090	Positive	Positive
@@ -735,7 +735,7 @@ TCGA-BH-A0B9	Negative	Negative
 TCGA-B6-A0X4	Positive	[Not Evaluated]
 TCGA-C8-A12Y	[Not Evaluated]	[Not Evaluated]
 TCGA-A8-A0A7	Negative	Positive
-TCGA-BH-A0B2		
+TCGA-BH-A0B2
 TCGA-A8-A07L	Positive	Negative
 TCGA-EW-A424	Positive	Positive
 TCGA-A8-A09X	Negative	Negative
