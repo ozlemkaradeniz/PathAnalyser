@@ -34,29 +34,32 @@ read_expression_data <- function(file){
                           stop("Gene expression data file is not delimited.")
                         })
   # reading the file provided by the user
-  dataset <- read.delim(file, sep=delimiter, row.names=NULL, check.names = F)
+  dataset <- read.delim(file, sep=delimiter, row.names=NULL, check.names = F,
+                        header=T)
+
   # removing genes with NAs as GSVA doesn't consider those genes
   dataset <- na.omit(dataset)
-  # If duplicate genes present take mean of duplicate genes
+  # # If duplicate genes present take mean of duplicate genes
   dataset <- duplicate_genes(dataset)
-
   # if first column name is not a sample name read that column as row names
   if (colnames(dataset)[1] == "") {
-    row.names(dataset) <- dataset[, 1]
-    dataset <- dataset[,-1]
-  }
+     row.names(dataset) <- dataset[, 1]
+     dataset <- dataset[,-1]
+   }
   # check for duplicated samples
   dataset <- duplicate_samples(dataset)
   # set gene names as first column
   row.names(dataset) <- dataset[, 1]
   dataset <- dataset[,-1]
   # converting the data frame to numeric matrix
-  dataset <- data.matrix(dataset)
-  # check for non-numeric characters in the gene
-  data_matrix <- as.numeric(dataset)
-  if (sum(is.na(data_matrix)) != 0) {
-    stop("Some expression values in expression data set are non-numerical.")
-  }
+  data_matrix <- as.matrix(dataset)
+  # check for non-numeric characters in the gene expression matrix
+  tryCatch(sum(is.na(matrix(as.numeric(data_matrix), nrow=nrow(dataset)))) != 0,
+           warning=function(w){
+     stop("Some expression values in expression data set are non-numerical.")
+  })
+  rownames(data_matrix) <- rownames(dataset)
+  colnames(data_matrix) <- colnames(dataset)
   return(data_matrix)
 }
 
@@ -65,7 +68,7 @@ read_expression_data <- function(file){
 #'
 #' @description Reads up and down regulated signature files from user
 #' and structures it according to package requirements. It returns a
-#' dataframe. The first column of the dataframe  lists together
+#' data frame. The first column of the data frame  lists together
 #' both up and down regulated signatures. The second column
 #' signifies whether they are up(+1) or down(-1) regulated.
 #'
