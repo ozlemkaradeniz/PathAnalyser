@@ -67,13 +67,15 @@ read_expression_data <- function(file){
 }
 
 
-#' Reads up-regulated and down-regulated gene signatures from files
+#' Reads up-regulated and down-regulated gene signatures from gene set files
 #'
-#' @description Reads up and down regulated signature files from user
-#' and structures it according to package requirements. It returns a
-#' data frame. The first column of the data frame  lists together
-#' both up and down regulated signatures. The second column
-#' signifies whether they are up(+1) or down(-1) regulated.
+#' @description Reads up and down regulated signature files provided either in
+#' gene set file format (.grp) or gene matrix transposed format (.gmt) creating
+#' a data frame which the first column named "gene" containing the gene names
+#' and the second column called "expression" containing the corresponding
+#' expression value for a gene in the gene signature, where 1 signifies
+#' up-regulation and -1 represents down-regulation of the gene in the gene
+#' signature.
 #'
 #' @author Taniya Pal \email{taniya.pal.094@cranfield.ac.uk}
 #' @param  up_sig_file   Up-regulated gene-set format file
@@ -88,12 +90,9 @@ read_expression_data <- function(file){
 #' @examples
 #' \dontrun{read_sign_data("ESR1_UP.v1._UP.csv","ESR1_DN.v1_DN.csv" )}
 read_signature <- function(up_sig_file, down_sig_file){
-  # reading the up regulated gene signature file
-  up_sig <- read.delim(up_sig_file, comment.char="#", sep="\n")
-
-  # reading the down regulated gene signature file
-  dn_sig <- read.delim(down_sig_file, comment.char="#", sep="\n")
-
+  # read files
+  up_sig <- read_sig_file(up_sig_file)
+  dn_sig <- read_sig_file(down_sig_file)
   # vector combining both up and down regulated signatures
   genes <- c(up_sig[,1], dn_sig[,1])
   # generate expression values of 1 for up-regulated and -1 for down-regulated
@@ -103,4 +102,45 @@ read_signature <- function(up_sig_file, down_sig_file){
   sig_df <- data.frame("gene"=genes, "expression"=expression)
 
   return(sig_df)
+}
+
+#' Read gene set file constituting one of the two gene-set of the gene signature
+#'
+#' @description Reads data from gene set format files (.grp) or gene matrix
+#' transposed format files (.gmt).
+#' @param sig_file A geneset file containing either the up-regulated or
+#' down-regulated gene set for the gene signature to be used in classification.
+#' The file can be in gene set file format, gene matrix transposed format or a
+#' tab or comma value separated file.
+#' @importFrom utils read.delim
+#' @return a data frame containing gene signature information
+#'
+#' @noRd
+#' @examples \dontrun{up_sig <- read_sig_file("geneset.grp")}
+read_sig_file <- function(sig_file){
+  sig <- NULL
+  # if file is in gene set format (.grp)
+  if (grepl("\\.grp$", sig_file)) {
+    # reading the up regulated gene signature file
+    sig <- tryCatch(read.delim(sig_file, comment.char="#", sep="\n"),
+                       warning=function(w){
+                         stop(sprintf('File "%s" is an incorrectly formated gene set format file (.grp)',
+                              sig_file))
+                       })
+  # if file is in gene matrix transposed format (.gmt)
+  } else if (grepl("\\.gmt$", sig_file)){
+    lines <- readLines(sig_file, warn=FALSE)
+    geneset <- unlist(strsplit(lines, "\t"))
+    if (suppressWarnings(!all(is.na(as.numeric(geneset))))) {
+      stop(sprintf('File "%s" contains numerical data and is incorrectly formatted for gene matrix transposed format file (.gmt)',
+           sig_file))
+    }
+    geneset_name <- geneset[1]
+    sig <- as.data.frame(geneset[-c(1,2)])
+    colnames(sig) <- geneset_name
+    # or a delimited text file
+  } else {
+    stop(sprintf('Unable to read signature data from file "%s"', sig_file))
+  }
+  return(sig)
 }
