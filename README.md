@@ -42,7 +42,7 @@ are available for the transcriptomic dataset.
 
 PathAnalyser needs the following:
 - **R** (tested on version 4.1.1)
-- **GSVA** Bioconductor package (1.42.0)
+- **GSVA** Bioconductor package (1.42.0) required by classification algorithm
 - **The following R libraries:** (The number is the version tested during development)
 
 ```` 
@@ -144,10 +144,10 @@ The generated output (`classes_df`) of the classification function is a data fra
 ## Visualising classification using PCA
 An interactive PCA plot for visualising the pathway-based classification of samples can be achieved by using the `classes_PCA` function with the normalised expression matrix (`norm_data`), the data frame produced by the `classify_GSVA_percent` function (`classes_df`) and the pathway of interest:
 ```{r eval=F}
-classes_PCA(norm_data, classes_df, pathway_name = "ER")
+classes_PCA(norm_data, classes_df, pathway = "ER")
 ```
 ## Classification evaluation with true labels (optional)
-**If true pathway class labels are available for the classified dataset**, users can obtain evaluation metric for the classifcation such as accuracy, sensitivity, recall etc using the `calculate_accuracy` function with a predicted classes data frame (`classes_df`) containing sample names as the first column and true pathway class labels ("Active", "Inactive", "Uncertain") as the second column, a data frame containing the same sample names in the first column and true pathway class labels as the second column and the pathway name:
+**If true pathway class labels are available for the classified dataset**, users can obtain evaluation metric for the classification such as accuracy, sensitivity, recall etc using the `calculate_accuracy` function with a predicted classes data frame (`classes_df`) containing sample names as the first column and true pathway class labels ("Active", "Inactive", "Uncertain") as the second column, a data frame containing the same sample names in the first column and true pathway class labels as the second column and the pathway name:
 ```{r eval=F}
 confusion_matrix <- calculate_accuracy(true_labels_df, classes_df, 
                                        pathway = "ER")
