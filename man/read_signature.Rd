@@ -2,7 +2,7 @@
 % Please edit documentation in R/input.R
 \name{read_signature}
 \alias{read_signature}
-\title{Reads up-regulated and down-regulated gene signatures from files}
+\title{Reads up-regulated and down-regulated gene signatures from gene set files}
 \usage{
 read_signature(up_sig_file, down_sig_file)
 }
@@ -17,11 +17,13 @@ regulated signature files and signifying their up or down
 expression with +1 and -1 respectively.
 }
 \description{
-Reads up and down regulated signature files from user
-and structures it according to package requirements. It returns a
-dataframe. The first column of the dataframe  lists together
-both up and down regulated signatures. The second column
-signifies whether they are up(+1) or down(-1) regulated.
+Reads up and down regulated signature files provided either in
+gene set file format (.grp) or gene matrix transposed format (.gmt) creating
+a data frame which the first column named "gene" containing the gene names
+and the second column called "expression" containing the corresponding
+expression value for a gene in the gene signature, where 1 signifies
+up-regulation and -1 represents down-regulation of the gene in the gene
+signature.
 }
 \examples{
 \dontrun{read_sign_data("ESR1_UP.v1._UP.csv","ESR1_DN.v1_DN.csv" )}

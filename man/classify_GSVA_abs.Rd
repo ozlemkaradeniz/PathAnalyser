@@ -52,7 +52,7 @@ signature.
 }
 \examples{
 # Default thresholds for up-regulated and down-regulated gene-sets
-classes_df <- classify_GSVA_abs(ER_sig_df, ER_data_se1, up_thresh.low=-0.25,
+classes_df <- classify_GSVA_abs(ER_sig_df, ER_TCGA_RNAseq, up_thresh.low=-0.25,
      up_thresh.high=0.25, dn_thresh.low=-0.25, dn_thresh.high=0.35)
 }
 \author{

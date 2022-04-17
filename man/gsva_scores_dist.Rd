@@ -28,7 +28,7 @@ Plots GSVA scores distribution for up-regulated and
 down-regulated gene-sets of a provided gene expression signature
 }
 \examples{
-gsva_scores_dist(ER_sig_df, ER_data_se1)
+gsva_scores_dist(ER_sig_df, ER_TCGA_RNAseq)
 }
 \author{
 Anisha Thind \email{a.thind@cranfield.ac.uk}
