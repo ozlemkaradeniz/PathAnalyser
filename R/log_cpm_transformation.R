@@ -18,10 +18,10 @@
 #'
 #' @examples
 #' \dontrun{log_cpm_transformation(formatted_matrix)}
-log_cpm_transformation <- function (data_es){
+log_cpm_transform <- function(data_es){
   #box plot before transformation
   boxplot(data_es / 1000, main="Plot before log cpm transformation", xlab=" ",
-          ylab="Raw Counts (thousands)", xaxt="n")
+          ylab="Raw counts per thousand", xaxt="n")
 
   data_es_log_cpm<-cpm(data_es, log=TRUE)
 
