@@ -147,12 +147,13 @@ An interactive PCA plot for visualising the pathway-based classification of samp
 classes_PCA(norm_data, classes_df, pathway = "ER")
 ```
 ## Classification evaluation with true labels (optional)
-**If true pathway class labels are available for the classified dataset**, users can obtain evaluation metric for the classification such as accuracy, sensitivity, recall etc using the `calculate_accuracy` function with a predicted classes data frame (`classes_df`) containing sample names as the first column and true pathway class labels ("Active", "Inactive", "Uncertain") as the second column, a data frame containing the same sample names in the first column and true pathway class labels as the second column and the pathway name:
+**If true pathway class labels are available for the classified dataset**, users can obtain evaluation metrics for the classification such as accuracy, sensitivity, recall etc using the `calculate_accuracy` function with a predicted classes data frame (`classes_df`) containing sample names as the first column and true pathway class labels ("Active", "Inactive", "Uncertain") as the second column, a data frame containing the same sample names in the first column and true pathway class labels as the second column and the pathway name:
+
 ```{r eval=F}
-confusion_matrix <- calculate_accuracy(true_labels_df, classes_df, 
+confusion_matrix <- calculate_accuracy("Sample_labels.txt", classes_df, 
                                        pathway = "ER")
 ```
-For further examples of using PathAnalyser in pathway-based classification analysis, please refer to the demo script (under /demo folder) and use the provided supplementary data.
+For further examples of using PathAnalyser in pathway-based classification analysis, please refer to the demo script (under /demo folder) and use the provided supplementary data. You can obtain 
 
 # If you wish to know more
 
