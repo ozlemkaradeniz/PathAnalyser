@@ -1,21 +1,24 @@
 #' Reading gene expression data from file
 #'
-#' @description  Reads gene expression matrix data file from user,
-#' removes NAs, if the first column consist of gene names,
-#' gives the gene names to the row names of the matrix and deletes
-#' the first column. Before converting the first column to row names
-#' it checks for any duplicated gene present in the first column.
-#' Following that the matrix is converted to a numeric data matrix.
+#' @description  Reads gene expression matrix data file which is either
+#' tab/comma/white-space value separated text file. After reading in the input
+#' file, any gene rows that contain NAs are removed and the data set is screened
+#' for duplicates. Duplicate genes are reduced to single gene row entries, with
+#' each value corresponding to the mean expression value for each sample for the
+#' duplicated gene entry. If duplicate samples are detected then the only the
+#' first sample of the duplicates are retained. Finally, the data frame is
+#' converted to a numerical matrix, where row names represent gene names and
+#' columns represent sample names or IDs.
 #'
 #'
 #' @author Taniya Pal \email{taniya.pal.094@@cranfield.ac.uk}
 #'
-#' @param file  Path for gene expression matrix file, which is either tab or
-#' comma value separated. The first column must contain gene names and the
-#' subsequent column names should be the sample name or ID.
+#' @param file  Path for gene expression matrix file, which is either tab /
+#' comma / white-space value separated. The first column must contain gene names
+#' and the subsequent column names should be the sample name or ID.
 #'
-#' @return Structured matrix containing gene symbols/IDs as row names and
-#' sample IDs as column names and the Sample IDs as column names.
+#' @return A numerical matrix containing gene symbols/IDs as row names and
+#' sample IDs as column names.
 #' @importFrom reader get.delim
 #' @importFrom utils read.delim
 #' @importFrom stats na.omit
