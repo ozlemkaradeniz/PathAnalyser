@@ -33,28 +33,37 @@
 #' # Default thresholds for up-regulated and down-regulated gene-sets
 #' classes_df <- classify_GSVA_abs(ER_sig_df, ER_TCGA_RNAseq, up_thresh.low=-0.25,
 #'      up_thresh.high=0.25, dn_thresh.low=-0.25, dn_thresh.high=0.35)
-classify_GSVA_abs <- function(sig_df, data_se, up_thresh.low,
+classify_GSVA_abs <- function(sig_df,
+                              data_se,
+                              up_thresh.low,
                               up_thresh.high,
                               dn_thresh.low,
-                              dn_thresh.high){
+                              dn_thresh.high) {
   # check thresholds
   if (!is.numeric(up_thresh.high) && !is.numeric(dn_thresh.high) &&
-      !is.numeric(up_thresh.low) && !is.numeric(dn_thresh.low)
-      ) {
+      !is.numeric(up_thresh.low) && !is.numeric(dn_thresh.low)) {
     stop("All thresholds provided must be numbers.")
     # reverse order if the low threshold is larger than the high threshold
   } else if (up_thresh.low > up_thresh.high) {
-    stop("The high expression threshold for up-regulated gene-set
+    stop(
+      "The high expression threshold for up-regulated gene-set
     (up_thresh.high) must be higher than the low threshold for the up-regulated
-    gene-set (up_thresh.low)")
+    gene-set (up_thresh.low)"
+    )
   } else if (dn_thresh.low > dn_thresh.high) {
-    stop("The high expression threshold for down-regulated gene-set
+    stop(
+      "The high expression threshold for down-regulated gene-set
     (dn_thresh.high) must be higher than the low threshold for down-regulated
-    gene-set (dn_thresh.low)")
+    gene-set (dn_thresh.low)"
+    )
   }
   scores <- .run_GSVA(sig_df, data_se)
-  classes_df <- .classify(scores, up_thresh.low, up_thresh.high, dn_thresh.low,
-                         dn_thresh.high)
+  classes_df <-
+    .classify(scores,
+              up_thresh.low,
+              up_thresh.high,
+              dn_thresh.low,
+              dn_thresh.high)
   return(classes_df)
 }
 
@@ -88,20 +97,29 @@ classify_GSVA_abs <- function(sig_df, data_se, up_thresh.low,
 #' # custom percentile threshold e.g. 30th percentile
 #' classes_df <- classify_GSVA_percent(ER_sig_df, ER_TCGA_RNAseq,
 #'        percent_thresh=30)
-classify_GSVA_percent <- function(sig_df, data_se, percent_thresh=25){
-  # check threshold is a number between 0-100%
-  thresh <- percent_thresh / 100
-  scores <- .run_GSVA(sig_df, data_se)
-  # compute percentiles
-  tryCatch(up_thresh <- quantile(scores$Up[,1], c(thresh, 1-thresh)),
-           error=function(e){
-    stop("Percentile threshold given is not a number between 0 and 100.")
-  })
-  dn_thresh <- quantile(scores$Down[,1], c(thresh, 1-thresh))
-  classes_df <- .classify(scores, up_thresh.low=up_thresh[1], up_thresh.high=up_thresh[2],
-           dn_thresh.low=dn_thresh[1], dn_thresh.high=dn_thresh[2])
-  return(classes_df)
-}
+classify_GSVA_percent <-
+  function(sig_df, data_se, percent_thresh = 25) {
+    # check threshold is a number between 0-100%
+    thresh <- percent_thresh / 100
+    scores <- .run_GSVA(sig_df, data_se)
+    # compute percentiles
+    tryCatch(
+      up_thresh <- quantile(scores$Up[, 1], c(thresh, 1 - thresh)),
+      error = function(e) {
+        stop("Percentile threshold given is not a number between 0 and 100.")
+      }
+    )
+    dn_thresh <- quantile(scores$Down[, 1], c(thresh, 1 - thresh))
+    classes_df <-
+      .classify(
+        scores,
+        up_thresh.low = up_thresh[1],
+        up_thresh.high = up_thresh[2],
+        dn_thresh.low = dn_thresh[1],
+        dn_thresh.high = dn_thresh[2]
+      )
+    return(classes_df)
+  }
 
 #' GSVA score density distribution plot
 #' @description Plots GSVA scores distribution for up-regulated and
@@ -135,24 +153,26 @@ gsva_scores_dist <- function(sig_df, data_se) {
   sortedScores <- cbind(gsva_scores$Up, gsva_scores$Down)
 
   # reshape data for plotting
-  meltScores <- reshape2::melt(sortedScores,
-                     id.vars=NULL,
-                     measures.vars=c("Up", "Down"),
-                     variable.name = "Geneset",
-                     value.name="Score")
+  meltScores <- reshape2::melt(
+    sortedScores,
+    id.vars = NULL,
+    measures.vars = c("Up", "Down"),
+    variable.name = "Geneset",
+    value.name = "Score"
+  )
 
   levels(meltScores$Geneset) <- c("Up-regulated Gene Signature",
                                   "Down-regulated Gene Signature")
 
   # density plot
-  plot <- ggplot(data=meltScores, aes(x=Score)) +
-    geom_density(fill="#69b3a2", alpha=0.8) +
+  plot <- ggplot(data = meltScores, aes(x = Score)) +
+    geom_density(fill = "#69b3a2", alpha = 0.8) +
     xlab("GSVA Score") +
     ylab("Density") +
     theme_bw() +
-    scale_y_continuous(expand=c(0, 0)) +
-    scale_x_continuous(breaks=seq(-1, 1, 0.2)) +
-    facet_grid(~ levels(Geneset))
+    scale_y_continuous(expand = c(0, 0)) +
+    scale_x_continuous(breaks = seq(-1, 1, 0.2)) +
+    facet_grid( ~ levels(Geneset))
   return(plot)
 }
 
@@ -179,15 +199,9 @@ gsva_scores_dist <- function(sig_df, data_se) {
 #' @noRd
 #' @examples
 #' \dontrun{.run_GSVA(ER_sig_df, ER_TCGA_RNAseq)}
-.run_GSVA <- function(sig_df, data_se){
+.run_GSVA <- function(sig_df, data_se) {
   # check signature arg is data frame
-  if (!is.data.frame(sig_df)) {
-    stop("Signature argument is not a dataframe.")
-  }
-
-  if (all(abs(sig_df$expression) != 1)){
-    stop("Expression values of signature data frame are not -1 or 1 and thus incompatible.")
-  }
+  check_sig_df(sig_df)
 
   # check input is input matrix
   if (is.data.frame(data_se)) {
@@ -208,26 +222,29 @@ gsva_scores_dist <- function(sig_df, data_se) {
   # down-regulated) of the signature
   if (typeof(data_se) == "double" && all(data_se %% 1 == 0)) {
     # If the data is of type integer, these are raw counts and follow Poisson
-    scores <- gsva(data_se, sigs, kcdf="Poisson", verbose=F)
+    scores <- gsva(data_se, sigs, kcdf = "Poisson", verbose = F)
   } else if (typeof(data_se) == "double") {
-    scores <- gsva(data_se, sigs, verbose=F)
+    scores <- gsva(data_se, sigs, verbose = F)
   } else {
-    stop("Expression dataset contains non-numerical data. Try pre-processing dataset before classification.")
+    stop(
+      "Expression dataset contains non-numerical data. Try pre-processing dataset before classification."
+    )
   }
 
   # transpose the matrix
   scores <- t(scores)
   # create an up and down regulated matrix
-  scores_up <- as.data.frame(scores[,1], row.names=rownames(scores))
+  scores_up <- as.data.frame(scores[, 1], row.names = rownames(scores))
   colnames(scores_up) <- "Up"
-  scores_dn <- as.data.frame(scores[,2])
+  scores_dn <- as.data.frame(scores[, 2])
   colnames(scores_dn) <- "Down"
 
   # sort GSVA scores in descending order for the up-regulated
   # and down-regulated set
-  sorted_up <- scores_up[order(scores_up$Up, decreasing=T), ,drop=F]
-  sorted_dn <- scores_dn[order(scores_dn$Down, decreasing=T), ,drop=F]
-  return(list("Up"=sorted_up, "Down"=sorted_dn))
+  sorted_up <- scores_up[order(scores_up$Up, decreasing = T), , drop = F]
+  sorted_dn <-
+    scores_dn[order(scores_dn$Down, decreasing = T), , drop = F]
+  return(list("Up" = sorted_up, "Down" = sorted_dn))
 }
 
 #' Generic classify function for classifying samples based on GSVA scores
@@ -249,45 +266,53 @@ gsva_scores_dist <- function(sig_df, data_se) {
 #' @noRd
 #' @examples
 #' \dontrun{classes_df <- .classify(gsva_scores, up_thresh, dn_thresh)}
-.classify <- function(gsva_scores, up_thresh.low, up_thresh.high, dn_thresh.low,
-                     dn_thresh.high) {
-  if (missing(up_thresh.high) || missing(dn_thresh.high) ||
-      missing(up_thresh.low) || missing(dn_thresh.low)) {
-    stop("Function requires thresholds for classifying samples using GSVA scores
+.classify <-
+  function(gsva_scores,
+           up_thresh.low,
+           up_thresh.high,
+           dn_thresh.low,
+           dn_thresh.high) {
+    if (missing(up_thresh.high) || missing(dn_thresh.high) ||
+        missing(up_thresh.low) || missing(dn_thresh.low)) {
+      stop(
+        "Function requires thresholds for classifying samples using GSVA scores
     generated using the up-regulated and down-regulated gene-set of the gene
-         signature.")
-  }
-  # create data frame containing samples and classes
-  classes_df <- data.frame(sample=rownames(gsva_scores$Up),
-                           class=vector(mode="character", nrow(gsva_scores$Up)))
-  row.names(classes_df) <- classes_df$samples
-  classes <- c()
-  # Loop through sample rows which are ordered in descending order and checks
-  # consistency with up-regulated and down-regulated parts of the gene signature
-  classes_list <- sapply(rownames(gsva_scores$Up), function(i) {
-    if ((gsva_scores$Up[i, 1] >= up_thresh.high) &&
-        (gsva_scores$Down[i, 1] <= dn_thresh.low)) {
-      classes[i] <- "Active"
-    } else if ((gsva_scores$Up[i, 1] <= up_thresh.low) &&
-               (gsva_scores$Down[i, 1] >= dn_thresh.high)) {
-      classes[i] <- "Inactive"
-    } else {
-      classes[i] <- "Uncertain"
+         signature."
+      )
     }
-    return(classes)
-  })
+    # create data frame containing samples and classes
+    classes_df <- data.frame(sample = rownames(gsva_scores$Up),
+                             class = vector(mode = "character", nrow(gsva_scores$Up)))
+    row.names(classes_df) <- classes_df$samples
+    classes <- c()
+    # Loop through sample rows which are ordered in descending order and checks
+    # consistency with up-regulated and down-regulated parts of the gene signature
+    classes_list <- sapply(rownames(gsva_scores$Up), function(i) {
+      if ((gsva_scores$Up[i, 1] >= up_thresh.high) &&
+          (gsva_scores$Down[i, 1] <= dn_thresh.low)) {
+        classes[i] <- "Active"
+      } else if ((gsva_scores$Up[i, 1] <= up_thresh.low) &&
+                 (gsva_scores$Down[i, 1] >= dn_thresh.high)) {
+        classes[i] <- "Inactive"
+      } else {
+        classes[i] <- "Uncertain"
+      }
+      return(classes)
+    })
 
-  # convert list to vector
-  classes <- factor(classes_list, levels=c("Active", "Inactive", "Uncertain"))
+    # convert list to vector
+    classes <-
+      factor(classes_list, levels = c("Active", "Inactive", "Uncertain"))
 
-  # add vector to pathway df
-  classes_df$class <- classes
-  cat("Summary of sample classification based on pathway activity:\n")
-  cat("--------------------------------------------------------------\n")
-  cat("Number of samples in each pathway activity class:\n")
-  print(table(classes_df$class))
-  cat(sprintf("\nTotal number of samples: %d", nrow(classes_df)))
-  classified <- classes_df[classes_df$class %in% c("Active", "Inactive"),]
-  cat(sprintf("\nTotal number of samples classified: %d\n", nrow(classified)))
-  return(classes_df)
-}
+    # add vector to pathway df
+    classes_df$class <- classes
+    cat("Summary of sample classification based on pathway activity:\n")
+    cat("--------------------------------------------------------------\n")
+    cat("Number of samples in each pathway activity class:\n")
+    print(table(classes_df$class))
+    cat(sprintf("\nTotal number of samples: %d", nrow(classes_df)))
+    classified <-
+      classes_df[classes_df$class %in% c("Active", "Inactive"), ]
+    cat(sprintf("\nTotal number of samples classified: %d\n", nrow(classified)))
+    return(classes_df)
+  }

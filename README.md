@@ -60,7 +60,7 @@ however, they can be installed separately. To install all required CRAN
 dependencies of PathAnalyser, type the following in R:
 ```{r eval=F}
 install.packages(c("ggfortify", "ggplot2", "glue", "lifecycle", "cli", "plotly",
-                   "reader", "pROC", "reshape2", "rlang", "VennDiagram", "withr"
+                   "reader", "pROC", "reshape2", "rlang", "withr"
                    ))
 
 ```
@@ -124,10 +124,11 @@ norm_data <- log_cpm_transformation(data_set)
 ```
 **Note:** Microarray datasets must be normalised prior to performing classification using PathAnalyser, as the package currently does not contain functionality for normalising microarray datasets.<br/>
 
-For further quality control and data pre-processing including filtering genes from the gene expression matrix that are not present in the gene signature data frame, or those genes lacking expression values in < 10% of the total number of samples can be performed by calling the `check_signature_vs_dataset` with the logCPM transformed gene expression matrix (`data_norm`) and gene signature data frame (`sig_df`) generated from using `read_signature_file` as arguments: 
+For further quality control and data pre-processing including filtering genes from the gene expression matrix that are not present in the gene signature data frame, or those genes lacking expression values in < 10% of the total number of samples can be performed by calling the `check_signature_vs_dataset` with the logCPM transformed gene expression matrix (`norm_data`) and gene signature data frame (`sig_df`) generated from using `read_signature_file` as arguments: 
 ```{r eval=F}
-norm_data <- check_signature_vs_dataset(data_norm=norm_data, sig_df=sign_df)
+norm_data <- check_signature_vs_dataset(norm_data=norm_data, sig_df=sign_df)
 ```
+
 ## Classification based on pathway activity
 Pathway-based classification can be performed by using the classify_GSVA_percent function with a normalised gene expression matrix and gene signature data frame:
 ```{r eval=F}

@@ -62,3 +62,59 @@ duplicate_samples <- function(dataset) {
   }
   return(dataset)
 }
+
+#' Multi gene symbol filtering according to gene signature
+#'
+#' @param sig_df A data frame containing the gene signature, where the first
+#' column column contains gene symbols / names and the second column contains
+#' the relative expression value in the gene signature.
+#' @param dataset A matrix containing gene expression data, where the row names
+#' are gene symbols / names and the column names are sample names or IDs.
+#' @return A filtered matrix containing only rows with gene names present in the
+#' gene signature.
+#' @noRd
+#'
+#' @examples \dontrun{filtered_mat <- multi_gene_symbols(sig_df, dataset)}
+multi_gene_symbols <- function(sig_df, dataset) {
+  # filter multi-gene symbols
+  genes <- rownames(dataset)
+  multi_gene_ind <- which(grepl("\\s+///\\s+|-", genes), arr.ind = T)
+  absent_genes <- c()
+  for (i in multi_gene_ind) {
+    split_genes <- unlist(strsplit(genes[i], "\\s+///\\s+"))
+    if (any(split_genes %in% sig_df[,1])){
+      gene_sig <- which(split_genes %in% sig_df[,1], arr.ind = T)
+      rownames(dataset)[i] <- split_genes[gene_sig]
+      print(rownames(dataset)[i])
+    } else {
+      # otherwise drop the row
+      absent_genes <- c(absent_genes, i)
+    }
+
+  }
+  # remove genes
+  dataset <- dataset[-absent_genes,]
+  return(dataset)
+}
+
+#' Checks signature data frame
+#'
+#' @param sig_df A data frame containing gene signature data in two columns,
+#' with the first column containing gene symbols named gene and the second
+#' column containing the corresponding expression values for each gene i.e. 1
+#' for up-regulated genes and -1 for down-regulated genes.
+#'
+#' @return
+#' @noRd
+#'
+#' @examples \dontrun{check_sig_df(sig_df)}
+check_sig_df <- function(sig_df){
+  # check signature arg is data frame
+  if (!is.data.frame(sig_df)) {
+    stop("Signature argument is not a dataframe.")
+  }
+
+  if (any(abs(sig_df$expression) != 1)){
+    stop("Expression values of signature data frame are not -1 or 1 and thus incompatible.")
+  }
+}
