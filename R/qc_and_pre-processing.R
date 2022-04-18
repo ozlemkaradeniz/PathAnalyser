@@ -26,12 +26,13 @@
 #'
 #' @examples
 #' \dontrun{log_cpm_transform(data.matrix)}
-log_cpm_transform <- function(dataset, boxplot=TRUE){
+log_cpm_transform <- function(dataset, boxplot = TRUE) {
+  samples <- counts <- NULL
   if (!is.matrix(dataset)) {
     stop("Dataset provided is not a matrix.")
   }
 
-  if (!is.numeric(dataset)){
+  if (!is.numeric(dataset)) {
     stop("The gene expression matrix contains non-numerical values.")
   }
 
@@ -40,42 +41,54 @@ log_cpm_transform <- function(dataset, boxplot=TRUE){
   }
 
   # normalise dataset using log CPM
-  norm_data <- cpm(dataset, log=TRUE)
+  norm_data <- cpm(dataset, log = TRUE)
 
   # generate boxplots if boxplots remains selected
-  if (boxplot==TRUE) {
+  if (boxplot == TRUE) {
     # box plots of samples before log CPM transformation
     scaled_data <- dataset / 1000
     scaled_data <- as.data.frame(scaled_data)
     tScaled <- t(scaled_data)
-    melt_data <- melt(tScaled, id.vars=samples,
-                      varnames=c("samples", "genes"),
-                      value.name="counts")
-    plot1 <- ggplot(melt_data, aes(x=samples, y=counts)) +
-      geom_boxplot(fill="slateblue") +
+    melt_data <- melt(
+      tScaled,
+      id.vars = samples,
+      varnames = c("samples", "genes"),
+      value.name = "counts"
+    )
+    plot1 <- ggplot(melt_data, aes(x = samples, y = counts)) +
+      geom_boxplot(fill = "slateblue") +
       ggtitle("Plot before log CPM transformation") +
       ylab("Raw Counts Per Thousand") +
-    theme_minimal() +
-      theme(axis.text.x=element_blank(),
-            axis.ticks.x=element_blank(),
-            axis.title.x = element_blank(),
-            plot.title = element_text(hjust = 0.5))
+      theme_minimal() +
+      theme(
+        axis.text.x = element_blank(),
+        axis.ticks.x = element_blank(),
+        axis.title.x = element_blank(),
+        plot.title = element_text(hjust = 0.5)
+      )
     plot(plot1)
 
     norm_df <- as.data.frame(norm_data)
     tNorm_df <- t(norm_df)
-    melt_norm <- melt(tNorm_df, id.vars=samples, varnames =c("samples", "genes"),
-                      value.name="counts")
+    melt_norm <-
+      melt(
+        tNorm_df,
+        id.vars = samples,
+        varnames = c("samples", "genes"),
+        value.name = "counts"
+      )
     # box plots after transformation
-    plot2 <- ggplot(melt_norm, aes(x=samples, y=counts)) +
-      geom_boxplot(fill="slateblue", alpha=0.2) +
+    plot2 <- ggplot(melt_norm, aes(x = samples, y = counts)) +
+      geom_boxplot(fill = "slateblue", alpha = 0.2) +
       ylab("Log Counts Per Million (CPM)") +
       ggtitle("Plot after log CPM transformation") +
       theme_minimal() +
-      theme(axis.text.x=element_blank(),
-            axis.ticks.x=element_blank(),
-            axis.title.x = element_blank(),
-            plot.title = element_text(hjust = 0.5))
+      theme(
+        axis.text.x = element_blank(),
+        axis.ticks.x = element_blank(),
+        axis.title.x = element_blank(),
+        plot.title = element_text(hjust = 0.5)
+      )
 
     plot(plot2)
   }
@@ -83,95 +96,106 @@ log_cpm_transform <- function(dataset, boxplot=TRUE){
 }
 
 #' Validity check in gene signatures and gene expression datasets
-#' @description performs validity check against gene signatures and gene expression dataset and
-#'          filters gene expression dataset accordingly
+#' @description This function performs a validity check against gene signatures and gene expression dataset and
+#'          filters gene expression dataset accordingly.
 #'
 #' @author Yi-Hsuan Lee \email{yi-hsuan.lee@cranfield.ac.uk}
-#' @param data_norm  Normalized gene expression data matrix
+#' @param norm_data  Normalized gene expression data matrix
 #' @param sig_df  signature gene-set
-#'
-#'
 #'
 #' @return Filtered Normalized Gene expression data matrix
 #' @import ggplot2
 #' @export
 #'
 #' @examples
-#' \dontrun{check_signature_vs_dataset(data_norm, sig_df)}
-check_signature_vs_dataset <-function(data_norm, sig_df) {
-    # bind gene and counts variables locally to the function
-    gene <- counts <- NULL
-    sig_df<-as.data.frame(sig_df)
-    sig_df<-as.data.frame(sig_df[,1])
-    # filter gene signature in expression matrix
-    filtered <- data_norm[rownames(data_norm) %in% sig_df[, 1],]
-    delet_gene_list <- list()
+#' \dontrun{check_signature_vs_dataset(norm_data, sig_df)}
+check_signature_vs_dataset <- function(norm_data, sig_df) {
+  # bind gene and counts variables locally to the function
+  gene <- counts <- NULL
 
-    # calculate each gene present or absent in each case
-    # store which row append in delet_gene list
-    if (nrow(filtered) != 0) {
-      for (i in 1:nrow(filtered)) {
-        absent <- 0
-        present <- 0
-        for (j in 1:ncol(filtered)) {
-          if (filtered[i, j] >= 0) {
-            present <- present + 1
-          }
-          else{
-            absent <- absent + 1
-          }
-        }
-        present_proportion <- present / (present + absent)
-        if (present_proportion <= 0.1) {
-          delet_gene_list <- c(delet_gene_list, rownames(filtered)[i])
-        }
-      }
-      # delete present proportion less than 0.1
-      if (length(delet_gene_list)!=0) {
-        for (i in 1:length(delet_gene_list)) {
-          filtered <-
-            filtered[!rownames(filtered) %in% delet_gene_list[[i]][1],]
-        }
-      }
-      filtered_mat <- data.matrix(filtered)
-      gene_count <- nrow(filtered_mat)
-      cat("Number of feature present in expression dataset:",
-          gene_count,"\n")
-      if (gene_count != 0) {
-        count_list <- list(0)
-        count_list$minimun <- 0
-        count_list$maximun <- 0
-        count_list$average <- 0
-        for (i in 1:nrow(filtered_mat)) {
-          gene_case_count <- list() # get gene count from each case
-
-          gene_case_count <- filtered_mat[i,]
-          count_list$minimun[i] <- min(gene_case_count)
-          count_list$maximun[i] <- max(gene_case_count)
-          count_list$average[i] <- mean(gene_case_count)
-
-        }
-
-
-
-
-         df_plot<- data.frame( legend= rep(c("average"), each = gene_count),
-                      gene = rep(1:gene_count, 1))
-        df_plot$counts<-""
-        for(i in 1:gene_count){
-          df_plot[i,3]<-count_list$average[i]
-        }
-        df_plot$counts <- as.numeric(as.vector(df_plot$counts))
-
-        p<-ggplot(data=df_plot, aes(x=gene, y=counts)) +
-          geom_bar(stat="identity")+labs(title = "Mean normalised counts per gene")
-      print(p)
-        return(filtered_mat)
-      }
-
-    }
-    else{
-      cat("No gene present in sigunature")
-    }
+  # check expression data matrix
+  if (!is.matrix(norm_data)) {
+    stop("Gene expression matrix (norm_data) is not a matrix.")
   }
 
+  if (!is.numeric(norm_data)) {
+    stop("Gene expression matrix (norm_data) contains non-numerical data.")
+  }
+
+  # check signature data frame is in an appropriate format
+  check_sig_df(sig_df)
+
+  # filter multi-probe genes
+  norm_data <- multi_gene_symbols(sig_df, norm_data)
+  # filter gene signature in expression matrix
+  filtered <- norm_data[rownames(norm_data) %in% sig_df[, 1],]
+  delete_gene_list <- list()
+
+  # calculate each gene present or absent in each sample/case
+  # store which row append in delete_gene list
+  if (nrow(filtered) != 0) {
+    for (i in 1:nrow(filtered)) {
+      absent <- 0
+      present <- 0
+      for (j in 1:ncol(filtered)) {
+        if (filtered[i, j] >= 0) {
+          present <- present + 1
+        }
+        else{
+          absent <- absent + 1
+        }
+      }
+      present_proportion <- present / (present + absent)
+      if (present_proportion <= 0.1) {
+        delete_gene_list <- c(delete_gene_list, rownames(filtered)[i])
+      }
+    }
+    # delete gene if present proportion less than 0.1
+    if (length(delete_gene_list) != 0) {
+      for (i in 1:length(delete_gene_list)) {
+        filtered <-
+          filtered[!rownames(filtered) %in% delete_gene_list[[i]][1],]
+      }
+    }
+    filtered_mat <- data.matrix(filtered)
+    gene_count <- nrow(filtered_mat)
+    cat("Number of feature present in expression dataset:",
+        gene_count,
+        "\n")
+    if (gene_count != 0) {
+      count_list <- list(0)
+      count_list$minimun <- 0
+      count_list$maximun <- 0
+      count_list$average <- 0
+      for (i in 1:nrow(filtered_mat)) {
+        gene_case_count <- list() # get gene count from each case
+
+        gene_case_count <- filtered_mat[i,]
+        count_list$minimun[i] <- min(gene_case_count)
+        count_list$maximun[i] <- max(gene_case_count)
+        count_list$average[i] <- mean(gene_case_count)
+
+      }
+
+      df_plot <-
+        data.frame(legend = rep(c("average"), each = gene_count),
+                   gene = rep(1:gene_count, 1))
+      df_plot$counts <- ""
+      for (i in 1:gene_count) {
+        df_plot[i, 3] <- count_list$average[i]
+      }
+      df_plot$counts <- as.numeric(as.vector(df_plot$counts))
+
+      p <- ggplot(data = df_plot, aes(x = gene, y = counts)) +
+        geom_bar(stat = "identity") +
+        ggtitle("Mean normalised counts per gene")
+      theme(plot.title = element_text(hjust = 0.5))
+      print(p)
+      return(filtered_mat)
+    }
+
+  }
+  else{
+    cat("No genes in the gene expression martix are present in the gene signature.")
+  }
+}
