@@ -9,14 +9,22 @@ check_signature_vs_dataset(norm_data, sig_df)
 \arguments{
 \item{norm_data}{Normalized gene expression data matrix}
 
-\item{sig_df}{signature gene-set}
+\item{sig_df}{A signature data frame containing two columns: the first column
+contains a list of gene symbols or IDs that are differentially expressed in
+a given pathway and their relative expression values are given in the second
+column, with 1 representing up-regulated genes and -1 representing
+down-regulated genes.}
 }
 \value{
-Filtered Normalized Gene expression data matrix
+A filtered gene expression data matrix with gene symbols / IDs as
+row names and sample names / IDs as column names
 }
 \description{
-This function performs a validity check against gene signatures and gene expression dataset and
-filters gene expression dataset accordingly.
+This function performs a validity check against the gene
+signature and gene expression data set and filters genes that are absent in
+expression data set and /or are not expressed in at least 10\% of the total
+number of samples. Genes that have multiple symbols which are delimited with
+"///" or "-" are parsed and their presence in the gene signature is verified.
 }
 \examples{
 \dontrun{check_signature_vs_dataset(norm_data, sig_df)}
