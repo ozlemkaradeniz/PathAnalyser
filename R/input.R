@@ -131,6 +131,9 @@ read_sig_file <- function(sig_file){
   } else if (grepl("\\.gmt$", sig_file)){
     lines <- readLines(sig_file, warn=FALSE)
     geneset <- unlist(strsplit(lines, "\t"))
+    # the data frame should contain all NAs when converting to numeric, if it
+    # only contains characters / words, if there are numbers i.e. some non-NAs
+    # then there are number present which means the file contains numerical data
     if (suppressWarnings(!all(is.na(as.numeric(geneset))))) {
       stop(sprintf('File "%s" contains numerical data and is incorrectly formatted for gene matrix transposed format file (.gmt)',
            sig_file))
