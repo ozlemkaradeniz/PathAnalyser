@@ -16,8 +16,8 @@ whether boxplots displaying before and after log CPM transformation should be
 displayed. (Default=TRUE)}
 }
 \value{
-A logCPM transformed gene expression data matrix with gene names /
-symbols as row names and samples names / IDs as column names.
+A logCPM transformed gene expression data matrix with gene symbols /
+IDs as row names and samples names / IDs as column names.
 }
 \description{
 Performs a logCPM transformation of RNA-seq raw count data

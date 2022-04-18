@@ -16,8 +16,8 @@
 #' whether boxplots displaying before and after log CPM transformation should be
 #' displayed. (Default=TRUE)
 #'
-#' @return A logCPM transformed gene expression data matrix with gene names /
-#' symbols as row names and samples names / IDs as column names.
+#' @return A logCPM transformed gene expression data matrix with gene symbols /
+#' IDs as row names and samples names / IDs as column names.
 #' @importFrom edgeR cpm
 #' @importFrom graphics boxplot
 #' @importFrom reshape2 melt
@@ -96,14 +96,22 @@ log_cpm_transform <- function(dataset, boxplot = TRUE) {
 }
 
 #' Validity check in gene signatures and gene expression datasets
-#' @description This function performs a validity check against gene signatures and gene expression dataset and
-#'          filters gene expression dataset accordingly.
+#' @description This function performs a validity check against the gene
+#' signature and gene expression data set and filters genes that are absent in
+#' expression data set and /or are not expressed in at least 10% of the total
+#' number of samples. Genes that have multiple symbols which are delimited with
+#' "///" or "-" are parsed and their presence in the gene signature is verified.
 #'
 #' @author Yi-Hsuan Lee \email{yi-hsuan.lee@cranfield.ac.uk}
 #' @param norm_data  Normalized gene expression data matrix
-#' @param sig_df  signature gene-set
+#' @param sig_df A signature data frame containing two columns: the first column
+#' contains a list of gene symbols or IDs that are differentially expressed in
+#' a given pathway and their relative expression values are given in the second
+#' column, with 1 representing up-regulated genes and -1 representing
+#' down-regulated genes.
 #'
-#' @return Filtered Normalized Gene expression data matrix
+#' @return A filtered gene expression data matrix with gene symbols / IDs as
+#' row names and sample names / IDs as column names
 #' @import ggplot2
 #' @export
 #'
