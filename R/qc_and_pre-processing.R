@@ -7,8 +7,9 @@
 #' while the second boxplot shows the distribution of the logCPM normalised gene
 #' expression matrix.
 #'
-#' @author Rishabh Kaushik and Taniya Pal \email{rishabh.kaushik.126@cranfield.ac.uk, taniya.pal.094@cranfiled.ac.uk}
-#' @param data_es  An unnormalised gene expression matrix containing raw RNA-seq
+#' @author Rishabh Kaushik and Taniya Pal
+#' \email{rishabh.kaushik.126@@cranfield.ac.uk, taniya.pal.094@@cranfiled.ac.uk}
+#' @param dataset  An unnormalised gene expression matrix containing raw RNA-seq
 #' counts with gene IDs/symbols as row names and sample IDs as column names
 #'
 #' @return logCPM transformed gene expression data matrix
@@ -18,18 +19,29 @@
 #'
 #' @examples
 #' \dontrun{log_cpm_transformation(formatted_matrix)}
-log_cpm_transform <- function(data_es){
-  #box plot before transformation
-  boxplot(data_es / 1000, main="Plot before log cpm transformation", xlab=" ",
-          ylab="Raw counts per thousand", xaxt="n")
+log_cpm_transform <- function(dataset){
+  if (!is.matrix(dataset)) {
+    stop("Dataset provided is not a matrix.")
+  }
 
-  data_es_log_cpm<-cpm(data_es, log=TRUE)
+  if (!is.numeric(dataset)){
+    stop("The gene expression matrix contains non-numerical values.")
+  }
 
-  #box plot after transformation
-  boxplot(data_es_log_cpm, main="Plot after log cpm transformation", xlab=" ",
+  if (any(dataset %% 1 != 0)) {
+    stop("The unnormalised expression matrix does not contain integer counts.")
+  }
+
+  # box plot before transformation
+  boxplot(dataset / 1000, main="Plot before log cpm transformation",
+                   xlab=" ", ylab="Raw counts per thousand", xaxt="n")
+  # normalise data by applying log CPM transformation
+  norm_data <- cpm(dataset, log=TRUE)
+  # box plot after transformation
+  boxplot(norm_data, main="Plot after log cpm transformation", xlab=" ",
           ylab="Log Counts Per Million (CPM)", xaxt="n")
 
-  return(data_es_log_cpm)
+  return(norm_data)
 
 }
 
@@ -38,7 +50,7 @@ log_cpm_transform <- function(data_es){
 #'          filters gene expression dataset accordingly
 #'
 #' @author Yi-Hsuan Lee \email{yi-hsuan.lee@cranfield.ac.uk}
-#' @param data_norm  Normalized Gene expression data matrix
+#' @param data_norm  Normalized gene expression data matrix
 #' @param sig_df  signature gene-set
 #'
 #'
@@ -77,7 +89,7 @@ check_signature_vs_dataset <-function(data_norm, sig_df) {
           delet_gene_list <- c(delet_gene_list, rownames(filtered)[i])
         }
       }
-      # delet present proportion less than 0.1
+      # delete present proportion less than 0.1
       if (length(delet_gene_list)!=0) {
         for (i in 1:length(delet_gene_list)) {
           filtered <-
