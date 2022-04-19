@@ -51,7 +51,7 @@ PathAnalyser needs the following:
    reader (1.0.6)          NCmisc (1.1.6)        
    ggplot2 (3.3.5)         reshape2 (1.4.4)
    edgeR (3.34.1)          limma (3.48.3)        
-   pROC (1.18.0)           plotly (4.10.0)
+   plotly (4.10.0)
 ````
 **Note:** The package is platform-independent; it was developed and runs on multiple operating systems (Windows, MacOS, Linux).
 
@@ -60,7 +60,7 @@ however, they can be installed separately. To install all required CRAN
 dependencies of PathAnalyser, type the following in R:
 ```{r eval=F}
 install.packages(c("ggfortify", "ggplot2", "glue", "lifecycle", "cli", "plotly",
-                   "reader", "pROC", "reshape2", "rlang", "withr"
+                   "reader", "reshape2", "rlang", "withr"
                    ))
 
 ```

@@ -29,8 +29,7 @@ library(PathAnalyser)
 # 1. Reading input gene expression and signature files
 #-------------------------------------------------------------------------------
 # read expression matrix data
-data_se <-
-  read_expression_data("inst/extdata/ER_toydata_RNAseq.txt")
+data_se <- read_expression_data("inst/extdata/ER_toydata_RNAseq.txt")
 # Column names represent sample names while row names represent gene names
 head(data_se)
 # there are 20,124 genes for 60 samples
@@ -91,35 +90,21 @@ classes_pca(normalized_se, classes_df.perc50, pathway = "ER")
 #    are available)
 #-------------------------------------------------------------------------------
 # To generate a confusion matrix for actual classes vs predicted classes:
-confusion_mat.perc25 <-
-  calculate_accuracy("inst/extdata/Sample_labels.txt",
-                     classes_df.perc25,
-                     pathway = "ER")
+confusion_mat.perc25 <- calculate_accuracy("inst/extdata/Sample_labels.txt",
+                                           classes_df.perc25, pathway = "ER")
 
-# for more detailed classification evaluation metric info and roc curve diagram
-# use the optional parameter: display_stats=TRUE and display_roc_curve=TRUE
-confusion_mat.perc25 <-
-  calculate_accuracy(
-    "inst/extdata/Sample_labels.txt",
-    classes_df.perc25,
-    pathway = "ER",
-    show_stats = T,
-    roc_curve = T
-  )
+# for more detailed classification evaluation metric info use the optional
+# parameter: display_stats=TRUE
+confusion_mat.perc25 <- calculate_accuracy("inst/extdata/Sample_labels.txt",
+                                           classes_df.perc25, pathway="ER",
+                                           show_stats=T)
 
 # classification evaluation metrics for 50th percentile threshold classification
-confusion_mat.perc50 <-
-  calculate_accuracy("inst/extdata/Sample_labels.txt",
-                     classes_df.perc50,
-                     pathway = "ER")
+confusion_mat.perc50 <- calculate_accuracy("inst/extdata/Sample_labels.txt",
+                                           classes_df.perc50, pathway = "ER")
 
-# for more detailed classification evaluation metric info and roc curve diagram
-# use the optional parameter: display_stats=TRUE and display_roc_curve=TRUE
-confusion_mat.perc50 <-
-  calculate_accuracy(
-    "inst/extdata/Sample_labels.txt",
-    classes_df.perc50,
-    pathway = "ER",
-    show_stats = T,
-    roc_curve = T
-  )
+# for more detailed classification evaluation metric info use the optional
+# parameter: display_stats=TRUE
+confusion_mat.perc50 <- calculate_accuracy("inst/extdata/Sample_labels.txt",
+                                           classes_df.perc50, pathway="ER",
+                                           show_stats=T,)

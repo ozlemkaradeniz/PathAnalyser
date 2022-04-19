@@ -4,13 +4,7 @@
 \alias{calculate_accuracy}
 \title{Accuracy calculation of classification method}
 \usage{
-calculate_accuracy(
-  true_labels,
-  predicted_labels,
-  pathway,
-  show_stats = FALSE,
-  roc_curve = FALSE
-)
+calculate_accuracy(true_labels, predicted_labels, pathway, show_stats = FALSE)
 }
 \arguments{
 \item{true_labels}{a data frame, matrix or file name which contains a
@@ -30,9 +24,6 @@ classification evaluation and generation of the confusion matrix.)}
 information using the confusion matrix and other classification evaluation
 metrics including: sensitivity, specificity, precision, false positive rate,
 false negative rate etc.}
-
-\item{roc_curve}{an optional flag to plot receiver operator
-characteristic (ROC) Curve for the pathway-based classification}
 }
 \value{
 confusion_matrix
@@ -46,12 +37,12 @@ the corresponding true activity labels for the given pathway. A confusion
 matrix is created to display the classification accuracy decomposed into the
 distinct pathway activity classes in tabular form for the user. Additional
 classification evaluation statistics (such as sensitivity, specificity,
-recall, percentage of classified samples etc) and a receiver operator
-characteristic ROC curve are optional features that the user can specify.
+recall, percentage of classified samples etc) is the  optional feature that
+the user can specify.
 }
 \examples{
 \dontrun{calculate_accuracy(true_labels_df, predicted_labels_df, "ER",
-show_stats= TRUE, roc_curve=TRUE)}
+show_stats= TRUE)}
 }
 \author{
 Ozlem Karadeniz \email{ozlem.karadeniz.283@cranfield.ac.uk}

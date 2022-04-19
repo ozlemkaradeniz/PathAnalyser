@@ -444,17 +444,15 @@ labels.The second parameter `classes_df` could be matrix or data frame and
 contains classified labels found by the classification methods 
 `classify_GSVA_percent` or `classify_GSVA_abs`. Third parameter `pathway` 
 specifies with which pathway the labels(actual and classified) are  associated. 
-Other parameters `show_stats` and  `roc_curve` are boolean flags
-used as optional features to display statistics and ROC Curve respectively.
-Default values for the flags is FALSE.
+Other parameter `show_stats` is boolean flag used as optional feature to display 
+statistics. Default value for the flag is FALSE.
 
 
 ```{r fig.wide=TRUE}
 true_labels_df <- read.table("../inst/extdata/Sample_labels.txt", sep="\t", 
                              header=T)
 confusion_matrix <- calculate_accuracy(true_labels_df, classes_df, 
-                                       pathway = "ER", show_stats=TRUE, 
-                                       roc_curve=TRUE)
+                                       pathway = "ER", show_stats=TRUE)
 ```
 
 # Example: Assessing ER pathway activity in a breast cancer RNAseq dataset
@@ -631,24 +629,7 @@ confusion_matrix <- calculate_accuracy(true_labels_df, classes_df,
 confusion_matrix <- calculate_accuracy(true_labels_df, classes_df, 
                                        pathway = "ER", show_stats = T)
 ```
-In addition to a detail summary of the classification assessment, we can also 
-view a receiver operating curve (ROC) curve for our classification, which 
-visualizes the sensitivity and specificity of the data set classification by 
-fitting a logistic regression model to the binary ER pathway activity 
-classifications (active, inactive):
 
-```{r fig.wide=TRUE}
-# detail breakdown of classification evaluation (accuracy, % classified etc)
-confusion_matrix <- calculate_accuracy(true_labels_df, classes_df, 
-                                       pathway = "ER", show_stats = T,
-                                       roc_curve = T)
-```
-In concordance with the statistical classification evaluation metrics, the ROC 
-curve also shows that the samples were classified well according to ER pathway 
-activity by the curve reaching the top left corner of the plot (indicating a 
-high true positive rate and a low false positive rate). The nine points 
-represent the nine samples classified as "active" / "inactive" for the ER 
-pathway.
 
 # Session Info
 The output of `sessionInfo` upon which this file was generated:
