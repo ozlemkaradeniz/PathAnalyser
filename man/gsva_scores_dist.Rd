@@ -4,31 +4,34 @@
 \alias{gsva_scores_dist}
 \title{GSVA score density distribution plot}
 \usage{
-gsva_scores_dist(sig_df, data_se)
+gsva_scores_dist(expr_mat, sig_df)
 }
 \arguments{
-\item{sig_df}{Normalized gene expression signature for a specific pathway
-given as data frame containing a list of genes that are the most
-differentially expressed when a specific pathway is active. Up-regulated
-genes are given an expression of 1, while down-regulated genes are given an
-expression of -1.}
+\item{expr_mat}{Normalised expression data set matrix comprising the
+expression levels of genes (rows) for each sample (columns) in a data set. Row names
+are gene symbols and column names are sample IDs / names. Gene expression
+matrices can contain normalised (logCPM transformed) RNASeq or microarray
+transcriptomic data.}
 
-\item{data_se}{Expression data set matrix given as a matrix or data frame
-comprising the expression levels of genes in a set of samples. Gene
-expression matrices can be from RNASeq
-or microarray transcriptomic data sets.}
+\item{sig_df}{Gene expression signature for a specific pathway given as data
+frame with the first column named "gene" containing a list of genes that are
+the most differentially expressed when the given pathway is active, and the
+second column named "expression" containing their corresponding expression in
+the gene signature: -1 for down-regulated genes and 1 for up-regulated genes.}
 }
 \value{
-density plot displaying distribution of GSVA scores obtained for
+A density plot displaying distribution of GSVA scores obtained for
 the samples using up-regulated and down-regulated gene-sets from the gene
 signature
 }
 \description{
-Plots GSVA scores distribution for up-regulated and
-down-regulated gene-sets of a provided gene expression signature
+Plots GSVA scores distribution across samples after performing
+GSVA algorithm on samples in a dataset (gene expression matrix) for the
+up-regulated and down-regulated gene-sets of a given gene expression
+signature.
 }
 \examples{
-gsva_scores_dist(ER_sig_df, ER_TCGA_RNAseq)
+\dontrun{gsva_scores_dist(ER_dataset, ER_sig)}
 }
 \author{
 Anisha Thind \email{a.thind@cranfield.ac.uk}
