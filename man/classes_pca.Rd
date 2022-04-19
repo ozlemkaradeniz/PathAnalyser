@@ -4,34 +4,31 @@
 \alias{classes_pca}
 \title{PCA plot visualising pathway-based classification of samples in a dataset}
 \usage{
-classes_pca(
-  normalized_data_filtered,
-  predicted_labels_df,
-  pathway = "Pathway Activity"
-)
+classes_pca(norm_data, predicted_labels_df, pathway = "Pathway Activity")
 }
 \arguments{
-\item{normalized_data_filtered}{A (logCPM) normalized gene expression data
+\item{norm_data}{A (logCPM) normalized gene expression data
 matrix, with row names consisting of the HUGO gene symbols and column names
 corresponding to the name / ID of each sample in the dataset}
 
-\item{predicted_labels_df}{a data frame containing the pathway
+\item{predicted_labels_df}{A data frame containing the pathway
 activity labels predicted by classification algorithm for each sample in the
 dataset. The first column is called "sample" which contains the sample names
 in the data set and the second column is called "class" containing the
 corresponding predicted pathway activity of the sample.}
 
-\item{pathway}{pathway name, default is "Predicted Pathway Activity"}
+\item{pathway}{The pathway name used in the title of the plot, default is
+a placeholder "Pathway Activity".}
 }
 \description{
 This function generates a PCA plot showing the clustering of
 samples in the normalised expression data set, coloured by predicted pathway
-activity labels: active (green), inactive (orange) and uncertain (blue). A
+activity labels: active (green), inactive (orange) and uncertain (blue). An
 ideal pathway-based classification would generate a PCA plot showing tight
 clustering of samples in each activity class and less overlap between classes.
 }
 \examples{
-\dontrun{classes_pca(normalized_data_filtered, predicted_labels_df, 'ER')}
+\dontrun{classes_pca(norm_data, predicted_labels_df, 'ER')}
 }
 \author{
 Yi-Hsuan Lee \email{yi-hsuan.lee@cranfield.ac.uk}

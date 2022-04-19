@@ -72,8 +72,8 @@ calculate_accuracy <-function(true_labels, predicted_labels, pathway,
     predicted_labels_df <- predicted_labels
   }
 
-  # Currently "HER2", "ER" pathways are defined in the method.
-  # Error is thrown if any undefined pathway parameter has been provided
+  # Error is thrown if the pathway parameter provided is not in the true labels
+  # data frame
   if (!(pathway %in% colnames(true_labels_df))) {
     stop(sprintf("%s pathway labels are not present in true_labels.", pathway))
   } else if (!("sample" %in% colnames(true_labels_df))) {

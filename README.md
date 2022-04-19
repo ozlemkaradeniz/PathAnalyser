@@ -113,7 +113,7 @@ data_set <- read_expression_data("gene_expr.txt")
 ### Gene signature files
 To read the two signature files comprising the up-regulated gene set and down-regulated gene set of the gene signature, type the following in R using `up_sig_file` and `down_sig_file` parameters:
 ```{r eval=F}
-sign_df <- read_signature_data(up_sig_file="up_gene_sig.grp", down_sig_file="down_gene_sig.grp") 
+sig_df <- read_signature_data(up_sig_file="up_gene_sig.grp", down_sig_file="down_gene_sig.grp") 
 ```
 ## QC and pre-processing of gene expression dataset
 The classification functions of PathAnalyser require the expression dataset to be normalised.<br/>
@@ -126,19 +126,19 @@ norm_data <- log_cpm_transformation(data_set)
 
 For further quality control and data pre-processing including filtering genes from the gene expression matrix that are not present in the gene signature data frame, or those genes lacking expression values in < 10% of the total number of samples can be performed by calling the `check_signature_vs_dataset` with the logCPM transformed gene expression matrix (`norm_data`) and gene signature data frame (`sig_df`) generated from using `read_signature_file` as arguments: 
 ```{r eval=F}
-norm_data <- check_signature_vs_dataset(norm_data=norm_data, sig_df=sign_df)
+norm_data <- check_signature_vs_dataset(norm_data=norm_data, sig_df=sig_df)
 ```
 
 ## Classification based on pathway activity
 Pathway-based classification can be performed by using the classify_GSVA_percent function with a normalised gene expression matrix and gene signature data frame:
 ```{r eval=F}
 # Using default percentile threshold (quartile = 25%)
-norm_data <- classify_GSVA_percent(sig_df=sign_df, data_se=norm_data)
+norm_data <- classify_GSVA_percent(norm_data, sig_df)
 ```
 A custom percentile threshold can be provided by the user for tuning the pathway-based classification, by adding the `percent_thresh` parameter:
 ```{r eval=F}
 # Using a 50th percentile threshold (50%)
-classes_df <- classify_GSVA_percent(sign_df, norm_data, percent_thresh=50)
+classes_df <- classify_GSVA_percent(norm_data, sig_df, percent_thresh=50)
 ```
 The generated output (`classes_df`) of the classification function is a data frame containing samples names as the first column and the predicted activity class for a given pathway as the second column ("Active", "Inactive", "Uncertain").
 
