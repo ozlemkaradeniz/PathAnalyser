@@ -186,7 +186,7 @@ classify_GSVA_percent <-
 #' @export
 #'
 #' @examples
-#' gsva_scores_dist(ER_dataset, ER_sig)
+#' \dontrun{gsva_scores_dist(ER_dataset, ER_sig)}
 gsva_scores_dist <- function(expr_mat, sig_df) {
   # bind Scores variable locally to function
   Score <- NULL
