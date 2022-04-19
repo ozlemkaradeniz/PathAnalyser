@@ -7,8 +7,8 @@
 #' matrix is created to display the classification accuracy decomposed into the
 #' distinct pathway activity classes in tabular form for the user. Additional
 #' classification evaluation statistics (such as sensitivity, specificity,
-#' recall, percentage of classified samples etc) and a receiver operator
-#' characteristic ROC curve are optional features that the user can specify.
+#' recall, percentage of classified samples etc) is the optional feature that
+#' the user can specify.
 #' @author Ozlem Karadeniz \email{ozlem.karadeniz.283@@cranfield.ac.uk}
 #' @param true_labels  a data frame, matrix or file name which contains a
 #' column named "sample" that consists of sample names / IDs and another column
@@ -24,19 +24,16 @@
 #' information using the confusion matrix and other classification evaluation
 #' metrics including: sensitivity, specificity, precision, false positive rate,
 #' false negative rate etc.
-#' @param roc_curve an optional flag to plot receiver operator
-#' characteristic (ROC) Curve for the pathway-based classification
 #' @return confusion_matrix
-#' @import pROC
 #' @importFrom utils read.table
 #' @export
 #'
 #' @examples
 #' \dontrun{calculate_accuracy(true_labels_df, predicted_labels_df, "ER",
-#' show_stats= TRUE, roc_curve=TRUE)}
+#' show_stats= TRUE)}
 
 calculate_accuracy <-function(true_labels, predicted_labels, pathway,
-                              show_stats=FALSE, roc_curve=FALSE){
+                              show_stats=FALSE){
   # if type of true_labels parameter is character,then it should be file name.
   # file is checked if it exists and valid
   if(is.character(true_labels)){
@@ -109,22 +106,12 @@ calculate_accuracy <-function(true_labels, predicted_labels, pathway,
   TN <- nrow(df[(df$class == "Inactive" & df$label == "Negative"),])
   # False Negative, predicted negative, actual positive
   FN <- nrow(df[(df$class == "Inactive" & df$label == "Positive"),])
-  # predicted uncertain, actual positive
-  prd_uncert_act_positive = nrow(df[(df$class == "Uncertain" & df$label == "Positive"),])
-  # predicted uncertain, actual negative
-  prd_uncert_act_negative = nrow(df[(df$class == "Uncertain" & df$label == "Negative"),])
-  # predicted positive, actual uncertain
-  prd_positive_act_uncertain = nrow(df[(df$class == "Active" & df$label == "Uncertain"),])
-  # predicted negative, actual uncertain
-  prd_negative_act_uncertain = nrow(df[(df$class == "Inactive" & df$label == "Uncertain"),])
-  # predicted uncertain, actual uncertain
-  prd_uncert_act_uncertain = nrow(df[(df$class == "Uncertain" & df$label == "Uncertain"),])
 
   # create confusion matrix
-  matrix_data <- c(TP, FN, prd_uncert_act_positive, FP, TN, prd_uncert_act_negative, prd_positive_act_uncertain, prd_negative_act_uncertain, prd_uncert_act_uncertain)
-  confusion_matrix<-matrix(matrix_data,nrow = 3,ncol = 3,
-                           dimnames = list(c("Prediction Positive ","Prediction Negative", "Prediction Uncertain"),
-                                           c("Actual Positive","Actual Negative" , "Actual Uncertain")))
+  matrix_data <- c(TP, FN, FP, TN)
+  confusion_matrix<-matrix(matrix_data,nrow = 2,ncol = 2,
+                           dimnames = list(c("Prediction Positive ","Prediction Negative"),
+                                           c("Actual Positive","Actual Negative")))
 
   classified_samples_proportion <- (TP + FN + FP + TN) / sum(confusion_matrix) * 100
   accuracy_amongst_classified_samples <- (TP + TN) / (TP + FN + FP + TN) * 100
@@ -148,47 +135,15 @@ calculate_accuracy <-function(true_labels, predicted_labels, pathway,
     cat(paste0("False Positive(FP): " , FP, "\n"))
     cat("--------------------------------------------------------------\n")
     cat(paste0("True Positive Rate(TPR)(sensitivity)(Recall): ",
-                 format(round(TP / (TP + FN) * 100 , 2) , nsmall =2), "\n"))
+                 format(round(TP / (TP + FN) * 100 , 2) , nsmall =2), "%\n"))
     cat(paste0("True Negative Rate(TNR)(specificity): ",
-                 format(round(TN / (TN + FP) * 100 , 2) , nsmall =2), "\n"))
+                 format(round(TN / (TN + FP) * 100 , 2) , nsmall =2), "%\n"))
     cat(paste0("Precision (Positive predictive value): ",
-                 format(round(TP / (TP + FP) * 100 , 2) , nsmall =2), "\n"))
+                 format(round(TP / (TP + FP) * 100 , 2) , nsmall =2), "%\n"))
     cat(paste0("False Positive Rate(FPR): ",
-                 format(round(FP / (FP + TN) * 100 ,  2) , nsmall =2), "\n"))
+                 format(round(FP / (FP + TN) * 100 ,  2) , nsmall =2), "%\n"))
     cat(paste0("False Negative Rate(FNR): ",
-                 format(round(FN / (FN + TP) * 100 ,  2) , nsmall =2), "\n"))
-    cat("--------------------------------------------------------------\n")
-    print(summary(confusion_matrix))
-  }
-
-  if(roc_curve == TRUE){
-
-    # roc_curve_tmp_df dataframe is created by excluding all rows which are uncertain wither in class(prediction label) or label(real label),
-    # So that ROC Curve can be created with  Positive or Negative values after they have been converted to (0,1) binary values
-
-
-    roc_curve_tmp_df <- df[df$class %in% c("Active", "Inactive")  & df$label %in% c("Negative", "Positive"),]
-
-    roc_curve_tmp_df[,c(2,3)] <- sapply(roc_curve_tmp_df[,c(2,3)], function(x){
-      x<-gsub("(Positive|Active)", "1", x)
-      x<-gsub("(Negative|Inactive)", "0", x)
-      return(as.integer(x))
-    })
-
-
-    labels <- roc_curve_tmp_df$label
-    classes <- roc_curve_tmp_df$class
-
-    #Sorting the actual labels by their predicted labels(classes) from 1 to 0
-    labels <- labels[order(classes, decreasing=TRUE)]
-    #Calculate cumulative True Positive Rate (TPR) and True Negative Rate (TNR) for the ordered actual labels
-    roc_curve_df <- data.frame(TPR=cumsum(labels)/sum(labels), FPR=cumsum(!labels)/sum(!labels), labels)
-
-    #ROC curve is plotted
-    plot(roc(as.logical(roc_curve_tmp_df$label), factor(roc_curve_tmp_df$class, ordered = TRUE), direction="<"),
-         col="yellow", main="ROC Curve")
-    with(roc_curve_df, points(1 - FPR, TPR, col=1 + labels))
-
+                 format(round(FN / (FN + TP) * 100 ,  2) , nsmall =2), "%\n"))
   }
 
   return(confusion_matrix)

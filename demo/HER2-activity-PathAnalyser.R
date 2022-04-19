@@ -92,16 +92,14 @@ classes_pca(normalized_se, classes_df.perc50, pathway = "HER2")
 # To generate a confusion matrix for actual classes vs predicted classes:
 confusion_mat.perc25 <- calculate_accuracy("inst/extdata/Sample_labels.txt", classes_df.perc25, pathway="HER2")
 
-# for more detailed classification evaluation metric info and roc curve diagram
-# use the optional parameter: display_stats=TRUE and display_roc_curve=TRUE
+# for more detailed classification evaluation metric info use the optional parameter: display_stats=TRUE
 confusion_mat.perc25 <- calculate_accuracy("inst/extdata/Sample_labels.txt", classes_df.perc25, pathway="HER2",
-                                    show_stats=T, roc_curve=T)
+                                    show_stats=T)
 
 # classification evaluation metrics for 50th percentile threshold classification
 confusion_mat.perc50 <- calculate_accuracy("inst/extdata/Sample_labels.txt", classes_df.perc50, pathway="HER2")
 
-# for more detailed classification evaluation metric info and roc curve diagram
-# use the optional parameter: display_stats=TRUE and display_roc_curve=TRUE
+# for more detailed classification evaluation metric info use the optional parameter: display_stats=TRUE
 confusion_mat.perc50 <- calculate_accuracy("inst/extdata/Sample_labels.txt", classes_df.perc50, pathway="HER2",
-                                    show_stats=T, roc_curve=T)
+                                    show_stats=T)
 
