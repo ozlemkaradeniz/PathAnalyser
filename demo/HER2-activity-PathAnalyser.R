@@ -29,17 +29,15 @@ library(PathAnalyser)
 # 1. Reading input gene expression and signature files
 #-------------------------------------------------------------------------------
 # read expression matrix data
-data_se <-
-  read_expression_data("inst/extdata/HER2_toydata_RNAseq.txt")
+data_mat <- read_expression_data("inst/extdata/HER2_toydata_RNAseq.txt")
 # Column names represent sample names while row names represent gene names
-head(data_se)
-# there are 373 genes for 60 samples
-dim(data_se)
+head(data_mat)
+# there are 20,124 genes for 60 samples
+dim(data_mat)
 
 # read the up-regulated and down-regulated gene signature files
-sig_df <- read_signature(
-    "inst/extdata/SMID_BREAST_CANCER_ERBB2_UP.grp",
-    "inst/extdata/SMID_BREAST_CANCER_ERBB2_DN.grp"
+sig_df <- read_signature("inst/extdata/SMID_BREAST_CANCER_ERBB2_UP.grp",
+                         "inst/extdata/SMID_BREAST_CANCER_ERBB2_DN.grp"
   )
 # first column represents gene names and the second column represents their
 # expression value (1 for up-regulated expression when HER2 pathway is active and
@@ -57,11 +55,11 @@ dim(sig_df)
 # 2. QC and data pre-processing
 #-------------------------------------------------------------------------------
 # logCPM normalise RNAseq raw counts of expression data set
-normalized_se <- log_cpm_transform(data_se)
+norm_data <- log_cpm_transform(data_mat)
 # check the gene signature and gene signature have consistent genes
 # filters out genes from expression data set that are not present in the gene
 # signature and those that are not expressed in at least 10% of samples.
-normalized_se <- check_signature_vs_dataset(normalized_se, sig_df)
+norm_data <- check_signature_vs_dataset(norm_data, sig_df)
 
 #-------------------------------------------------------------------------------
 # 3. Classification of samples based on pathway activity
@@ -70,13 +68,13 @@ normalized_se <- check_signature_vs_dataset(normalized_se, sig_df)
 # threshold for GSVA scores
 
 # Using a percentile threshold (default = 25% so quartile threshold essentially)
-classes_df.perc25 <- classify_GSVA_percent(normalized_se, sig_df)
+classes_df.perc25 <- classify_GSVA_percent(norm_data, sig_df)
 # using a percentile threshold of 50%
 # (At this percentile the number of uncertain classifications are reduced to
 # their minimum, as only those samples that have consistent expression with only
 # the up-gene set signature or only the down-gene set of the signature are
 # classified as uncertain)
-classes_df.perc50 <- classify_GSVA_percent(normalized_se, sig_df,
+classes_df.perc50 <- classify_GSVA_percent(norm_data, sig_df,
                                            percent_thresh = 50)
 
 #-------------------------------------------------------------------------------
@@ -84,9 +82,9 @@ classes_df.perc50 <- classify_GSVA_percent(normalized_se, sig_df,
 #-------------------------------------------------------------------------------
 # To generate a PCA plot showing clustering of samples based on pathway
 # classified labels:
-classes_pca(normalized_se, classes_df.perc25, pathway = "HER2")
+classes_pca(norm_data, classes_df.perc25, pathway = "HER2")
 # PCA plot for 50th percentile classification threshold for our data
-classes_pca(normalized_se, classes_df.perc50, pathway = "HER2")
+classes_pca(norm_data, classes_df.perc50, pathway = "HER2")
 
 #-------------------------------------------------------------------------------
 # 6. Classification evaluation (optional step if true pathway activity classes
@@ -111,3 +109,4 @@ confusion_mat.perc50 <- calculate_accuracy("inst/extdata/Sample_labels.txt",
 confusion_mat.perc50 <- calculate_accuracy("inst/extdata/Sample_labels.txt",
                                            classes_df.perc50, pathway="HER2",
                                            show_stats=T)
+
