@@ -133,8 +133,6 @@ check_signature_vs_dataset <- function(norm_data, sig_df) {
   # check signature data frame is in an appropriate format
   check_sig_df(sig_df)
 
-  # filter multi-probe genes
-  norm_data <- multi_gene_symbols(sig_df, norm_data)
   # filter gene signature in expression matrix
   filtered <- norm_data[rownames(norm_data) %in% sig_df[, 1],]
   delete_gene_list <- list()
