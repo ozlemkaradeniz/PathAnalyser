@@ -84,7 +84,7 @@ install.packages(c("ggfortify", "ggplot2", "glue", "lifecycle", "cli", "plotly",
 ```
 All Bioconductor dependencies can be installed by typing the following in R:
 ```{r eval=F}
-BiocManager::install(c("edgeR", "limma"))
+BiocManager::install(c("GSVA","edgeR", "limma"))
 ```
 
 
@@ -414,9 +414,9 @@ high expression abundance and low expression abundance thresholds for both gene
 sets, therefore reducing the frequency of "Uncertain" classifications.
 ```{r}
 # default percentile = 25% (quartile)
-classes_df <- classify_GSVA_percent(ER_sig_df, normalized_se)
+classes_df <- classify_GSVA_percent(normalized_se, ER_sig_df)
 # custom percentile = 30%
-classes_df <- classify_GSVA_percent(ER_sig_df, normalized_se, 
+classes_df <- classify_GSVA_percent(normalized_se, ER_sig_df,
                                             percent_thresh=30)
 ```
 
@@ -539,7 +539,7 @@ expression abundance of the up-regulated genes of the ER pathway signature
 respectively.
 
 ```{r fig.wide=TRUE}
-gsva_scores_dist(ER_sig, normalized_se)
+gsva_scores_dist(normalized_se, ER_sig_df)
 
 ```
 Samples in a gene expression matrix can be classified according to evidence of 
@@ -558,7 +558,7 @@ with names of the 20 samples as the first column and their corresponding
 predicted ER pathway activity classes as the second column.
 
 ```{r}
-classes_df <- classify_GSVA_percent(ER_sig, normalized_se)
+classes_df <- classify_GSVA_percent(normalized_se, ER_sig_df)
 head(classes_df)
 ```
 Depending on the user's classification requirements the thresholds can be 
@@ -566,7 +566,7 @@ adjusted. For example, if the user would like to reduce the number of
 "Uncertain" classification samples, the user could provide 50% percentile 
 threshold as an argument e.g.:
 ```{r}
-classes_df_50p <- classify_GSVA_percent(ER_sig, normalized_se, 
+classes_df_50p <- classify_GSVA_percent(normalized_se, ER_sig_df,
                                         percent_thresh=50)
 ```
 From the output of running the classification function with 50% percentile, it 
@@ -579,7 +579,7 @@ by ER pathway activity, using absolute GSVA score thresholds for the
 up-regulated and down-regulated gene sets of the ER signature respectively.
 
 ```{r}
-classes_df_abs <- classify_GSVA_abs(ER_sig, normalized_se, up_thresh.low = -0.2, 
+classes_df_abs <- classify_GSVA_abs(normalized_se, ER_sig, up_thresh.low = -0.2, 
                                     up_thresh.high = 0.2, dn_thresh.low = -0.2, 
                                     dn_thresh.high = 0.2)
 ```
@@ -689,7 +689,7 @@ both gene sets, the peak with the highest GSVA scores represents samples with
 *high* abundance of expression of the gene set and the lower score peak 
 represents samples with *low* abundance of expression of the gene set.
 ```{r plot, fig.cap="Density plots showing the distribution of GSVA scores for samples in logCPM-normalised `ER_TCGA_RNAseq` data set for the up-regulated (left) and down-regulated gene set (right) of the pathway signature using `gsva_scores_dist` function.", fig.wide=TRUE}
-gsva_scores_dist(ER_sig_df, normalized_se)
+gsva_scores_dist(normalized_se, ER_sig_df)
 ```
 
 ### Determining thresolds for classification
@@ -714,7 +714,7 @@ with GSVA scores between the these thresholds for both the up-regulated and down
 "Uncertain" pathway activity.
 
 ```{r thresholds, fig.cap="GSVA scores distributions of the samples for the down-regulated (left) and up-regulated gene set (right) of the pathway gene signature, showing absolute thresholds of -0.2 and 0.2 for characterising low and high expression abundance of both gene sets respectively. The expression data set used is the logCPM-normalised `ER_TCGA_RNAseq` gene expression data set.", fig.wide=TRUE}
-plot <- gsva_scores_dist(ER_sig_df, normalized_se)
+plot <- gsva_scores_dist(normalized_se, ER_sig_df)
 # Add thresholds on plot
 library(ggplot2)
 data_threshs <- data.frame(Geneset=c("Up", "Down"), vline=c(-0.2, 0.2))
@@ -768,7 +768,7 @@ classification is printed to the console highlighting the number of samples in
 each pathway activity class ("Active", "Inactive" and "Uncertain") and the 
 number of samples in total.
 ```{r}
-classes_df <- classify_GSVA_abs(ER_sig_df, normalized_se, 
+classes_df <- classify_GSVA_abs(normalized_se, ER_sig_df,
                                     up_thresh.low=-0.2, up_thresh.high=0.2, 
                                     dn_thresh.low=-0.2, dn_thresh.high=0.2)
 ```
