@@ -37,7 +37,7 @@ the corresponding true activity labels for the given pathway. A confusion
 matrix is created to display the classification accuracy decomposed into the
 distinct pathway activity classes in tabular form for the user. Additional
 classification evaluation statistics (such as sensitivity, specificity,
-recall, percentage of classified samples etc) is the  optional feature that
+recall, percentage of classified samples etc) is the optional feature that
 the user can specify.
 }
 \examples{
