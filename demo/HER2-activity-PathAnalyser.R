@@ -29,15 +29,19 @@ library(PathAnalyser)
 # 1. Reading input gene expression and signature files
 #-------------------------------------------------------------------------------
 # read expression matrix data
-data_se <- read_expression_data("inst/extdata/HER2_toydata_RNAseq.txt")
+data_se <-
+  read_expression_data("inst/extdata/HER2_toydata_RNAseq.txt")
 # Column names represent sample names while row names represent gene names
 head(data_se)
 # there are 373 genes for 60 samples
 dim(data_se)
 
 # read the up-regulated and down-regulated gene signature files
-sig_df <- read_signature("inst/extdata/SMID_BREAST_CANCER_ERBB2_UP.grp",
-                              "inst/extdata/SMID_BREAST_CANCER_ERBB2_DN.grp")
+sig_df <-
+  read_signature(
+    "inst/extdata/SMID_BREAST_CANCER_ERBB2_UP.grp",
+    "inst/extdata/SMID_BREAST_CANCER_ERBB2_DN.grp"
+  )
 # first column represents gene names and the second column represents their
 # expression value (1 for up-regulated expression when HER2 pathway is active and
 # -1 for down-regulated expression when HER2 pathway is active)
@@ -67,14 +71,14 @@ normalized_se <- check_signature_vs_dataset(normalized_se, sig_df)
 # threshold for GSVA scores
 
 # Using a percentile threshold (default = 25% so quartile threshold essentially)
-classes_df.perc25 <- classify_GSVA_percent(sig_df, normalized_se)
+classes_df.perc25 <- classify_GSVA_percent(normalized_se, sig_df)
 # using a percentile threshold of 50%
 # (At this percentile the number of uncertain classifications are reduced to
 # their minimum, as only those samples that have consistent expression with only
 # the up-gene set signature or only the down-gene set of the signature are
 # classified as uncertain)
-classes_df.perc50 <- classify_GSVA_percent(sig_df, normalized_se,
-                                          percent_thresh = 50)
+classes_df.perc50 <- classify_GSVA_percent(normalized_se, sig_df,
+                                           percent_thresh = 50)
 
 #-------------------------------------------------------------------------------
 # 4. Visualise sample classification
@@ -90,18 +94,35 @@ classes_pca(normalized_se, classes_df.perc50, pathway = "HER2")
 #    are available)
 #-------------------------------------------------------------------------------
 # To generate a confusion matrix for actual classes vs predicted classes:
-confusion_mat.perc25 <- calculate_accuracy("inst/extdata/Sample_labels.txt", classes_df.perc25, pathway="HER2")
+confusion_mat.perc25 <-
+  calculate_accuracy("inst/extdata/Sample_labels.txt",
+                     classes_df.perc25,
+                     pathway = "HER2")
 
 # for more detailed classification evaluation metric info and roc curve diagram
 # use the optional parameter: display_stats=TRUE and display_roc_curve=TRUE
-confusion_mat.perc25 <- calculate_accuracy("inst/extdata/Sample_labels.txt", classes_df.perc25, pathway="HER2",
-                                    show_stats=T, roc_curve=T)
+confusion_mat.perc25 <-
+  calculate_accuracy(
+    "inst/extdata/Sample_labels.txt",
+    classes_df.perc25,
+    pathway = "HER2",
+    show_stats = T,
+    roc_curve = T
+  )
 
 # classification evaluation metrics for 50th percentile threshold classification
-confusion_mat.perc50 <- calculate_accuracy("inst/extdata/Sample_labels.txt", classes_df.perc50, pathway="HER2")
+confusion_mat.perc50 <-
+  calculate_accuracy("inst/extdata/Sample_labels.txt",
+                     classes_df.perc50,
+                     pathway = "HER2")
 
 # for more detailed classification evaluation metric info and roc curve diagram
 # use the optional parameter: display_stats=TRUE and display_roc_curve=TRUE
-confusion_mat.perc50 <- calculate_accuracy("inst/extdata/Sample_labels.txt", classes_df.perc50, pathway="HER2",
-                                    show_stats=T, roc_curve=T)
-
+confusion_mat.perc50 <-
+  calculate_accuracy(
+    "inst/extdata/Sample_labels.txt",
+    classes_df.perc50,
+    pathway = "HER2",
+    show_stats = T,
+    roc_curve = T
+  )
