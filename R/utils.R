@@ -63,39 +63,6 @@ duplicate_samples <- function(dataset) {
   return(dataset)
 }
 
-#' Multi gene symbol filtering according to gene signature
-#'
-#' @param sig_df A data frame containing the gene signature, where the first
-#' column column contains gene symbols / names and the second column contains
-#' the relative expression value in the gene signature.
-#' @param dataset A matrix containing gene expression data, where the row names
-#' are gene symbols / names and the column names are sample names or IDs.
-#' @return A filtered matrix containing only rows with gene names present in the
-#' gene signature.
-#' @noRd
-#'
-#' @examples \dontrun{filtered_mat <- multi_gene_symbols(sig_df, dataset)}
-multi_gene_symbols <- function(sig_df, dataset) {
-  # filter multi-gene symbols
-  genes <- rownames(dataset)
-  multi_gene_ind <- which(grepl("\\s+///\\s+|-", genes), arr.ind = T)
-  absent_genes <- c()
-  for (i in multi_gene_ind) {
-    split_genes <- unlist(strsplit(genes[i], "\\s+///\\s+"))
-    if (any(split_genes %in% sig_df[,1])){
-      gene_sig <- which(split_genes %in% sig_df[,1], arr.ind = T)
-      rownames(dataset)[i] <- split_genes[gene_sig]
-    } else {
-      # otherwise drop the row
-      absent_genes <- c(absent_genes, i)
-    }
-
-  }
-  # remove genes
-  dataset <- dataset[-absent_genes,]
-  return(dataset)
-}
-
 #' Checks signature data frame
 #'
 #' @param sig_df A data frame containing gene signature data in two columns,
