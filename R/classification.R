@@ -250,7 +250,11 @@ run_GSVA <- function(expr_mat, sig_df) {
 
   # check input is input matrix
   if (!is.matrix(expr_mat)) {
-    stop("Expression dataset is not a matrix object.")
+    stop("expr_mat argument for expression dataset provided is not a matrix object.")
+  }
+
+  if(!is.numeric(expr_mat)){
+    stop("Expression data matrix contains non-numerical data.")
   }
 
   # check for duplicate samples
