@@ -85,7 +85,6 @@ multi_gene_symbols <- function(sig_df, dataset) {
     if (any(split_genes %in% sig_df[,1])){
       gene_sig <- which(split_genes %in% sig_df[,1], arr.ind = T)
       rownames(dataset)[i] <- split_genes[gene_sig]
-      print(rownames(dataset)[i])
     } else {
       # otherwise drop the row
       absent_genes <- c(absent_genes, i)
@@ -113,8 +112,18 @@ check_sig_df <- function(sig_df){
   if (!is.data.frame(sig_df)) {
     stop("Signature argument is not a dataframe.")
   }
-
-  if (any(abs(sig_df$expression) != 1)){
-    stop("Expression values of signature data frame are not -1 or 1 and thus incompatible.")
+  # check genes
+  if (!("gene" %in% colnames(sig_df))) {
+    stop('Signature data frame (sig_df) does not contain a column called "gene"')
+    if (!is.character(sig_df$gene)){
+      stop('Signature data frame is incorrectly formatted: gene list in signature contains non-character data.')
+    }
+  }
+  # check expression values
+  if (!("expression" %in% colnames(sig_df))){
+    stop('Signature data frame (sig_df) does not contain a column called "gene"')
+    if (any(abs(sig_df$expression) != 1)){
+      stop("Signature data frame is incorrectly formatted: expression values are not -1 or 1 and thus incompatible.")
+    }
   }
 }
