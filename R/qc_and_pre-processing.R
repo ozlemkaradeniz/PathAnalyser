@@ -10,14 +10,14 @@
 #' @author Rishabh Kaushik and Taniya Pal
 #' \email{rishabh.kaushik.126@@cranfield.ac.uk, taniya.pal.094@@cranfiled.ac.uk}
 #' @param dataset  An unnormalised gene expression matrix containing raw RNA-seq
-#' (integer) counts with gene IDs/symbols as row names and sample IDs as column
+#' (integer) counts with gene symbols as row names and sample IDs as column
 #' names.
 #' @param boxplot Optional argument that is a boolean (TRUE or FALSE) indicating
 #' whether boxplots displaying before and after log CPM transformation should be
 #' displayed. (Default=TRUE)
 #'
-#' @return A logCPM transformed gene expression data matrix with gene symbols /
-#' IDs as row names and samples names / IDs as column names.
+#' @return A logCPM transformed gene expression data matrix with gene symbols as
+#' row names and samples names / IDs as column names.
 #' @importFrom edgeR cpm
 #' @importFrom graphics boxplot
 #' @importFrom reshape2 melt
@@ -59,7 +59,7 @@ log_cpm_transform <- function(dataset, boxplot = TRUE) {
       geom_boxplot(fill = "slateblue") +
       ggtitle("Plot before log CPM transformation") +
       ylab("Raw Counts Per Thousand") +
-      theme_minimal() +
+      theme_bw() +
       theme(
         axis.text.x = element_blank(),
         axis.ticks.x = element_blank(),
@@ -82,7 +82,7 @@ log_cpm_transform <- function(dataset, boxplot = TRUE) {
       geom_boxplot(fill = "slateblue", alpha = 0.2) +
       ylab("Log Counts Per Million (CPM)") +
       ggtitle("Plot after log CPM transformation") +
-      theme_minimal() +
+      theme_bw() +
       theme(
         axis.text.x = element_blank(),
         axis.ticks.x = element_blank(),
@@ -99,25 +99,25 @@ log_cpm_transform <- function(dataset, boxplot = TRUE) {
 #' @description This function performs a validity check against the gene
 #' signature and gene expression data set and filters genes that are absent in
 #' expression data set and /or are not expressed in at least 10% of the total
-#' number of samples. Genes that have multiple symbols which are delimited with
-#' "///" or "-" are parsed and their presence in the gene signature is verified.
+#' number of samples. A bar plot of mean-normalised counts for each gene is also
+#' displayed.
 #'
 #' @author Yi-Hsuan Lee \email{yi-hsuan.lee@cranfield.ac.uk}
 #' @param norm_data  Normalized gene expression data matrix
 #' @param sig_df A signature data frame containing two columns: the first column
-#' contains a list of gene symbols or IDs that are differentially expressed in
-#' a given pathway and their relative expression values are given in the second
-#' column, with 1 representing up-regulated genes and -1 representing
-#' down-regulated genes.
+#' contains a list of gene (represented by gene symbols) that are differentially
+#' expressed in a given pathway and their relative expression values are given
+#' in the second column, with 1 representing up-regulated genes and -1
+#' representing down-regulated genes.
 #'
-#' @return A filtered gene expression data matrix with gene symbols / IDs as
-#' row names and sample names / IDs as column names
+#' @return A filtered gene expression data matrix with gene symbols as row names
+#' and sample names / IDs as column names
 #' @import ggplot2
 #' @export
 #'
 #' @examples
 #' \dontrun{check_signature_vs_dataset(norm_data, sig_df)}
-check_signature_vs_dataset <- function(norm_data, sig_df) {
+check_signature_vs_dataset <- function(norm_data, sig_df, barplot=TRUE) {
   # bind gene and counts variables locally to the function
   gene <- counts <- NULL
 
@@ -183,20 +183,28 @@ check_signature_vs_dataset <- function(norm_data, sig_df) {
 
       }
 
-      df_plot <-
-        data.frame(legend = rep(c("average"), each = gene_count),
-                   gene = rep(1:gene_count, 1))
-      df_plot$counts <- ""
-      for (i in 1:gene_count) {
-        df_plot[i, 3] <- count_list$average[i]
-      }
-      df_plot$counts <- as.numeric(as.vector(df_plot$counts))
+      if (barplot) {
+        df_plot <-
+          data.frame(legend = rep(c("average"), each = gene_count),
+                     gene = rep(1:gene_count, 1))
+        df_plot$counts <- ""
+        for (i in 1:gene_count) {
+          df_plot[i, 3] <- count_list$average[i]
+        }
+        df_plot$counts <- as.numeric(as.vector(df_plot$counts))
 
-      p <- ggplot(data = df_plot, aes(x = gene, y = counts)) +
-        geom_bar(stat = "identity") +
-        ggtitle("Mean normalised counts per gene")
-      theme(plot.title = element_text(hjust = 0.5))
-      print(p)
+        p <- ggplot(data = df_plot, aes(x = gene, y = counts)) +
+          geom_bar(stat = "identity", fill="#0072B2") +
+          ggtitle("Mean normalised counts per gene") +
+          ylab("Count") + theme_bw() +
+          scale_x_continuous(expand=c(0, 0)) +
+          theme(plot.title = element_text(hjust = 0.5),
+                axis.text.x = element_blank(),
+                axis.ticks.x = element_blank(),
+                axis.title.x = element_blank())
+        print(p)
+      }
+
       return(filtered_mat)
     }
 
