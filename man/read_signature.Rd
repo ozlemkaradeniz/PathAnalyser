@@ -19,7 +19,7 @@ expression with +1 and -1 respectively.
 \description{
 Reads up and down regulated signature files provided either in
 gene set file format (.grp) or gene matrix transposed format (.gmt) creating
-a data frame which the first column named "gene" containing the gene names
+a data frame which the first column named "gene" containing the gene symbols
 and the second column called "expression" containing the corresponding
 expression value for a gene in the gene signature, where 1 signifies
 up-regulation and -1 represents down-regulation of the gene in the gene

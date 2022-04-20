@@ -8,8 +8,8 @@ read_expression_data(file)
 }
 \arguments{
 \item{file}{Path for gene expression matrix file, which is either tab /
-comma / white-space value separated. The first column must contain gene names
-and the subsequent column names should be the sample name or ID.}
+comma / white-space value separated. The first column must contain gene
+symbols and the subsequent column names should be the sample name or ID.}
 }
 \value{
 A numerical matrix containing gene symbols/IDs as row names and
@@ -23,7 +23,7 @@ for duplicates. Duplicate genes are reduced to single gene row entries, with
 each value corresponding to the mean expression value for each sample for the
 duplicated gene entry. If duplicate samples are detected then the only the
 first sample of the duplicates are retained. Finally, the data frame is
-converted to a numerical matrix, where row names represent gene names and
+converted to a numerical matrix, where row names represent gene symbols and
 columns represent sample names or IDs.
 }
 \examples{

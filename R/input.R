@@ -7,15 +7,15 @@
 #' each value corresponding to the mean expression value for each sample for the
 #' duplicated gene entry. If duplicate samples are detected then the only the
 #' first sample of the duplicates are retained. Finally, the data frame is
-#' converted to a numerical matrix, where row names represent gene names and
+#' converted to a numerical matrix, where row names represent gene symbols and
 #' columns represent sample names or IDs.
 #'
 #'
 #' @author Taniya Pal \email{taniya.pal.094@@cranfield.ac.uk}
 #'
 #' @param file  Path for gene expression matrix file, which is either tab /
-#' comma / white-space value separated. The first column must contain gene names
-#' and the subsequent column names should be the sample name or ID.
+#' comma / white-space value separated. The first column must contain gene
+#' symbols and the subsequent column names should be the sample name or ID.
 #'
 #' @return A numerical matrix containing gene symbols/IDs as row names and
 #' sample IDs as column names.
@@ -51,7 +51,7 @@ read_expression_data <- function(file){
    }
   # check for duplicated samples
   dataset <- duplicate_samples(dataset)
-  # set gene names as first column
+  # set gene symbols as first column
   row.names(dataset) <- dataset[, 1]
   dataset <- dataset[,-1]
   # converting the data frame to numeric matrix
@@ -71,7 +71,7 @@ read_expression_data <- function(file){
 #'
 #' @description Reads up and down regulated signature files provided either in
 #' gene set file format (.grp) or gene matrix transposed format (.gmt) creating
-#' a data frame which the first column named "gene" containing the gene names
+#' a data frame which the first column named "gene" containing the gene symbols
 #' and the second column called "expression" containing the corresponding
 #' expression value for a gene in the gene signature, where 1 signifies
 #' up-regulation and -1 represents down-regulation of the gene in the gene

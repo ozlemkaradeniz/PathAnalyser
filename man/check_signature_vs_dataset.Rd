@@ -4,27 +4,31 @@
 \alias{check_signature_vs_dataset}
 \title{Validity check in gene signatures and gene expression datasets}
 \usage{
-check_signature_vs_dataset(norm_data, sig_df)
+check_signature_vs_dataset(norm_data, sig_df, barplot = TRUE)
 }
 \arguments{
 \item{norm_data}{Normalized gene expression data matrix}
 
 \item{sig_df}{A signature data frame containing two columns: the first column
-contains a list of gene symbols or IDs that are differentially expressed in
-a given pathway and their relative expression values are given in the second
-column, with 1 representing up-regulated genes and -1 representing
-down-regulated genes.}
+contains a list of gene (represented by gene symbols) that are differentially
+expressed in a given pathway and their relative expression values are given
+in the second column, with 1 representing up-regulated genes and -1
+representing down-regulated genes.}
+
+\item{barplot}{optional Boolean parameter to display bar plot of
+mean-normalised gene counts following pre-processing performed
+by the function (default=TRUE).}
 }
 \value{
-A filtered gene expression data matrix with gene symbols / IDs as
-row names and sample names / IDs as column names
+A filtered gene expression data matrix with gene symbols as row names
+and sample names / IDs as column names
 }
 \description{
 This function performs a validity check against the gene
 signature and gene expression data set and filters genes that are absent in
 expression data set and /or are not expressed in at least 10\% of the total
-number of samples. Genes that have multiple symbols which are delimited with
-"///" or "-" are parsed and their presence in the gene signature is verified.
+number of samples. A bar plot of mean-normalised counts for each gene is also
+displayed.
 }
 \examples{
 \dontrun{check_signature_vs_dataset(norm_data, sig_df)}

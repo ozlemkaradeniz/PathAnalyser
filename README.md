@@ -2,11 +2,19 @@
 
 # Summary
 
-  PathAnalyser is a flexible and user-friendly R package that provides functionality for assessing ER and 
-  HER2 pathway activity in breast cancer transcriptomic datasets by using a gene expression signature. Unlike 
-  other available pathway assessment packages, which do not distinguish between up-regulated and down-regulated gene sets, 
-  PathAnalyser classifies samples as "active" or "inactive" for a pathway, only if there is a consensus in the
-  evidence of expression consistency with both the up-regulated and down-regulated gene sets of the gene signature.
+PathAnalyser is a flexible and user-friendly R package that provides 
+functionality for assessing ER and HER2 pathway activity in breast cancer 
+transcriptomic datasets by using a gene expression signature. Unlike currently 
+available algorithms that perform transcriptional classifications using gene 
+sets that do not account for any information on direction of association like 
+GSVA or GSEA, or classification algorithms that use weighted lists of genes 
+which also account for the strength of association, in addition to the direction 
+of association of genes, PathAnalyser is a unique classification tool which 
+allows samples to be classified simply based on a gene signature, a list of 
+genes which only provide information on the direction of association i.e. 
+whether a gene is up-regulated or down-regulated when a given pathway is active. 
+Many studies report these gene lists or signatures, which can be used directly 
+by PathAnalyser to classify samples in transcriptomic datasets.
  
 
 # Table of Contents

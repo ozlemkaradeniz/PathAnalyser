@@ -26,10 +26,10 @@
 #' as "Inactive" and the rest of the samples are classified as "Uncertain".
 #' @author Anisha Thind \email{a.thind@@cranfield.ac.uk}
 #' @param expr_mat Normalised expression data set matrix comprising the
-#' expression levels of genes (rows) for each sample (columns) in a data set. Row names
-#' are gene symbols and column names are sample IDs / names. Gene expression
-#' matrices can contain normalised (logCPM transformed) RNASeq or microarray
-#' transcriptomic data.
+#' expression levels of genes (rows) for each sample (columns) in a data set.
+#' Row names are gene symbols and column names are sample IDs / names. Gene
+#' expression matrices can contain normalised (logCPM transformed) RNASeq or
+#' microarray transcriptomic data.
 #' @param sig_df Gene expression signature for a specific pathway given as data
 #' frame with the first column named "gene" containing a list of genes that are
 #' the most differentially expressed when the given pathway is active and the
@@ -105,10 +105,10 @@ classify_GSVA_abs <- function(expr_mat,
 #'
 #' @author Anisha Thind \email{a.thind@@cranfield.ac.uk}
 #' @param expr_mat Normalised expression data set matrix comprising the
-#' expression levels of genes (rows) for each sample (columns) in a data set. Row names
-#' are gene symbols and column names are sample IDs / names. Gene expression
-#' matrices can contain normalised (logCPM transformed) RNASeq or microarray
-#' transcriptomic data.
+#' expression levels of genes (rows) for each sample (columns) in a data set.
+#' Row names are gene symbols and column names are sample IDs / names. Gene
+#' expression matrices can contain normalised (logCPM transformed) RNASeq or
+#' microarray transcriptomic data.
 #' @param sig_df Gene expression signature for a specific pathway given as data
 #' frame with the first column named "gene" containing a list of genes that are
 #' the most differentially expressed when the given pathway is active and the
@@ -168,10 +168,10 @@ classify_GSVA_percent <-
 #' signature.
 #' @author Anisha Thind \email{a.thind@@cranfield.ac.uk}
 #' @param expr_mat Normalised expression data set matrix comprising the
-#' expression levels of genes (rows) for each sample (columns) in a data set. Row names
-#' are gene symbols and column names are sample IDs / names. Gene expression
-#' matrices can contain normalised (logCPM transformed) RNASeq or microarray
-#' transcriptomic data.
+#' expression levels of genes (rows) for each sample (columns) in a data set.
+#' Row names are gene symbols and column names are sample IDs / names. Gene
+#' expression matrices can contain normalised (logCPM transformed) RNASeq or
+#' microarray transcriptomic data.
 #' @param sig_df Gene expression signature for a specific pathway given as data
 #' frame with the first column named "gene" containing a list of genes that are
 #' the most differentially expressed when the given pathway is active, and the
@@ -226,10 +226,10 @@ gsva_scores_dist <- function(expr_mat, sig_df) {
 #' algorithm on the two gene-sets of the gene signature provided.
 #' @author Anisha Thind \email{a.thind@@cranfield.ac.uk}
 #' @param expr_mat Normalised expression data set matrix comprising the
-#' expression levels of genes (rows) for each sample (columns) in a data set. Row names
-#' are gene symbols and column names are sample IDs / names. Gene expression
-#' matrices can contain normalised (logCPM transformed) RNASeq or microarray
-#' transcriptomic data.
+#' expression levels of genes (rows) for each sample (columns) in a data set.
+#' Row names are gene symbols and column names are sample IDs / names. Gene
+#' expression matrices can contain normalised (logCPM transformed) RNASeq or
+#' microarray transcriptomic data.
 #' @param sig_df Gene expression signature for a specific pathway given as data
 #' frame with the first column named "gene" containing a list of genes that are
 #' the most differentially expressed when the given pathway is active and the

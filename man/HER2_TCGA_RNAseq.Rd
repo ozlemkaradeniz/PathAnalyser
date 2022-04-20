@@ -19,9 +19,9 @@ HER2_TCGA_RNAseq
 }
 \description{
 A gene expression matrix containing RNA-seq raw read counts for 60 primary
-human breast tumour samples (30 samples were human epidermal growth receptor
-(HER2) positive and 30 samples HER2 negative). This data set is a subset of a
-much larger data set containing 1,101 primary breast tumour samples collected
-from The Cancer Genome Atlas (TCGA).
+human breast tumour samples (30 human epidermal growth receptor (HER2)
+positive and 30 HER2 negative samples were selected at random). This data set
+is a subset of a much larger data set containing 1,101 primary breast tumour
+samples collected from The Cancer Genome Atlas (TCGA).
 }
 \keyword{datasets}

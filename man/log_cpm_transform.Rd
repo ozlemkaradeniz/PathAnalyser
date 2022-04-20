@@ -8,7 +8,7 @@ log_cpm_transform(dataset, boxplot = TRUE)
 }
 \arguments{
 \item{dataset}{An unnormalised gene expression matrix containing raw RNA-seq
-(integer) counts with gene IDs/symbols as row names and sample IDs as column
+(integer) counts with gene symbols as row names and sample IDs as column
 names.}
 
 \item{boxplot}{Optional argument that is a boolean (TRUE or FALSE) indicating
@@ -16,8 +16,8 @@ whether boxplots displaying before and after log CPM transformation should be
 displayed. (Default=TRUE)}
 }
 \value{
-A logCPM transformed gene expression data matrix with gene symbols /
-IDs as row names and samples names / IDs as column names.
+A logCPM transformed gene expression data matrix with gene symbols as
+row names and samples names / IDs as column names.
 }
 \description{
 Performs a logCPM transformation of RNA-seq raw count data

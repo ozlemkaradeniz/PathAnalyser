@@ -86,10 +86,10 @@
 #' ER RNA-seq gene expression data set from TCGA
 #'
 #' A gene expression matrix containing RNA-seq raw read counts for 60 human
-#' primary breast tumour samples (30 samples were estrogen receptor (ER)
-#' positive and 30 samples ER negative). This data set is a subset of a much
-#' larger data set containing 1,101 primary breast tumour samples collected from
-#' The Cancer Genome Atlas (TCGA).
+#' primary breast tumour samples (30 estrogen receptor (ER) positive and 30 ER
+#' negative samples were selected at random). This data set is a subset of a
+#' much larger data set containing 1,101 primary breast tumour samples collected
+#' from The Cancer Genome Atlas (TCGA).
 #' @format  A matrix containing 20,124 HUGO gene symbols (row names) and 60 breast
 #' cancer tumour samples IDs (columns) given in the form of TCGA barcodes for
 #' each sample. For further information on TCGA bar code semantics, please see
@@ -101,10 +101,10 @@
 #' HER2 RNA-seq gene expression data set from TCGA
 #'
 #' A gene expression matrix containing RNA-seq raw read counts for 60 primary
-#' human breast tumour samples (30 samples were human epidermal growth receptor
-#' (HER2) positive and 30 samples HER2 negative). This data set is a subset of a
-#' much larger data set containing 1,101 primary breast tumour samples collected
-#' from The Cancer Genome Atlas (TCGA).
+#' human breast tumour samples (30 human epidermal growth receptor (HER2)
+#' positive and 30 HER2 negative samples were selected at random). This data set
+#' is a subset of a much larger data set containing 1,101 primary breast tumour
+#' samples collected from The Cancer Genome Atlas (TCGA).
 #' @format A matrix containing 20,124 HUGO gene symbols (row names) and 60 breast
 #' cancer tumour samples IDs (columns) given in the form of TCGA barcodes for
 #' each sample. For further information on TCGA bar code semantics, please see
@@ -116,9 +116,9 @@
 #' ER microarray data set obtained from GEO
 #'
 #' A matrix containing microarray data for 60 human breast tumour samples (30
-#' samples were estrogen receptor (ER) positive and 30 samples
-#' ER negative) extracted from GSE31448 dataset (Sabatier et al. 2011) using the
-#' GEO query library. Multi-gene probes were excluded and only cancer samples
+#' estrogen receptor (ER) positive and 30 ER negative samples were selected at
+#' random) and were extracted from GSE31448 dataset (Sabatier et al. 2011) using
+#' the GEO query library. Multi-gene probes were excluded and only cancer samples
 #' from human breast cancer tumours were selected for constructing this matrix.
 #' @format  A matrix containing 21,656 HUGO gene symbols (row names) and 60
 #' breast cancer tumour samples IDs (columns) which are given as sample
@@ -135,10 +135,10 @@
 #' HER2 microarray data set obtained from GEO
 #'
 #' A matrix containing microarray data for 60 human breast tumour samples (30
-#' samples were ERBB2 (HER2) positive and 30 samples HER2 negative) extracted
-#' from GSE31448 dataset (Sabatier et al. 2011) using the GEO query library.
-#' Multi-gene probes were excluded and only cancer samples from human breast
-#' cancer tumours were selected for constructing this matrix.
+#' ERBB2 (HER2) positive and 30 HER2 negative samples were selected at random)
+#' and were extracted from GSE31448 dataset (Sabatier et al. 2011) using the GEO
+#' query library.Multi-gene probes were excluded and only cancer samples from
+#' human breast cancer tumours were selected for constructing this matrix.
 #' @format A matrix containing 21,656 HUGO gene symbols (row names) and 60
 #' breast cancer tumour samples IDs (columns) which are given as sample
 #' accession numbers.
