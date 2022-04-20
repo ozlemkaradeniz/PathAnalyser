@@ -109,6 +109,9 @@ log_cpm_transform <- function(dataset, boxplot = TRUE) {
 #' expressed in a given pathway and their relative expression values are given
 #' in the second column, with 1 representing up-regulated genes and -1
 #' representing down-regulated genes.
+#' @param barplot optional Boolean parameter to display bar plot of
+#' mean-normalised gene counts following pre-processing performed
+#' by the function (default=TRUE).
 #'
 #' @return A filtered gene expression data matrix with gene symbols as row names
 #' and sample names / IDs as column names
