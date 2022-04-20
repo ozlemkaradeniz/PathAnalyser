@@ -18,9 +18,9 @@ ER_GEO_microarr
 }
 \description{
 A matrix containing microarray data for 60 human breast tumour samples (30
-samples were estrogen receptor (ER) positive and 30 samples
-ER negative) extracted from GSE31448 dataset (Sabatier et al. 2011) using the
-GEO query library. Multi-gene probes were excluded and only cancer samples
+estrogen receptor (ER) positive and 30 ER negative samples were selected at
+random) and were extracted from GSE31448 dataset (Sabatier et al. 2011) using
+the GEO query library. Multi-gene probes were excluded and only cancer samples
 from human breast cancer tumours were selected for constructing this matrix.
 }
 \references{

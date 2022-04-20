@@ -18,10 +18,10 @@ HER2_GEO_microarr
 }
 \description{
 A matrix containing microarray data for 60 human breast tumour samples (30
-samples were ERBB2 (HER2) positive and 30 samples HER2 negative) extracted
-from GSE31448 dataset (Sabatier et al. 2011) using the GEO query library.
-Multi-gene probes were excluded and only cancer samples from human breast
-cancer tumours were selected for constructing this matrix.
+ERBB2 (HER2) positive and 30 HER2 negative samples were selected at random)
+and were extracted from GSE31448 dataset (Sabatier et al. 2011) using the GEO
+query library.Multi-gene probes were excluded and only cancer samples from
+human breast cancer tumours were selected for constructing this matrix.
 }
 \references{
 Sabatier, R., Finetti, P., Adelaide, J., Guille, A., Borg, J.P.,
