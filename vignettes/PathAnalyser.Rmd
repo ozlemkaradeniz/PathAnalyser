@@ -28,34 +28,34 @@ knitr::opts_chunk$set(
 ```
 
 # Introduction
-PathAnalyser is an intuitive and user-friendly package that allows users to 
-assess pathway activity of transcriptomic data sets using the gene 
-signature of a pathway. A gene signature comprises of a list of up-regulated 
-genes and down-regulated genes when a specific pathway is active. Unique to 
-PathAnalyser is the ability to classify samples according to the consensus of 
-evidence of expression of *both parts of the gene signature* 
-(up-regulated and down-regulated gene sets) for each sample, in contrast to 
-other gene set enrichment analysis packages that fail to distinguish between 
-these two gene sets, thus considering the signature as a single gene set. A 
-key strength of the package is there is no direct forcing of samples into 
-pathway "active" or "inactive" classes, rather samples that lack consensus 
-between the two parts of the signature are classified as having "uncertain" 
-pathway activity.
+PathAnalyser is user-friendly package that allows users to assess pathway 
+activity of transcriptomic data sets using the gene signature of a given 
+pathway. Unlike currently available algorithms that perform transcriptional 
+classifications using gene sets that do not account for any information on 
+direction of association like GSVA or GSEA, or classification algorithms that 
+use weighted lists of genes which also account for the strength of association, 
+in addition to the direction of association of genes, PathAnalyser is a unique 
+classification tool which allows samples to be classified simply based on a gene 
+signature, a list of genes which only provide information on the direction of 
+association i.e. whether a gene is up-regulated or down-regulated when a given 
+pathway is active. Many studies report these gene lists or signatures, which can 
+be used directly by PathAnalyser to classify samples in transcriptomic datasets.
 
-PathAnalyser provides functionality and built-in data (including expression data
-set as well as gene signatures) for assessing ER and HER2 pathway activity in 
-breast cancer transcriptomic data sets. These transcriptional signatures have 
-been shown to have clinical predictive value, in particular, ER and HER2 gene 
-signatures have been associated with molecular sub-types, prognosis and 
-treatment response in breast cancer. Although this package was original 
-developed to assess ER and HER2 pathway activity in breast cancer transcriptomic 
-data sets, the package functionality is flexible and could be applied to 
-transcriptomic data sets and gene signatures outside the context of breast 
-cancer. 
+PathAnalyser provides a range of functionality and built-in data, including gene 
+expression datasets (RNA-seq and microarray) and gene signatures for assessing 
+ER and HER2 pathway activity in breast cancer transcriptomic data sets. These 
+transcriptional signatures have been shown to have clinical predictive value, 
+in particular, ER and HER2 gene signatures have been associated with molecular 
+sub-types, prognosis and treatment response in breast cancer 
+([Parker et al., 2009; Symanns et al., 2011][References]). Although this package 
+was original developed to assess ER and HER2 pathway activity in breast cancer 
+transcriptomic data sets, the package functionality is flexible and could be 
+applied to transcriptomic data sets and gene signatures outside the context of 
+breast cancer. 
 
 In this vignette, we will describe how to use the PathAnalyser package 
 with microarray and RNA-seq expression transcriptomic data sets and gene 
-expression signatures associated with a specific pathway activity.
+expression signatures associated with activity of ER and HER2 pathway.
 
 # General Workflow
 The typical workflow of pathway activity assessment using PathAnalyser is 
@@ -84,16 +84,17 @@ install.packages(c("ggfortify", "ggplot2", "glue", "lifecycle", "cli", "plotly",
 ```
 All Bioconductor dependencies can be installed by typing the following in R:
 ```{r eval=F}
+# if not already installed, install BiocManager
+install.packages("BiocManager")
 BiocManager::install(c("GSVA","edgeR", "limma"))
 ```
 
-
 ## Installing package 
-It is **strongly recommended** that users install the latest source release for 
-PathAnalyser by downloading the source file on GitHub from this [link](https://github.com/ozlemkaradeniz/PathAnalyser/releases/tag/v0.0.0.9000) 
+It is **strongly recommended** that users install the latest source release 
+of PathAnalyser by downloading the tarball source file on GitHub from this [link](https://github.com/ozlemkaradeniz/PathAnalyser/releases/tag/v0.0.0.9000) 
 and then installing this local source version of the package in R:
 ```{r eval=F}
-install.packages("PathAnalyser_0.0.0.9000.tar.gz", repos=NULL, type="so")
+install.packages("PathAnalyser_0.0.0.9000.tar.gz", repos=NULL, type="source")
 ```
 
 ### Using devtools for direct installation from GitHub
@@ -129,7 +130,7 @@ library(PathAnalyser)
 The classification algorithm of PathAnalyser requires two types of input data:
 
 1. **Gene expression matrix** - a gene-by-sample gene expression matrix, with 
-row names corresponding to gene names and column names corresponding to sample 
+row names corresponding to gene symbols and column names corresponding to sample 
 names / IDs.
 2. **gene signature data frame** - a data frame of expression values corresponding 
 to a list of genes associated with a pathway. The first column contains gene 
@@ -138,7 +139,7 @@ names and the second column contains expression values: -1 for down-regulated or
 
 ## Input files
 The two data types described above (gene expression matrix and gene signature 
-dataframe) can be created from two types of input files:
+dataframe) can be created from three types of input files:
 
 1. *Gene expression matrix file* - a tab-delimited text file containing a gene 
 expression matrix, where rows represent genes and columns samples of a gene 
@@ -309,8 +310,7 @@ before and after transformation.
 ```{r fig.wide=TRUE}
 # using toy data set as expression matrix
 data("ER_TCGA_RNAseq")
-data_se <- ER_TCGA_RNAseq 
-normalized_se <- log_cpm_transform(data_se)
+normalized_se <- log_cpm_transform(ER_TCGA_RNAseq)
 ```
 
 ### Checking and filtering genes from the gene expression matrix
@@ -638,13 +638,30 @@ sessionInfo()
 ```
 
 # References
-Hänzelmann, S., Castelo, R. & Guinney, J. GSVA: gene set variation analysis for 
-microarray and RNA-Seq data. BMC Bioinformatics 14, 7 (2013). 
-https://doi.org/10.1186/1471-2105-14-7
+Gendoo, D.M., Ratanasirigulchai, N., Schröder, M.S., Paré, L., Parker, J.S., 
+Prat, A. and Haibe-Kains, B., 2016. Genefu: an R/Bioconductor package for 
+computation of gene expression-based signatures in breast cancer. 
+Bioinformatics, 32(7), pp.1097-1099. doi: 
+https://doi.org/10.1093/bioinformatics/btv693
+
+Hänzelmann, S., Castelo, R. and Guinney, J., 2013. GSVA: gene set variation 
+analysis for microarray and RNA-seq data. BMC bioinformatics, 14(1), pp.1-15.
+doi: https://doi.org/10.1186/1471-2105-14-7
+
+Liberzon, A., Subramanian, A., Pinchback, R., Thorvaldsdóttir, H., Tamayo, P. 
+and Mesirov, J.P., 2011. Molecular signatures database (MSigDB) 3.0. 
+Bioinformatics, 27(12), pp.1739-1740. 
+doi: https://doi.org/10.1093/bioinformatics/btr260
+
+Parker, J.S., Mullins, M., Cheang, M.C., Leung, S., Voduc, D., Vickery, T., 
+Davies, S., Fauron, C., He, X., Hu, Z. and Quackenbush, J.F., 2009. Supervised 
+risk predictor of breast cancer based on intrinsic subtypes. Journal of clinical 
+oncology, 27(8), p.1160. doi: https://dx.doi.org/10.1200%2FJCO.2008.18.1370
 
 Smid, M., Wang, Y., Zhang, Y., Sieuwerts, A.M., Yu, J., Klijn, J.G., 
 Foekens, J.A. and Martens, J.W., 2008. Subtypes of breast cancer show 
-preferential site of relapse. Cancer research, 68(9), pp.3108-3114.
+preferential site of relapse. Cancer research, 68(9), pp.3108-3114. doi: 
+https://doi.org/10.1158/0008-5472.can-07-5644
 
 Symmans, W.F., Hatzis, C., Sotiriou, C., Andre, F., Peintinger, F., Regitnig, 
 P., Daxenbichler, G., Desmedt, C., Domont, J., Marth, C. and Delaloge, S., 
