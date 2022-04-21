@@ -197,10 +197,12 @@ check_signature_vs_dataset <- function(norm_data, sig_df, barplot=TRUE) {
         df_plot$counts <- as.numeric(as.vector(df_plot$counts))
 
         p <- ggplot(data = df_plot, aes(x = gene, y = counts)) +
-          geom_bar(stat = "identity", fill="#0072B2") +
+          geom_bar(stat = "identity", fill="#0072B2", alpha=0.8) +
           ggtitle("Mean normalised counts per gene") +
-          ylab("Count") + theme_bw() +
+          ylab("Mean-normalised count") + theme_bw() +
           scale_x_continuous(expand=c(0, 0)) +
+          scale_y_continuous(expand=c(0, 0),
+                             limits=c(0, max(df_plot$counts) + 1)) +
           theme(plot.title = element_text(hjust = 0.5),
                 axis.text.x = element_blank(),
                 axis.ticks.x = element_blank(),
