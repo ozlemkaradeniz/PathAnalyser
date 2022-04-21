@@ -91,6 +91,8 @@ calculate_accuracy <-function(true_labels, predicted_labels, pathway,
   # label name is updated to label, in order to have the same for both HER AND ER pathways
   colnames(true_labels_df)[2] <- "label"
 
+  true_labels_df$label= tolower(true_labels_df$label)
+
   # predicted_labels_df.sample and true_labels_df.CaseID are set to the same format
   predicted_labels_df[,1] <- gsub("\\.", "-", predicted_labels_df[,1])
 
@@ -99,13 +101,15 @@ calculate_accuracy <-function(true_labels, predicted_labels, pathway,
 
   # statistical data is calculated below to create confusion matrix
   # True Positive, predicted positive, actual positive
-  TP <- nrow(df[(df$class == "Active" & df$label == "Positive"),])
+  TP <- nrow(df[(df$class == "Active" & df$label == "positive"),])
   # False Positive, predicted positive, actual negative
-  FP <- nrow(df[(df$class == "Active" & df$label == "Negative"),])
+  FP <- nrow(df[(df$class == "Active" & df$label == "negative"),])
   # True Negative, predicted negative, actual negative
-  TN <- nrow(df[(df$class == "Inactive" & df$label == "Negative"),])
+  TN <- nrow(df[(df$class == "Inactive" & df$label == "negative"),])
   # False Negative, predicted negative, actual positive
-  FN <- nrow(df[(df$class == "Inactive" & df$label == "Positive"),])
+  FN <- nrow(df[(df$class == "Inactive" & df$label == "positive"),])
+  # predicted uncertain
+  prdedicted_uncertain = nrow(df[df$class == "Uncertain",])
 
   # create confusion matrix
   matrix_data <- c(TP, FN, FP, TN)
@@ -113,7 +117,7 @@ calculate_accuracy <-function(true_labels, predicted_labels, pathway,
                            dimnames = list(c("Prediction Positive ","Prediction Negative"),
                                            c("Actual Positive","Actual Negative")))
 
-  classified_samples_proportion <- (TP + FN + FP + TN) / sum(confusion_matrix) * 100
+  classified_samples_proportion <- (TP + FN + FP + TN) / sum(TP + FN + FP + TN + prdedicted_uncertain ) * 100
   accuracy_amongst_classified_samples <- (TP + TN) / (TP + FN + FP + TN) * 100
 
   cat(paste("Confusion Matrix for ", pathway, " pathway\n"))
@@ -126,9 +130,9 @@ calculate_accuracy <-function(true_labels, predicted_labels, pathway,
     cat("Statistics in Confusion Matrix\n")
     cat("--------------------------------------------------------------\n")
     cat(paste0("Proportion of classified samples: ",
-               format(round(classified_samples_proportion, 2), nsmall = 2), "\n"))
+               format(round(classified_samples_proportion, 2), nsmall = 2), "%\n"))
     cat(paste0("Accuracy amongst classified samples: " ,
-               format(round(accuracy_amongst_classified_samples, 2), nsmall = 2), "\n"))
+               format(round(accuracy_amongst_classified_samples, 2), nsmall = 2), "%\n"))
     cat(paste0("True Positive(TP): " , TP, "\n"))
     cat(paste0("True Negative(TN): " , TN, "\n"))
     cat(paste0("False Negative(FN): " , FN, "\n"))
