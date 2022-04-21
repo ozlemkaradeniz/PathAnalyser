@@ -42,7 +42,7 @@ gene signatures.
     - [Visualising classification](#visualising-classification-using-pca)
     - [Classification evaluation with true labels (optional)](#classification-evaluation-with-true-labels-optional)
     - [Acessing help](#accessing-help)
-    - [Questions, bug reports / issues](#questions-bug-reports-issues)
+    - [Questions, bug reports / issues](#questions-bug-reports--issues)
 - [If you wish to know more](#if-you-wish-to-know-more)
   
 # PathAnalyser workflow
@@ -184,7 +184,7 @@ following in R:
 
 # Questions, bug reports / issues
 For any questions, feature requests or bug reports / issues regarding this 
-development version of PathAnalyser, please use the "[issues](https://github.com/ozlemkaradeniz/PathAnalyser/issues)" tab located at the top-left of the GitHub repository.
+development version of PathAnalyser, please use the "[issues](https://github.com/ozlemkaradeniz/PathAnalyser/issues)" tab located at the top-left of the GitHub repository page.
 
 # If you wish to know more
 
