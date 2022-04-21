@@ -41,6 +41,8 @@ gene signatures.
     - [Classification based on pathway activity](#classification-based-on-pathway-activity)
     - [Visualising classification](#visualising-classification-using-pca)
     - [Classification evaluation with true labels (optional)](#classification-evaluation-with-true-labels-optional)
+    - [Acessing help](#accessing-help)
+    - [Questions, bug reports / issues](#questions-bug-reports-issues)
 - [If you wish to know more](#if-you-wish-to-know-more)
   
 # PathAnalyser workflow
