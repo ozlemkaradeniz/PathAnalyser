@@ -4,18 +4,25 @@
 
 PathAnalyser is a flexible and user-friendly R package that provides 
 functionality for assessing ER and HER2 pathway activity in breast cancer 
-transcriptomic datasets by using a gene expression signature. Unlike currently 
-available algorithms that perform transcriptional classifications using gene 
-sets that do not account for any information on direction of association like 
-GSVA or GSEA, or classification algorithms that use weighted lists of genes 
-which also account for the strength of association, in addition to the direction 
-of association of genes, PathAnalyser is a unique classification tool which 
-allows samples to be classified simply based on a gene signature, a list of 
-genes which only provide information on the direction of association i.e. 
-whether a gene is up-regulated or down-regulated when a given pathway is active. 
-Many studies report these gene lists or signatures, which can be used directly 
-by PathAnalyser to classify samples in transcriptomic datasets.
- 
+transcriptomic datasets by using a gene expression signature. Typically, gene 
+signatures can be broadly classified into the following 
+three categories:
+
+1. gene-sets - list of genes without information regarding the strength or 
+direction of association with a phenotype
+2. weighted gene lists - lists of genes with numerical weights representing 
+strength and direction of association
+3. gene-signature containing only direction of association with the phenotype 
+(i.e. a list of up-regulated and down-regulated genes).
+
+Several currently available packages and algorithms classify samples using 
+gene-sets such as GSVA and GSEA or weighted gene lists such as the PAM50 
+algorithm. However despite the third type of signature (direction-associated 
+gene signatures) being reported by numerous publications, there is currently no 
+software tools available for classifying samples based on these signatures. 
+PathAnalyser addresses this need by providing functionality for classifying 
+samples by pathway activity using these highly reported and widely available 
+gene signatures.
 
 # Table of Contents
 
@@ -138,20 +145,20 @@ norm_data <- check_signature_vs_dataset(norm_data=norm_data, sig_df=sig_df)
 ```
 
 ## Classification based on pathway activity
-Pathway-based classification can be performed by using the classify_GSVA_percent function with a normalised gene expression matrix and gene signature data frame:
+Pathway-based classification can be performed by using the classify_gsva_percent function with a normalised gene expression matrix and gene signature data frame:
 ```{r eval=F}
 # Using default percentile threshold (quartile = 25%)
-norm_data <- classify_GSVA_percent(norm_data, sig_df)
+norm_data <- classify_gsva_percent(norm_data, sig_df)
 ```
 A custom percentile threshold can be provided by the user for tuning the pathway-based classification, by adding the `percent_thresh` parameter:
 ```{r eval=F}
 # Using a 50th percentile threshold (50%)
-classes_df <- classify_GSVA_percent(norm_data, sig_df, percent_thresh=50)
+classes_df <- classify_gsva_percent(norm_data, sig_df, percent_thresh=50)
 ```
 The generated output (`classes_df`) of the classification function is a data frame containing samples names as the first column and the predicted activity class for a given pathway as the second column ("Active", "Inactive", "Uncertain").
 
 ## Visualising classification using PCA
-An interactive PCA plot for visualising the pathway-based classification of samples can be achieved by using the `classes_PCA` function with the normalised expression matrix (`norm_data`), the data frame produced by the `classify_GSVA_percent` function (`classes_df`) and the pathway of interest:
+An interactive PCA plot for visualising the pathway-based classification of samples can be achieved by using the `classes_PCA` function with the normalised expression matrix (`norm_data`), the data frame produced by the `classify_gsva_percent` function (`classes_df`) and the pathway of interest:
 ```{r eval=F}
 classes_PCA(norm_data, classes_df, pathway = "ER")
 ```
@@ -163,6 +170,19 @@ confusion_matrix <- calculate_accuracy("Sample_labels.txt", classes_df,
                                        pathway = "ER")
 ```
 For further examples of using PathAnalyser in pathway-based classification analysis, please refer to the demo script (under /demo folder) and use the provided supplementary data. You can obtain 
+
+# Accessing help
+To access help pages for any of the functions or built-in data provided by 
+PathAnalyser, prefix the name of the function or data set with a question mark, 
+e.g. to get additional information on the `read_signature` function, type the 
+following in R:
+```{r eval=F}
+?read_signature
+```
+
+# Questions, bug reports / issues
+For any questions, feature requests or bug reports / issues regarding this 
+development version of PathAnalyser, please use the "[issues](https://github.com/ozlemkaradeniz/PathAnalyser/issues)" tab located at the top-left of the GitHub repository.
 
 # If you wish to know more
 
