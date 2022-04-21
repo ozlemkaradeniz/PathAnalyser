@@ -55,9 +55,9 @@
 #'
 #' @examples
 #' # Default thresholds for up-regulated and down-regulated gene-sets
-#' \dontrun{classes_df <- classify_GSVA_abs(ER_dataset, ER_sig, up_thresh.low=-0.25,
+#' \dontrun{classes_df <- classify_gsva_abs(ER_dataset, ER_sig, up_thresh.low=-0.25,
 #'      up_thresh.high=0.25, dn_thresh.low=-0.25, dn_thresh.high=0.35)}
-classify_GSVA_abs <- function(expr_mat,
+classify_gsva_abs <- function(expr_mat,
                               sig_df,
                               up_thresh.low,
                               up_thresh.high,
@@ -81,7 +81,7 @@ classify_GSVA_abs <- function(expr_mat,
     gene-set (dn_thresh.low)"
     )
   }
-  scores <- run_GSVA(expr_mat, sig_df)
+  scores <- run_gsva(expr_mat, sig_df)
   classes_df <-
     classify(scores,
               up_thresh.low,
@@ -131,17 +131,17 @@ classify_GSVA_abs <- function(expr_mat,
 #'
 #' @examples
 #' # default using quartile threshold (25th percentile)
-#' \dontrun{classes_df <- classify_GSVA_percent(ER_data_mat, ER_sig)}
+#' \dontrun{classes_df <- classify_gsva_percent(ER_data_mat, ER_sig)}
 #' # custom percentile threshold e.g. 30th percentile
-#' \dontrun{classes_df <- classify_GSVA_percent(ER_data_mat, ER_sig,
+#' \dontrun{classes_df <- classify_gsva_percent(ER_data_mat, ER_sig,
 #'        percent_thresh=30)}
-classify_GSVA_percent <-
+classify_gsva_percent <-
   function(expr_mat, sig_df, percent_thresh = 25) {
     # check threshold is a number between 0-100%
     thresh <- tryCatch(percent_thresh / 100, error=function(e){
       stop("Percentile threshold is not a number.")
     })
-    scores <- run_GSVA(expr_mat, sig_df)
+    scores <- run_gsva(expr_mat, sig_df)
     # compute percentiles
     tryCatch(
       up_thresh <- quantile(scores$Up[, 1], c(thresh, 1 - thresh)),
@@ -191,7 +191,7 @@ gsva_scores_dist <- function(expr_mat, sig_df) {
   # bind Scores variable locally to function
   Score <- NULL
   # run GSVA using data provided
-  gsva_scores <- run_GSVA(expr_mat, sig_df)
+  gsva_scores <- run_gsva(expr_mat, sig_df)
 
   sortedScores <- cbind(gsva_scores$Up, gsva_scores$Down)
 
@@ -243,8 +243,8 @@ gsva_scores_dist <- function(expr_mat, sig_df) {
 #' @importFrom GSVA gsva
 #' @noRd
 #' @examples
-#' \dontrun{run_GSVA(ER_dataset, ER_sig)}
-run_GSVA <- function(expr_mat, sig_df) {
+#' \dontrun{run_gsva(ER_dataset, ER_sig)}
+run_gsva <- function(expr_mat, sig_df) {
   # check signature arg is data frame
   check_sig_df(sig_df)
 
