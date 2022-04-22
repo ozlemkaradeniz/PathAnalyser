@@ -57,7 +57,7 @@ log_cpm_transform <- function(dataset, boxplot = TRUE) {
     )
     plot1 <- ggplot(melt_data, aes(x = samples, y = counts)) +
       geom_boxplot(fill = "slateblue") +
-      ggtitle("Plot before log CPM transformation") +
+      ggtitle("Gene count distribution per sample before log CPM transformation") +
       ylab("Raw Counts Per Thousand") +
       theme_bw() +
       theme(
@@ -81,7 +81,7 @@ log_cpm_transform <- function(dataset, boxplot = TRUE) {
     plot2 <- ggplot(melt_norm, aes(x = samples, y = counts)) +
       geom_boxplot(fill = "slateblue", alpha = 0.2) +
       ylab("Log Counts Per Million (CPM)") +
-      ggtitle("Plot after log CPM transformation") +
+      ggtitle("Gene count distribution per sample after log CPM transformation") +
       theme_bw() +
       theme(
         axis.text.x = element_blank(),

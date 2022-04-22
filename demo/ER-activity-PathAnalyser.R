@@ -67,13 +67,13 @@ norm_data <- check_signature_vs_dataset(norm_data, sig_df)
 # threshold for GSVA scores
 
 # Using a percentile threshold (default = 25% so quartile threshold essentially)
-classes_df.perc25 <- classify_GSVA_percent(norm_data, sig_df)
+classes_df.perc25 <- classify_gsva_percent(norm_data, sig_df)
 # using a percentile threshold of 50%
 # (At this percentile the number of uncertain classifications are reduced to
 # their minimum, as only those samples that have consistent expression with only
 # the up-gene set signature or only the down-gene set of the signature are
 # classified as uncertain)
-classes_df.perc50 <- classify_GSVA_percent(norm_data, sig_df,
+classes_df.perc50 <- classify_gsva_percent(norm_data, sig_df,
                                            percent_thresh = 50)
 
 #-------------------------------------------------------------------------------

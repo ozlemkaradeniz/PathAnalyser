@@ -1,7 +1,7 @@
 Package: PathAnalyser
 Title: ER & HER2 Pathway Activity Analysis For Breast Cancer
     Transcriptomic Datasets
-Version: 0.0.0.9000
+Version: 1.0.0
 Authors@R: c(
     person("Taniya", "Pal", , "Taniya.Pal.094@cranfield.ac.uk", role = "aut"),
     person("Rishabh", "Kaushik", , "rishabh.kaushik.126@cranfield.ac.uk", role = "aut"),
@@ -26,19 +26,15 @@ BugReports: https://github.com/a-thind/PathAnalyser/issues
 Depends: 
     GSVA,
     R (>= 2.10)
+biocView:
 Imports: 
-    cli,
     edgeR,
     ggfortify,
     ggplot2,
-    glue,
-    lifecycle,
     limma,
     plotly,
     reader,
-    reshape2,
-    rlang,
-    withr
+    reshape2
 Suggests: 
     BiocStyle,
     knitr,

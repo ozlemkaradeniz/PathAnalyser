@@ -40,7 +40,7 @@ strength and direction of association with a phenotype
 (i.e. a list of up-regulated and down-regulated genes).
 
 Several currently available packages and algorithms classify samples using 
-gene-sets such as GSVA and GSEA methods ([Suberman et al., 2005, Hänzelmann et al., 2013][References]) or weighted gene lists such as the PAM50 algorithm [Parker et al., 2009][References]. However 
+gene-sets such as GSVA and GSEA methods ([Suberman et al., 2005, Hänzelmann et al., 2013][References]) or weighted gene lists such as the PAM50 algorithm [Parker et al., 2009][References]. However, 
 despite the third type of signature (direction-associated gene signatures) being 
 reported by numerous publications, there is currently no software tools 
 available for classifying samples based on these signatures. PathAnalyser 
@@ -76,7 +76,7 @@ knitr::include_graphics("workflow_flowchart.png")
 ```
 
 **Note**: The **classification evaluation step is optional** and can only be 
-performed if actual pathway activity class labels (e.g. active, inactive or 
+performed if actual pathway activity class labels (e.g. positive, negative or 
 uncertain) for the corresponding pathway are present.
 
 # Installation and setup
@@ -85,9 +85,7 @@ All dependencies should be installed together with the PathAnalyser package,
 however, they can be installed separately. To install all required CRAN 
 dependencies of PathAnalyser, type the following in R:
 ```{r eval=F}
-install.packages(c("ggfortify", "ggplot2", "glue", "lifecycle", "cli", "plotly",
-                   "reader", "reshape2", "rlang", "withr"
-                   ))
+install.packages(c("ggfortify", "ggplot2", "plotly", "reader", "reshape2"))
 
 ```
 All Bioconductor dependencies can be installed by typing the following in R:
@@ -104,7 +102,8 @@ source release](https://github.com/ozlemkaradeniz/PathAnalyser/releases/tag/v0.0
 section of the PathAnalyser GitHub repository and then installing this local 
 source version of the package in R:
 ```{r eval=F}
-install.packages("PathAnalyser_0.0.0.9000.tar.gz", repos=NULL, type="source")
+install.packages("PathAnalyser_1.0.0.tar.gz", repos=NULL, type="source",
+                 dependencies=TRUE)
 ```
 
 ### Using devtools for direct installation from GitHub
