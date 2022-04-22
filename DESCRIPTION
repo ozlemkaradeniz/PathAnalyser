@@ -1,7 +1,7 @@
 Package: PathAnalyser
 Title: ER & HER2 Pathway Activity Analysis For Breast Cancer
     Transcriptomic Datasets
-Version: 0.0.0.9000
+Version: 1.0.0
 Authors@R: c(
     person("Taniya", "Pal", , "Taniya.Pal.094@cranfield.ac.uk", role = "aut"),
     person("Rishabh", "Kaushik", , "rishabh.kaushik.126@cranfield.ac.uk", role = "aut"),
