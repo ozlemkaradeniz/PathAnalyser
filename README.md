@@ -1,4 +1,4 @@
-![](doc/pathanalyser.png "PathAnalyser")
+<img src="pathanalyser.png" alt="PathAnalyser">
 
 # Summary
 
@@ -177,7 +177,7 @@ classes_df <- classify_gsva_percent(norm_data, sig_df, percent_thresh=50)
 
 The generated output (`classes_df`) of the classification function is a data frame containing samples names as the first column and the predicted activity class for a given pathway as the second column ("Active", "Inactive", "Uncertain").
 
-## Visualising classification using PCA
+## Visualising classification
 
 An interactive PCA plot for visualising the pathway-based classification of samples can be achieved by using the `classes_PCA` function with the normalised expression matrix (`norm_data`), the data frame produced by the `classify_gsva_percent` function (`classes_df`) and the pathway of interest:
 
