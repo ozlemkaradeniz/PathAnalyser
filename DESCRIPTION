@@ -26,6 +26,7 @@ BugReports: https://github.com/a-thind/PathAnalyser/issues
 Depends: 
     GSVA,
     R (>= 2.10)
+biocView:
 Imports: 
     cli,
     edgeR,
