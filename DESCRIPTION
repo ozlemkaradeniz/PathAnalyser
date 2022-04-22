@@ -28,18 +28,13 @@ Depends:
     R (>= 2.10)
 biocView:
 Imports: 
-    cli,
     edgeR,
     ggfortify,
     ggplot2,
-    glue,
-    lifecycle,
     limma,
     plotly,
     reader,
-    reshape2,
-    rlang,
-    withr
+    reshape2
 Suggests: 
     BiocStyle,
     knitr,

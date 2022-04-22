@@ -85,9 +85,7 @@ All dependencies should be installed together with the PathAnalyser package,
 however, they can be installed separately. To install all required CRAN 
 dependencies of PathAnalyser, type the following in R:
 ```{r eval=F}
-install.packages(c("ggfortify", "ggplot2", "glue", "lifecycle", "cli", "plotly",
-                   "reader", "reshape2", "rlang", "withr"
-                   ))
+install.packages(c("ggfortify", "ggplot2", "plotly", "reader", "reshape2"))
 
 ```
 All Bioconductor dependencies can be installed by typing the following in R:
@@ -104,7 +102,7 @@ source release](https://github.com/ozlemkaradeniz/PathAnalyser/releases/tag/v0.0
 section of the PathAnalyser GitHub repository and then installing this local 
 source version of the package in R:
 ```{r eval=F}
-install.packages("PathAnalyser_0.0.0.9000.tar.gz", repos=NULL, type="source",
+install.packages("PathAnalyser_1.0.0.tar.gz", repos=NULL, type="source",
                  dependencies=TRUE)
 ```
 
