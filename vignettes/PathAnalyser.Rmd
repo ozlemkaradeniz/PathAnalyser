@@ -32,18 +32,18 @@ activity of transcriptomic data sets using the gene signature of a given
 pathway. Typically gene signatures can be broadly classified into the following 
 three categories:
 
-1. gene-sets - list of genes without information regarding the strength or 
+1. **gene-sets** - list of genes without information regarding the strength or 
 direction of association with a phenotype
-2. weighted gene lists - lists of genes with numerical weights representing 
+2. **weighted gene lists** - lists of genes with numerical weights representing 
 strength and direction of association with a phenotype
-3. gene-signature containing *only direction of association with the phenotype* 
+3. **gene-signature containing** only direction of association with the phenotype* 
 (i.e. a list of up-regulated and down-regulated genes).
 
 Several currently available packages and algorithms classify samples using 
 gene-sets such as GSVA and GSEA methods ([Suberman et al., 2005, Hänzelmann et al., 2013][References]) or weighted gene lists such as the PAM50 algorithm [Parker et al., 2009][References]. However, 
-despite the third type of signature (direction-associated gene signatures) being 
+*despite the third type of signature (direction-associated gene signatures) being 
 reported by numerous publications, there is currently no software tools 
-available for classifying samples based on these signatures. PathAnalyser 
+available for classifying samples based on these signatures*. PathAnalyser 
 addresses this need by providing functionality for classifying samples by 
 pathway activity using these highly reported and widely available gene 
 signatures.
@@ -55,13 +55,16 @@ expression datasets (RNA-seq and microarray) as well as gene signatures for
 assessing ER and HER2 pathway activity in breast cancer transcriptomic data sets. 
 These transcriptional signatures have been shown to have prognostic significance, 
 in particular, ER and HER2 gene signatures have been associated with molecular 
-sub-types, prognosis and treatment response and risk of recurrence in breast 
-cancer ([Parker et al., 2009; Symanns et al., 2011][References]) and currently 
-feature as part of standard care and management of early stage estrogen-positive breast 
-cancer. Although this package was original developed to assess ER and HER2 
-pathway activity in breast cancer transcriptomic data sets, the package 
-functionality is flexible and could be applied to transcriptomic data sets and 
-gene signatures outside the context of breast cancer. 
+sub-types, prognosis, treatment response and risk of recurrence in breast 
+cancer ([Parker et al., 2009; Symanns et al., 2011][References]). The clinical 
+utility of such signatures has already been demonstrated, for example, by the 
+adoption of ER signatures in molecular testing and standard management of early 
+stage estrogen-positive breast cancer, 
+([Litton, Burstein, and Turner, 2019][References]). Although this package was 
+original developed to assess ER and HER2 pathway activity in breast cancer 
+transcriptomic data sets, the package functionality is flexible and could be 
+applied to transcriptomic data sets and gene signatures outside the context of 
+breast cancer. 
 
 In this vignette, we will describe how to use the PathAnalyser package 
 with microarray and RNA-seq expression transcriptomic data sets and gene 
@@ -188,7 +191,8 @@ gene set database file formats:
 knitr::include_graphics("grp_file.png")
 ```
     
-    2. [gene matrix transposed fileformat](https://software.broadinstitute.org/cancer/software/gsea/wiki/index.php/Data_formats#GMT:_Gene_Matrix_Transposed_file_format_.28.2A.gmt.29)(GMT) - a tab-separated file format where each row represent a single gene set (fig. \@ref(fig:grp).
+    
+  2. [gene matrix transposed fileformat](https://software.broadinstitute.org/cancer/software/gsea/wiki/index.php/Data_formats#GMT:_Gene_Matrix_Transposed_file_format_.28.2A.gmt.29) (GMT) - a tab-separated file format where each row represent a single gene set (fig. \@ref(fig:grp)).
     
 ```{r gmt, echo=FALSE, fig.cap="An example GMT gene set file containing the up-regulated gene set of an ERBB2 gene signature"}
 knitr::include_graphics("ERBB2_UP.V1_UP.v7.5.1.gmt.png")
@@ -206,15 +210,22 @@ signature.
 
 # Built-in datasets and gene signatures
 ## Gene expression signatures
-PathAnalyser contains two gene signatures for active ER and HER2 pathways that 
-can be used to assess ER and HER2 pathway activity in a breast cancer 
-transcriptomic data set. These signatures are accessible by typing the following 
-in R:
+PathAnalyser contains two gene signatures specific for active ER and HER2 
+pathways, in addition to ER and HER2 gene signatures derived from the PAM50 gene 
+signature (see section \@ref(pam50-signatures)) that can be used to assess ER 
+and HER2 pathway activity in a breast cancer transcriptomic data set. These 
+signatures are accessible by typing the following in `ER_sig_df` for the ER 
+signature and `HER2_sig_df` for the HER2 signature in R. Alternatively, these 
+signatures can be loaded into the R environment "lazily" by using the `data` 
+function as follows:
 
 ```{r}
 data("ER_sig_df")
 data("HER2_sig_df")
 ```
+Note that lazily loading these signature data results in the creation of 
+"promise", which means that the data only occupies memory once the data is used. 
+
 ### ER signature
 The built-in ER signature `ER_sig_df` is a data frame containing the names of 
 the 160 most differentially expressed genes which constitute the transcriptional 
@@ -270,15 +281,17 @@ PathAnalyser also provides ER and HER2 signatures extracted from the PAM50 gene
 signature, a list of 50 genes that have been associated with five intrinsic 
 molecular sub-types of breast cancer: Luminal A, Luminal B, HER2-enriched, 
 basal-like and normal-like ([Parker et al., 2009][References]). These PAM50 ER 
-and HER2 signatures built-in PathAnalyser can be accessed by typing the 
-following in R:
+and HER2 signatures built-in PathAnalyser are stored in a list object called 
+`pam50` which can be accessed by typing the following in R:
 ```{r}
-# PAM50 list object in PathAnalyser
+# get PAM50 list object from PathAnalyser
 data("pam50")
+# pam50 object has two elements: one containing a data frame for the ER signature
+# and another for the HER2 signature
 str(pam50)
-# PAM50 ER signature
+# to access PAM50 ER signature
 pam50$ER
-# Pam50 HER2 signature
+# to access Pam50 HER2 signature
 pam50$HER2
 ```
 
@@ -288,45 +301,77 @@ package, which also provides a suite of functionality for gene expression
 analysis in breast cancer ([Gendoo et al., 2016][References]).
 
 #### ER signature
-The luminal A and B sub-types in breast cancer have been shown to be ER-positive,
-therefore a list of the most informative genes for the PAM50-derived 
-ER-signature were curated from these two specific sub-types. First the PAM50 
-genes, were ordered by the luminal A centroid index in ascending order and the 
-relative expression level represented by the centroid index were plotted to 
-assist manual selection of the most informative genes (Fig. \@ref(fig:lumAPam50))
+As luminal A and B are established ER-positive breast cancer subtypes 
+([Zhang et al., 2014][References]), a list of the most informative genes for the 
+PAM50-derived ER-signature were curated from these two specific sub-types. First 
+the PAM50 genes, were ordered by the luminal A centroid index in ascending order 
+and the relative expression level represented by the centroid index were plotted 
+to assist manual selection of the most informative genes (Fig. \@ref(fig:lumAPam50))
 Genes that had most deviant expression levels relative the rest of the genes were 
-selected as the most informative genes. Five genes: RMMD, BIRC5, MYBL2, CEP55, CDCA1
-were selected as the down-regulated gene-set (coloured blue) and four genes 
-(FOXA1, SLC39A6, ESR1, NAT1) were selected for the up-regulated gene-set of the 
-PAM50 ER signature (coloured red).
+selected as the most informative genes using custom thresholds for the most 
+up-regulated and down-regulated genes from manual inspection of the expression 
+levels of the PAM50 genes. As evident in Figure \@ref(fig:lumAPam50), the five 
+genes: RMMD, BIRC5, MYBL2, CEP55, CDCA1 which had expression levels below the 
+custom threshold of -0.69 (bottom dashed line) are relatively the most 
+down-regulated compared to the other genes and thus were selected as the 
+down-regulated gene-set (coloured blue). Similarly, four genes (FOXA1, SLC39A6, ESR1, NAT1) 
+which had expression exceeding the custom threshold of 0.9 (top dashed line), 
+exhibited the greatest up-regulation (coloured red) relative to the other genes 
+and therefore were selected as the up-regulated gene-set of the PAM50 ER signature.
 
-```{r lumAPam50, echo=FALSE, fig.wide=TRUE, fig.cap="PAM50 genes ordered by their corresponding Luminal A centroid index."}
+```{r lumAPam50, echo=FALSE, fig.wide=TRUE, fig.cap="PAM50 genes ordered by their corresponding Luminal A centroid index. Red genes represent up-regulated genes, while blue genes represent down-regulated genes extracted from the luminal A subtype for inclusion in the PAM50-derived ER gene signature. Dashed lines represent custom thresholds used to categorise genes as the most up-regulated (top) and down-regulated (bottom)."}
 knitr::include_graphics("lumA_pam50.png")
 ```
 Likewise, for the Luminal B sub-type, the PAM50 genes were ordered by their 
 corresponding Luminal B centroid index and the most deviant genes were selected 
-as the most informative genes for the sub-type (fig. \@ref(fig:lumBPam50)). An 
-additional five genes (SFRP1, FOXC1, KRT17, MIA, CDH3) were selected for the 
-down-regulated gene-set (coloured blue) for the PAM50 gene signature and the two 
-genes (ESR1 and SLC39A6) which displayed the greatest up-regulation in the Luminal B 
-sub-type were pre-selected for the up-regulated gene-set from the Luminal A 
-gene-set curation (coloured red).
-```{r lumBPam50, echo=FALSE, fig.wide=TRUE, fig.cap="PAM50 genes ordered by their corresponding Luminal B centroid index."}
+as the most informative genes for the sub-type (fig. \@ref(fig:lumBPam50)), using 
+custom thresholds for most differentially expressed genes from manual inspection. An 
+additional five genes (SFRP1, FOXC1, KRT17, MIA, CDH3) which demonstrated the 
+most disparate down-regulation (coloured blue) relative to the rest of the genes,
+as delimited by the custom threshold of -1.2, were selected for the 
+down-regulated gene-set for the PAM50 gene signature. Two genes 
+(ESR1 and SLC39A6) which displayed the greatest up-regulation relative to the 
+other genes, as delineated by the custom up-regulated gene threshold of 1 for 
+the Luminal B sub-type were pre-selected for the up-regulated gene-set from the 
+Luminal A gene-set curation (coloured red).
+```{r lumBPam50, echo=FALSE, fig.wide=TRUE, fig.cap="PAM50 genes ordered by their corresponding Luminal B centroid index. Red genes represent up-regulated genes, while blue genes represent down-regulated genes extracted from the luminal B subtype for the PAM50-derived PAM50 gene signature. Dashed lines represent custom thresholds used to categorise genes as the most up-regulated (top) and down-regulated (bottom)."}
 knitr::include_graphics("lumB_pam50.png")
 ```
+
+Therefore, the complete ER signature from PAM50 contains 14 genes in total:
+
+- **4 up-regulated genes:** FOXA1, SLC39A6, ESR1, NAT1  
+- **10 down-regulated genes:** RRM2, BIRC5, MYBL2, CEP55, CDCA1, SFRP1, FOXC1, KRT17, MIA, CDH3
+
+
+As described above, the ER signature extracted from PAM50 can be retrieved from 
+the ER slot of the `pam50` object as follow:
+```{r}
+# load pam50 object into R
+data("pam50")
+# Access ER signature from pam50
+pam50$ER
+```
+
 
 #### HER2 signature
 Similarly, the list of genes extracted for the HER2 signature from PAM50 was 
 acquired using data from the HER2-enriched sub-type from PAM50. The PAM50 genes
 were ordered by HER2-enriched centroid index in ascending order and a plot was 
-created to assist the manual curation of the HER2 signature as shown in Figure 
+created to assist the manual curation of the HER2 signature, using custom 
+thresholds for down-regulated and up-regulated genes from manual inspection of 
+the relative expression levels for each gene, as shown in Figure 
 \@ref(fig:her2Pam50). The most informative genes were selected which 
-demonstrated the most deviant expression levels (coloured red and blue), with 
-six genes (ESR1, SFRP1, MYC, FOXC1, MIA, SLC39A6) selected as the most 
-down-regulated genes constituting the down-regulated gene-set (coloured blue) 
-and six genes (RRM2, FGFR4, GRB7, TMEM45B, ERBB2) were selected as the most up-regulated 
-gene-set (coloured red) for the PAM50 HER2 gene signature.
-```{r her2Pam50, echo=FALSE, fig.wide=TRUE, fig.cap="PAM50 genes ordered by their corresponding HER2 centroid index."}
+demonstrated the most deviant expression levels (coloured red and blue) were 
+selected. The six genes (ESR1, SFRP1, MYC, FOXC1, MIA, SLC39A6) exhibiting the 
+most deviant down-regulation relative to the other genes, as delimited by the custom threshold 
+of -0.65, were selected as the down-regulated gene-set (coloured blue) for the 
+HER2 signature derived from PAM50. Likewise, the six genes 
+(RRM2, FGFR4, GRB7, TMEM45B, ERBB2) which displayed the greatest up-regulation 
+relative to the other PAM50 genes (with expression exceeding the custom 
+threshold of 0.65) were selected as the up-regulated gene-set (coloured red) for 
+the PAM50 HER2 gene signature.
+```{r her2Pam50, echo=FALSE, fig.wide=TRUE, fig.cap="PAM50 genes ordered by their corresponding HER2 centroid index. Red genes represent up-regulated genes, while blue genes represent down-regulated genes selected for the PAM50-derived HER2 gene signature. Dashed lines represent custom thresholds used to categorise genes as the most up-regulated (top) and down-regulated (bottom)."}
 knitr::include_graphics("HER2_PAM50.png")
 ```
 
@@ -338,7 +383,7 @@ PathAnalyser also contains two built-in RNA-seq gene expression matrices:
 2. `HER2_TCGA_RNAseq` (30 ER+/- breast cancer samples)
 
 each containing RNA-seq raw read counts for primary breast cancer samples 
-obtained from 60 individuals (cases) subsetted from a much larger data set of 
+obtained from 60 individuals (cases) extracted from a much larger data set of 
 1,101 samples. Data for these matrices were obtained from The Cancer Genome Atlas ([TCGA](https://www.cancer.gov/about-nci/organization/ccg/research/structural-genomics/tcga)).
 Each expression matrix contains 20,124 genes.
 ```{r}
@@ -601,6 +646,19 @@ components.
 ```{r}
 classes_pca(norm_data, classes_df, pathway = "ER")
 ```
+
+Further functionalities offered by the plotly interactive PCA plot include: 
+
+- the ability to save the plot in PNG format by clicking on the camera icon on 
+  the top-right toolbar
+- selection of points of interest using "Box select" and "Lasso select" options
+- Zooming and panning
+- selection of individual points
+- Toggling of the display of specific pathway activity classes ("Active", 
+"Inactive", "Uncertain") by clicking on a specific class name in the figure 
+legend.
+
+
 # Evaluating pathway activity classification
 This package provides a method `calculate_accuracy` for evaluating pathway 
 activity classification, which takes the actual labels and the labels classified
@@ -814,6 +872,10 @@ and Mesirov, J.P., 2011. Molecular signatures database (MSigDB) 3.0.
 Bioinformatics, 27(12), pp.1739-1740. 
 doi: https://doi.org/10.1093/bioinformatics/btr260
 
+Litton, J.K., Burstein, H.J. and Turner, N.C., 2019. Molecular testing in breast 
+cancer. American Society of Clinical Oncology Educational Book, 39, pp.e1-e7.
+doi: https://doi.org/10.1200/edbk_237715
+
 Parker, J.S., Mullins, M., Cheang, M.C., Leung, S., Voduc, D., Vickery, T., 
 Davies, S., Fauron, C., He, X., Hu, Z. and Quackenbush, J.F., 2009. Supervised 
 risk predictor of breast cancer based on intrinsic subtypes. Journal of clinical 
@@ -840,6 +902,10 @@ P., Daxenbichler, G., Desmedt, C., Domont, J., Marth, C. and Delaloge, S.,
 2010. Genomic index of sensitivity to endocrine therapy for breast cancer. 
 Journal of clinical oncology, 28(27), p.4111. 
 https://dx.doi.org/10.1200%2FJCO.2010.28.4273
+
+Zhang, M.H., Man, H.T., Zhao, X.D., Dong, N. and Ma, S.L., 2014. Estrogen 
+receptor-positive breast cancer molecular signatures and therapeutic potentials. 
+Biomedical reports, 2(1), pp.41-52. doi: https://doi.org/10.3892/br.2013.187
 
 # Appendix
 ## Visualising GSVA Score Distribution
