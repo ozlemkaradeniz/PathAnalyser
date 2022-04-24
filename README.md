@@ -1,4 +1,4 @@
-<img src="pathanalyser.png" alt="PathAnalyser">
+# <img src="pathanalyser.png" alt="PathAnalyser">
 
 # Summary
 
@@ -13,37 +13,22 @@ Several currently available packages / algorithms classify samples using gene-se
 # Table of Contents
 
 -   [Summary](#summary)
-
 -   [PathAnalyser workflow](#pathanalyser-workflow)
-
 -   [Installation](#installation)
-
     -   [Dependencies](#dependencies)
     -   [Install PathAnalyser from source](#install-pathanalyser-from-source)
-
 -   [Input File Formats](#input-file-formats)
-
 -   [Quick Start](#quick-start)
-
     -   [Load PathAnalyser](#load-pathanalyser)
-
     -   [Reading data from input files](#reading-data-from-input-files)
-
         -   [Gene expression data set file](#gene-expression-data-set-file)
         -   [Gene signature files](#gene-signature-files)
-
     -   [QC and pre-processing of gene expression dataset](#qc-and-pre-processing-of-gene-expression-dataset)
-
     -   [Classification based on pathway activity](#classification-based-on-pathway-activity)
-
-    -   [Visualising classification](#visualising-classification-using-pca)
-
+    -   [Visualising classification](#visualising-classification)
     -   [Classification evaluation with true labels (optional)](#classification-evaluation-with-true-labels-optional)
-
 -   [Acessing help](#accessing-help)
-
 -   [Questions, bug reports or issues](#questions-bug-reports-or-issues)
-
 -   [If you wish to know more](#if-you-wish-to-know-more)
 
 # PathAnalyser workflow
