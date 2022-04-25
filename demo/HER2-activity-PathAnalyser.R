@@ -14,9 +14,12 @@
 #
 # Gene signature information
 #----------------------------
-# The gene signature data files were obtained from the Sensitive to endocrine
-# therapy genome index proposed by Symmans et al. (2011), which consists of a
-# list of genes co-expressed with HER2 pathway.
+# The gene signature data files were obtained from gene-set files downloaded
+# from MSigDB, which consists of a list of up-regulated genes and down-regulated
+# genes in HER2 positive primary breast tumours (Smid et al., 2008).
+# For more information, on the signature type ?HER2_sig_df in R after loading
+# the PathAnalyser library.
+
 
 # Installing package using devtools
 #install.packages("devtools") # un-comment this line to install the devtools package
@@ -48,7 +51,7 @@ head(sig_df)
 # signature data frame
 tail(sig_df)
 
-# there are 156 genes in this HER2 signature obtained from the SET index
+# there are 156 genes in this HER2 signature obtained from MSigDB
 dim(sig_df)
 
 #-------------------------------------------------------------------------------
