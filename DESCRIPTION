@@ -21,8 +21,8 @@ Description: PathAnalyser provides an assessment of molecular pathway
     however the PathAnalyser functionality could also be applied to gene
     signatures and/or transcriptomic datasets in non-oncological contexts.
 License: MIT + file LICENSE
-URL: https://github.com/a-thind/PathAnalyser
-BugReports: https://github.com/a-thind/PathAnalyser/issues
+URL: https://github.com/ozlemkaradeniz/PathAnalyser
+BugReports: https://github.com/ozlemkaradeniz/PathAnalyser/issues
 Depends: 
     GSVA,
     R (>= 2.10)
