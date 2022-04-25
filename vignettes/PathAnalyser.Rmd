@@ -603,9 +603,9 @@ also in the bottom 25% for expression abundance for the down-regulated gene-set
 show consensus between the evidence of expression consistency with both gene-set 
 of the gene signature and are thus classified as "*Active*" for the pathway. On 
 the contrary, samples ranked in the bottom quartile (25%) for expression 
-abundance of the down-regulated gene-set and also in the top quartile for 
-expression abundance in the up-regulated gene-set reveal a consensus in the 
-evidence of expression inconsistency with both gene-set of the gene-signature 
+abundance of the up-regulated gene-set and also in the top quartile for 
+expression abundance in the down-regulated gene-set, reveal a consensus in the 
+evidence of expression inconsistency with both gene-sets of the gene-signature 
 and these samples are therefore classified as "*Inactive*" for the given 
 pathway. Remaining samples including those that reveal evidence of consistent 
 expression with only the up-regulated or down-regulated gene-set are classified 
