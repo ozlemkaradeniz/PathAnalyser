@@ -20,7 +20,7 @@
 #' Delaloge, S., 2010. Genomic index of sensitivity to endocrine therapy for
 #' breast cancer. Journal of clinical oncology, 28(27), p.4111. doi:
 #' \url{https://doi.org/10.1200/jco.2010.28.4273}
-"ER_sig_df"
+"ER_SET_sig"
 
 
 #' HER2 gene signature
@@ -48,7 +48,7 @@
 #' J.A. and Martens, J.W., 2008. Subtypes of breast cancer show preferential
 #' site of relapse. Cancer research, 68(9), pp.3108-3114. doi:
 #' \url{https://doi.org/10.1158/0008-5472.CAN-07-5644}
-"HER2_sig_df"
+"HER2_Smid_sig"
 
 #' Gene signature for ER and HER2 extracted from PAM50
 #'
