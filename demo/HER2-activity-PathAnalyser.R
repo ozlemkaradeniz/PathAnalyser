@@ -17,7 +17,7 @@
 # The gene signature data files were obtained from gene-set files downloaded
 # from MSigDB, which consists of a list of up-regulated genes and down-regulated
 # genes in HER2 positive primary breast tumours (Smid et al., 2008).
-# For more information, on the signature type ?HER2_sig_df in R after loading
+# For more information, on the signature type ?HER2_Smid_sig in R after loading
 # the PathAnalyser library.
 
 

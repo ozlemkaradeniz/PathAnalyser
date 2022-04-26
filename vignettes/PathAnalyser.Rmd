@@ -214,20 +214,20 @@ PathAnalyser contains two gene signatures specific for active ER and HER2
 pathways, in addition to ER and HER2 gene signatures derived from the PAM50 gene 
 signature (see section \@ref(pam50-signatures)) that can be used to assess ER 
 and HER2 pathway activity in a breast cancer transcriptomic data set. These 
-signatures are accessible by typing the following in `ER_sig_df` for the ER 
-signature and `HER2_sig_df` for the HER2 signature in R. Alternatively, these 
+signatures are accessible by typing the following in `ER_SET_sig` for the ER 
+signature and `HER2_Smid_sig` for the HER2 signature in R. Alternatively, these 
 signatures can be loaded into the R environment "lazily" by using the `data` 
 function as follows:
 
 ```{r}
-data("ER_sig_df")
-data("HER2_sig_df")
+data("ER_SET_sig")
+data("HER2_Smid_sig")
 ```
 Note that lazily loading these signature data results in the creation of 
 "promise", which means that the data only occupies memory once the data is used. 
 
 ### ER signature
-The built-in ER signature `ER_sig_df` is a data frame containing the names of 
+The built-in ER signature `ER_SET_sig` is a data frame containing the names of 
 the 160 most differentially expressed genes which constitute the transcriptional 
 signature of ER pathway activation. This signature was obtained from the 
 sensitivity to endocrine therapy genome index defined by 
@@ -236,20 +236,20 @@ The total number of genes that are up-regulated (denoted with an expression
 value of 1) and down-regulated (denoted with an expression value of -1) in this 
 gene signature are 101 and 59 genes respectively.
 ```{r}
-dim(ER_sig_df)
-head(ER_sig_df)
+dim(ER_SET_sig)
+head(ER_SET_sig)
 # up-regulated genes are given an expression value of 1
-ER_up_sig <- ER_sig_df[ER_sig_df$expression == 1 ,]
+ER_up_sig <- ER_SET_sig[ER_SET_sig$expression == 1 ,]
 dim(ER_up_sig)
 # down-regulated genes are given an expression value of -1
-ER_dn_sig <- ER_sig_df[ER_sig_df$expression == -1 ,]
+ER_dn_sig <- ER_SET_sig[ER_SET_sig$expression == -1 ,]
 dim(ER_dn_sig)
 # for more details
-?ER_sig_df
+?ER_SET_sig
 ```
 
 ### HER2 signature
-A gene expression signature for HER2 (ERBB2) pathway activation `HER2_sig_df` is 
+A gene expression signature for HER2 (ERBB2) pathway activation `HER2_Smid_sig` is 
 also provided by PathAnalyser. This gene signature was obtained from Molecular 
 Signatures Database ([MSigDB](https://www.gsea-msigdb.org/gsea/msigdb/index.jsp)) 
 by combining the up-regulated (gene set:[SMID_BREAST_CANCER_ERBB2_UP](https://www.gsea-msigdb.org/gsea/msigdb/cards/SMID_BREAST_CANCER_ERBB2_UP.html)) 
@@ -264,16 +264,16 @@ signature data frame provided by PathAnalyser, of which 190 are up-regulated
 (denoted by an expression of 1) and 197 are down-regulated (denoted by an 
 expression of -1).
 ```{r}
-dim(HER2_sig_df)
-head(HER2_sig_df)
+dim(HER2_Smid_sig)
+head(HER2_Smid_sig)
 # up-regulated genes are given an expression value of 1
-HER2_up_sig <- HER2_sig_df[HER2_sig_df$expression == 1 ,]
+HER2_up_sig <- HER2_Smid_sig[HER2_Smid_sig$expression == 1 ,]
 dim(HER2_up_sig)
 # Down-regulated genes are given an expression value of -1
-HER2_dn_sig <- HER2_sig_df[HER2_sig_df$expression == -1 ,]
+HER2_dn_sig <- HER2_Smid_sig[HER2_Smid_sig$expression == -1 ,]
 dim(HER2_dn_sig)
 # for more details
-?HER2_sig_df
+?HER2_Smid_sig
 ```
 
 ### PAM50 signatures
@@ -533,7 +533,7 @@ retained in the final normalized expression matrix. A bar plot depicting the
 mean-normalised counts for each gene in the normalised gene expression matrix is
 also displayed. 
 ```{r fig.wide=TRUE}
-norm_data <- check_signature_vs_dataset(norm_data, ER_sig_df)
+norm_data <- check_signature_vs_dataset(norm_data, ER_SET_sig)
 ```
 
 #### Multi-named genes
@@ -617,7 +617,7 @@ highlighting the number of samples in each pathway activity class
 
 ```{r}
 # default percentile = 25% (quartile)
-classes_df <- classify_gsva_percent(norm_data, ER_sig_df)
+classes_df <- classify_gsva_percent(norm_data, ER_SET_sig)
 ```
 Increasing the percentile threshold for classification has the equivalent 
 effect of reducing the expression abundance uncertainty region between the 
@@ -628,7 +628,7 @@ that are consistent only with either the up-regulated or down-regulated gene-set
 
 ```{r}
 # custom percentile = 50%
-classes_df <- classify_gsva_percent(norm_data, ER_sig_df, percent_thresh=50)
+classes_df <- classify_gsva_percent(norm_data, ER_SET_sig, percent_thresh=50)
 ```
 
 
@@ -768,7 +768,7 @@ with IDs of the 60 samples as the first column and their corresponding
 predicted ER pathway activity classes as the second column.
 
 ```{r}
-classes_df <- classify_gsva_percent(norm_data, ER_sig_df)
+classes_df <- classify_gsva_percent(norm_data, ER_SET_sig)
 head(classes_df)
 ```
 Depending on the user's classification requirements the thresholds can be 
@@ -776,7 +776,7 @@ adjusted. For example, if the user would like to reduce the number of
 "Uncertain" classification samples thus increasing the number of classified 
 samples, the user could provide 50% percentile threshold as an argument e.g.:
 ```{r}
-classes_df_50p <- classify_gsva_percent(norm_data, ER_sig_df,
+classes_df_50p <- classify_gsva_percent(norm_data, ER_SET_sig,
                                         percent_thresh=50)
 ```
 From the output of running the classification function with 50% percentile, it 
@@ -925,7 +925,7 @@ expression abundance of the up-regulated genes of the ER pathway signature
 respectively.
 
 ```{r fig.wide=TRUE}
-gsva_scores_dist(norm_data, ER_sig_df)
+gsva_scores_dist(norm_data, ER_SET_sig)
 
 ```
 PathAnalyser provides `gsva_scores_dist` method to visualize the GSVA score 
@@ -944,7 +944,7 @@ both gene sets, the peak with the highest GSVA scores represents samples with
 *high* abundance of expression of the gene set and the lower score peak 
 represents samples with *low* abundance of expression of the gene set.
 ```{r plot, fig.cap="Density plots showing the distribution of GSVA scores for samples in logCPM-normalised `ER_TCGA_RNAseq` data set for the up-regulated (left) and down-regulated gene set (right) of the pathway signature using `gsva_scores_dist` function.", fig.wide=TRUE}
-gsva_scores_dist(norm_data, ER_sig_df)
+gsva_scores_dist(norm_data, ER_SET_sig)
 ```
 
 ## Classification using absolute GSVA score thresholds
@@ -973,7 +973,7 @@ classification is printed to the console highlighting the number of samples in
 each pathway activity class ("Active", "Inactive" and "Uncertain") and the 
 total number of samples as well as total number of classified samples.
 ```{r}
-classes_df <- classify_gsva_abs(norm_data, ER_sig_df,
+classes_df <- classify_gsva_abs(norm_data, ER_SET_sig,
                                     up_thresh.low=-0.2, up_thresh.high=0.2, 
                                     dn_thresh.low=-0.2, dn_thresh.high=0.2)
 ```
@@ -1000,7 +1000,7 @@ with GSVA scores between the these thresholds for both the up-regulated and down
 "Uncertain" pathway activity.
 
 ```{r thresholds, fig.cap="GSVA scores distributions of the samples for the down-regulated (left) and up-regulated gene set (right) of the pathway gene signature, showing absolute thresholds of -0.2 and 0.2 for characterising low and high expression abundance of both gene sets respectively. The expression data set used is the logCPM-normalised `ER_TCGA_RNAseq` gene expression data set.", fig.wide=TRUE}
-plot <- gsva_scores_dist(norm_data, ER_sig_df)
+plot <- gsva_scores_dist(norm_data, ER_SET_sig)
 # Add thresholds on plot
 library(ggplot2)
 data_threshs <- data.frame(Geneset=c("Up", "Down"), vline=c(-0.2, 0.2))
@@ -1014,7 +1014,7 @@ inconsistency expression thresholds for the pathway signature (high expression
 thresholds would be lower, low expression thresholds would be higher for each 
 gene set).
 
-```{r relaxed, fig.cap="GSVA scores distributions of samples with more relaxed thresholds for assessing expression consistency of the down-regulated gene set (left) and the up-regulated gene set (right) with the pathway gene expression signature. Low and high expression abundance thresholds for the down-regulated gene set (left) are set to -0.1 and 0.1 respectively, while low and high expression abundance thresholds for the up-regulated gene set (right) are also set to -0.1 and 0.1 respectively. Data is generated from running GSVA on logCPM-normalised `ER_TCGA_RNAseq` expression dataset with ER signature (`ER_sig_df`).", fig.wide=TRUE}
+```{r relaxed, fig.cap="GSVA scores distributions of samples with more relaxed thresholds for assessing expression consistency of the down-regulated gene set (left) and the up-regulated gene set (right) with the pathway gene expression signature. Low and high expression abundance thresholds for the down-regulated gene set (left) are set to -0.1 and 0.1 respectively, while low and high expression abundance thresholds for the up-regulated gene set (right) are also set to -0.1 and 0.1 respectively. Data is generated from running GSVA on logCPM-normalised `ER_TCGA_RNAseq` expression dataset with ER signature (`ER_SET_sig`).", fig.wide=TRUE}
 # more relaxed thresholds, fewer uncertain labels
 data_threshs <- data.frame(Geneset=c("Up", "Down"), 
                            vline=c(-0.1, 0.1))
@@ -1025,7 +1025,7 @@ Conversely, expanding the difference between the thresholds would increase the
 frequency of "Uncertain" pathway activity classifications, as the number of 
 samples meeting the thresholds for consistency and inconsistency would be reduced.
 
-```{r stringent, fig.cap="Density plots for GSVA scores distributions for samples with relatively more stringent thresholds for assessing consistency of the up-regulated gene set (left) and down-rgulated gene set (right) with the pathway signature. The low and high expression abundance thresholds are -0.4 and 0.4 for both up-regulated and down-regulated gene sets respectively. Data is generated from running GSVA on logCPM-normalised `ER_TCGA_RNAseq` expression dataset with ER signature (`ER_sig_df`).", fig.wide=TRUE}
+```{r stringent, fig.cap="Density plots for GSVA scores distributions for samples with relatively more stringent thresholds for assessing consistency of the up-regulated gene set (left) and down-rgulated gene set (right) with the pathway signature. The low and high expression abundance thresholds are -0.4 and 0.4 for both up-regulated and down-regulated gene sets respectively. Data is generated from running GSVA on logCPM-normalised `ER_TCGA_RNAseq` expression dataset with ER signature (`ER_SET_sig`).", fig.wide=TRUE}
 # more stringent thresholds, greater uncertain labels
 data_threshs <- data.frame(Geneset=c("Up", "Down"), vline=c(-0.4, 0.4))
 plot + geom_vline(xintercept=data_threshs$vline, linetype=2)
