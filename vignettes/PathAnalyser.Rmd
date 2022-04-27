@@ -1083,12 +1083,3 @@ classes_df <- classify_gsva_abs(norm_data, ER_SET_sig, up_thresh.low = -0.7,
                                 dn_thresh.high = 0.7)
 ```
 
-If the user would like to force classification of samples into "active" and 
-"inactive" classes, completely eradicating "uncertain" classifications, all 
-absolutes GSVA score thresholds could be set to 0, as demonstrated below:
-
-```{r}
-classes_df <- classify_gsva_abs(norm_data, ER_SET_sig, up_thresh.low = 0.0, 
-                                up_thresh.high = 0.0, dn_thresh.low = 0.0, 
-                                dn_thresh.high = 0.0)
-```
