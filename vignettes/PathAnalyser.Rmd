@@ -2,11 +2,18 @@
 title: "PathAnalyser"
 author:
   - name: Rishabh Kaushik
+    affiliation:
+    - &id Cranfield University, Cranfield, Bedford, UK
   - name: Taniya Pal
+    affiliation: *id
   - name: Ozlem Karadeniz
+    affiliation: *id
   - name: Yi-Hsuan Lee
+    affiliation: *id
   - name: Anisha Thind
+    affiliation: *id
   - name: Justice Iheanyichi
+    affiliation: *id
 package: PathAnalyser
 output: 
   BiocStyle::html_document:
@@ -536,11 +543,8 @@ also displayed.
 norm_data <- check_signature_vs_dataset(norm_data, ER_SET_sig)
 ```
 
-#### Multi-named genes
-Typically found in microarray data sets, some genes may be given multiple gene 
-symbols delimited with "///". PathAnalyser will not individually parse these 
-genes and such genes with multiple symbols will be filtered out of the gene 
-expression matrix.
+**Note:** Genes with multiple names (often delimited with "///") will be 
+filtered out of the gene expression matrix.
 
 # Classifying samples by pathway activity using gene signatures
 ## Overview of pathway activity classification
@@ -919,14 +923,19 @@ gene set and the peak around 0.8 for the down-regulated gene set represent the
 mode of samples with the low expression abundance of the down-regulated genes of 
 the ER signature and high abundance of the up-regulated genes of the ER 
 signature respectively. Similarly, for the up-regulated genes of the ER pathway 
-signature, the peak situated at around a GSVA score of -0.7 and and around the 
-GSVA score of 0.9 represent samples of low expression abundance and high 
-expression abundance of the up-regulated genes of the ER pathway signature 
+signature, the peak situated at around a GSVA score of -0.8 and and around the 
+GSVA score of 0.8 represent samples of low expression abundance and high 
+expression abundance of the down-regulated genes of the ER pathway signature 
 respectively.
 
 ```{r fig.wide=TRUE}
+# using ER RNAseq data set
+# normalise data
+norm_data <- log_cpm_transform(ER_TCGA_RNAseq, boxplot = F)
+# check signature and dataset consistency
+norm_data <- check_signature_vs_dataset(norm_data, ER_SET_sig, barplot = F)
+# visualise GSVA score distribution
 gsva_scores_dist(norm_data, ER_SET_sig)
-
 ```
 PathAnalyser provides `gsva_scores_dist` method to visualize the GSVA score 
 distribution for the abundance of expression of the up-regulated and 
@@ -973,19 +982,30 @@ classification is printed to the console highlighting the number of samples in
 each pathway activity class ("Active", "Inactive" and "Uncertain") and the 
 total number of samples as well as total number of classified samples.
 ```{r}
+# example absolute GSVA score threshold classification with -0.2 for low 
+# expression abundance and 0.2 for high expression abundance for both
+# up-regulated and down-regulated gene-sets
 classes_df <- classify_gsva_abs(norm_data, ER_SET_sig,
                                     up_thresh.low=-0.2, up_thresh.high=0.2, 
                                     dn_thresh.low=-0.2, dn_thresh.high=0.2)
 ```
 
 ### Determining thresolds for classification
-As the two peaks represent represent low expression abundance and high 
-abundance expression, the distribution of GSVA scores that constitute the 
-"valley" i.e. the area between the two peaks (fig. \@ref(fig:thresholds)), 
-represent samples that exhibit relatively weaker evidence of differential 
-expression abundance relative to other samples and the algorithm would classify 
-these samples as having "Uncertain" pathway activity. Because the peaks 
-represent the mode GSVA scores (one for high and low expression abundance), 
+As the two peaks represent represent low expression abundance (left peak) and 
+high expression abundance (right peak), the distribution of GSVA scores that 
+constitute the "valley" i.e. the area between the two peaks 
+(fig. \@ref(fig:thresholds)), represent samples that exhibit relatively weaker 
+evidence of differential expression abundance relative to other samples and the 
+algorithm would classify these samples as having "Uncertain" pathway activity. 
+Samples that have GSVA scores in the low expression abundance peak of the 
+up-regulated gene-set show evidence of pathway inactivation from the 
+up-regulated gene-set, while samples with GSVA scores in the high expression 
+abundance peak demonstrate evidence of pathway activation from the up-regulated 
+gene-set. Conversely, samples with GSVA scores in the low expression abundance 
+peak for the down-regulated gene-set exhibit evidence of pathway activation, while 
+samples having GSVA scores in the high expression abundance peak demonstrate 
+evidence of pathway activation from the down-regulated gene-set. Because the 
+peaks represent the mode GSVA scores (one for high and low expression abundance), 
 thresholds should be selected between these two peak to enable the algorithm to 
 classify samples around these modes of expression abundance as being consistent 
 or inconsistent with the pathway signature.
@@ -993,18 +1013,28 @@ or inconsistent with the pathway signature.
 As mentioned above, there are four thresholds that can be tuned by the user:
 the high and low expression abundance for the up-regulated and down-regulated
 gene sets. For example, a user could set the high expression abundance thresholds 
-for the up-regulated gene set to -0.2 for the low expression threshold for both gene 
-sets, and 0.2 for the high expression thresholds for both gene sets. Samples 
-with GSVA scores between the these thresholds for both the up-regulated and down
--regulated gene-set would be considered by the classification algorithm as having 
-"Uncertain" pathway activity.
+for the up-regulated gene set to -0.5 for the low expression threshold for both 
+gene sets, and 0.5 for the high expression thresholds for both gene sets. Samples 
+with GSVA scores between these thresholds for either (or both) of the 
+up-regulated and down-regulated gene-set would be considered by the 
+classification algorithm as having "Uncertain" pathway activity, since the 
+algorithm necessitates expression consistency with both the up-regulated and 
+down-regulated gene-sets of the gene signature.
 
-```{r thresholds, fig.cap="GSVA scores distributions of the samples for the down-regulated (left) and up-regulated gene set (right) of the pathway gene signature, showing absolute thresholds of -0.2 and 0.2 for characterising low and high expression abundance of both gene sets respectively. The expression data set used is the logCPM-normalised `ER_TCGA_RNAseq` gene expression data set.", fig.wide=TRUE}
+```{r thresholds, fig.cap="GSVA scores distributions of the samples for the down-regulated (left) and up-regulated gene set (right) of the pathway gene signature, showing absolute GSVA score thresholds (dashed lines) of -0.5 and 0.5 for characterising low and high expression abundance of both gene sets respectively. The expression data set used is the logCPM-normalised `ER_TCGA_RNAseq` gene expression data set.", fig.wide=TRUE}
 plot <- gsva_scores_dist(norm_data, ER_SET_sig)
 # Add thresholds on plot
 library(ggplot2)
-data_threshs <- data.frame(Geneset=c("Up", "Down"), vline=c(-0.2, 0.2))
+data_threshs <- data.frame(Geneset=c("Up", "Down"), vline=c(-0.5, 0.5))
 plot + geom_vline(xintercept=data_threshs$vline, linetype=2)
+```
+
+The classification results using the above absolute GSVA score thresholds are 
+shown below: 
+```{r}
+classes_df <- classify_gsva_abs(norm_data, ER_SET_sig, up_thresh.low = -0.5, 
+                                up_thresh.high = 0.5, dn_thresh.low = -0.5, 
+                                dn_thresh.high = 0.5)
 ```
 
 Minimising the difference between the high and low expression thresholds would 
@@ -1014,20 +1044,51 @@ inconsistency expression thresholds for the pathway signature (high expression
 thresholds would be lower, low expression thresholds would be higher for each 
 gene set).
 
-```{r relaxed, fig.cap="GSVA scores distributions of samples with more relaxed thresholds for assessing expression consistency of the down-regulated gene set (left) and the up-regulated gene set (right) with the pathway gene expression signature. Low and high expression abundance thresholds for the down-regulated gene set (left) are set to -0.1 and 0.1 respectively, while low and high expression abundance thresholds for the up-regulated gene set (right) are also set to -0.1 and 0.1 respectively. Data is generated from running GSVA on logCPM-normalised `ER_TCGA_RNAseq` expression dataset with ER signature (`ER_SET_sig`).", fig.wide=TRUE}
+```{r relaxed, fig.cap="GSVA scores distributions of samples with more relaxed thresholds for assessing expression consistency of the down-regulated gene set (left) and the up-regulated gene set (right) with the pathway gene expression signature. Low and high expression abundance thresholds (dashed lines) for the down-regulated gene set (left) are set to -0.1 and 0.1 respectively, while low and high expression abundance thresholds for the up-regulated gene set (right) are also set to -0.1 and 0.1 respectively. Data is generated from running GSVA on logCPM-normalised `ER_TCGA_RNAseq` expression dataset with ER signature (`ER_SET_sig`).", fig.wide=TRUE}
 # more relaxed thresholds, fewer uncertain labels
 data_threshs <- data.frame(Geneset=c("Up", "Down"), 
                            vline=c(-0.1, 0.1))
 plot + geom_vline(xintercept=data_threshs$vline, linetype=2)
 ```
 
-Conversely, expanding the difference between the thresholds would increase the 
+Indeed, the classification results using these relaxed thresholds of -0.1 and 0.1
+for the low and high expression abundance thresholds for both gene-sets, show 
+almost all samples are classified with only a single "uncertain" classified 
+sample.
+
+```{r}
+classes_df <- classify_gsva_abs(norm_data, ER_SET_sig, up_thresh.low = -0.1, 
+                                up_thresh.high = 0.1, dn_thresh.low = -0.1, 
+                                dn_thresh.high = 0.1)
+```
+
+Conversely, increasing the difference between the thresholds would increase the 
 frequency of "Uncertain" pathway activity classifications, as the number of 
 samples meeting the thresholds for consistency and inconsistency would be reduced.
 
-```{r stringent, fig.cap="Density plots for GSVA scores distributions for samples with relatively more stringent thresholds for assessing consistency of the up-regulated gene set (left) and down-rgulated gene set (right) with the pathway signature. The low and high expression abundance thresholds are -0.4 and 0.4 for both up-regulated and down-regulated gene sets respectively. Data is generated from running GSVA on logCPM-normalised `ER_TCGA_RNAseq` expression dataset with ER signature (`ER_SET_sig`).", fig.wide=TRUE}
+```{r stringent, fig.cap="Density plots for GSVA scores distributions for samples with relatively more stringent thresholds for assessing consistency of the up-regulated gene set (left) and down-rgulated gene set (right) with the pathway signature. The low and high expression abundance thresholds (dashed lines) are -0.7 and 0.7 for both up-regulated and down-regulated gene sets respectively. Data is generated from running GSVA on logCPM-normalised `ER_TCGA_RNAseq` expression dataset with ER signature (`ER_SET_sig`).", fig.wide=TRUE}
 # more stringent thresholds, greater uncertain labels
-data_threshs <- data.frame(Geneset=c("Up", "Down"), vline=c(-0.4, 0.4))
+data_threshs <- data.frame(Geneset=c("Up", "Down"), vline=c(-0.7, 0.7))
 plot + geom_vline(xintercept=data_threshs$vline, linetype=2)
 ```
 
+The results of classification using these -0.7 and 0.7 absolute GSVA score 
+thresholds reveal a significant drop in the number of classified samples to 34 
+samples with an increase in the number of "uncertain" sample classifications 
+(26 samples).
+
+```{r}
+classes_df <- classify_gsva_abs(norm_data, ER_SET_sig, up_thresh.low = -0.7, 
+                                up_thresh.high = 0.7, dn_thresh.low = -0.7, 
+                                dn_thresh.high = 0.7)
+```
+
+If the user would like to force classification of samples into "active" and 
+"inactive" classes, completely eradicating "uncertain" classifications, all 
+absolutes GSVA score thresholds could be set to 0, as demonstrated below:
+
+```{r}
+classes_df <- classify_gsva_abs(norm_data, ER_SET_sig, up_thresh.low = 0.0, 
+                                up_thresh.high = 0.0, dn_thresh.low = 0.0, 
+                                dn_thresh.high = 0.0)
+```
